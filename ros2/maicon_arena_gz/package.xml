@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>maicon_arena_gz</name><version>0.1.0</version>
+  <description>Measured MAICON arena for ROS 2 Humble and Gazebo Fortress, local assets only.</description>
+  <maintainer email="local@example.invalid">MAICON local team</maintainer><license>Proprietary</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>ignition-gazebo6</depend><depend>ignition-rendering6</depend><depend>ignition-plugin1</depend>
+  <depend>ignition-gui6</depend><build_depend>qtbase5-dev</build_depend><build_depend>qtdeclarative5-dev</build_depend>
+  <exec_depend>rclpy</exec_depend><exec_depend>ament_index_python</exec_depend>
+  <exec_depend>launch</exec_depend><exec_depend>launch_ros</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend><exec_depend>ros_gz_bridge</exec_depend><exec_depend>ros_gz_image</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend><exec_depend>nav_msgs</exec_depend><exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend><exec_depend>rosgraph_msgs</exec_depend><exec_depend>tf2_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend><exec_depend>mil_interfaces_sim</exec_depend>
+  <exec_depend>wingbot_description</exec_depend><exec_depend>xacro</exec_depend>
+  <exec_depend>python3-yaml</exec_depend><exec_depend>python3-numpy</exec_depend><exec_depend>python3-pil</exec_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>
+
