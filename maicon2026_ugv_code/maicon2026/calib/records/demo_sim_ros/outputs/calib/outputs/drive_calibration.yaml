@@ -1,0 +1,24 @@
+# 자동 생성 파일 — 직접 고치지 말고 calib/robot_profile.yaml 을 고친 뒤 scripts/calib_generate.py 를 다시 실행
+# 프로파일에 아직 '가정(assumed)'인 값 33개 (scripts/calib_report.py 로 목록 확인)
+v_max: 0.5201690144488638
+v_max_reverse: 0.5197463163183171
+a_accel: 0.8843877701488091
+a_brake: 1.6300000000000012
+w_max: 2.4517126258213193
+alpha_max: 6.41888662685505
+cmd_latency_s: 0.11
+rise_time_s: 0.3079111576080322
+lr_bias_rad_per_m: 0.02501648975176856
+stop_distance: {'0.15': 0.023811203501622562, '0.30': 0.05627170060244799, '0.45': 0.10761539113675485}
+pivot: {yaw_efficiency: 0.9200802876291923, drift_m_per_rad: 0.021273629053400616,
+  overshoot_deg: 18.25428897354992}
+surfaces:
+  default: {slip: 0.0, a_accel: 0.8843877701488091, a_brake: 1.6300000000000012, mu_lower_bound: 0.16615698267074425,
+    mu_pull_test_N: null}
+mu_note: 'mu_lower_bound = 제동 감속 ÷ g (하한값). 정확한 마찰계수는 견인 시험: μ = 끌 때 힘[N] ÷ (질량·g)'
+provenance: {drive.v_max: measured, drive.v_max_reverse: measured, drive.a_accel: measured,
+  drive.cmd_latency_s: measured, drive.rise_time_s: measured, drive.w_max: measured,
+  drive.alpha_max: measured, drive.lr_bias_rad_per_m: measured, drive.surfaces.default.slip: measured,
+  drive.a_brake: measured, drive.stop_distance: measured, drive.surfaces.default.a_brake: measured,
+  drive.surfaces.default.mu_lower_bound: measured, drive.pivot.yaw_efficiency: measured,
+  drive.pivot.drift_m_per_rad: measured, drive.pivot.overshoot_deg: measured, drive.surfaces.default.a_accel: measured}

@@ -1,0 +1,205 @@
+{
+  "schema": "candidate02_four_gazebo_runs_score_v1",
+  "scorer": "scripts/evaluate_wingbot_missions.py plus documented M1/M4/M5/M6 point rules",
+  "m6_tie_rule": "stable slot ID order, provisional",
+  "runs": [
+    {
+      "mode": "selfplay_6",
+      "seed": 0,
+      "completed": true,
+      "elapsed_s": 252.252,
+      "winner": "BLUE",
+      "rows": [
+        {
+          "slot": "B-1",
+          "team": "BLUE",
+          "m1": 10,
+          "m2": 0,
+          "m3": 0,
+          "m4": 15,
+          "m5": 10,
+          "m6_local_tie_rule": 15,
+          "alliance_bonus": 5,
+          "total": 55
+        },
+        {
+          "slot": "B-2",
+          "team": "BLUE",
+          "m1": 10,
+          "m2": 0,
+          "m3": 0,
+          "m4": 15,
+          "m5": 10,
+          "m6_local_tie_rule": 15,
+          "alliance_bonus": 5,
+          "total": 55
+        },
+        {
+          "slot": "B-3",
+          "team": "BLUE",
+          "m1": 10,
+          "m2": 0,
+          "m3": 7,
+          "m4": 15,
+          "m5": 10,
+          "m6_local_tie_rule": 0,
+          "alliance_bonus": 5,
+          "total": 47
+        },
+        {
+          "slot": "R-1",
+          "team": "RED",
+          "m1": 10,
+          "m2": 0,
+          "m3": 7,
+          "m4": 15,
+          "m5": 0,
+          "m6_local_tie_rule": 0,
+          "alliance_bonus": 0,
+          "total": 32
+        },
+        {
+          "slot": "R-2",
+          "team": "RED",
+          "m1": 10,
+          "m2": 0,
+          "m3": 0,
+          "m4": 15,
+          "m5": 0,
+          "m6_local_tie_rule": 0,
+          "alliance_bonus": 0,
+          "total": 25
+        },
+        {
+          "slot": "R-3",
+          "team": "RED",
+          "m1": 10,
+          "m2": 0,
+          "m3": 0,
+          "m4": 15,
+          "m5": 0,
+          "m6_local_tie_rule": 0,
+          "alliance_bonus": 0,
+          "total": 25
+        }
+      ],
+      "blue_total": 157.0,
+      "red_total": 82.0
+    },
+    {
+      "mode": "selfplay_6",
+      "seed": 1,
+      "completed": true,
+      "elapsed_s": 250.95200000000003,
+      "winner": "BLUE",
+      "rows": [
+        {
+          "slot": "B-1",
+          "team": "BLUE",
+          "m1": 10,
+          "m2": 0,
+          "m3": 0,
+          "m4": 15,
+          "m5": 10,
+          "m6_local_tie_rule": 10,
+          "alliance_bonus": 5,
+          "total": 50
+        },
+        {
+          "slot": "B-2",
+          "team": "BLUE",
+          "m1": 10,
+          "m2": 0,
+          "m3": 7,
+          "m4": 15,
+          "m5": 10,
+          "m6_local_tie_rule": 5,
+          "alliance_bonus": 5,
+          "total": 52
+        },
+        {
+          "slot": "B-3",
+          "team": "BLUE",
+          "m1": 10,
+          "m2": 0,
+          "m3": 7,
+          "m4": 15,
+          "m5": 10,
+          "m6_local_tie_rule": 10,
+          "alliance_bonus": 5,
+          "total": 57
+        },
+        {
+          "slot": "R-1",
+          "team": "RED",
+          "m1": 10,
+          "m2": 0,
+          "m3": 7,
+          "m4": 15,
+          "m5": 0,
+          "m6_local_tie_rule": 0,
+          "alliance_bonus": 0,
+          "total": 32
+        },
+        {
+          "slot": "R-2",
+          "team": "RED",
+          "m1": 10,
+          "m2": 0,
+          "m3": 0,
+          "m4": 15,
+          "m5": 0,
+          "m6_local_tie_rule": 0,
+          "alliance_bonus": 0,
+          "total": 25
+        },
+        {
+          "slot": "R-3",
+          "team": "RED",
+          "m1": 10,
+          "m2": 0,
+          "m3": 7,
+          "m4": 15,
+          "m5": 0,
+          "m6_local_tie_rule": 0,
+          "alliance_bonus": 0,
+          "total": 32
+        }
+      ],
+      "blue_total": 159.0,
+      "red_total": 89.0
+    },
+    {
+      "mode": "solo_B-2",
+      "seed": 0,
+      "completed": true,
+      "elapsed_s": 254.70000000000002,
+      "m1": 10,
+      "m2": 0,
+      "m3": 7,
+      "m4": 15,
+      "m5": 10,
+      "gradable_subtotal": 42,
+      "m6": "ungraded_no_physical_opponents",
+      "alliance_bonus": "ungraded_single_robot",
+      "reported_m3": 18,
+      "expected_m3": 21
+    },
+    {
+      "mode": "solo_B-2",
+      "seed": 1,
+      "completed": true,
+      "elapsed_s": 254.904,
+      "m1": 10,
+      "m2": 0,
+      "m3": 0,
+      "m4": 15,
+      "m5": 10,
+      "gradable_subtotal": 35,
+      "m6": "ungraded_no_physical_opponents",
+      "alliance_bonus": "ungraded_single_robot",
+      "reported_m3": 21,
+      "expected_m3": 21
+    }
+  ]
+}

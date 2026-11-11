@@ -1,0 +1,97 @@
+meta: {robot: WINGBOT-UGV, schema: 1, created: '2026-11-04', note: PDF p20-21 사양 +
+    가정. 측정값은 calib_fit.py 가 채운다.}
+model:
+  size: {x: 0.25, y: 0.23, z: 0.32}
+  mass: 2.9
+  chassis_height: 0.11
+  com: {x: 0.0, y: 0.0, z: 0.09}
+  inertia_override: null
+  wheels:
+    count: 6
+    radius: 0.04
+    width: 0.03
+    x: [0.09, 0.0, -0.09]
+    track: 0.2
+  collision: {shape: box, padding: 0.0}
+  pan_tilt:
+    xyz: [0.0, 0.0, 0.2]
+    pan_limit_deg: 50.0
+    tilt_limit_deg: 15.0
+drive:
+  v_max: 0.45
+  v_max_reverse: 0.45
+  a_accel: 1.2
+  a_brake: 1.2
+  w_max: 2.2
+  alpha_max: 8.0
+  cmd_latency_s: 0.0
+  rise_time_s: 0.0
+  lr_bias_rad_per_m: 0.0
+  stop_distance: {}
+  pivot: {yaw_efficiency: 1.0, drift_m_per_rad: 0.0, overshoot_deg: 0.0}
+  surfaces:
+    default: {slip: 0.0, a_accel: null, a_brake: null, mu_lower_bound: null, mu_pull_test_N: null}
+sensors:
+  lidar:
+    model: D500
+    frame: laser
+    xyz: [0.0, 0.0, 0.2]
+    rpy: [0.0, 0.0, 0.0]
+    rate_hz: 10.0
+    range_min: 0.05
+    range_max: 8.0
+    latency_s: 0.0
+    # LiDAR 불확실도 — PDF 에 정확도 수치 없음. 전부 assumed(가정). 현장 측정 뒤 값을 바꾸고 provenance 를 measured 로 쓰면
+    # calib_gen 이 Config(robot.*, nav.inflate_hard/rotate_clear/side_lim/stop_dist, lidar_err.*)와 Nav2 footprint 를 한꺼번에 다시 만든다.
+    error: {range_bias_m: 0.005, range_sigma_m: 0.008, angle_sigma_deg: 0.3, mount_xy_m: 0.005, mount_yaw_deg: 0.5,
+      latency_s: 0.1, pose_sigma_m: 0.01, dropout_p: 0.02, outlier_p: 0.005, k_sigma: 2.0, ref_range_m: 0.5}
+  camera:
+    frame: camera_optical
+    parent: tilt_link
+    xyz: [0.05, 0.0, 0.03]
+    rpy: [0.0, 0.0, 0.0]
+    width: 640
+    height: 480
+    hfov_deg: 110.0
+    model: plumb_bob
+    K: null
+    D: null
+    calibrated: false
+    latency_s: 0.0
+  depth:
+    frame: depth_optical
+    parent: base_link
+    xyz: [0.10, 0.0, 0.10]
+    rpy: [0.0, 0.0, 0.0]
+  imu:
+    frame: imu_link
+    xyz: [0.0, 0.0, 0.05]
+    rpy: [0.0, 0.0, 0.0]
+    gyro_bias_z: 0.0
+    gyro_noise_z: 0.0
+    gyro_scale: 1.0
+    latency_s: 0.0
+  odom: {frame: odom, child: base_link, lin_scale: 1.0, yaw_scale: 1.0, gyro_bias_z: 0.0,
+    noise_v: 0.0, noise_w: 0.0, latency_s: 0.0, pos_error_p95_m_per_m: 0.05}
+nav:
+  footprint: {mode: rect, margin: null}
+  clearance: {corridor_min: 0.4, inflation_radius: 0.3, cost_scaling: 8.0}
+  follow: {desired_linear_vel: null, lookahead_dist: null, rotate_to_heading_w: null}
+  recovery: {spin_dist: 1.57, backup_dist: 0.25, backup_speed: 0.05, wait_s: 2.0}
+  goal: {xy_tol: 0.08, base_entry_tol: 0.1}
+provenance: {model.size.x: pdf, model.size.y: pdf, model.size.z: pdf, model.mass: pdf,
+  model.wheels.count: pdf, model.pan_tilt.pan_limit_deg: pdf, model.pan_tilt.tilt_limit_deg: pdf,
+  model.collision.shape: tuned, model.collision.padding: tuned,
+  sensors.lidar.error.range_bias_m: assumed, sensors.lidar.error.range_sigma_m: assumed,
+  sensors.lidar.error.angle_sigma_deg: assumed, sensors.lidar.error.mount_xy_m: assumed,
+  sensors.lidar.error.mount_yaw_deg: assumed, sensors.lidar.error.latency_s: assumed,
+  sensors.lidar.error.pose_sigma_m: assumed,
+  nav.follow.desired_linear_vel: derived, nav.follow.lookahead_dist: derived, nav.follow.rotate_to_heading_w: derived,
+  sensors.lidar.model: pdf, sensors.lidar.range_max: tuned, sensors.camera.hfov_deg: tuned,
+  sensors.camera.width: tuned, sensors.camera.height: tuned, sensors.odom.frame: tuned,
+  sensors.odom.child: tuned, sensors.lidar.frame: tuned, nav.footprint.margin: derived,
+  nav.footprint.mode: tuned, nav.clearance.corridor_min: pdf, nav.recovery.spin_dist: tuned,
+  nav.recovery.backup_dist: tuned, nav.recovery.backup_speed: tuned, nav.recovery.wait_s: tuned,
+  nav.clearance.inflation_radius: tuned, nav.clearance.cost_scaling: tuned, nav.goal.xy_tol: tuned,
+  nav.goal.base_entry_tol: tuned}
+measurements: []

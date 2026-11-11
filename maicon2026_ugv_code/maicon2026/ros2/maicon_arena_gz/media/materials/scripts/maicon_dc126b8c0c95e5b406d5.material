@@ -1,0 +1,17 @@
+material maicon_dc126b8c0c95e5b406d5
+{
+ technique
+ {
+  pass
+  {
+   ambient 1 1 1
+   diffuse 1 1 1
+   specular 0 0 0 0
+   texture_unit
+   {
+    texture atlas_dd94ab488312f2eaf7f544ca.png
+    filtering bilinear
+   }
+  }
+ }
+}

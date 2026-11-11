@@ -1,0 +1,152 @@
+{
+  "source": "api_uav_live.jpg",
+  "source_sha256": "0e31f8a3a8055575c12737d3981fa1cc55c70b8b97d5f85c1c2c17b48f9a0531",
+  "calibration": "config/uav_grid_calibration.json",
+  "candidate_count": 20,
+  "candidate_classes": "unknown; ground-camera inspection required",
+  "inference_inputs": "decoded image + measured calibration only",
+  "black_mask": "absolute max RGB <= 18; no saturation gate near zero",
+  "candidates": [
+    {
+      "cx": 1.403125,
+      "cy": 1.0015624999999995,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 1.403125,
+      "cy": 2.3968749999999996,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 1.3953125,
+      "cy": 4.2015625,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 1.8031249999999999,
+      "cy": 0.6015625,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 1.8031249999999999,
+      "cy": 1.0015624999999995,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.9788542868127643
+    },
+    {
+      "cx": 1.8031249999999999,
+      "cy": 2.3968749999999996,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 1.7953124999999999,
+      "cy": 3.8015624999999997,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 1.7953124999999999,
+      "cy": 4.2015625,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 3.0046875,
+      "cy": 1.2031249999999996,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 3.0046875,
+      "cy": 2.1953124999999996,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 3.0046875,
+      "cy": 2.5953124999999995,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 3.0046875,
+      "cy": 3.5999999999999996,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 4.2046875,
+      "cy": 0.6015625,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 4.2046875,
+      "cy": 1.0015624999999995,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 4.196875,
+      "cy": 2.3968749999999996,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.9657823913879278
+    },
+    {
+      "cx": 4.2046875,
+      "cy": 3.8015624999999997,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 4.2046875,
+      "cy": 4.2015625,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 4.6046875,
+      "cy": 1.0015624999999995,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 4.596875,
+      "cy": 2.3968749999999996,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    },
+    {
+      "cx": 4.6046875,
+      "cy": 4.2015625,
+      "sx": 0.4,
+      "sy": 0.4,
+      "confidence": 0.98
+    }
+  ],
+  "integration_validation": "tests/test_http_simulation_uav.py: actual saved API JPEG -> HTTP -> AsyncServerLink -> Agent coverage; 20 footprints, no M3 count or SLAM obstacle fabrication"
+}

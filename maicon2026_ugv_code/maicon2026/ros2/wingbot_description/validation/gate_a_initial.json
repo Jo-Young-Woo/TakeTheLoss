@@ -1,0 +1,626 @@
+{
+  "gate": "A",
+  "passed": false,
+  "checks": [
+    {
+      "name": "physical_inertia:base_link",
+      "passed": true,
+      "actual": {
+        "mass": 1.8,
+        "eigenvalues": [
+          0.0034950000000000003,
+          0.00996375,
+          0.01153875
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "wheel_cylinder:left_up_wheel_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "wheel_radius:left_up_wheel_link",
+      "passed": true,
+      "actual": 0.04,
+      "expected": 0.04
+    },
+    {
+      "name": "physical_inertia:left_up_wheel_link",
+      "passed": true,
+      "actual": {
+        "mass": 0.1,
+        "eigenvalues": [
+          5.540833333333333e-05,
+          5.540833333333333e-05,
+          8e-05
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "wheel_cylinder:left_down_wheel_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "wheel_radius:left_down_wheel_link",
+      "passed": true,
+      "actual": 0.04,
+      "expected": 0.04
+    },
+    {
+      "name": "physical_inertia:left_down_wheel_link",
+      "passed": true,
+      "actual": {
+        "mass": 0.1,
+        "eigenvalues": [
+          5.540833333333333e-05,
+          5.540833333333333e-05,
+          8e-05
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "wheel_cylinder:right_up_wheel_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "wheel_radius:right_up_wheel_link",
+      "passed": true,
+      "actual": 0.04,
+      "expected": 0.04
+    },
+    {
+      "name": "physical_inertia:right_up_wheel_link",
+      "passed": true,
+      "actual": {
+        "mass": 0.1,
+        "eigenvalues": [
+          5.540833333333333e-05,
+          5.540833333333333e-05,
+          8e-05
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "wheel_cylinder:right_down_wheel_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "wheel_radius:right_down_wheel_link",
+      "passed": true,
+      "actual": 0.04,
+      "expected": 0.04
+    },
+    {
+      "name": "physical_inertia:right_down_wheel_link",
+      "passed": true,
+      "actual": {
+        "mass": 0.1,
+        "eigenvalues": [
+          5.540833333333333e-05,
+          5.540833333333333e-05,
+          8e-05
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "physical_inertia:3d_camera_link",
+      "passed": true,
+      "actual": {
+        "mass": 0.02,
+        "eigenvalues": [
+          1.3466666666666665e-06,
+          1.404e-05,
+          1.4306666666666665e-05
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "physical_inertia:base_lidar_link",
+      "passed": true,
+      "actual": {
+        "mass": 0.03,
+        "eigenvalues": [
+          9.312500000000001e-06,
+          9.312500000000001e-06,
+          1.25e-05
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "physical_inertia:pt_base_link",
+      "passed": true,
+      "actual": {
+        "mass": 0.1,
+        "eigenvalues": [
+          4.333333333333333e-05,
+          4.333333333333333e-05,
+          5.9999999999999995e-05
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "physical_inertia:pt_link1",
+      "passed": true,
+      "actual": {
+        "mass": 0.1,
+        "eigenvalues": [
+          3.624166666666667e-05,
+          3.624166666666667e-05,
+          4.1666666666666665e-05
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "physical_inertia:pt_link2",
+      "passed": true,
+      "actual": {
+        "mass": 0.25,
+        "eigenvalues": [
+          0.00014841666666666668,
+          0.0001854166666666667,
+          0.00022966666666666667
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "wheel_cylinder:left_middle_wheel_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "wheel_radius:left_middle_wheel_link",
+      "passed": true,
+      "actual": 0.04,
+      "expected": 0.04
+    },
+    {
+      "name": "physical_inertia:left_middle_wheel_link",
+      "passed": true,
+      "actual": {
+        "mass": 0.1,
+        "eigenvalues": [
+          5.540833333333333e-05,
+          5.540833333333333e-05,
+          8e-05
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "wheel_cylinder:right_middle_wheel_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "wheel_radius:right_middle_wheel_link",
+      "passed": true,
+      "actual": 0.04,
+      "expected": 0.04
+    },
+    {
+      "name": "physical_inertia:right_middle_wheel_link",
+      "passed": true,
+      "actual": {
+        "mass": 0.1,
+        "eigenvalues": [
+          5.540833333333333e-05,
+          5.540833333333333e-05,
+          8e-05
+        ]
+      },
+      "expected": null
+    },
+    {
+      "name": "length_m",
+      "passed": true,
+      "actual": 0.254964118712394,
+      "expected": [
+        0.25,
+        0.26
+      ]
+    },
+    {
+      "name": "width_m",
+      "passed": true,
+      "actual": 0.24043982892444637,
+      "expected": "<=0.245"
+    },
+    {
+      "name": "height_m",
+      "passed": true,
+      "actual": 0.2810755376449577,
+      "expected": 0.28
+    },
+    {
+      "name": "total_mass_kg",
+      "passed": true,
+      "actual": 2.9000000000000004,
+      "expected": 2.9
+    },
+    {
+      "name": "wheel_count",
+      "passed": true,
+      "actual": 6,
+      "expected": 6
+    },
+    {
+      "name": "mesh_collisions",
+      "passed": true,
+      "actual": [],
+      "expected": []
+    },
+    {
+      "name": "collision_budget",
+      "passed": true,
+      "actual": 9,
+      "expected": "<=10"
+    },
+    {
+      "name": "added_visual_triangle_budget_24_segments",
+      "passed": true,
+      "actual": 2792,
+      "expected": "<=3000"
+    },
+    {
+      "name": "frame_exists:laser_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "frame_position:laser_link",
+      "passed": true,
+      "actual": {
+        "xyz": [
+          0.04799999999995412,
+          4.167846623381877e-14,
+          0.24999999999995862
+        ],
+        "error_m": 7.45296261874979e-14
+      },
+      "expected": [
+        0.048,
+        0.0,
+        0.25
+      ]
+    },
+    {
+      "name": "frame_exists:pt_camera_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "frame_position:pt_camera_link",
+      "passed": true,
+      "actual": {
+        "xyz": [
+          0.056999999999954115,
+          -2.1010970741031088e-14,
+          0.20350000000000493
+        ],
+        "error_m": 5.070973716335736e-14
+      },
+      "expected": [
+        0.057,
+        0.0,
+        0.2035
+      ]
+    },
+    {
+      "name": "frame_exists:receiver_left_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "frame_position:receiver_left_link",
+      "passed": true,
+      "actual": {
+        "xyz": [
+          0.0050000000000041175,
+          0.10299999999985603,
+          0.122
+        ],
+        "error_m": 1.4402703525430177e-13
+      },
+      "expected": [
+        0.005,
+        0.103,
+        0.122
+      ]
+    },
+    {
+      "name": "frame_exists:receiver_right_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "frame_position:receiver_right_link",
+      "passed": true,
+      "actual": {
+        "xyz": [
+          0.0050000000000041175,
+          -0.10300000000014398,
+          0.122
+        ],
+        "error_m": 1.440409073707379e-13
+      },
+      "expected": [
+        0.005,
+        -0.103,
+        0.122
+      ]
+    },
+    {
+      "name": "frame_exists:iff_left_tip_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "frame_position:iff_left_tip_link",
+      "passed": true,
+      "actual": {
+        "xyz": [
+          -0.04000000000004589,
+          0.10699999999985602,
+          0.28
+        ],
+        "error_m": 1.5111730006176945e-13
+      },
+      "expected": [
+        -0.04,
+        0.107,
+        0.28
+      ]
+    },
+    {
+      "name": "frame_exists:iff_right_tip_link",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "frame_position:iff_right_tip_link",
+      "passed": true,
+      "actual": {
+        "xyz": [
+          -0.04000000000004589,
+          -0.10700000000014398,
+          0.28
+        ],
+        "error_m": 1.5111730006176945e-13
+      },
+      "expected": [
+        -0.04,
+        -0.107,
+        0.28
+      ]
+    },
+    {
+      "name": "boresight_offset",
+      "passed": true,
+      "actual": [
+        -0.008999999999999994,
+        6.268943697484985e-14,
+        0.04649999999995369
+      ],
+      "expected": [
+        -0.009,
+        0.0,
+        0.0465
+      ]
+    },
+    {
+      "name": "forward_axis:laser_link",
+      "passed": true,
+      "actual": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "expected": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "forward_axis:pt_camera_link",
+      "passed": true,
+      "actual": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "expected": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "optical_axes",
+      "passed": true,
+      "actual": [
+        [
+          4.8965888601467475e-12,
+          4.8965888601467475e-12,
+          1.0
+        ],
+        [
+          -0.9999999999999999,
+          8.574893305441322e-23,
+          4.896588860146747e-12
+        ],
+        [
+          -6.177235058909999e-23,
+          -0.9999999999999999,
+          4.896588860146747e-12
+        ]
+      ],
+      "expected": "optical z forward, x right, y down"
+    },
+    {
+      "name": "joint_exists:pan",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "joint_limits:pan",
+      "passed": true,
+      "actual": {
+        "lower": "-0.8727",
+        "upper": "0.8727",
+        "effort": "3.0",
+        "velocity": "4.71"
+      },
+      "expected": null
+    },
+    {
+      "name": "joint_sign:pan",
+      "passed": true,
+      "actual": -0.3,
+      "expected": -0.3
+    },
+    {
+      "name": "fixed_receiver:pan:left",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "fixed_receiver:pan:right",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "laser_camera_rigid:pan",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "joint_exists:tilt",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "joint_limits:tilt",
+      "passed": true,
+      "actual": {
+        "lower": "-0.2618",
+        "upper": "0.2618",
+        "effort": "3.0",
+        "velocity": "4.71"
+      },
+      "expected": null
+    },
+    {
+      "name": "joint_sign:tilt",
+      "passed": true,
+      "actual": 0.1999999999986325,
+      "expected": 0.2
+    },
+    {
+      "name": "fixed_receiver:tilt:left",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "fixed_receiver:tilt:right",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "laser_camera_rigid:tilt",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "no_wideangle_camera",
+      "passed": true,
+      "actual": [],
+      "expected": null
+    },
+    {
+      "name": "no_lights",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "no_classic_plugins",
+      "passed": true,
+      "actual": null,
+      "expected": null
+    },
+    {
+      "name": "fortress_diff_drive",
+      "passed": false,
+      "actual": 0,
+      "expected": 1
+    },
+    {
+      "name": "full_sensor_types",
+      "passed": false,
+      "actual": [],
+      "expected": null
+    }
+  ],
+  "source": {
+    "urdf": "ros2/wingbot_description/urdf/wingbot.generated.urdf",
+    "urdf_sha256": "af0c7b4a74c5761507249b4fb22fda5e6f11ea118cb158898f8c269dc212b1f1",
+    "yaml_sha256": "a6099a59776e7af21f0f8c1750109ccfc4acc9e43c4d9ea17b299eb3dffbbba5"
+  },
+  "bounds_m": {
+    "min": [
+      -0.12503991131427433,
+      -0.12021991446236717,
+      -0.0010755376449576581
+    ],
+    "max": [
+      0.12992420739811966,
+      0.1202199144620792,
+      0.28
+    ],
+    "lwh": [
+      0.254964118712394,
+      0.24043982892444637,
+      0.2810755376449577
+    ]
+  },
+  "profile": {
+    "wheels": 6,
+    "sensors": "full",
+    "prefix": ""
+  }
+}

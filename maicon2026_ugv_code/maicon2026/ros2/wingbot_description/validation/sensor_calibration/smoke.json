@@ -1,0 +1,71 @@
+{
+  "models": [
+    "ugv_B2"
+  ],
+  "received": {
+    "poses": 333,
+    "clock": 1628,
+    "joints": 1627,
+    "info": 66,
+    "uav": 7,
+    "front": 65,
+    "third": 65,
+    "raw": 65,
+    "scan": 65
+  },
+  "passed": true,
+  "front": {
+    "width": 640,
+    "height": 480,
+    "encoding": "bgr8",
+    "std": 36.96765524484746
+  },
+  "uav": {
+    "width": 1280,
+    "height": 720,
+    "encoding": "rgb8",
+    "std": 35.74962978143997
+  },
+  "third": {
+    "width": 1280,
+    "height": 720,
+    "encoding": "rgb8",
+    "std": 31.842858066363995
+  },
+  "camera_info": {
+    "K": [
+      205.4696273803711,
+      0.0,
+      320.0,
+      0.0,
+      205.46964168548584,
+      240.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "D": [
+      -0.25,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "frame": "pt_camera_optical_link",
+    "width": 640,
+    "height": 480
+  },
+  "joints": {
+    "left_down_wheel_link_joint": -2.0819327576715345e-12,
+    "left_middle_wheel_link_joint": -2.0819355429234527e-12,
+    "left_up_wheel_link_joint": -2.081986315311633e-12,
+    "pt_base_link_to_pt_link1": 1.6370457812557455e-15,
+    "pt_link1_to_pt_link2": -0.2618000031049252,
+    "right_down_wheel_link_joint": 2.0908218207764897e-12,
+    "right_middle_wheel_link_joint": 2.0908068664684546e-12,
+    "right_up_wheel_link_joint": 2.0908745693269435e-12
+  },
+  "raw_close_count": 84,
+  "remaining_close_rays": [],
+  "cropped_nan_count": 122
+}

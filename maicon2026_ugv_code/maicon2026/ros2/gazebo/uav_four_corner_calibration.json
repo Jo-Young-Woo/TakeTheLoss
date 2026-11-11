@@ -1,0 +1,106 @@
+{
+  "schema": "maicon_uav_four_corners_v1",
+  "source": "manual_floor_corners_assets_m3_random4_overhead",
+  "image_size": [
+    1280,
+    720
+  ],
+  "corner_order": [
+    "origin_0_0",
+    "x_corner_W_0",
+    "opposite_W_H",
+    "y_corner_0_H"
+  ],
+  "pixel_corners": [
+    [
+      331.0,
+      612.0
+    ],
+    [
+      949.0,
+      612.0
+    ],
+    [
+      949.0,
+      108.0
+    ],
+    [
+      331.0,
+      108.0
+    ]
+  ],
+  "arena_size_m": [
+    6.12,
+    5.0
+  ],
+  "camera_optical_center_m": [
+    3.06,
+    2.5,
+    2.465
+  ],
+  "reference_plane_z_m": 0.0,
+  "object_plane_z_m": 0.4,
+  "input_optics": "pinhole_undistorted",
+  "checkpoint_tolerance_m": 0.03,
+  "checkpoints": [
+    {
+      "pixel": [
+        371,
+        276
+      ],
+      "arena": [
+        0.4,
+        3.333333333333333
+      ],
+      "plane_z": 0.0
+    },
+    {
+      "pixel": [
+        909,
+        276
+      ],
+      "arena": [
+        5.72,
+        3.333333333333333
+      ],
+      "plane_z": 0.0
+    },
+    {
+      "pixel": [
+        371,
+        444
+      ],
+      "arena": [
+        0.4,
+        1.666666666666667
+      ],
+      "plane_z": 0.0
+    },
+    {
+      "pixel": [
+        909,
+        444
+      ],
+      "arena": [
+        5.72,
+        1.666666666666667
+      ],
+      "plane_z": 0.0
+    }
+  ],
+  "validation": {
+    "corner_fit_rms_m": 2.479629481526995e-15,
+    "corner_fit_is_independent_validation": false,
+    "independent_checkpoint_count": 4,
+    "checkpoint_errors_m": [
+      0.0038834951456305777,
+      0.003883495145631244,
+      0.003883495145629079,
+      0.003883495145632132
+    ],
+    "checkpoint_rms_m": 0.003883495145630758,
+    "checkpoint_max_m": 0.003883495145632132,
+    "checkpoint_tolerance_m": 0.03,
+    "status": "within_tolerance"
+  }
+}

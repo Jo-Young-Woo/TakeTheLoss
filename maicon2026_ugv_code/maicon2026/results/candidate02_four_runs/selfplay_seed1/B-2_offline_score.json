@@ -1,0 +1,509 @@
+{
+  "schema": "wingbot_offline_mission_evaluation_v1",
+  "evaluation_only": true,
+  "scope": "Recorded local rehearsal fixture; not an official competition score",
+  "team": "BLUE",
+  "slot": "B-2",
+  "m1": {
+    "local_api_accepted": true,
+    "accepted_payload": {
+      "target": "RED_RADAR",
+      "search_sectors": [
+        "R-S1",
+        "R-S2"
+      ],
+      "base": "RED_MAINTENANCE"
+    },
+    "interpretation_semantics_independently_graded": false,
+    "limitation": "API acceptance validates submission, not correct natural-language interpretation or physical success."
+  },
+  "m2": {
+    "designated_target": "RED_RADAR",
+    "target_basis": "accepted M1 interpretation; not an independent M1 correctness check",
+    "referee_confirmed_designated_hit": false,
+    "designated_hit_events": [],
+    "all_target_hit_events": [],
+    "agent_target_done": false,
+    "agent_target_failed": true
+  },
+  "m3": {
+    "accepted_snapshot_present": true,
+    "scoring_sectors": [
+      "R-S1",
+      "R-S2",
+      "R-S3",
+      "CM"
+    ],
+    "expected_counts": {
+      "R-S1": {
+        "AMMO_BOX": 1,
+        "DRUM": 1,
+        "MILITARY_TRUCK": 0,
+        "MISSILE": 0,
+        "MORTAR": 0,
+        "TANK": 4
+      },
+      "R-S2": {
+        "AMMO_BOX": 0,
+        "DRUM": 1,
+        "MILITARY_TRUCK": 0,
+        "MISSILE": 1,
+        "MORTAR": 1,
+        "TANK": 0
+      },
+      "R-S3": {
+        "AMMO_BOX": 1,
+        "DRUM": 1,
+        "MILITARY_TRUCK": 1,
+        "MISSILE": 0,
+        "MORTAR": 0,
+        "TANK": 0
+      },
+      "CM": {
+        "AMMO_BOX": 0,
+        "DRUM": 2,
+        "MILITARY_TRUCK": 0,
+        "MISSILE": 2,
+        "MORTAR": 4,
+        "TANK": 1
+      }
+    },
+    "accepted_counts": {
+      "R-S1": {
+        "AMMO_BOX": 0,
+        "DRUM": 2,
+        "MILITARY_TRUCK": 0,
+        "MISSILE": 0,
+        "MORTAR": 0,
+        "TANK": 3
+      },
+      "R-S2": {
+        "AMMO_BOX": 0,
+        "DRUM": 1,
+        "MILITARY_TRUCK": 0,
+        "MISSILE": 2,
+        "MORTAR": 1,
+        "TANK": 0
+      },
+      "R-S3": {
+        "AMMO_BOX": 1,
+        "DRUM": 1,
+        "MILITARY_TRUCK": 1,
+        "MISSILE": 0,
+        "MORTAR": 0,
+        "TANK": 0
+      },
+      "CM": {
+        "AMMO_BOX": 0,
+        "DRUM": 1,
+        "MILITARY_TRUCK": 0,
+        "MISSILE": 2,
+        "MORTAR": 6,
+        "TANK": 2
+      }
+    },
+    "per_sector_class": [
+      {
+        "sector": "R-S1",
+        "type": "AMMO_BOX",
+        "expected": 1,
+        "reported": 0,
+        "difference": -1
+      },
+      {
+        "sector": "R-S1",
+        "type": "DRUM",
+        "expected": 1,
+        "reported": 2,
+        "difference": 1
+      },
+      {
+        "sector": "R-S1",
+        "type": "MILITARY_TRUCK",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "R-S1",
+        "type": "MISSILE",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "R-S1",
+        "type": "MORTAR",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "R-S1",
+        "type": "TANK",
+        "expected": 4,
+        "reported": 3,
+        "difference": -1
+      },
+      {
+        "sector": "R-S2",
+        "type": "AMMO_BOX",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "R-S2",
+        "type": "DRUM",
+        "expected": 1,
+        "reported": 1,
+        "difference": 0
+      },
+      {
+        "sector": "R-S2",
+        "type": "MILITARY_TRUCK",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "R-S2",
+        "type": "MISSILE",
+        "expected": 1,
+        "reported": 2,
+        "difference": 1
+      },
+      {
+        "sector": "R-S2",
+        "type": "MORTAR",
+        "expected": 1,
+        "reported": 1,
+        "difference": 0
+      },
+      {
+        "sector": "R-S2",
+        "type": "TANK",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "R-S3",
+        "type": "AMMO_BOX",
+        "expected": 1,
+        "reported": 1,
+        "difference": 0
+      },
+      {
+        "sector": "R-S3",
+        "type": "DRUM",
+        "expected": 1,
+        "reported": 1,
+        "difference": 0
+      },
+      {
+        "sector": "R-S3",
+        "type": "MILITARY_TRUCK",
+        "expected": 1,
+        "reported": 1,
+        "difference": 0
+      },
+      {
+        "sector": "R-S3",
+        "type": "MISSILE",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "R-S3",
+        "type": "MORTAR",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "R-S3",
+        "type": "TANK",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "CM",
+        "type": "AMMO_BOX",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "CM",
+        "type": "DRUM",
+        "expected": 2,
+        "reported": 1,
+        "difference": -1
+      },
+      {
+        "sector": "CM",
+        "type": "MILITARY_TRUCK",
+        "expected": 0,
+        "reported": 0,
+        "difference": 0
+      },
+      {
+        "sector": "CM",
+        "type": "MISSILE",
+        "expected": 2,
+        "reported": 2,
+        "difference": 0
+      },
+      {
+        "sector": "CM",
+        "type": "MORTAR",
+        "expected": 4,
+        "reported": 6,
+        "difference": 2
+      },
+      {
+        "sector": "CM",
+        "type": "TANK",
+        "expected": 1,
+        "reported": 2,
+        "difference": 1
+      }
+    ],
+    "expected_total": 21,
+    "reported_total": 23,
+    "sum_minimum_bin_counts": 18,
+    "undercount_total": 3,
+    "overcount_total": 5,
+    "exact_bins": 17,
+    "total_bins": 24,
+    "all_counts_equal": false,
+    "identity_level_recall_available": false,
+    "interpretation": "Aggregate sector/class counts only. A duplicate recognition can replace a missed face in the same bin, so sum_minimum_bin_counts is NOT individual-face recall, precision, or a confirmed identity match.",
+    "expected_face_ids_for_offline_audit": [
+      {
+        "cube": "cube_3_0",
+        "face": "N",
+        "sector": "R-S1",
+        "type": "AMMO_BOX"
+      },
+      {
+        "cube": "cube_4_0",
+        "face": "E",
+        "sector": "R-S1",
+        "type": "TANK"
+      },
+      {
+        "cube": "cube_4_0",
+        "face": "W",
+        "sector": "R-S1",
+        "type": "DRUM"
+      },
+      {
+        "cube": "cube_5_0",
+        "face": "N",
+        "sector": "R-S1",
+        "type": "TANK"
+      },
+      {
+        "cube": "cube_5_0",
+        "face": "E",
+        "sector": "R-S1",
+        "type": "TANK"
+      },
+      {
+        "cube": "cube_5_0",
+        "face": "S",
+        "sector": "R-S1",
+        "type": "TANK"
+      },
+      {
+        "cube": "cube_8_0",
+        "face": "N",
+        "sector": "R-S2",
+        "type": "MORTAR"
+      },
+      {
+        "cube": "cube_9_0",
+        "face": "N",
+        "sector": "R-S2",
+        "type": "DRUM"
+      },
+      {
+        "cube": "cube_9_0",
+        "face": "S",
+        "sector": "R-S2",
+        "type": "MISSILE"
+      },
+      {
+        "cube": "cube_14_0",
+        "face": "E",
+        "sector": "R-S3",
+        "type": "MILITARY_TRUCK"
+      },
+      {
+        "cube": "cube_15_0",
+        "face": "E",
+        "sector": "R-S3",
+        "type": "DRUM"
+      },
+      {
+        "cube": "cube_15_0",
+        "face": "S",
+        "sector": "R-S3",
+        "type": "AMMO_BOX"
+      },
+      {
+        "cube": "cube_16_0",
+        "face": "N",
+        "sector": "CM",
+        "type": "MORTAR"
+      },
+      {
+        "cube": "cube_16_0",
+        "face": "E",
+        "sector": "CM",
+        "type": "MORTAR"
+      },
+      {
+        "cube": "cube_16_0",
+        "face": "W",
+        "sector": "CM",
+        "type": "DRUM"
+      },
+      {
+        "cube": "cube_17_0",
+        "face": "N",
+        "sector": "CM",
+        "type": "MISSILE"
+      },
+      {
+        "cube": "cube_18_0",
+        "face": "E",
+        "sector": "CM",
+        "type": "DRUM"
+      },
+      {
+        "cube": "cube_18_0",
+        "face": "S",
+        "sector": "CM",
+        "type": "MISSILE"
+      },
+      {
+        "cube": "cube_19_0",
+        "face": "N",
+        "sector": "CM",
+        "type": "MORTAR"
+      },
+      {
+        "cube": "cube_19_0",
+        "face": "E",
+        "sector": "CM",
+        "type": "TANK"
+      },
+      {
+        "cube": "cube_19_0",
+        "face": "S",
+        "sector": "CM",
+        "type": "MORTAR"
+      }
+    ],
+    "agent_local_final_counts_not_used_for_scoring": {
+      "R-S1": {
+        "AMMO_BOX": 0,
+        "DRUM": 2,
+        "MORTAR": 0,
+        "TRUCK": 0,
+        "TANK": 3,
+        "MISSILE": 0
+      },
+      "R-S2": {
+        "AMMO_BOX": 0,
+        "DRUM": 1,
+        "MORTAR": 1,
+        "TRUCK": 0,
+        "TANK": 0,
+        "MISSILE": 2
+      },
+      "R-S3": {
+        "AMMO_BOX": 1,
+        "DRUM": 1,
+        "MORTAR": 0,
+        "TRUCK": 1,
+        "TANK": 0,
+        "MISSILE": 0
+      },
+      "COMMON": {
+        "AMMO_BOX": 0,
+        "DRUM": 1,
+        "MORTAR": 6,
+        "TRUCK": 0,
+        "TANK": 2,
+        "MISSILE": 2
+      }
+    }
+  },
+  "m4": {
+    "ugv_hit_events": [],
+    "limitation": "One physical B2 trial has no physical opposing UGV; opponent engagement is not validated."
+  },
+  "m5": {
+    "posted_objective": "RED_MAINTENANCE",
+    "expected_base": "R-2",
+    "referee_confirmed_capture": true,
+    "matching_capture_events": [
+      {
+        "type": "base_captured",
+        "time": 251.10000000000002,
+        "base": "R-2",
+        "alliance": "BLUE"
+      }
+    ],
+    "all_capture_events": [
+      {
+        "type": "base_captured",
+        "time": 251.10000000000002,
+        "base": "R-2",
+        "alliance": "BLUE"
+      }
+    ],
+    "agent_local_entry_estimates": [],
+    "limitation": "A local position/entry estimate or a base_beam event is not a scored capture; require matching base_captured."
+  },
+  "m6": {
+    "local_api_accepted": true,
+    "accepted_payload": {
+      "ranking": [
+        "R-3",
+        "R-1",
+        "R-2"
+      ]
+    },
+    "agent_result": "acked",
+    "ranking_correctness_graded": false,
+    "limitation": "No observed physical opponents in this trial; ACK does not validate ranking quality."
+  },
+  "runner_completed": true,
+  "all_missions_success_claimed": false,
+  "evidence_limitation": "Referee conclusions use captured event records; event absence means no recorded confirmation. Supplied spec/layout must match the launched world; source hashes below identify exactly what was evaluated.",
+  "inputs": {
+    "mission_report": {
+      "path": "/home/jojo0429/maicon_candidate02_runs/selfplay5_seed1_retry/B-2/mission_report.json",
+      "sha256": "f764237046aa1c40e452bf3604f73b7721a67219a8c26abc0f827a5d6e8801ba"
+    },
+    "trial_config": {
+      "path": "/home/jojo0429/maicon_candidate02_runs/selfplay5_seed1_retry/B-2/trial_config.json",
+      "sha256": "208d36cb04ecd053e0d70af43d5e6df3fe5dc184409e1603065e3098d0ecaeaa"
+    },
+    "layout": {
+      "path": "/mnt/c/Users/jojo0/OneDrive/바탕 화면/MAICON2026/maicon2026_ugv_code/maicon2026/ros2/maicon_arena_gz/config/layouts/layout_default.yaml",
+      "sha256": "9b85ac6d9c3ff943e0682641c940732f588a197781a5038fef1f317c5a0ed1a6"
+    },
+    "spec": {
+      "path": "/mnt/c/Users/jojo0/OneDrive/바탕 화면/MAICON2026/maicon2026_ugv_code/maicon2026/ros2/maicon_arena_gz/config/arena_spec.yaml",
+      "sha256": "918da5bf5c45740505c74515d3c2bb2fc683329dd926481170f1c96f9dbb8278"
+    }
+  }
+}

@@ -1,0 +1,606 @@
+{
+  "sim_s": 48.036,
+  "state": {
+    "phase": "running",
+    "paused": false,
+    "elapsed": 40.864000000000004,
+    "ugvs": {
+      "B-1": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "B-2": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "B-3": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-1": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-2": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-3": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      }
+    },
+    "destroyed": {
+      "BLUE": 0,
+      "RED": 0
+    }
+  },
+  "agent_stats": {
+    "mode_time": {
+      "EXPLORE": 22.868,
+      "STRIKE": 4.161999999999999
+    },
+    "state_time": {
+      "EXPLORE": 22.868,
+      "STRIKE_AIM": 0.3340000000000032,
+      "STRIKE_APPROACH": 3.827999999999996
+    },
+    "strike_shots": 0,
+    "hunt_shots": 0,
+    "recoveries": 0,
+    "multi_output": 0,
+    "det_consumed": 84,
+    "det_dropped": 0,
+    "safe_stops": {},
+    "msg_rejected": {
+      "dup-start": 1
+    },
+    "detector_errors": 0,
+    "link_errors": 0,
+    "lidar_suspects": [],
+    "pose_at_clamped": 0,
+    "aim_resets": 0,
+    "smog_changes": 0,
+    "smog_s": 0.0,
+    "game_events": {},
+    "base_entries": [],
+    "wrong_target_inhibit": 0,
+    "led_confirmed": 0,
+    "tower_obs": 0,
+    "uav_state": "normal",
+    "depth_frames": 0,
+    "depth_stale_skipped": 0,
+    "nav_layer_cells": 0,
+    "depth_guard_ticks": 0,
+    "range_from_depth": 0,
+    "beam_blocked_ticks": 0,
+    "beam_override": 0,
+    "beam_checked": 0,
+    "height_reject": 0,
+    "depth_lidar_alarm": 0,
+    "bump_events": 0,
+    "tick_ms_max": 865.4655749851372,
+    "tick_over_budget": 108,
+    "paused_s": 0.0,
+    "match_locked_s": 0.0,
+    "tilt_stops": 0,
+    "restored": false,
+    "oak_frames_seen": 0,
+    "oak_det_consumed": 0,
+    "oak_det_dropped": 0,
+    "oak_dets": 0,
+    "oak_no_camera": 0,
+    "oak_errors": 0,
+    "oak_disagreements": 0,
+    "oak_ring_saved": 0,
+    "avoid_ticks": 0,
+    "avoid_acquired": 0,
+    "carrot_sent": 2,
+    "risk_plans": 31,
+    "risk_plan_fail": 1,
+    "m2_deferred_s": 0.0,
+    "field_builds": 0,
+    "field_ms": 0.0,
+    "friend_map": {
+      "slots": [
+        {
+          "ident": "B-UGV-1",
+          "state": "unidentified",
+          "x": null,
+          "y": null,
+          "age_s": null,
+          "tid": null,
+          "reason": "not_seen_at_start",
+          "n_match": 0
+        },
+        {
+          "ident": "B-UGV-3",
+          "state": "unidentified",
+          "x": null,
+          "y": null,
+          "age_s": null,
+          "tid": null,
+          "reason": "not_seen_at_start",
+          "n_match": 0
+        }
+      ],
+      "stats": {
+        "born": 0,
+        "matched": 0,
+        "lost_ambiguous": 0,
+        "lost_timeout": 0,
+        "lost_colour": 0,
+        "lost_other": 0,
+        "birth_ambiguous": 0
+      },
+      "events": [
+        {
+          "t": 9.22,
+          "kind": "never",
+          "ident": "B-UGV-1",
+          "reason": "not_seen_at_start"
+        },
+        {
+          "t": 9.22,
+          "kind": "never",
+          "ident": "B-UGV-3",
+          "reason": "not_seen_at_start"
+        }
+      ],
+      "window_end": 9.003549062700245
+    },
+    "face_registry": {
+      "registered": 80,
+      "identified": 9,
+      "empty": 13,
+      "pending": 48,
+      "hidden": 10,
+      "uav": 79,
+      "restored": 0
+    },
+    "uav_map": {
+      "enabled": true,
+      "t0": 6.9829791907831105,
+      "window_s": 4.0,
+      "registered": 79,
+      "converted": 20,
+      "undetected": 18,
+      "sectors": {
+        "R-S2": {
+          "census": 8,
+          "detected": 2,
+          "undetected": 6,
+          "hidden": 0,
+          "new_faces": 0,
+          "new_detected": 0
+        },
+        "R-S1": {
+          "census": 12,
+          "detected": 0,
+          "undetected": 12,
+          "hidden": 0,
+          "new_faces": 0,
+          "new_detected": 0
+        }
+      },
+      "todo": [
+        [
+          "R-S2",
+          4.39,
+          2.39,
+          "E"
+        ],
+        [
+          "R-S2",
+          4.19,
+          2.59,
+          "N"
+        ],
+        [
+          "R-S1",
+          4.4,
+          3.79,
+          "E"
+        ],
+        [
+          "R-S1",
+          4.2,
+          3.99,
+          "N"
+        ],
+        [
+          "R-S1",
+          4.0,
+          3.79,
+          "W"
+        ],
+        [
+          "R-S1",
+          4.2,
+          3.59,
+          "S"
+        ],
+        [
+          "R-S1",
+          4.4,
+          4.19,
+          "E"
+        ],
+        [
+          "R-S1",
+          4.2,
+          4.39,
+          "N"
+        ],
+        [
+          "R-S1",
+          4.0,
+          4.19,
+          "W"
+        ],
+        [
+          "R-S1",
+          4.2,
+          3.99,
+          "S"
+        ],
+        [
+          "R-S2",
+          4.79,
+          2.39,
+          "E"
+        ],
+        [
+          "R-S2",
+          4.59,
+          2.59,
+          "N"
+        ],
+        [
+          "R-S2",
+          4.39,
+          2.39,
+          "W"
+        ],
+        [
+          "R-S2",
+          4.59,
+          2.19,
+          "S"
+        ],
+        [
+          "R-S1",
+          4.8,
+          4.19,
+          "E"
+        ],
+        [
+          "R-S1",
+          4.6,
+          4.39,
+          "N"
+        ],
+        [
+          "R-S1",
+          4.4,
+          4.19,
+          "W"
+        ],
+        [
+          "R-S1",
+          4.6,
+          3.99,
+          "S"
+        ]
+      ]
+    },
+    "uav_layout_state": "available",
+    "own_base_keepout_active": false,
+    "own_base_keepout_cells": 0,
+    "own_base_blocked_commands": 0,
+    "wheel_limited": 0,
+    "m1_sweep": {
+      "sectors": [
+        "R-S1",
+        "R-S2"
+      ],
+      "boxes": 5,
+      "faces": 20,
+      "done": 2,
+      "todo": 15,
+      "hidden": 3,
+      "unreachable": 0,
+      "complete": false,
+      "per_sector": {
+        "R-S1": {
+          "boxes": 3,
+          "faces": 12,
+          "identified": 0,
+          "empty": 0,
+          "hidden": 3,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 2,
+          "pending": 7
+        },
+        "R-S2": {
+          "boxes": 2,
+          "faces": 8,
+          "identified": 2,
+          "empty": 0,
+          "hidden": 0,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 1,
+          "pending": 5
+        }
+      },
+      "tier": {
+        "enemy": [
+          "R-S1",
+          "R-S2"
+        ],
+        "cm": false,
+        "enemy_done": false,
+        "cm_deferred": true,
+        "elapsed_s": 29.2,
+        "weights": {
+          "R-S1": 2.4,
+          "R-S2": 2.4
+        }
+      }
+    },
+    "face_arrival_refinements": 1,
+    "route_kept": 1,
+    "normal_snaps": 1,
+    "progress_replans": 1
+  },
+  "last_trace": {
+    "sim_s": 48.036,
+    "elapsed": 40.864000000000004,
+    "phase": "running",
+    "mode": "STRIKE_APPROACH",
+    "estimated_nav_xy_yaw": [
+      3.589636077367224,
+      1.5930334922478477,
+      -1.8248325052807748
+    ],
+    "cmd_vw": [
+      0.23231819449276636,
+      -1.6674194322789635
+    ],
+    "decision": {
+      "t": 40.692,
+      "posture": "ENGAGE_OK",
+      "level": 0,
+      "exposure": 0.0,
+      "risk_weight": 0.3,
+      "goal": [
+        3.3570217274618894,
+        1.3185518188475622
+      ],
+      "goal_key": [
+        3.4,
+        1.3
+      ],
+      "remaining_path_m": 0.3177107497709517,
+      "tracks": [],
+      "hits": 0,
+      "shots": 0,
+      "observed_faces": 16,
+      "confirmed_faces": 10,
+      "stage": 0,
+      "no_progress_s": 0.9160000000000039,
+      "normal_wait": false,
+      "transition_reason": "cm",
+      "actions": [],
+      "transitions": [],
+      "exposed_dwell_expired": false,
+      "remaining_path_source": "navigator",
+      "remaining_path_endpoint": [
+        3.4250000000000003,
+        1.475
+      ],
+      "remaining_path_points": 7,
+      "remaining_path_endpoint_error_m": 0.17057865904963518
+    },
+    "readiness": [
+      true,
+      []
+    ],
+    "target_done": false,
+    "m3_counts": {
+      "R-S1": {
+        "AMMO_BOX": 0,
+        "DRUM": 0,
+        "MORTAR": 0,
+        "TRUCK": 0,
+        "TANK": 0,
+        "MISSILE": 0
+      },
+      "R-S2": {
+        "AMMO_BOX": 0,
+        "DRUM": 0,
+        "MORTAR": 0,
+        "TRUCK": 0,
+        "TANK": 0,
+        "MISSILE": 1
+      },
+      "R-S3": {
+        "AMMO_BOX": 0,
+        "DRUM": 0,
+        "MORTAR": 0,
+        "TRUCK": 0,
+        "TANK": 0,
+        "MISSILE": 0
+      },
+      "COMMON": {
+        "AMMO_BOX": 0,
+        "DRUM": 1,
+        "MORTAR": 1,
+        "TRUCK": 0,
+        "TANK": 1,
+        "MISSILE": 0
+      }
+    },
+    "det_consumed": 84,
+    "detector_errors": 0,
+    "aim": null
+  },
+  "hal_stats": {
+    "gimbal_sent": 144,
+    "gimbal_ok": 143,
+    "gimbal_locked": 0,
+    "gimbal_fail": 0,
+    "fire_calls": 0,
+    "cmd_pub": 475,
+    "cmd_zero_stale": 162,
+    "cmd_zero_locked": 60,
+    "frames": 258,
+    "frames_dropped": 182,
+    "oled_sent": 54,
+    "match_changes": 2,
+    "imu_impacts": 0,
+    "invalid": {
+      "image": {
+        "camera_frozen": 6
+      }
+    },
+    "mil_ready": {
+      "state": true,
+      "match": true,
+      "oled": true,
+      "gimbal": true,
+      "fire": true
+    },
+    "gimbal_feedback": {
+      "pan": 6.473549869164094,
+      "tilt": -0.593019897292229
+    },
+    "imu_odometry": {
+      "wheel_samples": 857,
+      "imu_samples": 939,
+      "fused_steps": 854,
+      "wheel_fallback_steps": 2,
+      "imu_rejected": 49,
+      "wheel_rejected": 0,
+      "reanchors": 1,
+      "mode": "imu_relative",
+      "imu_age_s": 0.0,
+      "raw_pose": [
+        2.829436875501302,
+        -1.0684568206411593,
+        -2.0279982895283366
+      ],
+      "fused_pose": [
+        2.987094956255547,
+        -0.7876653049764326,
+        -1.841938301289183
+      ]
+    },
+    "scan_callbacks_received": 446,
+    "imu_heading_mount": {
+      "base": "base_footprint",
+      "sensor": "base_imu_link",
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "verified_rigid_mount": true
+    },
+    "camera_calibration": {
+      "camera_xyz_base": [
+        0.05656191866678265,
+        0.006528423246705961,
+        0.2025958825928552
+      ],
+      "camera_rotation_base": [
+        [
+          0.9948743240101029,
+          -0.10017429171959437,
+          0.013790964575347106
+        ],
+        [
+          0.10016466859032129,
+          0.9949699047099252,
+          0.0013884839622759653
+        ],
+        [
+          -0.013860685106876075,
+          3.528623334280931e-10,
+          0.9999039360900466
+        ]
+      ],
+      "laser_from_camera_xyz": [
+        -0.008999999999999994,
+        6.261657858885883e-14,
+        0.046499999999953745
+      ],
+      "pan_tilt_source": "image_timestamp_tf_and_joint_feedback",
+      "calibration_scope": "simulation_only",
+      "sensor_stamp": 48.1,
+      "optical_frame": "pt_camera_optical_link",
+      "camera_info": {
+        "raw_K": [
+          205.4696273803711,
+          0.0,
+          320.0,
+          0.0,
+          205.46964168548584,
+          240.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "advertised_D": [
+          -0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "effective_D": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "distortion_model": "plumb_bob",
+        "output_K": [
+          205.46963709898583,
+          0.0,
+          320.0,
+          0.0,
+          205.46963709898583,
+          240.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "distortion_status": "requested_but_renderer_unsupported"
+    },
+    "oak_topics_missing": []
+  },
+  "artifact_io_stats": {
+    "replace_retries": 0,
+    "preview_skipped": 0
+  }
+}

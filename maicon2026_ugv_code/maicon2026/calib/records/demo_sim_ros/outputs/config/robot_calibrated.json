@@ -1,0 +1,24 @@
+{
+  "robot": {
+    "v_max": 0.5202,
+    "w_max": 2.4517,
+    "a_max": 0.8844,
+    "radius": 0.14,
+    "pan_limit": 50.0,
+    "tilt_limit": 15.0
+  },
+  "camera": {
+    "width": 640,
+    "height": 480,
+    "hfov_deg": 110.0
+  },
+  "nav": {
+    "v_cruise": 0.3901,
+    "stop_dist": 0.2221,
+    "slow_dist": 0.5021,
+    "inflate_hard": 0.17
+  },
+  "nav2": {
+    "cmd_timeout": 0.5
+  }
+}

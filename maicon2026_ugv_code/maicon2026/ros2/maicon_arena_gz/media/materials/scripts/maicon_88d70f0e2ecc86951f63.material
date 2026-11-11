@@ -1,0 +1,17 @@
+material maicon_88d70f0e2ecc86951f63
+{
+ technique
+ {
+  pass
+  {
+   ambient 1 1 1
+   diffuse 1 1 1
+   specular 0 0 0 0
+   texture_unit
+   {
+    texture floor_print_2400x1920.png
+    filtering bilinear
+   }
+  }
+ }
+}

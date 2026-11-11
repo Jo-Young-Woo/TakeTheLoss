@@ -1,0 +1,89 @@
+{
+  "models": [
+    "ugv_B2"
+  ],
+  "received": {
+    "clock": 1688,
+    "poses": 339,
+    "uav": 7,
+    "front": 68,
+    "raw": 68,
+    "scan": 68
+  },
+  "passed": true,
+  "front": {
+    "width": 640,
+    "height": 480,
+    "encoding": "bgr8",
+    "std": 36.967710578170944
+  },
+  "uav": {
+    "width": 1280,
+    "height": 720,
+    "encoding": "rgb8",
+    "std": 35.74962978143997
+  },
+  "remaining_close_rays": [
+    {
+      "index": 276,
+      "range_m": 0.03430625796318054,
+      "scan_angle_deg": 41.29174769097977,
+      "body_angle_deg": 131.29174769097978
+    },
+    {
+      "index": 277,
+      "range_m": 0.03315248712897301,
+      "scan_angle_deg": 42.093529403660696,
+      "body_angle_deg": 132.09352940366068
+    },
+    {
+      "index": 278,
+      "range_m": 0.03244208171963692,
+      "scan_angle_deg": 42.895311116341624,
+      "body_angle_deg": 132.89531111634162
+    },
+    {
+      "index": 279,
+      "range_m": 0.032064288854599,
+      "scan_angle_deg": 43.69709282902255,
+      "body_angle_deg": 133.69709282902255
+    },
+    {
+      "index": 280,
+      "range_m": 0.03199485316872597,
+      "scan_angle_deg": 44.49887454170348,
+      "body_angle_deg": 134.4988745417035
+    },
+    {
+      "index": 393,
+      "range_m": 0.03194219991564751,
+      "scan_angle_deg": 135.10020807464832,
+      "body_angle_deg": 225.10020807464832
+    },
+    {
+      "index": 394,
+      "range_m": 0.031994760036468506,
+      "scan_angle_deg": 135.90198978732926,
+      "body_angle_deg": 225.90198978732926
+    },
+    {
+      "index": 395,
+      "range_m": 0.032249465584754944,
+      "scan_angle_deg": 136.7037715000102,
+      "body_angle_deg": 226.7037715000102
+    },
+    {
+      "index": 396,
+      "range_m": 0.03268132358789444,
+      "scan_angle_deg": 137.50555321269113,
+      "body_angle_deg": 227.50555321269113
+    },
+    {
+      "index": 397,
+      "range_m": 0.03315256908535957,
+      "scan_angle_deg": 138.30733492537203,
+      "body_angle_deg": 228.30733492537203
+    }
+  ],
+  "cropped_nan_count": 112
+}

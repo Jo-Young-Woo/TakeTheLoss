@@ -1,0 +1,17 @@
+# 자동 생성 파일 — 직접 고치지 말고 calib/robot_profile.yaml 을 고친 뒤 scripts/calib_generate.py 를 다시 실행
+# 프로파일에 아직 '가정(assumed)'인 값 69개 (scripts/calib_report.py 로 목록 확인)
+v_max: 0.45
+v_max_reverse: 0.45
+a_accel: 1.2
+a_brake: 1.2
+w_max: 2.2
+alpha_max: 8.0
+cmd_latency_s: 0.0
+rise_time_s: 0.0
+lr_bias_rad_per_m: 0.0
+stop_distance: {}
+pivot: {yaw_efficiency: 1.0, drift_m_per_rad: 0.0, overshoot_deg: 0.0}
+surfaces:
+  default: {slip: 0.0, a_accel: null, a_brake: null, mu_lower_bound: null, mu_pull_test_N: null}
+mu_note: 'mu_lower_bound = 제동 감속 ÷ g (하한값). 정확한 마찰계수는 견인 시험: μ = 끌 때 힘[N] ÷ (질량·g)'
+provenance: {}

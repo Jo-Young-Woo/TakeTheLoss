@@ -1,0 +1,17 @@
+{
+ "argv": [
+  "<ROOT>/scripts/run_real.py",
+  "--server",
+  "http://127.0.0.1:9",
+  "--config",
+  "<ROOT>/config/waveshare_real.json",
+  "--nav",
+  "nav2",
+  "--matches",
+  "1",
+  "--restore",
+  "--overrides",
+  "<ROOT>/config/field_overrides.json"
+ ],
+ "returncode": 0
+}

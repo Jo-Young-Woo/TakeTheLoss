@@ -1,0 +1,128 @@
+{
+  "duration_wall_s": 8.003330862000439,
+  "received_messages": {
+    "/clock": 2006,
+    "/arena/dynamic_pose": 402,
+    "/arena/state": 161,
+    "/imu/data": 160,
+    "/image_raw": 80,
+    "/odom": 154,
+    "/scan": 80,
+    "/uav/image_raw": 8
+  },
+  "models": {
+    "ugv_B2": [
+      -2.660000000023038,
+      1.3329902888807446e-11,
+      0.0012111613059051247,
+      2.6569048773681983e-09
+    ],
+    "ugv_B1": [
+      -2.6599999999710158,
+      1.5999999999650822,
+      0.0012111630755059415,
+      1.9013754345297833e-16
+    ],
+    "ugv_B3": [
+      -2.6599999999710158,
+      -1.600000000034918,
+      0.0012111630755059406,
+      1.8769896927732826e-16
+    ],
+    "ugv_R1": [
+      2.6599999999710158,
+      1.600000000034918,
+      0.001211163075505919,
+      3.1415926500000007
+    ],
+    "ugv_R2": [
+      2.6599999999710158,
+      3.491599361083416e-11,
+      0.0012111630755059194,
+      3.1415926500000007
+    ],
+    "ugv_R3": [
+      2.6599999999710158,
+      -1.5999999999650822,
+      0.00121116307550592,
+      3.1415926500000007
+    ]
+  },
+  "clock_advances": true,
+  "/uav/image_raw": {
+    "width": 1280,
+    "height": 720,
+    "encoding": "rgb8"
+  },
+  "/image_raw": {
+    "width": 640,
+    "height": 480,
+    "encoding": "bgr8"
+  },
+  "scan": {
+    "samples": 450,
+    "finite": 338,
+    "useful": 338,
+    "range_min": 0.019999999552965164,
+    "range_max": 12.0,
+    "min_return": 0.03194219991564751,
+    "max_return": 5.826197624206543,
+    "angle_span": 6.2831854820251465,
+    "frame_id": "lidar_scan_link"
+  },
+  "referee": {
+    "phase": "ready",
+    "paused": false,
+    "elapsed": null,
+    "ugvs": {
+      "B-1": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "B-2": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "B-3": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-1": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-2": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-3": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      }
+    },
+    "destroyed": {
+      "BLUE": 0,
+      "RED": 0
+    }
+  },
+  "all_topics_received": true,
+  "scan_not_collapsed_at_minimum": true
+}

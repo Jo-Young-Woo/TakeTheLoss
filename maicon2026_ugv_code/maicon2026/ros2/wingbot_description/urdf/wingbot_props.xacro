@@ -1,0 +1,780 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="wingbot">
+  <xacro:macro name="wingbot_body" params="prefix team wheels">
+    <link name="${prefix}base_footprint" />
+    <link name="${prefix}base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/base_link.stl" />
+        </geometry>
+        <material name="base_link_material">
+          <color rgba=".17 .17 .18 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="1.8" />
+        <inertia ixx="0.0034950000000000003" iyy="0.00996375" izz="0.01153875" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+      <collision name="chassis_box">
+        <origin xyz="-0.000460087791654 -6.50856019577e-10 0" rpy="0 -0 0" />
+        <geometry>
+          <box size="0.245 0.13 0.08" />
+        </geometry>
+      </collision>
+      <collision name="deck_box">
+        <origin xyz="-0.000460087791654 -6.50856019577e-10 0.03" rpy="0 -0 0" />
+        <geometry>
+          <box size="0.245 0.2 0.02" />
+        </geometry>
+      </collision>
+      <visual name="mast_cylinder_1">
+        <origin xyz="-0.00876008779165 -6.50856019577e-10 0.0585" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.03 0.03 0.033" />
+        </geometry>
+        <material name="mast_cylinder_1_material">
+          <color rgba="0.08 0.08 0.09 1" />
+        </material>
+      </visual>
+      <visual name="mast_ring_2">
+        <origin xyz="-0.00876008779165 -6.50856019577e-10 0.08" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0326 0.0326 0.01" />
+        </geometry>
+        <material name="mast_ring_2_material">
+          <color rgba="0.75 0.76 0.78 1" />
+        </material>
+      </visual>
+      <visual name="mast_pillar_3">
+        <origin xyz="0.0152815427687 0.0240416299095 0.0595" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0025 0.0025 0.035" />
+        </geometry>
+        <material name="mast_pillar_3_material">
+          <color rgba="0.7 0.71 0.73 1" />
+        </material>
+      </visual>
+      <visual name="mast_pillar_4">
+        <origin xyz="-0.032801718352 0.0240416299095 0.0595" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0025 0.0025 0.035" />
+        </geometry>
+        <material name="mast_pillar_4_material">
+          <color rgba="0.7 0.71 0.73 1" />
+        </material>
+      </visual>
+      <visual name="mast_pillar_5">
+        <origin xyz="-0.032801718352 -0.0240416312112 0.0595" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0025 0.0025 0.035" />
+        </geometry>
+        <material name="mast_pillar_5_material">
+          <color rgba="0.7 0.71 0.73 1" />
+        </material>
+      </visual>
+      <visual name="mast_pillar_6">
+        <origin xyz="0.0152815427687 -0.0240416312112 0.0595" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0025 0.0025 0.035" />
+        </geometry>
+        <material name="mast_pillar_6_material">
+          <color rgba="0.7 0.71 0.73 1" />
+        </material>
+      </visual>
+      <visual name="receiver_left_mount_16">
+        <origin xyz="0.00453991220835 0.0899999993491 0.038" rpy="0 -0 0" />
+        <geometry>
+          <box size="0.034 0.018 0.03" />
+        </geometry>
+        <material name="receiver_left_mount_16_material">
+          <color rgba="0.06 0.06 0.06 1" />
+        </material>
+      </visual>
+      <visual name="receiver_left_skirt_17">
+        <origin xyz="0.00453991220835 0.100103712101 0.0412180024431" rpy="-1.30708449233 -0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0225 0.0225 0.01" />
+        </geometry>
+        <material name="receiver_left_skirt_17_material">
+          <color rgba="0.93 0.93 0.97 1" />
+        </material>
+      </visual>
+      <visual name="receiver_left_dome_18">
+        <origin xyz="0.00453991220835 0.104930857514 0.0425213317046" rpy="-1.30708449233 -0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/receiver_left_dome.obj" scale="1 1 1" />
+        </geometry>
+        <material name="receiver_left_dome_18_material">
+          <color rgba="0.96 0.96 1 1" />
+        </material>
+      </visual>
+      <visual name="receiver_right_mount_19">
+        <origin xyz="0.00453991220835 -0.0900000006509 0.038" rpy="0 -0 0" />
+        <geometry>
+          <box size="0.034 0.018 0.03" />
+        </geometry>
+        <material name="receiver_right_mount_19_material">
+          <color rgba="0.06 0.06 0.06 1" />
+        </material>
+      </visual>
+      <visual name="receiver_right_skirt_20">
+        <origin xyz="0.00453991220835 -0.100103713403 0.0412180024431" rpy="-1.30708449233 -0 3.14159265359" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0225 0.0225 0.01" />
+        </geometry>
+        <material name="receiver_right_skirt_20_material">
+          <color rgba="0.93 0.93 0.97 1" />
+        </material>
+      </visual>
+      <visual name="receiver_right_dome_21">
+        <origin xyz="0.00453991220835 -0.104930858816 0.0425213317046" rpy="-1.30708449233 -0 3.14159265359" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/receiver_right_dome.obj" scale="1 1 1" />
+        </geometry>
+        <material name="receiver_right_dome_21_material">
+          <color rgba="0.96 0.96 1 1" />
+        </material>
+      </visual>
+      <visual name="iff_left_hinge_22">
+        <origin xyz="-0.0404600877917 0.0899999993491 0.044" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.006 0.006 0.01" />
+        </geometry>
+        <material name="iff_left_hinge_22_material">
+          <color rgba="0.05 0.05 0.05 1" />
+        </material>
+      </visual>
+      <visual name="iff_left_bend_23">
+        <origin xyz="-0.0404600877917 0.0984999993491 0.053" rpy="-0.815691923316 -0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0055 0.0055 0.0233452350599" />
+        </geometry>
+        <material name="iff_left_bend_23_material">
+          <color rgba="0.05 0.05 0.05 1" />
+        </material>
+      </visual>
+      <visual name="iff_left_ball_24">
+        <origin xyz="-0.0404600877917 0.106999999349 0.061" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/hinge_sphere.obj" scale="0.006 0.006 0.006" />
+        </geometry>
+        <material name="iff_left_ball_24_material">
+          <color rgba="0.05 0.05 0.05 1" />
+        </material>
+      </visual>
+      <visual name="iff_left_rod_25">
+        <origin xyz="-0.0404600877917 0.106999999349 0.1305" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0045 0.0045 0.139" />
+        </geometry>
+        <material name="iff_left_rod_25_material">
+          <color rgba="0.04 0.04 0.04 1" />
+        </material>
+      </visual>
+      <visual name="iff_left_sleeve_26">
+        <origin xyz="-0.0404600877917 0.106999999349 0.137" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0085 0.0085 0.054" />
+        </geometry>
+        <material name="iff_left_sleeve_26_material">
+          <color rgba="${'0.1 0.35 1 1' if team == 'BLUE' else '0.9 0.08 0.08 1'}" />
+        </material>
+      </visual>
+      <visual name="iff_left_band_27">
+        <origin xyz="-0.0404600877917 0.106999999349 0.139" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0089 0.0089 0.003" />
+        </geometry>
+        <material name="iff_left_band_27_material">
+          <color rgba="0.03 0.03 0.03 1" />
+        </material>
+      </visual>
+      <visual name="iff_left_band_28">
+        <origin xyz="-0.0404600877917 0.106999999349 0.146" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0089 0.0089 0.003" />
+        </geometry>
+        <material name="iff_left_band_28_material">
+          <color rgba="0.03 0.03 0.03 1" />
+        </material>
+      </visual>
+      <visual name="iff_right_hinge_29">
+        <origin xyz="-0.0404600877917 -0.0900000006509 0.044" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.006 0.006 0.01" />
+        </geometry>
+        <material name="iff_right_hinge_29_material">
+          <color rgba="0.05 0.05 0.05 1" />
+        </material>
+      </visual>
+      <visual name="iff_right_bend_30">
+        <origin xyz="-0.0404600877917 -0.0985000006509 0.053" rpy="-0.815691923316 -0 3.14159265359" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0055 0.0055 0.0233452350599" />
+        </geometry>
+        <material name="iff_right_bend_30_material">
+          <color rgba="0.05 0.05 0.05 1" />
+        </material>
+      </visual>
+      <visual name="iff_right_ball_31">
+        <origin xyz="-0.0404600877917 -0.107000000651 0.061" rpy="0 -0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/hinge_sphere.obj" scale="0.006 0.006 0.006" />
+        </geometry>
+        <material name="iff_right_ball_31_material">
+          <color rgba="0.05 0.05 0.05 1" />
+        </material>
+      </visual>
+      <visual name="iff_right_rod_32">
+        <origin xyz="-0.0404600877917 -0.107000000651 0.1305" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0045 0.0045 0.139" />
+        </geometry>
+        <material name="iff_right_rod_32_material">
+          <color rgba="0.04 0.04 0.04 1" />
+        </material>
+      </visual>
+      <visual name="iff_right_sleeve_33">
+        <origin xyz="-0.0404600877917 -0.107000000651 0.137" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0085 0.0085 0.054" />
+        </geometry>
+        <material name="iff_right_sleeve_33_material">
+          <color rgba="${'0.1 0.35 1 1' if team == 'BLUE' else '0.9 0.08 0.08 1'}" />
+        </material>
+      </visual>
+      <visual name="iff_right_band_34">
+        <origin xyz="-0.0404600877917 -0.107000000651 0.139" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0089 0.0089 0.003" />
+        </geometry>
+        <material name="iff_right_band_34_material">
+          <color rgba="0.03 0.03 0.03 1" />
+        </material>
+      </visual>
+      <visual name="iff_right_band_35">
+        <origin xyz="-0.0404600877917 -0.107000000651 0.146" rpy="0 -0 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0089 0.0089 0.003" />
+        </geometry>
+        <material name="iff_right_band_35_material">
+          <color rgba="0.03 0.03 0.03 1" />
+        </material>
+      </visual>
+      <visual name="plaque_36">
+        <origin xyz="0.125039912208 -6.50856019577e-10 -0.0243" rpy="0 -0.23 0" />
+        <geometry>
+          <box size="0.003 0.122 0.026" />
+        </geometry>
+        <material name="plaque_36_material">
+          <color rgba="0.82 0.82 0.84 1" />
+        </material>
+      </visual>
+      <visual name="headlight_left_37">
+        <origin xyz="0.0760399122083 0.0599999993491 0.017" rpy="-1.57079632679 -0 -1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.007 0.007 0.005" />
+        </geometry>
+        <material name="headlight_left_37_material">
+          <color rgba="0.97 0.97 0.97 1" />
+        </material>
+      </visual>
+      <visual name="headlight_right_38">
+        <origin xyz="0.0760399122083 -0.0600000006509 0.017" rpy="-1.57079632679 -0 -1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.007 0.007 0.005" />
+        </geometry>
+        <material name="headlight_right_38_material">
+          <color rgba="0.97 0.97 0.97 1" />
+        </material>
+      </visual>
+    </link>
+    <joint name="${prefix}base_joint" type="fixed">
+      <parent link="${prefix}base_footprint" />
+      <child link="${prefix}base_link" />
+      <origin xyz="0.000460087791654118 6.50856019576702E-10 0.08" rpy="0 0 0" />
+    </joint>
+    <link name="${prefix}base_imu_link"> 
+      </link>
+    <joint name="${prefix}imu_joint" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}base_imu_link" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+    <link name="${prefix}left_up_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/left_up_wheel_link.stl" />
+        </geometry>
+        <material name="left_up_wheel_link_material">
+          <color rgba=".07 .07 .07 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="0.1" />
+        <inertia ixx="5.540833333333333e-05" iyy="5.540833333333333e-05" izz="8e-05" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+      <collision name="left_up_wheel_link_cylinder">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <cylinder radius="0.04" length="0.043" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}left_up_wheel_link_joint" type="continuous">
+      <origin xyz="0.0855 0.08726 -0.041212" rpy="1.5708 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}left_up_wheel_link" />
+      <axis xyz="0 0 -1" />
+    </joint>
+    <link name="${prefix}left_down_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/left_down_wheel_link.stl" />
+        </geometry>
+        <material name="left_down_wheel_link_material">
+          <color rgba=".07 .07 .07 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="0.1" />
+        <inertia ixx="5.540833333333333e-05" iyy="5.540833333333333e-05" izz="8e-05" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+      <collision name="left_down_wheel_link_cylinder">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <cylinder radius="0.04" length="0.043" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}left_down_wheel_link_joint" type="continuous">
+      <origin xyz="-0.0854999999999981 0.0872599990000038 -0.0412119912691592" rpy="1.5708 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}left_down_wheel_link" />
+      <axis xyz="0 0 -1" />
+    </joint>
+    <link name="${prefix}right_up_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/right_up_wheel_link.stl" />
+        </geometry>
+        <material name="right_up_wheel_link_material">
+          <color rgba=".07 .07 .07 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="0.1" />
+        <inertia ixx="5.540833333333333e-05" iyy="5.540833333333333e-05" izz="8e-05" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+      <collision name="right_up_wheel_link_cylinder">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <cylinder radius="0.04" length="0.043" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}right_up_wheel_link_joint" type="continuous">
+      <origin xyz="0.0854999999999989 -0.0872600009999962 -0.0412119912691588" rpy="1.5708 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}right_up_wheel_link" />
+      <axis xyz="0 0 -1" />
+    </joint>
+    <link name="${prefix}right_down_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/right_down_wheel_link.stl" />
+        </geometry>
+        <material name="right_down_wheel_link_material">
+          <color rgba=".07 .07 .07 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="0.1" />
+        <inertia ixx="5.540833333333333e-05" iyy="5.540833333333333e-05" izz="8e-05" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+      <collision name="right_down_wheel_link_cylinder">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <cylinder radius="0.04" length="0.043" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}right_down_wheel_link_joint" type="continuous">
+      <origin xyz="-0.0854999999999981 -0.0872600009999962 -0.0412119912691594" rpy="1.5708 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}right_down_wheel_link" />
+      <axis xyz="0 0 -1" />
+    </joint>
+    <link name="${prefix}3d_camera_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/3d_camera_link.stl" />
+        </geometry>
+        <material name="3d_camera_link_material">
+          <color rgba=".11 .11 .12 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="0.02" />
+        <inertia ixx="1.4306666666666665e-05" iyy="1.3466666666666665e-06" izz="1.404e-05" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+    </link>
+    <joint name="${prefix}3d_camera_link_joint" type="fixed">
+      <origin xyz="0.06531 0 0.021953" rpy="0 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}3d_camera_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+    <link name="${prefix}base_lidar_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/base_lidar_link.stl" />
+        </geometry>
+        <material name="base_lidar_link_material">
+          <color rgba=".11 .11 .12 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="0.03" />
+        <inertia ixx="9.312500000000001e-06" iyy="9.312500000000001e-06" izz="1.25e-05" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+    </link>
+    <joint name="${prefix}base_lidar_link_joint" type="fixed">
+      <origin xyz="0.039814550552 0 0.03" rpy="0 0 1.5708" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}base_lidar_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+    <link name="${prefix}pt_base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/pt_base_link.stl" />
+        </geometry>
+        <material name="pt_base_link_material">
+          <color rgba=".11 .11 .12 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="0.1" />
+        <inertia ixx="4.333333333333333e-05" iyy="4.333333333333333e-05" izz="5.9999999999999995e-05" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+    </link>
+    <joint name="${prefix}pt_base_link_joint" type="fixed">
+      <origin xyz="-0.018892 0 0.04" rpy="0 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}pt_base_link" />
+      <axis xyz="0 0 0" />
+    </joint>
+    <link name="${prefix}pt_link1">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/pt_link1.stl" />
+        </geometry>
+        <material name="pt_link1_material">
+          <color rgba=".11 .11 .12 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="0.1" />
+        <inertia ixx="3.624166666666667e-05" iyy="3.624166666666667e-05" izz="4.1666666666666665e-05" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+    </link>
+    <joint name="${prefix}pt_base_link_to_pt_link1" type="revolute">
+      <origin xyz="0.010151 0 0.048" rpy="0 0 0" />
+      <parent link="${prefix}pt_base_link" />
+      <child link="${prefix}pt_link1" />
+      <axis xyz="0 0 -1" />
+      <limit lower="-0.8727" upper="0.8727" effort="3.0" velocity="4.71" />
+      <dynamics damping="0.02" friction="0.005" />
+    </joint>
+    <link name="${prefix}pt_link2">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/pt_link2.stl" />
+        </geometry>
+        <material name="pt_link2_material">
+          <color rgba=".11 .11 .12 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0.0262809122083 0.020997073464 0.0199999235244" rpy="-1.5708 -0 0" />
+        <mass value="0.25" />
+        <inertia ixx="0.00014841666666666668" iyy="0.00022966666666666667" izz="0.0001854166666666667" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+      <collision name="head_box">
+        <origin xyz="0.0262809122083 0.020997073464 0.0199999235244" rpy="-1.5708 -0 0" />
+        <geometry>
+          <box size="0.08 0.05 0.068" />
+        </geometry>
+      </collision>
+      <visual name="laser_housing_7">
+        <origin xyz="0.0277809122083 0.0389970734638 0.0199998574067" rpy="-1.5708 -0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/laser_housing.obj" scale="1 1 1" />
+        </geometry>
+        <material name="laser_housing_7_material">
+          <color rgba="0.09 0.09 0.1 1" />
+        </material>
+      </visual>
+      <visual name="laser_clamp_8">
+        <origin xyz="0.00628091220835 0.0389970734638 0.0199998574067" rpy="-1.5708 -0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/laser_clamp.obj" scale="1 1 1" />
+        </geometry>
+        <material name="laser_clamp_8_material">
+          <color rgba="0.06 0.06 0.06 1" />
+        </material>
+      </visual>
+      <visual name="laser_bezel_9">
+        <origin xyz="0.0552809122083 0.0389970734638 0.0199998574067" rpy="1.57079632679 -1.57079265359 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.011 0.011 0.004" />
+        </geometry>
+        <material name="laser_bezel_9_material">
+          <color rgba="0.04 0.04 0.05 1" />
+        </material>
+      </visual>
+      <visual name="laser_glass_10">
+        <origin xyz="0.0573309122083 0.0389970734638 0.0199998574067" rpy="1.57079632679 -1.57079265359 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.005 0.005 0.0011" />
+        </geometry>
+        <material name="laser_glass_10_material">
+          <color rgba="0.15 0.22 0.55 1" />
+        </material>
+      </visual>
+      <visual name="camera_board_11">
+        <origin xyz="0.0582809122083 0.000997073464098 0.0199999969885" rpy="-1.5708 -0 0" />
+        <geometry>
+          <box size="0.004 0.028 0.034" />
+        </geometry>
+        <material name="camera_board_11_material">
+          <color rgba="0.08 0.08 0.08 1" />
+        </material>
+      </visual>
+      <visual name="camera_barrel_12">
+        <origin xyz="0.0612809122083 -0.00750292653584 0.0200000282108" rpy="1.57079632679 -1.57079265359 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.006 0.006 0.008" />
+        </geometry>
+        <material name="camera_barrel_12_material">
+          <color rgba="0.06 0.06 0.07 1" />
+        </material>
+      </visual>
+      <visual name="camera_lens_13">
+        <origin xyz="0.0657809122083 -0.00750292653584 0.0200000282108" rpy="1.57079632679 -1.57079265359 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0036 0.0036 0.001" />
+        </geometry>
+        <material name="camera_lens_13_material">
+          <color rgba="0.15 0.22 0.55 1" />
+        </material>
+      </visual>
+      <visual name="camera_holder_14">
+        <origin xyz="0.0612809122083 -0.0165029412286 0.0160000612697" rpy="-1.5708 -0 0" />
+        <geometry>
+          <box size="0.008 0.01 0.006" />
+        </geometry>
+        <material name="camera_holder_14_material">
+          <color rgba="0.72 0.58 0.3 1" />
+        </material>
+      </visual>
+      <visual name="camera_led_15">
+        <origin xyz="0.0597809122083 0.0105970881569 0.0239999617257" rpy="1.57079632679 -1.57079265359 1.57079632679" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/generated/cylinder16.obj" scale="0.0045 0.0045 0.003" />
+        </geometry>
+        <material name="camera_led_15_material">
+          <color rgba="0.97 0.97 0.97 1" />
+        </material>
+      </visual>
+    </link>
+    <joint name="${prefix}pt_link1_to_pt_link2" type="revolute">
+      <origin xyz="0 0.02 0.043003" rpy="1.5708 0 0" />
+      <parent link="${prefix}pt_link1" />
+      <child link="${prefix}pt_link2" />
+      <axis xyz="0 0 1" />
+      <limit lower="-0.2618" upper="0.2618" effort="3.0" velocity="4.71" />
+      <dynamics damping="0.02" friction="0.005" />
+    </joint>
+    <link name="${prefix}pt_camera_link">
+    </link>
+    <joint name="${prefix}pt_link2_to_pt_camera_link" type="fixed">
+      <parent link="${prefix}pt_link2" />
+      <child link="${prefix}pt_camera_link" />
+      <axis xyz="0 0 0" />
+      <origin xyz="0.0652809122083 -0.00750292653584 0.0200000282108" rpy="-1.5708 -0 0" />
+    </joint>
+    <link name="${prefix}left_middle_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/left_up_wheel_link.stl" />
+        </geometry>
+        <material name="left_middle_wheel_link_material">
+          <color rgba=".07 .07 .07 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="0.1" />
+        <inertia ixx="5.540833333333333e-05" iyy="5.540833333333333e-05" izz="8e-05" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+      <collision name="left_middle_wheel_link_cylinder">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <cylinder radius="0.04" length="0.043" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}left_middle_wheel_link_joint" type="continuous">
+      <origin xyz="0 0.08726 -0.041212" rpy="1.5708 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}left_middle_wheel_link" />
+      <axis xyz="0 0 -1" />
+    </joint>
+    <link name="${prefix}right_middle_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5708 0 0" />
+        <geometry>
+          <mesh filename="package://wingbot_description/meshes/ugv_rover/right_up_wheel_link.stl" />
+        </geometry>
+        <material name="right_middle_wheel_link_material">
+          <color rgba=".07 .07 .07 1" />
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <mass value="0.1" />
+        <inertia ixx="5.540833333333333e-05" iyy="5.540833333333333e-05" izz="8e-05" ixy="0" ixz="0" iyz="0" />
+      </inertial>
+      <collision name="right_middle_wheel_link_cylinder">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <geometry>
+          <cylinder radius="0.04" length="0.043" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}right_middle_wheel_link_joint" type="continuous">
+      <origin xyz="-1.11022302463e-15 -0.087260001 -0.0412119912692" rpy="1.5708 0 0" />
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}right_middle_wheel_link" />
+      <axis xyz="0 0 -1" />
+    </joint>
+    <link name="${prefix}laser_link" />
+    <joint name="${prefix}laser_link_fixed" type="fixed">
+      <parent link="${prefix}pt_link2" />
+      <child link="${prefix}laser_link" />
+      <origin xyz="0.0562809122083 0.0389970734638 0.0199998574067" rpy="-1.5708 -0 0" />
+    </joint>
+    <link name="${prefix}pt_camera_optical_link" />
+    <joint name="${prefix}pt_camera_optical_link_fixed" type="fixed">
+      <parent link="${prefix}pt_camera_link" />
+      <child link="${prefix}pt_camera_optical_link" />
+      <origin xyz="4.58869053865e-14 2.1010970741e-14 -4.91273688397e-15" rpy="-1.57079632679 -0 -1.57079632679" />
+    </joint>
+    <link name="${prefix}lidar_scan_link" />
+    <joint name="${prefix}lidar_scan_link_fixed" type="fixed">
+      <parent link="${prefix}base_lidar_link" />
+      <child link="${prefix}lidar_scan_link" />
+      <origin xyz="0 0 0.04" rpy="0 -0 -4.23516473627e-22" />
+    </joint>
+    <link name="${prefix}camera_led_link" />
+    <joint name="${prefix}camera_led_link_fixed" type="fixed">
+      <parent link="${prefix}pt_link2" />
+      <child link="${prefix}camera_led_link" />
+      <origin xyz="0.0602809122083 0.0105970881569 0.0239999617257" rpy="-1.5708 -0 0" />
+    </joint>
+    <link name="${prefix}headlight_left_link" />
+    <joint name="${prefix}headlight_left_link_fixed" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}headlight_left_link" />
+      <origin xyz="0.0765399122083 0.0599999993491 0.017" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}headlight_right_link" />
+    <joint name="${prefix}headlight_right_link_fixed" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}headlight_right_link" />
+      <origin xyz="0.0765399122083 -0.0600000006509 0.017" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}receiver_left_link" />
+    <joint name="${prefix}receiver_left_link_fixed" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}receiver_left_link" />
+      <origin xyz="0.00453991220835 0.102999999349 0.042" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}iff_left_tip_link" />
+    <joint name="${prefix}iff_left_tip_link_fixed" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}iff_left_tip_link" />
+      <origin xyz="-0.0404600877917 0.106999999349 0.2" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}iff_left_sleeve_bottom_link" />
+    <joint name="${prefix}iff_left_sleeve_bottom_link_fixed" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}iff_left_sleeve_bottom_link" />
+      <origin xyz="-0.0404600877917 0.106999999349 0.11" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}iff_left_sleeve_top_link" />
+    <joint name="${prefix}iff_left_sleeve_top_link_fixed" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}iff_left_sleeve_top_link" />
+      <origin xyz="-0.0404600877917 0.106999999349 0.164" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}receiver_right_link" />
+    <joint name="${prefix}receiver_right_link_fixed" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}receiver_right_link" />
+      <origin xyz="0.00453991220835 -0.103000000651 0.042" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}iff_right_tip_link" />
+    <joint name="${prefix}iff_right_tip_link_fixed" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}iff_right_tip_link" />
+      <origin xyz="-0.0404600877917 -0.107000000651 0.2" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}iff_right_sleeve_bottom_link" />
+    <joint name="${prefix}iff_right_sleeve_bottom_link_fixed" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}iff_right_sleeve_bottom_link" />
+      <origin xyz="-0.0404600877917 -0.107000000651 0.11" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}iff_right_sleeve_top_link" />
+    <joint name="${prefix}iff_right_sleeve_top_link_fixed" type="fixed">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}iff_right_sleeve_top_link" />
+      <origin xyz="-0.0404600877917 -0.107000000651 0.164" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}depth_camera_front_link" />
+    <joint name="${prefix}depth_camera_front_link_fixed" type="fixed">
+      <parent link="${prefix}3d_camera_link" />
+      <child link="${prefix}depth_camera_front_link" />
+      <origin xyz="0.0169999990612 2.27873731399e-18 4.65661287308e-10" rpy="0 -0 0" />
+    </joint>
+    <link name="${prefix}lidar_top_link" />
+    <joint name="${prefix}lidar_top_link_fixed" type="fixed">
+      <parent link="${prefix}base_lidar_link" />
+      <child link="${prefix}lidar_top_link" />
+      <origin xyz="-1.25485284158e-18 -9.31322574615e-10 0.0349999964237" rpy="0 -0 -1.5708" />
+    </joint>
+  </xacro:macro>
+</robot>

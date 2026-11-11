@@ -1,0 +1,1487 @@
+{
+  "variant": "progress",
+  "scenario": "selfplay",
+  "seed": 0,
+  "metric_version": 5,
+  "backend": "2D synthetic sensor model",
+  "agents": [
+    "B-UGV-1",
+    "B-UGV-2",
+    "B-UGV-3",
+    "R-UGV-1",
+    "R-UGV-2",
+    "R-UGV-3"
+  ],
+  "termination_policy": "official_first_capture_or_300s",
+  "rule_source": "docs/API_SOURCE_EXTRACT.txt:387,454",
+  "first_capture": {
+    "t": 244.4999999999904,
+    "type": "base_reached",
+    "by": "B-UGV-1",
+    "base": "R-3",
+    "camp": "BLUE",
+    "broadcast": true
+  },
+  "dummy_controllers": [],
+  "agent_truth_access": false,
+  "fixture_truth_used_for_evaluation_and_dummy_control": true,
+  "simulated_t": 244.79999999999038,
+  "wall_s": 218.56524667399935,
+  "score": {
+    "t_end": 244.4999999999904,
+    "wall_s": 218.6,
+    "agents": {
+      "B-UGV-1": {
+        "m1": {
+          "target": true,
+          "sectors": true,
+          "goal_base": true
+        },
+        "m2_targets_hit": [],
+        "m2_designated": "RADAR_FACILITY",
+        "m2_ok": true,
+        "m2_points": 10,
+        "m3": {
+          "recall": 1.0,
+          "precision": 0.84,
+          "n_correct": 16,
+          "n_sub": 19,
+          "n_truth": 16,
+          "exact": false,
+          "scored_sectors": [
+            "R-S1",
+            "R-S2",
+            "R-S3",
+            "CM"
+          ],
+          "sector_results": {
+            "R-S1": {
+              "reported": true,
+              "exact": true,
+              "points": 7,
+              "max_points": 7
+            },
+            "R-S2": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 7
+            },
+            "R-S3": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 7
+            },
+            "CM": {
+              "reported": true,
+              "exact": true,
+              "points": 9,
+              "max_points": 9
+            }
+          },
+          "points": 16,
+          "official_exact": false
+        },
+        "m4_hits_dealt": 0,
+        "friendly_hits": 0,
+        "hits_taken": 0,
+        "m4_points": 15,
+        "shots": 0,
+        "wasted": 0,
+        "m5_reached": 244.5,
+        "m5_points": 10,
+        "collisions": 0,
+        "distance": 32.0,
+        "modes": {
+          "EXPLORE": 219,
+          "STRIKE": 3,
+          "STAGE": 18,
+          "GOAL": 4
+        },
+        "m6": {
+          "submitted": [
+            "R-UGV-1",
+            "R-UGV-2",
+            "R-UGV-3"
+          ],
+          "true": [
+            "R-UGV-2",
+            "R-UGV-3",
+            "R-UGV-1"
+          ],
+          "top1": false,
+          "points": 0,
+          "true_scores": {
+            "R-UGV-1": 2.341666666666667,
+            "R-UGV-2": 3.0,
+            "R-UGV-3": 2.7666666666666666
+          },
+          "tie_policy": "stable_id_order; official tie equivalence is provisional"
+        },
+        "points_before_alliance_bonus": 61,
+        "alliance_bonus": 0,
+        "points": 61
+      },
+      "B-UGV-2": {
+        "m1": {
+          "target": true,
+          "sectors": true,
+          "goal_base": true
+        },
+        "m2_targets_hit": [],
+        "m2_designated": "COMM_FACILITY",
+        "m2_ok": false,
+        "m2_points": 0,
+        "m3": {
+          "recall": 0.94,
+          "precision": 0.94,
+          "n_correct": 15,
+          "n_sub": 16,
+          "n_truth": 16,
+          "exact": false,
+          "scored_sectors": [
+            "R-S1",
+            "R-S2",
+            "R-S3",
+            "CM"
+          ],
+          "sector_results": {
+            "R-S1": {
+              "reported": true,
+              "exact": true,
+              "points": 7,
+              "max_points": 7
+            },
+            "R-S2": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 7
+            },
+            "R-S3": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 7
+            },
+            "CM": {
+              "reported": true,
+              "exact": true,
+              "points": 9,
+              "max_points": 9
+            }
+          },
+          "points": 16,
+          "official_exact": false
+        },
+        "m4_hits_dealt": 0,
+        "friendly_hits": 0,
+        "hits_taken": 0,
+        "m4_points": 15,
+        "shots": 0,
+        "wasted": 0,
+        "m5_reached": null,
+        "m5_points": 10,
+        "collisions": 0,
+        "distance": 32.5,
+        "modes": {
+          "EXPLORE": 222,
+          "STAGE": 18,
+          "GOAL": 4
+        },
+        "m6": {
+          "submitted": [
+            "R-UGV-3",
+            "R-UGV-1",
+            "R-UGV-2"
+          ],
+          "true": [
+            "R-UGV-2",
+            "R-UGV-3",
+            "R-UGV-1"
+          ],
+          "top1": false,
+          "points": 0,
+          "true_scores": {
+            "R-UGV-1": 2.341666666666667,
+            "R-UGV-2": 3.0,
+            "R-UGV-3": 2.7666666666666666
+          },
+          "tie_policy": "stable_id_order; official tie equivalence is provisional"
+        },
+        "points_before_alliance_bonus": 51,
+        "alliance_bonus": 0,
+        "points": 51
+      },
+      "B-UGV-3": {
+        "m1": {
+          "target": true,
+          "sectors": true,
+          "goal_base": true
+        },
+        "m2_targets_hit": [
+          "RADAR_FACILITY"
+        ],
+        "m2_designated": "RADAR_FACILITY",
+        "m2_ok": true,
+        "m2_points": 10,
+        "m3": {
+          "recall": 0.88,
+          "precision": 0.78,
+          "n_correct": 14,
+          "n_sub": 18,
+          "n_truth": 16,
+          "exact": false,
+          "scored_sectors": [
+            "R-S1",
+            "R-S2",
+            "R-S3",
+            "CM"
+          ],
+          "sector_results": {
+            "R-S1": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 7
+            },
+            "R-S2": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 7
+            },
+            "R-S3": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 7
+            },
+            "CM": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 9
+            }
+          },
+          "points": 0,
+          "official_exact": false
+        },
+        "m4_hits_dealt": 0,
+        "friendly_hits": 0,
+        "hits_taken": 0,
+        "m4_points": 15,
+        "shots": 1,
+        "wasted": 0,
+        "m5_reached": null,
+        "m5_points": 10,
+        "collisions": 0,
+        "distance": 24.6,
+        "modes": {
+          "EXPLORE": 217,
+          "STRIKE": 5,
+          "STAGE": 18,
+          "GOAL": 4
+        },
+        "m6": {
+          "submitted": [
+            "R-UGV-2",
+            "R-UGV-1",
+            "R-UGV-3"
+          ],
+          "true": [
+            "R-UGV-2",
+            "R-UGV-3",
+            "R-UGV-1"
+          ],
+          "top1": true,
+          "points": 10,
+          "true_scores": {
+            "R-UGV-1": 2.341666666666667,
+            "R-UGV-2": 3.0,
+            "R-UGV-3": 2.7666666666666666
+          },
+          "tie_policy": "stable_id_order; official tie equivalence is provisional"
+        },
+        "points_before_alliance_bonus": 55,
+        "alliance_bonus": 0,
+        "points": 55
+      },
+      "R-UGV-1": {
+        "m1": {
+          "target": true,
+          "sectors": true,
+          "goal_base": true
+        },
+        "m2_targets_hit": [
+          "COMM_FACILITY"
+        ],
+        "m2_designated": "COMM_FACILITY",
+        "m2_ok": true,
+        "m2_points": 10,
+        "m3": {
+          "recall": 0.94,
+          "precision": 0.94,
+          "n_correct": 15,
+          "n_sub": 16,
+          "n_truth": 16,
+          "exact": false,
+          "scored_sectors": [
+            "B-S1",
+            "B-S2",
+            "B-S3",
+            "CM"
+          ],
+          "sector_results": {
+            "B-S1": {
+              "reported": true,
+              "exact": true,
+              "points": 7,
+              "max_points": 7
+            },
+            "B-S2": {
+              "reported": true,
+              "exact": true,
+              "points": 7,
+              "max_points": 7
+            },
+            "B-S3": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 7
+            },
+            "CM": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 9
+            }
+          },
+          "points": 14,
+          "official_exact": false
+        },
+        "m4_hits_dealt": 0,
+        "friendly_hits": 0,
+        "hits_taken": 0,
+        "m4_points": 15,
+        "shots": 1,
+        "wasted": 0,
+        "m5_reached": null,
+        "m5_points": 0,
+        "collisions": 0,
+        "distance": 36.3,
+        "modes": {
+          "EXPLORE": 210,
+          "STRIKE": 12,
+          "STAGE": 18,
+          "GOAL": 4
+        },
+        "m6": {
+          "submitted": [
+            "B-UGV-1",
+            "B-UGV-2",
+            "B-UGV-3"
+          ],
+          "true": [
+            "B-UGV-1",
+            "B-UGV-2",
+            "B-UGV-3"
+          ],
+          "top1": true,
+          "points": 15,
+          "true_scores": {
+            "B-UGV-1": 2.533333333333333,
+            "B-UGV-2": 2.533333333333333,
+            "B-UGV-3": 1.875
+          },
+          "tie_policy": "stable_id_order; official tie equivalence is provisional"
+        },
+        "points_before_alliance_bonus": 64,
+        "alliance_bonus": 5,
+        "points": 69
+      },
+      "R-UGV-2": {
+        "m1": {
+          "target": true,
+          "sectors": true,
+          "goal_base": true
+        },
+        "m2_targets_hit": [],
+        "m2_designated": "GUARD_POST",
+        "m2_ok": false,
+        "m2_points": 0,
+        "m3": {
+          "recall": 1.0,
+          "precision": 1.0,
+          "n_correct": 16,
+          "n_sub": 16,
+          "n_truth": 16,
+          "exact": true,
+          "scored_sectors": [
+            "B-S1",
+            "B-S2",
+            "B-S3",
+            "CM"
+          ],
+          "sector_results": {
+            "B-S1": {
+              "reported": true,
+              "exact": true,
+              "points": 7,
+              "max_points": 7
+            },
+            "B-S2": {
+              "reported": true,
+              "exact": true,
+              "points": 7,
+              "max_points": 7
+            },
+            "B-S3": {
+              "reported": true,
+              "exact": true,
+              "points": 7,
+              "max_points": 7
+            },
+            "CM": {
+              "reported": true,
+              "exact": true,
+              "points": 9,
+              "max_points": 9
+            }
+          },
+          "points": 30,
+          "official_exact": true
+        },
+        "m4_hits_dealt": 0,
+        "friendly_hits": 0,
+        "hits_taken": 0,
+        "m4_points": 15,
+        "shots": 0,
+        "wasted": 0,
+        "m5_reached": null,
+        "m5_points": 0,
+        "collisions": 0,
+        "distance": 36.2,
+        "modes": {
+          "EXPLORE": 218,
+          "STRIKE": 4,
+          "STAGE": 18,
+          "GOAL": 4
+        },
+        "m6": {
+          "submitted": [
+            "B-UGV-2",
+            "B-UGV-1",
+            "B-UGV-3"
+          ],
+          "true": [
+            "B-UGV-1",
+            "B-UGV-2",
+            "B-UGV-3"
+          ],
+          "top1": false,
+          "points": 5,
+          "true_scores": {
+            "B-UGV-1": 2.533333333333333,
+            "B-UGV-2": 2.533333333333333,
+            "B-UGV-3": 1.875
+          },
+          "tie_policy": "stable_id_order; official tie equivalence is provisional"
+        },
+        "points_before_alliance_bonus": 60,
+        "alliance_bonus": 5,
+        "points": 65
+      },
+      "R-UGV-3": {
+        "m1": {
+          "target": true,
+          "sectors": true,
+          "goal_base": true
+        },
+        "m2_targets_hit": [],
+        "m2_designated": "COMM_FACILITY",
+        "m2_ok": true,
+        "m2_points": 10,
+        "m3": {
+          "recall": 1.0,
+          "precision": 0.94,
+          "n_correct": 16,
+          "n_sub": 17,
+          "n_truth": 16,
+          "exact": false,
+          "scored_sectors": [
+            "B-S1",
+            "B-S2",
+            "B-S3",
+            "CM"
+          ],
+          "sector_results": {
+            "B-S1": {
+              "reported": true,
+              "exact": true,
+              "points": 7,
+              "max_points": 7
+            },
+            "B-S2": {
+              "reported": true,
+              "exact": true,
+              "points": 7,
+              "max_points": 7
+            },
+            "B-S3": {
+              "reported": true,
+              "exact": false,
+              "points": 0,
+              "max_points": 7
+            },
+            "CM": {
+              "reported": true,
+              "exact": true,
+              "points": 9,
+              "max_points": 9
+            }
+          },
+          "points": 23,
+          "official_exact": false
+        },
+        "m4_hits_dealt": 0,
+        "friendly_hits": 0,
+        "hits_taken": 0,
+        "m4_points": 15,
+        "shots": 0,
+        "wasted": 0,
+        "m5_reached": null,
+        "m5_points": 0,
+        "collisions": 0,
+        "distance": 29.4,
+        "modes": {
+          "EXPLORE": 222,
+          "STRIKE": 0,
+          "STAGE": 18,
+          "GOAL": 4
+        },
+        "m6": {
+          "submitted": [
+            "B-UGV-2",
+            "B-UGV-1",
+            "B-UGV-3"
+          ],
+          "true": [
+            "B-UGV-1",
+            "B-UGV-2",
+            "B-UGV-3"
+          ],
+          "top1": false,
+          "points": 5,
+          "true_scores": {
+            "B-UGV-1": 2.533333333333333,
+            "B-UGV-2": 2.533333333333333,
+            "B-UGV-3": 1.875
+          },
+          "tie_policy": "stable_id_order; official tie equivalence is provisional"
+        },
+        "points_before_alliance_bonus": 63,
+        "alliance_bonus": 5,
+        "points": 68
+      }
+    },
+    "alliance_totals_before_bonus": {
+      "BLUE": 167,
+      "RED": 187
+    },
+    "events": 4
+  },
+  "diagnostics": {
+    "deadlock_events": [
+      {
+        "robot": "B-UGV-1",
+        "t": 21.70000000000004,
+        "kind": "E",
+        "stalled_s": 12.000000000000057,
+        "mode": "EXPLORE",
+        "goal": [
+          3.6,
+          3.78
+        ],
+        "nearest_ugv_m": 1.1416780938277729,
+        "reason": "12 s without qualifying path/face/shot/arrival progress"
+      },
+      {
+        "robot": "B-UGV-2",
+        "t": 116.09999999999768,
+        "kind": "E",
+        "stalled_s": 12.099999999999312,
+        "mode": "EXPLORE",
+        "goal": [
+          2.25,
+          3.06
+        ],
+        "nearest_ugv_m": 1.2656587976734044,
+        "reason": "12 s without qualifying path/face/shot/arrival progress"
+      },
+      {
+        "robot": "B-UGV-3",
+        "t": 134.59999999999664,
+        "kind": "D",
+        "stalled_s": 12.099999999999326,
+        "mode": "EXPLORE",
+        "goal": [
+          2.96,
+          4.05
+        ],
+        "nearest_ugv_m": 0.6194164667525628,
+        "reason": "12 s without qualifying path/face/shot/arrival progress"
+      },
+      {
+        "robot": "B-UGV-2",
+        "t": 176.29999999999427,
+        "kind": "E",
+        "stalled_s": 12.099999999999312,
+        "mode": "EXPLORE",
+        "goal": [
+          4.12,
+          2.5
+        ],
+        "nearest_ugv_m": 0.7022448071956048,
+        "reason": "12 s without qualifying path/face/shot/arrival progress"
+      }
+    ],
+    "oscillation_events": [],
+    "categories": {
+      "E": 3,
+      "D": 1
+    },
+    "active_s": 1113.4999999999582,
+    "stall_s": 190.19999999999186,
+    "stall_ratio": 0.17081275258194792
+  },
+  "coverage_210": {
+    "B-UGV-1": {
+      "expected": 16,
+      "matched": 16,
+      "faces": [
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 1.0
+    },
+    "B-UGV-2": {
+      "expected": 16,
+      "matched": 15,
+      "faces": [
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 0.9375
+    },
+    "B-UGV-3": {
+      "expected": 16,
+      "matched": 14,
+      "faces": [
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 0.875
+    },
+    "R-UGV-1": {
+      "expected": 16,
+      "matched": 15,
+      "faces": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 0.9375
+    },
+    "R-UGV-2": {
+      "expected": 16,
+      "matched": 16,
+      "faces": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 1.0
+    },
+    "R-UGV-3": {
+      "expected": 16,
+      "matched": 16,
+      "faces": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 1.0
+    }
+  },
+  "final_face_coverage": {
+    "B-UGV-1": {
+      "expected": 16,
+      "matched": 16,
+      "faces": [
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 1.0
+    },
+    "B-UGV-2": {
+      "expected": 16,
+      "matched": 14,
+      "faces": [
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 0.875
+    },
+    "B-UGV-3": {
+      "expected": 16,
+      "matched": 14,
+      "faces": [
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 0.875
+    },
+    "R-UGV-1": {
+      "expected": 16,
+      "matched": 15,
+      "faces": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 0.9375
+    },
+    "R-UGV-2": {
+      "expected": 16,
+      "matched": 16,
+      "faces": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 1.0
+    },
+    "R-UGV-3": {
+      "expected": 16,
+      "matched": 16,
+      "faces": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          1
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          12,
+          3
+        ]
+      ],
+      "coverage": 1.0
+    }
+  },
+  "source_root": "/mnt/c/Users/jojo0/OneDrive/바탕 화면/MAICON2026/maicon2026_ugv_code/maicon2026/recordings/deadlock_ab_20261109/candidate03_source",
+  "video": {
+    "frames": 490,
+    "fps": 2.0,
+    "duration_s": 245.0,
+    "source": "2D diagnostic render, not Gazebo"
+  }
+}

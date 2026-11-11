@@ -1,0 +1,873 @@
+{
+  "schema": "maicon_uav_grid_v1",
+  "source": "measured_printed_floor_image_features; holdout_split_before_homography_fit",
+  "image_size": [
+    1280,
+    720
+  ],
+  "measurements": [
+    {
+      "pixel": [
+        571.2493286132812,
+        105.17498779296875
+      ],
+      "arena": [
+        2.424175262451172,
+        4.533994197845459
+      ],
+      "reference_pixel": [
+        969.6701049804688,
+        106.4023208618164
+      ],
+      "match_ratio": 0.09526889582150695,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        728.522705078125,
+        630.8997802734375
+      ],
+      "arena": [
+        3.742074839274089,
+        0.13060811360677071
+      ],
+      "reference_pixel": [
+        1496.8299357096355,
+        1867.7567545572917
+      ],
+      "match_ratio": 0.13020023958464558,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        556.4950561523438,
+        105.20448303222656
+      ],
+      "arena": [
+        2.2991541544596354,
+        4.533925485610962
+      ],
+      "reference_pixel": [
+        919.6616617838542,
+        106.42980575561523
+      ],
+      "match_ratio": 0.1431412464546966,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        344.1203308105469,
+        312.5052795410156
+      ],
+      "arena": [
+        0.5206462542215984,
+        2.7987052917480466
+      ],
+      "reference_pixel": [
+        208.25850168863934,
+        800.5178833007812
+      ],
+      "match_ratio": 0.16519300865733988,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        920.655029296875,
+        178.27413940429688
+      ],
+      "arena": [
+        5.350633748372395,
+        3.9228759765624996
+      ],
+      "reference_pixel": [
+        2140.253499348958,
+        350.849609375
+      ],
+      "match_ratio": 0.1761155063791955,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        352.0303039550781,
+        401.82977294921875
+      ],
+      "arena": [
+        0.5892149607340496,
+        2.0503250122070313
+      ],
+      "reference_pixel": [
+        235.6859842936198,
+        1099.8699951171875
+      ],
+      "match_ratio": 0.1811855161215986,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        359.3565979003906,
+        559.435791015625
+      ],
+      "arena": [
+        0.6473698933919271,
+        0.7296503702799475
+      ],
+      "reference_pixel": [
+        258.9479573567708,
+        1628.139851888021
+      ],
+      "match_ratio": 0.2249559929858049,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        740.2763671875,
+        628.1758422851562
+      ],
+      "arena": [
+        3.837809499104818,
+        0.15419464111328107
+      ],
+      "reference_pixel": [
+        1535.123799641927,
+        1858.3221435546875
+      ],
+      "match_ratio": 0.2609470557319426,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        873.9340209960938,
+        629.4900512695312
+      ],
+      "arena": [
+        4.961405436197917,
+        0.141988627115885
+      ],
+      "reference_pixel": [
+        1984.5621744791667,
+        1863.2045491536458
+      ],
+      "match_ratio": 0.26736001506604334,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        903.3564453125,
+        461.998779296875
+      ],
+      "arena": [
+        5.203819274902344,
+        1.544763692220052
+      ],
+      "reference_pixel": [
+        2081.5277099609375,
+        1302.0945231119792
+      ],
+      "match_ratio": 0.2765659268494042,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        540.5650634765625,
+        91.35379028320312
+      ],
+      "arena": [
+        2.1715120951334637,
+        4.651391204198202
+      ],
+      "reference_pixel": [
+        868.6048380533854,
+        59.4435183207194
+      ],
+      "match_ratio": 0.287992235443985,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        539.4512939453125,
+        628.1630859375
+      ],
+      "arena": [
+        2.1617411295572917,
+        0.15500132242838482
+      ],
+      "reference_pixel": [
+        864.6964518229166,
+        1857.999471028646
+      ],
+      "match_ratio": 0.29368045909240176,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        751.177978515625,
+        93.60121154785156
+      ],
+      "arena": [
+        3.9319279988606772,
+        4.632106558481852
+      ],
+      "reference_pixel": [
+        1572.771199544271,
+        67.15737660725911
+      ],
+      "match_ratio": 0.30604904850301895,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        523.897216796875,
+        627.549560546875
+      ],
+      "arena": [
+        2.027180862426758,
+        0.16021931966145875
+      ],
+      "reference_pixel": [
+        810.8723449707031,
+        1855.9122721354165
+      ],
+      "match_ratio": 0.3258650665746806,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        365.9610290527344,
+        169.34616088867188
+      ],
+      "arena": [
+        0.704881223042806,
+        3.997201538085937
+      ],
+      "reference_pixel": [
+        281.9524892171224,
+        321.119384765625
+      ],
+      "match_ratio": 0.3360027619346581,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        715.203125,
+        225.7266082763672
+      ],
+      "arena": [
+        3.628876495361328,
+        3.5261306762695312
+      ],
+      "reference_pixel": [
+        1451.5505981445312,
+        509.5477294921875
+      ],
+      "match_ratio": 0.35334211568284,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        559.8448486328125,
+        266.9541015625
+      ],
+      "arena": [
+        2.3290634155273438,
+        3.1797425587972006
+      ],
+      "reference_pixel": [
+        931.6253662109375,
+        648.1029764811198
+      ],
+      "match_ratio": 0.3763784567718456,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        605.5783081054688,
+        80.2923583984375
+      ],
+      "arena": [
+        5.608609517415364,
+        0.18994801839192732
+      ],
+      "reference_pixel": [
+        2243.4438069661455,
+        1844.0207926432292
+      ],
+      "match_ratio": 0.3818590425154349,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        338.2012023925781,
+        410.2921142578125
+      ],
+      "arena": [
+        0.4703702290852865,
+        1.9758738199869792
+      ],
+      "reference_pixel": [
+        188.14809163411456,
+        1129.6504720052083
+      ],
+      "match_ratio": 0.4152534039178049,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        763.041015625,
+        637.511474609375
+      ],
+      "arena": [
+        4.029534149169922,
+        0.07662404378255161
+      ],
+      "reference_pixel": [
+        1611.8136596679688,
+        1889.3503824869792
+      ],
+      "match_ratio": 0.42035882657176077,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        380.1559143066406,
+        300.68218994140625
+      ],
+      "arena": [
+        0.8224604924519856,
+        2.8975507100423177
+      ],
+      "reference_pixel": [
+        328.98419698079425,
+        760.9797159830729
+      ],
+      "match_ratio": 0.44986135316370823,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        891.858154296875,
+        260.3065185546875
+      ],
+      "arena": [
+        5.110670471191407,
+        3.2341383616129553
+      ],
+      "reference_pixel": [
+        2044.2681884765625,
+        626.3446553548177
+      ],
+      "match_ratio": 0.45822416570091407,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        360.1502685546875,
+        541.5526733398438
+      ],
+      "arena": [
+        0.6511461893717447,
+        0.8756169637044273
+      ],
+      "reference_pixel": [
+        260.45847574869794,
+        1569.753214518229
+      ],
+      "match_ratio": 0.487508022221521,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        639.8314208984375,
+        275.9942626953125
+      ],
+      "arena": [
+        2.9986974080403646,
+        3.1064582824707028
+      ],
+      "reference_pixel": [
+        1199.4789632161458,
+        677.4166870117188
+      ],
+      "match_ratio": 0.4965138257890235,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    }
+  ],
+  "arena_size_m": [
+    6.0,
+    4.8
+  ],
+  "camera_optical_center_m": [
+    3.0,
+    2.4,
+    2.5
+  ],
+  "reference_plane_z_m": 0.0,
+  "object_plane_z_m": 0.4,
+  "input_optics": "pinhole_undistorted",
+  "checkpoint_tolerance_m": 0.01,
+  "checkpoints": [
+    {
+      "pixel": [
+        923.060791015625,
+        166.9812774658203
+      ],
+      "arena": [
+        5.37094472249349,
+        4.017767651875814
+      ],
+      "reference_pixel": [
+        2148.377888997396,
+        312.89293924967444
+      ],
+      "match_ratio": 0.12500271709542096,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        913.87353515625,
+        550.079833984375
+      ],
+      "arena": [
+        5.294173177083334,
+        0.8079493204752604
+      ],
+      "reference_pixel": [
+        2117.6692708333335,
+        1596.8202718098958
+      ],
+      "match_ratio": 0.1320756551638767,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        727.1123046875,
+        89.3338394165039
+      ],
+      "arena": [
+        3.729810587565104,
+        4.6672499497731526
+      ],
+      "reference_pixel": [
+        1491.9242350260417,
+        53.10002009073893
+      ],
+      "match_ratio": 0.14489185785800948,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        551.304443359375,
+        630.8676147460938
+      ],
+      "arena": [
+        2.2563423156738285,
+        0.1306289672851566
+      ],
+      "reference_pixel": [
+        902.5369262695312,
+        1867.7484130859375
+      ],
+      "match_ratio": 0.16876356488788546,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        920.1032104492188,
+        362.71978759765625
+      ],
+      "arena": [
+        5.346488444010417,
+        2.3781206766764322
+      ],
+      "reference_pixel": [
+        2138.5953776041665,
+        968.7517293294271
+      ],
+      "match_ratio": 0.1783504602991756,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        359.5478210449219,
+        357.157470703125
+      ],
+      "arena": [
+        0.6505041122436523,
+        2.4255083719889323
+      ],
+      "reference_pixel": [
+        260.20164489746094,
+        949.7966512044271
+      ],
+      "match_ratio": 0.18128609134830978,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        563.7774047851562,
+        128.97186279296875
+      ],
+      "arena": [
+        2.360638173421224,
+        4.33651762008667
+      ],
+      "reference_pixel": [
+        944.2552693684895,
+        185.39295196533203
+      ],
+      "match_ratio": 0.22878378039631975,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        343.56182861328125,
+        505.67071533203125
+      ],
+      "arena": [
+        0.5194259643554687,
+        1.1826360066731771
+      ],
+      "reference_pixel": [
+        207.7703857421875,
+        1446.9455973307292
+      ],
+      "match_ratio": 0.26138344196879687,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        359.20025634765625,
+        178.31178283691406
+      ],
+      "arena": [
+        0.6446843465169271,
+        3.9228165944417315
+      ],
+      "reference_pixel": [
+        257.8737386067708,
+        350.87336222330725
+      ],
+      "match_ratio": 0.27020697496578927,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        639.8350219726562,
+        452.0498962402344
+      ],
+      "arena": [
+        2.998633321126302,
+        1.6321482340494793
+      ],
+      "reference_pixel": [
+        1199.4533284505208,
+        1267.1407063802083
+      ],
+      "match_ratio": 0.2807628004455509,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        642.8973388671875,
+        428.55023193359375
+      ],
+      "arena": [
+        3.0208872477213538,
+        1.8207397460937496
+      ],
+      "reference_pixel": [
+        1208.3548990885415,
+        1191.7041015625
+      ],
+      "match_ratio": 0.2933411316244913,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        580.2080688476562,
+        124.74175262451172
+      ],
+      "arena": [
+        2.4986946105957033,
+        4.3690188725789385
+      ],
+      "reference_pixel": [
+        999.4778442382812,
+        172.39245096842447
+      ],
+      "match_ratio": 0.29392799089466987,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        939.4134521484375,
+        312.2492370605469
+      ],
+      "arena": [
+        5.508670552571615,
+        2.80005251566569
+      ],
+      "reference_pixel": [
+        2203.468221028646,
+        799.978993733724
+      ],
+      "match_ratio": 0.3229278828629705,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        521.2103881835938,
+        94.07899475097656
+      ],
+      "arena": [
+        2.0051161448160806,
+        4.627394580841064
+      ],
+      "reference_pixel": [
+        802.0464579264323,
+        69.04216766357422
+      ],
+      "match_ratio": 0.33171330321128245,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        598.8628540039062,
+        124.05176544189453
+      ],
+      "arena": [
+        2.6562288920084636,
+        4.374860254923503
+      ],
+      "reference_pixel": [
+        1062.4915568033855,
+        170.05589803059894
+      ],
+      "match_ratio": 0.34481138398787525,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        848.4177856445312,
+        630.65869140625
+      ],
+      "arena": [
+        4.7447565714518225,
+        0.13424580891927107
+      ],
+      "reference_pixel": [
+        1897.902628580729,
+        1866.3016764322915
+      ],
+      "match_ratio": 0.3652373680848418,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        405.7305908203125,
+        629.5499267578125
+      ],
+      "arena": [
+        1.037695566813151,
+        0.1418874104817709
+      ],
+      "reference_pixel": [
+        415.0782267252604,
+        1863.2450358072917
+      ],
+      "match_ratio": 0.3807594911070321,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        752.3887939453125,
+        628.1292724609375
+      ],
+      "arena": [
+        3.942458089192708,
+        0.15240427652994804
+      ],
+      "reference_pixel": [
+        1576.9832356770833,
+        1859.0382893880208
+      ],
+      "match_ratio": 0.40780228621765974,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        771.5087890625,
+        436.3537292480469
+      ],
+      "arena": [
+        4.102020517985026,
+        1.7603589375813802
+      ],
+      "reference_pixel": [
+        1640.8082071940105,
+        1215.856424967448
+      ],
+      "match_ratio": 0.4161871769391842,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        353.7151794433594,
+        532.5703735351562
+      ],
+      "arena": [
+        0.6018002827962239,
+        0.954982248942057
+      ],
+      "reference_pixel": [
+        240.72011311848956,
+        1538.0071004231772
+      ],
+      "match_ratio": 0.4292657525932879,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        570.902587890625,
+        462.0782775878906
+      ],
+      "arena": [
+        2.419316864013672,
+        1.5442075093587238
+      ],
+      "reference_pixel": [
+        967.7267456054688,
+        1302.3169962565105
+      ],
+      "match_ratio": 0.4574880022302908,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        344.266845703125,
+        600.4339599609375
+      ],
+      "arena": [
+        0.522138754526774,
+        0.38526000976562536
+      ],
+      "reference_pixel": [
+        208.85550181070963,
+        1765.89599609375
+      ],
+      "match_ratio": 0.4727566672915809,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    },
+    {
+      "pixel": [
+        516.631591796875,
+        637.5726318359375
+      ],
+      "arena": [
+        1.968490982055664,
+        0.07638346354166714
+      ],
+      "reference_pixel": [
+        787.3963928222656,
+        1889.4466145833333
+      ],
+      "match_ratio": 0.48755300254337536,
+      "source": "mutual_image_feature_in_measured_floor_print"
+    }
+  ],
+  "ransac_threshold_m": 0.02,
+  "min_inlier_ratio": 0.65,
+  "ransac_trials": 1000,
+  "random_seed": 0,
+  "validation": {
+    "fit_point_count": 24,
+    "fit_inlier_count": 23,
+    "fit_inlier_mask": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "fit_errors_m": [
+      0.0011366464445901046,
+      0.0007689679087194938,
+      0.00219650807735988,
+      0.0006558390577949447,
+      0.0005788857867061603,
+      0.00238575633766027,
+      0.0011344445144545357,
+      0.0021066847928507414,
+      0.0025765191057448176,
+      0.00248729215431334,
+      0.0037962114383473357,
+      0.004725843898415211,
+      0.0005675498067807682,
+      0.0018680469634539843,
+      0.0006786746701637595,
+      0.0018724957808282405,
+      0.00012175721653106952,
+      5.3963520922038075,
+      0.002812154844152603,
+      0.0013285228150493073,
+      0.0006552891654907048,
+      0.0016895188671875346,
+      0.004576054176703321,
+      0.002422656493211265
+    ],
+    "fit_inlier_rms_m": 0.002245962078916383,
+    "fit_inlier_max_m": 0.004725843898415211,
+    "fit_all_rms_m": 1.1015279524933876,
+    "fit_is_independent_validation": false,
+    "input_optics": "pinhole_undistorted",
+    "ransac_threshold_m": 0.02,
+    "independent_checkpoint_count": 23,
+    "checkpoint_errors_m": [
+      0.0009212735589868175,
+      0.0008703922390124318,
+      0.0005415104690746965,
+      0.00032611457920834997,
+      0.0005881655240013653,
+      0.001633383013793576,
+      0.001772380256416755,
+      0.005048420147013774,
+      0.0030037055062145917,
+      0.0029397718801618374,
+      0.006438862386954602,
+      0.0023090783675677093,
+      0.001109263844509411,
+      0.0007501381240391132,
+      0.0019247694263418635,
+      0.001105509374265937,
+      0.0013712245928679287,
+      0.0022337441369828094,
+      0.0006506626911028034,
+      0.0015781726398021777,
+      0.002086829950796802,
+      0.0008631460660326558,
+      0.003163156860888317
+    ],
+    "checkpoint_rms_m": 0.0023747982040809366,
+    "checkpoint_max_m": 0.006438862386954602,
+    "checkpoint_tolerance_m": 0.01,
+    "status": "within_tolerance"
+  }
+}

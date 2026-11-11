@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "errors": [],
+  "warnings": [],
+  "counts": {
+    "collisions": 28,
+    "visuals": 57,
+    "textures": 22,
+    "lights": 1,
+    "sensors": {
+      "gpu_lidar": 1,
+      "imu": 1,
+      "camera": 2
+    }
+  },
+  "layout": {
+    "physical_cubes": 20,
+    "clusters": 9,
+    "targets": 6,
+    "m3_faces": 27
+  },
+  "tolerance_m": 0.001,
+  "checked": "actual SDF XML + actual mesh/image resources; no metadata sidecar"
+}

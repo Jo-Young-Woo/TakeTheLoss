@@ -1,0 +1,115 @@
+{
+  "duration_wall_s": 5.002642609000759,
+  "received_messages": {
+    "/arena/state": 100,
+    "/clock": 1238,
+    "/imu/data": 99,
+    "/arena/dynamic_pose": 248,
+    "/scan": 49
+  },
+  "models": {
+    "ugv_B2": [
+      -2.660000000000001,
+      -3.855919850936816e-18,
+      -5.134006691998039e-10,
+      -3.298116170106334e-17
+    ],
+    "ugv_B1": [
+      -2.66,
+      1.6,
+      0.0,
+      0.0
+    ],
+    "ugv_B3": [
+      -2.66,
+      -1.6,
+      0.0,
+      0.0
+    ],
+    "ugv_R1": [
+      2.66,
+      1.6,
+      0.0,
+      3.14159265
+    ],
+    "ugv_R2": [
+      2.66,
+      0.0,
+      0.0,
+      3.14159265
+    ],
+    "ugv_R3": [
+      2.66,
+      -1.6,
+      0.0,
+      3.14159265
+    ]
+  },
+  "clock_advances": true,
+  "scan": {
+    "samples": 450,
+    "finite": 450,
+    "useful": 450,
+    "range_min": 0.05000000074505806,
+    "range_max": 12.0,
+    "min_return": 0.08500530570745468,
+    "max_return": 5.928323745727539,
+    "angle_span": 6.2831854820251465,
+    "frame_id": "laser_frame"
+  },
+  "referee": {
+    "phase": "ready",
+    "paused": false,
+    "elapsed": null,
+    "ugvs": {
+      "B-1": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "B-2": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "B-3": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-1": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-2": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-3": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      }
+    },
+    "destroyed": {
+      "BLUE": 0,
+      "RED": 0
+    }
+  },
+  "all_topics_received": false,
+  "scan_not_collapsed_at_minimum": true
+}

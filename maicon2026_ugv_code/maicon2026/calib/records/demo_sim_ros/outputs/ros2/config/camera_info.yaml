@@ -1,0 +1,24 @@
+# 자동 생성 파일 — 직접 고치지 말고 calib/robot_profile.yaml 을 고친 뒤 scripts/calib_generate.py 를 다시 실행
+# 프로파일에 아직 '가정(assumed)'인 값 33개 (scripts/calib_report.py 로 목록 확인)
+image_width: 640
+image_height: 480
+camera_name: camera_optical
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [224.06641222710715, 0.0, 320.0, 0.0, 224.06641222710715, 240.0, 0.0, 0.0,
+    1.0]
+distortion_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [0.0, 0.0, 0.0, 0.0, 0.0]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [224.06641222710715, 0.0, 320.0, 0.0, 0.0, 224.06641222710715, 240.0, 0.0,
+    0.0, 0.0, 1.0, 0.0]

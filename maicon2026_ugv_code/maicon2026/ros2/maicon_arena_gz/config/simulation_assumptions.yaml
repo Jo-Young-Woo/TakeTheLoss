@@ -1,0 +1,9 @@
+# Engineering assumptions, not additional official device specifications.
+# Keep arena_spec.yaml byte-for-byte equal to the supplied measurement source.
+referee_hz: 20
+max_pose_age_s: 0.5
+max_contact_step_s: 0.15
+# Laser/receiver/body poses come from robot_assumptions.yaml, shared with SDF.
+laser_range: 12.0  # assumed; geometric simulation limit
+intersection_tolerance: 0.001  # simulation numerical tolerance, metres
+base_dwell_s: 0.0  # provisional: current guide counts the first beam interruption

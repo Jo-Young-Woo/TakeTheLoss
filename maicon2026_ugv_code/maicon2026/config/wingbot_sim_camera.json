@@ -1,0 +1,17 @@
+{
+  "schema": "wingbot_fortress_ogre2_camera_v1",
+  "scope": "simulation_only",
+  "renderer": "Fortress Ogre2",
+  "distortion_status": "requested_but_renderer_unsupported",
+  "requested_D": [-0.25, 0.0, 0.0, 0.0, 0.0],
+  "effective_D": [0.0, 0.0, 0.0, 0.0, 0.0],
+  "evidence": "Fortress log: ImageBrownDistortionModel is not supported in ogre2; gz-sensors ign-sensors6 src/ImageBrownDistortionModel.cc SetCamera returns without render pass",
+  "source_url": "https://github.com/gazebosim/gz-sensors/blob/ign-sensors6/src/ImageBrownDistortionModel.cc",
+  "info_topic": "/arena/ego/camera_info",
+  "joint_topic": "/arena/ego/joint_states",
+  "joint_max_age_s": 0.15,
+  "tf_joint_tolerance_deg": 2.0,
+  "tf_wait_wall_s": 0.25,
+  "feedback_max_age_s": 0.3,
+  "physical_calibration_verified": false
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "maicon_lidar_height_gazebo_trial_v1",
+  "date_local": "2026-11-11",
+  "scope": "Current development maicon26, one physical WINGBOT B-2, fixed MAICON arena, Gazebo Fortress, actual ROS camera/LiDAR/odom/IMU and 1 Hz UAV images",
+  "source_selection": "No active_candidate.json; selected_runtime.py used the current development package",
+  "lidar": {
+    "model": "WINGBOT D500 simulation assumption",
+    "scan_plane_m_above_floor": 0.15,
+    "scan_plane_xyz_from_generated_frames_m": [0.0402746383436541, 0.0, 0.15],
+    "rig_base_z_m": 0.04,
+    "rig_lidar_relative_z_m": 0.11,
+    "physical_scan_height_verified": false,
+    "raw_samples": 450,
+    "raw_initial_min_m": 0.02007949724793434,
+    "filtered_initial_min_m": 0.5804468989372253,
+    "filtered_initial_nan_count": 131,
+    "arena_static_obstacles": "14 fixed obstacles and 13 merged structure collisions are 0.4 m high; floor is 0.02 m thick. No sub-0.15 m obstacle is in this fixed layout."
+  },
+  "runs": [
+    {
+      "name": "impact_on",
+      "status": "completed",
+      "simulation_elapsed_s": 301.728,
+      "distance_m": 3.21060260207171,
+      "impact_events": 26,
+      "impact_safe_stops": 22,
+      "classified_invisible_contacts": 22,
+      "m2_referee_confirmed": false,
+      "m3_reported_count": 2,
+      "m3_expected_count": 21,
+      "m3_exact_sectors": [],
+      "m5_referee_confirmed": false,
+      "video": "B-2/b2_autonomous_third_person.mp4",
+      "score": "score.json"
+    },
+    {
+      "name": "impact_off",
+      "status": "completed",
+      "simulation_elapsed_s": 251.208,
+      "distance_m": 29.2592279343295,
+      "impact_events": 0,
+      "m2_referee_confirmed": false,
+      "m3_reported_count": 18,
+      "m3_expected_count": 21,
+      "m3_exact_sectors": ["R-S2", "R-S3"],
+      "m5_referee_confirmed": true,
+      "m5_capture_sim_s": 256.2,
+      "video": "no_impact_retry/B-2/b2_autonomous_third_person.mp4",
+      "score": "no_impact_retry/score.json"
+    },
+    {
+      "name": "impact_off_first_attempt",
+      "status": "failed_at_aim_diagnostics",
+      "error": "Aim diagnostic wrapper rejected the new t_obs keyword; wrapper fixed before completed retry",
+      "artifact_dir": "no_impact"
+    }
+  ],
+  "conclusion": "The 0.15 m scan plane intersects every 0.4 m static structure in this layout. The first run's phantom invisible contacts are not evidence of a low obstacle: its Gazebo IMU impact threshold was uncalibrated. Gazebo trials now disable impact handling by default; --simulate-impact opts in. Real-robot impact configuration is unchanged.",
+  "limitations": [
+    "The model scan height is derived from vendor SDF plus photo reconstruction, not a measured physical WINGBOT scan plane.",
+    "This arena contains no low obstacle, so physical detection of sub-0.15 m objects was not measured in these runs.",
+    "The M3 score requires exact counts per sector and class; reported count alone is not a face detection rate.",
+    "One-robot trial cannot validate M4 combat or M6 ranking accuracy."
+  ],
+  "verification": {
+    "focused_pytests_passed": 53,
+    "python_compileall": "passed",
+    "videos": "both complete runs have H264 recording metadata and no missing frames"
+  }
+}

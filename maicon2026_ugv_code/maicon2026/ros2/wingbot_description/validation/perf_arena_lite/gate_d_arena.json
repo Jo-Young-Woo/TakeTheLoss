@@ -1,0 +1,177 @@
+{
+  "command": [
+    "ros2",
+    "launch",
+    "maicon_arena_gz",
+    "arena.launch.py",
+    "robot_model:=wingbot",
+    "ugvs:=6",
+    "profile:=lite",
+    "gui:=false",
+    "render_engine:=ogre2",
+    "uav_cam:=true",
+    "image_transport_profile:=shm64",
+    "validation_camera:=false"
+  ],
+  "profile": "lite",
+  "model_count": 6,
+  "full_ego": 1,
+  "sensorless_dummies": 5,
+  "renderer": "CPU Ogre2; no GUI; UAV camera enabled",
+  "ros_domain": 74,
+  "model_sha256": {
+    "urdf/wingbot_gz.xacro": "62d1bf91e0339e0b56888f5d00efab072a80faeddd9e794426b8d75155ae1f0e",
+    "urdf/wingbot_props.xacro": "c2d350850a94fc7d017eccaf387484cc7c97b30a8f9c265f34186e34d977a513",
+    "config/frames.yaml": "8255627701196bcced00d484172e2c185a420ee04229c2351343e983ff5e4022",
+    "config/wingbot_mods.yaml": "a6099a59776e7af21f0f8c1750109ccfc4acc9e43c4d9ea17b299eb3dffbbba5"
+  },
+  "performance": {
+    "wall_seconds": 59.99582998199912,
+    "sim_seconds": 59.996,
+    "rtf_mean": 1.0000028338303,
+    "rtf_min_one_second_window": 0.9996033234159346,
+    "received_camera_fps": 10.00069505130642,
+    "startup_to_first_step_s": 5.052277793998655,
+    "gui_fps": null,
+    "gui_fps_note": "Not measured; camera delivery FPS is not GUI FPS",
+    "clock_sample_count": 4998,
+    "one_second_window_count": 59,
+    "warmup_wall_seconds": 5.0,
+    "thresholds": {
+      "mean": 0.9,
+      "minimum_window": 0.85
+    },
+    "passed_rtf": true,
+    "full_sixty_second_probe": true
+  },
+  "runtime": {
+    "duration_wall_s": 8.00358060799772,
+    "received_messages": {
+      "/clock": 2006,
+      "/arena/dynamic_pose": 404,
+      "/arena/state": 161,
+      "/imu/data": 160,
+      "/image_raw": 80,
+      "/odom": 153,
+      "/scan": 80,
+      "/uav/image_raw": 8
+    },
+    "models": {
+      "ugv_B2": [
+        -2.6600033464825583,
+        -7.523967140114697e-09,
+        0.0012120001575741657,
+        -1.6304027019698814e-07
+      ],
+      "ugv_B1": [
+        -2.6600016647144304,
+        1.599999995841351,
+        0.0012120010699162677,
+        -8.623402636476659e-08
+      ],
+      "ugv_B3": [
+        -2.660001664714607,
+        -1.6000000041586495,
+        0.0012120010699158347,
+        -8.623403578927276e-08
+      ],
+      "ugv_R1": [
+        2.659999999971014,
+        1.600000000034918,
+        0.0012111630755059187,
+        3.1415926500000007
+      ],
+      "ugv_R2": [
+        2.6599999999710136,
+        3.4915997181384633e-11,
+        0.0012111630755059185,
+        3.1415926500000007
+      ],
+      "ugv_R3": [
+        2.6599999999710136,
+        -1.5999999999650822,
+        0.0012111630755059187,
+        3.1415926500000007
+      ]
+    },
+    "clock_advances": true,
+    "/uav/image_raw": {
+      "width": 960,
+      "height": 540,
+      "encoding": "rgb8"
+    },
+    "/image_raw": {
+      "width": 640,
+      "height": 480,
+      "encoding": "bgr8"
+    },
+    "scan": {
+      "samples": 450,
+      "finite": 338,
+      "useful": 338,
+      "range_min": 0.019999999552965164,
+      "range_max": 12.0,
+      "min_return": 0.03194219619035721,
+      "max_return": 5.826201915740967,
+      "angle_span": 6.2831854820251465,
+      "frame_id": "lidar_scan_link"
+    },
+    "referee": {
+      "phase": "ready",
+      "paused": false,
+      "elapsed": null,
+      "ugvs": {
+        "B-1": {
+          "hp": 4,
+          "ammo": 8,
+          "lock_until": 0.0,
+          "drive_lock_until": 0.0,
+          "reload_until": 0.0
+        },
+        "B-2": {
+          "hp": 4,
+          "ammo": 8,
+          "lock_until": 0.0,
+          "drive_lock_until": 0.0,
+          "reload_until": 0.0
+        },
+        "B-3": {
+          "hp": 4,
+          "ammo": 8,
+          "lock_until": 0.0,
+          "drive_lock_until": 0.0,
+          "reload_until": 0.0
+        },
+        "R-1": {
+          "hp": 4,
+          "ammo": 8,
+          "lock_until": 0.0,
+          "drive_lock_until": 0.0,
+          "reload_until": 0.0
+        },
+        "R-2": {
+          "hp": 4,
+          "ammo": 8,
+          "lock_until": 0.0,
+          "drive_lock_until": 0.0,
+          "reload_until": 0.0
+        },
+        "R-3": {
+          "hp": 4,
+          "ammo": 8,
+          "lock_until": 0.0,
+          "drive_lock_until": 0.0,
+          "reload_until": 0.0
+        }
+      },
+      "destroyed": {
+        "BLUE": 0,
+        "RED": 0
+      }
+    },
+    "all_topics_received": true,
+    "scan_not_collapsed_at_minimum": true
+  },
+  "passed": true,
+  "error": null
+}

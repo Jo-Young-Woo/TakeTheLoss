@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.8)
+project(wingbot_description)
+find_package(ament_cmake REQUIRED)
+install(DIRECTORY config meshes urdf launch docs vendor DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY validation DESTINATION share/${PROJECT_NAME} OPTIONAL)
+install(FILES frames.yaml README.md DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY scripts/ DESTINATION lib/${PROJECT_NAME} USE_SOURCE_PERMISSIONS FILES_MATCHING PATTERN "*.py")
+# Python helpers are also colocated with source-shaped share/scripts for imports.
+install(DIRECTORY scripts/ DESTINATION share/${PROJECT_NAME}/scripts FILES_MATCHING PATTERN "*.py")
+ament_environment_hooks(hooks/wingbot_resource_path.dsv)
+ament_package()

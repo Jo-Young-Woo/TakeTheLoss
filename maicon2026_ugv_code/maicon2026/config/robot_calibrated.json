@@ -1,0 +1,69 @@
+{
+  "rig": {
+    "base_z": 0.04,
+    "pan_xyz": [
+      0.0,
+      0.0,
+      0.2
+    ],
+    "camera_xyz": [
+      0.05,
+      0.0,
+      0.03
+    ],
+    "camera_rpy": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "depth_xyz": [
+      0.1,
+      0.0,
+      0.1
+    ],
+    "depth_rpy": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "lidar_xyz": [
+      0.0,
+      0.0,
+      0.2
+    ]
+  },
+  "depth": {
+    "hfov_deg": 72.0,
+    "K_width": 640,
+    "K_height": 400,
+    "unit_scale": 0.001,
+    "min_range": 0.3,
+    "max_range": 3.5
+  },
+  "robot": {
+    "v_max": 0.45,
+    "w_max": 2.2,
+    "a_max": 1.2,
+    "radius": 0.14,
+    "track_width": 0.2,
+    "wheel_radius": 0.04,
+    "yaw_eff": 1.0,
+    "lr_bias": 0.0,
+    "pan_limit": 50.0,
+    "tilt_limit": 15.0
+  },
+  "camera": {
+    "width": 640,
+    "height": 480,
+    "hfov_deg": 110.0
+  },
+  "nav": {
+    "v_cruise": 0.3375,
+    "stop_dist": 0.1825,
+    "slow_dist": 0.4625,
+    "inflate_hard": 0.17
+  },
+  "nav2": {
+    "cmd_timeout": 0.5
+  }
+}

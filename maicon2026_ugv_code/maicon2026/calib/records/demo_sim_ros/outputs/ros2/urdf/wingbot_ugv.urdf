@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!-- 자동 생성: WINGBOT-UGV. 프로파일의 가정 값 33개 포함 — scripts/calib_report.py. 직접 고치지 말 것 -->
+<robot name="wingbot_ugv">
+  <material name="body"><color rgba="0.2 0.25 0.3 1"/></material>
+  <material name="wheel"><color rgba="0.05 0.05 0.05 1"/></material>
+  <material name="sensor"><color rgba="0.9 0.5 0.1 1"/></material>
+  <link name="base_footprint"/>
+  <joint name="base_joint" type="fixed"><parent link="base_footprint"/><child link="base_link"/><origin xyz="0 0 0.0400" rpy="0 0 0"/></joint>
+  <link name="base_link">
+    <inertial><origin xyz="0.0000 0.0000 0.0900" rpy="0 0 0"/><mass value="2.5400"/><inertia ixx="0.037531" ixy="0" ixz="0" iyy="0.039851" iyz="0" izz="0.027888"/></inertial>
+    <visual><origin xyz="0 0 0.0350"/><geometry><box size="0.2500 0.2300 0.1100"/></geometry><material name="body"/></visual>
+    <collision><origin xyz="0 0 0.0350"/><geometry><box size="0.2500 0.2300 0.1100"/></geometry></collision>
+    <visual><origin xyz="0 0 0.1850"/><geometry><box size="0.120 0.120 0.1900"/></geometry><material name="body"/></visual>
+    <collision><origin xyz="0 0 0.1850"/><geometry><box size="0.120 0.120 0.1900"/></geometry></collision>
+  </link>
+  <link name="wheel_front_left">
+    <inertial><origin xyz="0.0000 0.0000 0.0000" rpy="0 0 0"/><mass value="0.0600"/><inertia ixx="0.000028" ixy="0" ixz="0" iyy="0.000048" iyz="0" izz="0.000028"/></inertial>
+    <visual><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry><material name="wheel"/></visual>
+    <collision><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry></collision>
+  </link>
+  <joint name="wheel_front_left_joint" type="continuous"><parent link="base_link"/><child link="wheel_front_left"/><origin xyz="0.0900 0.1000 0" rpy="0 0 0"/><axis xyz="0 1 0"/><dynamics damping="0.01" friction="0.01"/></joint>
+  <gazebo reference="wheel_front_left"><mu1>0.166</mu1><mu2>0.166</mu2><kp>1e5</kp><kd>1.0</kd></gazebo>
+  <link name="wheel_front_right">
+    <inertial><origin xyz="0.0000 0.0000 0.0000" rpy="0 0 0"/><mass value="0.0600"/><inertia ixx="0.000028" ixy="0" ixz="0" iyy="0.000048" iyz="0" izz="0.000028"/></inertial>
+    <visual><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry><material name="wheel"/></visual>
+    <collision><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry></collision>
+  </link>
+  <joint name="wheel_front_right_joint" type="continuous"><parent link="base_link"/><child link="wheel_front_right"/><origin xyz="0.0900 -0.1000 0" rpy="0 0 0"/><axis xyz="0 1 0"/><dynamics damping="0.01" friction="0.01"/></joint>
+  <gazebo reference="wheel_front_right"><mu1>0.166</mu1><mu2>0.166</mu2><kp>1e5</kp><kd>1.0</kd></gazebo>
+  <link name="wheel_mid_left">
+    <inertial><origin xyz="0.0000 0.0000 0.0000" rpy="0 0 0"/><mass value="0.0600"/><inertia ixx="0.000028" ixy="0" ixz="0" iyy="0.000048" iyz="0" izz="0.000028"/></inertial>
+    <visual><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry><material name="wheel"/></visual>
+    <collision><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry></collision>
+  </link>
+  <joint name="wheel_mid_left_joint" type="continuous"><parent link="base_link"/><child link="wheel_mid_left"/><origin xyz="0.0000 0.1000 0" rpy="0 0 0"/><axis xyz="0 1 0"/><dynamics damping="0.01" friction="0.01"/></joint>
+  <gazebo reference="wheel_mid_left"><mu1>0.166</mu1><mu2>0.166</mu2><kp>1e5</kp><kd>1.0</kd></gazebo>
+  <link name="wheel_mid_right">
+    <inertial><origin xyz="0.0000 0.0000 0.0000" rpy="0 0 0"/><mass value="0.0600"/><inertia ixx="0.000028" ixy="0" ixz="0" iyy="0.000048" iyz="0" izz="0.000028"/></inertial>
+    <visual><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry><material name="wheel"/></visual>
+    <collision><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry></collision>
+  </link>
+  <joint name="wheel_mid_right_joint" type="continuous"><parent link="base_link"/><child link="wheel_mid_right"/><origin xyz="0.0000 -0.1000 0" rpy="0 0 0"/><axis xyz="0 1 0"/><dynamics damping="0.01" friction="0.01"/></joint>
+  <gazebo reference="wheel_mid_right"><mu1>0.166</mu1><mu2>0.166</mu2><kp>1e5</kp><kd>1.0</kd></gazebo>
+  <link name="wheel_rear_left">
+    <inertial><origin xyz="0.0000 0.0000 0.0000" rpy="0 0 0"/><mass value="0.0600"/><inertia ixx="0.000028" ixy="0" ixz="0" iyy="0.000048" iyz="0" izz="0.000028"/></inertial>
+    <visual><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry><material name="wheel"/></visual>
+    <collision><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry></collision>
+  </link>
+  <joint name="wheel_rear_left_joint" type="continuous"><parent link="base_link"/><child link="wheel_rear_left"/><origin xyz="-0.0900 0.1000 0" rpy="0 0 0"/><axis xyz="0 1 0"/><dynamics damping="0.01" friction="0.01"/></joint>
+  <gazebo reference="wheel_rear_left"><mu1>0.166</mu1><mu2>0.166</mu2><kp>1e5</kp><kd>1.0</kd></gazebo>
+  <link name="wheel_rear_right">
+    <inertial><origin xyz="0.0000 0.0000 0.0000" rpy="0 0 0"/><mass value="0.0600"/><inertia ixx="0.000028" ixy="0" ixz="0" iyy="0.000048" iyz="0" izz="0.000028"/></inertial>
+    <visual><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry><material name="wheel"/></visual>
+    <collision><origin rpy="1.57080 0 0"/><geometry><cylinder radius="0.0400" length="0.0300"/></geometry></collision>
+  </link>
+  <joint name="wheel_rear_right_joint" type="continuous"><parent link="base_link"/><child link="wheel_rear_right"/><origin xyz="-0.0900 -0.1000 0" rpy="0 0 0"/><axis xyz="0 1 0"/><dynamics damping="0.01" friction="0.01"/></joint>
+  <gazebo reference="wheel_rear_right"><mu1>0.166</mu1><mu2>0.166</mu2><kp>1e5</kp><kd>1.0</kd></gazebo>
+  <link name="laser"/>
+  <joint name="laser_joint" type="fixed"><parent link="base_link"/><child link="laser"/><origin xyz="0.04005 -0.00987 0.20000" rpy="0.00000 0.00000 0.06920"/></joint>
+  <link name="imu_link"/>
+  <joint name="imu_link_joint" type="fixed"><parent link="base_link"/><child link="imu_link"/><origin xyz="0.00000 0.00000 0.05000" rpy="0.00000 0.00000 0.00000"/></joint>
+  <link name="pan_link"/>
+  <joint name="pan_link_joint" type="fixed"><parent link="base_link"/><child link="pan_link"/><origin xyz="0.00000 0.00000 0.20000" rpy="0.00000 0.00000 0.00000"/></joint>
+  <link name="tilt_link"/>
+  <joint name="tilt_link_joint" type="fixed"><parent link="pan_link"/><child link="tilt_link"/><origin xyz="0.00000 0.00000 0.00000" rpy="0.00000 0.00000 0.00000"/></joint>
+  <link name="camera_link"/>
+  <joint name="camera_link_joint" type="fixed"><parent link="tilt_link"/><child link="camera_link"/><origin xyz="0.05000 0.00000 0.03000" rpy="0.00000 0.00000 0.00000"/></joint>
+  <link name="camera_optical"/>
+  <joint name="camera_optical_joint" type="fixed"><parent link="camera_link"/><child link="camera_optical"/><origin xyz="0 0 0" rpy="-1.57080 0 -1.57080"/></joint>
+  <link name="depth_link"/>
+  <joint name="depth_link_joint" type="fixed"><parent link="tilt_link"/><child link="depth_link"/><origin xyz="0.05000 0.00000 0.00000" rpy="0.00000 0.00000 0.00000"/></joint>
+  <link name="depth_optical"/>
+  <joint name="depth_optical_joint" type="fixed"><parent link="depth_link"/><child link="depth_optical"/><origin xyz="0 0 0" rpy="-1.57080 0 -1.57080"/></joint>
+</robot>

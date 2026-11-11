@@ -1,0 +1,46 @@
+# 자동 생성 파일 — 직접 고치지 말고 calib/robot_profile.yaml 을 고친 뒤 scripts/calib_generate.py 를 다시 실행
+# 프로파일에 아직 '가정(assumed)'인 값 69개 (scripts/calib_report.py 로 목록 확인)
+tf:
+  base_link→laser:
+    xyz: [0.0, 0.0, 0.2]
+    rpy: [0.0, 0.0, 0.0]
+  base_link→imu_link:
+    xyz: [0.0, 0.0, 0.05]
+    rpy: [0.0, 0.0, 0.0]
+  base_link→pan_link:
+    xyz: [0.0, 0.0, 0.2]
+  tilt_link→camera_link:
+    xyz: [0.05, 0.0, 0.03]
+    rpy: [0.0, 0.0, 0.0]
+  base_link→depth_link:
+    xyz: [0.1, 0.0, 0.1]
+    rpy: [0.0, 0.0, 0.0]
+camera:
+  frame: camera_optical
+  width: 640
+  height: 480
+  model: plumb_bob
+  K: [224.06641222710715, 0.0, 320.0, 0.0, 224.06641222710715, 240.0, 0.0, 0.0, 1.0]
+  D: [0.0, 0.0, 0.0, 0.0, 0.0]
+  calibrated: false
+  hfov_deg: 110.0
+  latency_s: 0.0
+depth:
+  frame: depth_optical
+  width: 640
+  height: 400
+  K: [440.4422145507756, 0.0, 320.0, 0.0, 440.4422145507756, 200.0, 0.0, 0.0, 1.0]
+  calibrated: false
+  hfov_deg: 72.0
+  unit_scale: 0.001
+  min_range: 0.3
+  max_range: 3.5
+  latency_s: 0.0
+lidar: {model: D500, frame: laser, rate_hz: 10.0, range_min: 0.05, range_max: 8.0,
+  latency_s: 0.0}
+imu: {frame: imu_link, gyro_bias_z: 0.0, gyro_noise_z: 0.0, gyro_scale: 1.0, latency_s: 0.0}
+odometry: {frame: odom, child: base_link, lin_scale: 1.0, yaw_scale: 1.0, gyro_bias_z: 0.0,
+  noise_v: 0.0, noise_w: 0.0, latency_s: 0.0, pos_error_p95_m_per_m: 0.05}
+provenance: {sensors.lidar.model: pdf, sensors.lidar.range_max: tuned, sensors.camera.hfov_deg: tuned,
+  sensors.camera.width: tuned, sensors.camera.height: tuned, sensors.odom.frame: tuned,
+  sensors.odom.child: tuned, sensors.lidar.frame: tuned}

@@ -1,0 +1,14 @@
+# All shape offsets below are assumed simplifications, not CAD or calibration.
+body: {size: [0.20, 0.18, 0.08], center: [0, 0, 0.085], mass_fraction: 0.75}
+wheel: {radius: 0.033, width: 0.023, x_positions: [-0.09, 0, 0.09], track: 0.207, mass_fraction_each: 0.025, friction: 0.9}
+caster: {radius: 0.012, x_positions: [-0.085, 0.085], friction: 0.0, mass_fraction_each: 0.025}
+gimbal: {pivot: [0.075, 0, 0.17], pan_size: [0.045, 0.045, 0.018], tilt_size: [0.05, 0.045, 0.035], mass_fraction_each: 0.025, effort: 0.5, velocity: 4.71238898038469, p_gain: 5.0}
+camera: {offset: [0.026, 0, 0], hfov: 2.0, clip: [0.02, 20], distortion: {k1: 0.0, k2: 0.0, k3: 0.0, p1: 0.0, p2: 0.0}}
+lidar: {pose: [-0.035, 0, 0.22, 0, 0, 0], range: [0.05, 12], range_resolution: 0.01, sector_yaws: [0, 2.0943951023931953, -2.0943951023931953], sector_span: 2.0943951023931953, max_age_s: 0.5, max_skew_s: 0.025, min_collapse_epsilon_m: 0.00001} # assumed: above simplified gimbal; original .185 returned own head at .085m
+antenna: {size: [0.016, 0.016, 0.13], center: [-0.055, 0, 0.255]}
+receiver: {radius: 0.025, centers: [[0.08, 0.09, 0.12], [0.08, -0.09, 0.12]]}
+colors: {body: [0.12, 0.13, 0.14, 1], wheel: [0.025, 0.025, 0.025, 1], BLUE: [0.08, 0.25, 1, 1], RED: [1, 0.06, 0.04, 1], receiver: [0.95, 0.95, 0.95, 1]}
+joint: {damping: 0.01, friction: 0.0}
+emulator: {control_hz: 20, state_hz: 2, battery_pct: 100.0, stale_referee_s: 0.5, interface_package: mil_interfaces_sim}
+
+

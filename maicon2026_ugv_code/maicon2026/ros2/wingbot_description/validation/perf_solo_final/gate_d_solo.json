@@ -1,0 +1,27 @@
+{
+  "gate": "D_solo_full",
+  "passed": true,
+  "rtf_mean": 1.0000298961367515,
+  "rtf_min_1s": 0.9964895044444352,
+  "wall_seconds": 59.99420640500102,
+  "sensor_hz": {
+    "camera": 9.184220160866559,
+    "gpu_lidar": 10.000965692413676,
+    "imu": 20.00193138482735
+  },
+  "thresholds": {
+    "rtf_mean": 0.98,
+    "camera_hz": 8,
+    "lidar_hz": 8,
+    "imu_hz": 16
+  },
+  "urdf_sha256": "a026d153f620677df01049600b1ba7ddd3d7cbf64a1fae4d63b16eb4db2134f6",
+  "rendering": "CPU Ogre2; no GUI",
+  "scan_diagnostic": {
+    "samples": 450,
+    "near_self_returns": 84,
+    "infinite": 357,
+    "minimum": 0.019999999552965164,
+    "maximum": 12.0
+  }
+}
