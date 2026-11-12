@@ -108,7 +108,8 @@ class PoseEstimator:
         self._estimate()
 
     # ------------------------------------------------------------------ 보정(LiDAR)
-    def correct(self, scan: Scan, n_rays: int = 36, field: Optional[MapLikelihood] = None) -> None:
+    def correct(self, scan: Scan, n_rays: int = 36, field: Optional[MapLikelihood] = None,
+                aerial_landmarks=()) -> None:
         if not self.initialized:
             return
         v = scan.valid() & (scan.ranges > 0.15) & (scan.ranges < 6.0)
@@ -124,12 +125,24 @@ class PoseEstimator:
         W, H = self.geo.W, self.geo.H
         d = np.minimum(np.minimum(ex, W - ex), np.minimum(ey, H - ey))
         d = np.abs(d)                                  # 벽 밖으로 나간 끝점도 거리로 처리
+        global_d = d.copy()
+        if len(aerial_landmarks) >= 3:
+            # Absolute image geometry constrains x/y/yaw even when the local
+            # SLAM map has drifted. Use distance to the rectangle *surface*,
+            # not its solid interior; unknown/moving objects retain the floor.
+            for cx, cy, sx, sy in aerial_landmarks:
+                qx, qy = np.abs(ex - cx) - sx / 2, np.abs(ey - cy) - sy / 2
+                rd = np.hypot(np.maximum(qx, 0), np.maximum(qy, 0)) + np.minimum(np.maximum(qx, qy), 0)
+                global_d = np.minimum(global_d, np.abs(rd))
         if field is not None:                          # SLAM 지도의 박스에 맞은 빔도 '맞는 빔'으로 인정
             dm = field.lookup(ex, ey)
             if dm is not None:
                 d = np.minimum(d, dm + 0.02)           # +0.02: 박스는 벽보다 약간 불확실하게 취급
         like = self.floor + (1 - self.floor) * np.exp(-0.5 * (d / self.sigma) ** 2)
         ll = np.log(like).sum(axis=1)
+        if len(aerial_landmarks) >= 3:
+            aerial_like = self.floor + (1 - self.floor) * np.exp(-.5 * (global_d / max(self.sigma, .06)) ** 2)
+            ll += .5 * np.log(aerial_like).sum(axis=1)
         # 벽 밖으로 나간 입자는 강하게 벌점
         out = (self.p[:, 0] < 0) | (self.p[:, 0] > W) | (self.p[:, 1] < 0) | (self.p[:, 1] > H)
         ll[out] -= 30.0

@@ -1,7 +1,9 @@
 """Threat intensity and mission posture are separate, sensor-driven axes.
 
-ENGAGE_OK permits accepting exposure while advancing; it does not enable UGV
-hunting or bypass physical collision protection. No simulator state is read.
+ENGAGE_OK permits accepting exposure while advancing; it does not bypass
+physical collision protection. It enables UGV hunting (Mode.HUNT) only when
+mission.hunt_on_engage_ok is set (see manager.hunt_allowed). No simulator
+state is read.
 """
 from __future__ import annotations
 

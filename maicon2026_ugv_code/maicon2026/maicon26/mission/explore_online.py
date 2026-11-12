@@ -26,6 +26,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 import numpy as np
 
 from ..config import Config
+from ..footprint import rect_cells_free
 from ..link.schema import scoring_sectors, server_sector
 from ..nav import risk_astar
 from ..nav.grid import OccupancyGrid, line_free, nearest_free
@@ -67,6 +68,8 @@ class OnlineExplorer:
         self.stats = {"selected": 0, "frontier": 0, "face": 0, "rejected_time": 0, "no_candidate": 0}
         self._last_vp: Optional[Pt] = None
         self._repeat = 0
+        self._coverage_sector = None
+        self._coverage_sector_t0 = 0.0
         self._now = 0.0
         self._started: Optional[float] = None
         self._sector_observed: dict = {}
@@ -78,6 +81,7 @@ class OnlineExplorer:
         self.identify_ready = True                                  # OAK 프레임이 실제로 들어오고 있나(manager 가 매번 갱신). 아니면 식별 후보를 만들지 않는다
         self.oak_fov: Optional[Tuple[float, float]] = None          # (가로, 세로) 화각[deg] — manager 가 CameraInfo 의 K 로 갱신. None 이면 oak_det.fit_*_deg
         self._noview_since: Dict[Tuple[int, int], float] = {}       # identify_primary: OAK 로 볼 자리가 없던 면 → 그 상태가 시작된 시각
+        self.finish_sectors: Dict[str, float] = {}                  # 섹터 완성 가산이 걸린 채점 섹터(보고용): 섹터 → 가산
         self.m1_tier: Dict[str, Any] = {}                           # M1 지정 구역 우선순위 상태(보고용): enemy·cm 섹터, 적 섹터 완료·CM 보류 여부
         self._m1_key: Optional[frozenset] = None
         self._m1_t0: Optional[float] = None
@@ -88,7 +92,7 @@ class OnlineExplorer:
     def note_observation(self, cand: Cand, now: float, outcome: Optional[str] = None, pose: Optional[Pose2D] = None) -> None:
         """A completed ground-camera stop services a sector; UAV alone never does.
         outcome / pose: OAK 식별 단계의 결과(cropped·no_frames·none·seen)와 그때 자세 — coverage.mark_identify 가 폴백·독립 관측 계산에 쓴다."""
-        sector = self.geo.sector_of(*cand.vp)
+        sector = self.candidate_sector(cand)
         if sector is not None:
             self._sector_observed[sector] = now
             self._surveyed.add(sector)
@@ -262,7 +266,28 @@ class OnlineExplorer:
 
     def _free(self, grid: OccupancyGrid, blocked: np.ndarray, p: Pt) -> bool:
         iy, ix = grid.to_cell(*p)
-        return grid.in_bounds(iy, ix) and not blocked[iy, ix] and self.geo.inside(p[0], p[1], 0.30)
+        margin = self.cfg.budget().plan_inflate_straight if self.ec.exhaustive_scoring_faces else .30
+        return grid.in_bounds(iy, ix) and not blocked[iy, ix] and self.geo.inside(p[0], p[1], margin)
+
+    def candidate_sector(self, cand: Cand):
+        f = self.cov.get_face(cand.primary_face) if cand.primary_face is not None else None
+        return self.cov.box_sector(self.cov.boxes[f.bid]) if f else self.geo.sector_of(*cand.vp)
+
+    def view_body_heading(self, vp: Pt, camera_heading: float, current: float,
+                          occ: np.ndarray, grid: OccupancyGrid) -> Optional[float]:
+        """Fit the padded body and use the pan joint instead of turning into a wall."""
+        budget = self.cfg.budget()
+        limit = math.radians(max(0., self.cfg.robot.pan_limit - 5.))
+        wrap = lambda a: math.atan2(math.sin(a), math.cos(a))
+        angles = [current, camera_heading] + [camera_heading + p * limit for p in (-1., -.5, .5, 1.)]
+        angles += [i * math.pi / 2 for i in range(4)]
+        valid = [a for a in angles if abs(wrap(camera_heading-a)) <= limit + 1e-6
+                 and all(self.geo.inside(x, y, 0.) for x, y in
+                         budget.fp.corners(*vp, a, budget.plan_margin))
+                 and rect_cells_free(occ, grid.res, grid.ox, grid.oy, *vp, a,
+                                     budget.fp.half_l + budget.plan_margin,
+                                     budget.fp.half_w + budget.plan_margin)]
+        return min(valid, key=lambda a: abs(wrap(a-current))) if valid else None
 
     def _visible_set(self, vp: Pt, heading: Optional[float], pend: List[FaceRec], occ: np.ndarray, grid: OccupancyGrid,
                      extra: float, weights) -> Tuple[List[FaceRec], float]:
@@ -270,7 +295,7 @@ class OnlineExplorer:
         for f in pend:
             if abs(f.cx - vp[0]) > 3.0 or abs(f.cy - vp[1]) > 3.0:
                 continue
-            if self.cov.picture_pending(f):
+            if self.cov.requires_full_view(f):
                 ok, _ = self.cov.picture_visible(vp[0], vp[1], heading, f, occ, grid)
             else:
                 ok, _ = self.cov.face_visible(vp[0], vp[1], heading, f, occ, grid, fov_extra=extra)
@@ -336,8 +361,23 @@ class OnlineExplorer:
         occ = cov.visibility_occupancy(grid)
         sweep = math.radians(25.0)                                  # 이동·관측 중 팬 스윕 진폭(_sweep_pan 와 같다)
 
+        # 섹터 완성 우선: M3 는 섹터의 종류·개수가 모두 맞아야 점수라 '거의 다 본' 채점 섹터를 먼저 끝낸다(sector_finish_bonus>0 일 때).
+        finish: Dict[str, float] = {}
+        if ec.sector_finish_bonus > 0 and allowed is not None and team is not None:
+            maxn = max(1, int(ec.sector_finish_max_todo))
+            for sec, row in cov.sector_ledger(set(scoring_sectors(team))).items():
+                todo_n = len(row["todo"])
+                if sec == "none" or row["faces"] <= 0 or not 1 <= todo_n <= maxn:
+                    continue
+                done = (row["identified"] + row["empty"]) / row["faces"]
+                if done >= ec.sector_finish_min_done:
+                    finish[sec] = ec.sector_finish_bonus * (maxn + 1 - todo_n) / maxn
+        self.finish_sectors = {k: round(v, 2) for k, v in finish.items()}
+
         def wgt(f: FaceRec, vp: Pt) -> float:
             w = cov.face_weight_at(f, vp[0], vp[1])
+            if finish:
+                w *= 1.0 + finish.get(server_sector(cov.box_sector(cov.boxes[f.bid]) or "") or "", 0.0)
             if prefer and self.geo.sector_of(f.cx, f.cy) in prefer:
                 w *= 1.0 + ec.sector_bonus
             sector = cov.box_sector(cov.boxes[f.bid])
@@ -354,31 +394,49 @@ class OnlineExplorer:
         raw: List[Tuple[Pt, FaceRec]] = []
         for f in pend:
             tx, ty = -f.ny, f.nx
-            for d in ec.nbv_dists:
-                for lat in ec.nbv_lateral:
+            for d in ((.175, .20, .225, .25, .275) + tuple(ec.nbv_dists) if ec.exhaustive_scoring_faces else ec.nbv_dists):
+                for lat in ((-.8, -.6, -.4, -.2, 0., .2, .4, .6, .8) if ec.exhaustive_scoring_faces else ec.nbv_lateral):
                     vp = (f.cx + f.nx * d + tx * lat, f.cy + f.ny * d + ty * lat)
                     if not self._free(grid, blocked, vp) or occ[grid.to_cell(*vp)] or self._is_tabu(vp, now):
                         continue
-                    if not line_free(grid, blocked, vp, (f.cx + f.nx * 0.28, f.cy + f.ny * 0.28)):
+                    if not ec.exhaustive_scoring_faces and not line_free(grid, blocked, vp, (f.cx + f.nx * 0.28, f.cy + f.ny * 0.28)):
                         continue
                     heading = math.atan2(f.cy-vp[1], f.cx-vp[0])
-                    visible = (cov.picture_visible(vp[0], vp[1], heading, f, occ, grid)
-                               if cov.picture_pending(f)
-                               else cov.face_visible(vp[0], vp[1], heading, f, occ, grid))
+                    # Cheap centre-ray rejection first. Full image and body
+                    # checks run in ranked order only until three diverse,
+                    # valid samples for this face have been found.
+                    visible = cov.face_visible(vp[0], vp[1], heading, f, occ, grid)
                     if not visible[0]:
                         # Do not let three close but clipped/grazing samples
                         # consume a face's budget before a valid sample is tried.
                         continue
-                    key = (int(round(vp[0] / 0.15)), int(round(vp[1] / 0.15)))
+                    spacing = .025 if ec.exhaustive_scoring_faces else .15
+                    key = (f.key, int(round(vp[0] / spacing)), int(round(vp[1] / spacing)))
                     if key in seen_vp:
                         continue
                     seen_vp.add(key)
                     raw.append((vp, f))
-        raw.sort(key=lambda r: math.hypot(r[0][0] - pose.x, r[0][1] - pose.y))
+        def sample_cost(row):
+            vp, f = row
+            distance = math.hypot(vp[0]-pose.x, vp[1]-pose.y)
+            if not ec.exhaustive_scoring_faces:
+                return distance
+            # Prefer a fresh, near-frontal sample; previously empty-looking
+            # views need another location before they can establish absence.
+            repeated = any(math.hypot(vp[0]-p[0], vp[1]-p[1]) < .35 for p in f.view_poses)
+            lateral = abs((vp[0]-f.cx)*f.ny - (vp[1]-f.cy)*f.nx)
+            return distance + 2.0 * repeated + .8 * lateral
+        raw.sort(key=sample_cost)
         per_face: dict = {}
         for vp, f in raw:                                            # 면마다 가까운 시점 3개까지(먼 면의 후보가 가까운 면에 밀려 사라지지 않게)
             choices = per_face.setdefault(f.key, [])
-            if len(choices) < 3:
+            if len(choices) < 3 and (not ec.exhaustive_scoring_faces or all(
+                    math.hypot(vp[0]-v[0], vp[1]-v[1]) >= .25 for v, _ in choices)):
+                heading = math.atan2(f.cy-vp[1], f.cx-vp[0])
+                if cov.requires_full_view(f) and not cov.picture_visible(*vp, heading, f, occ, grid)[0]:
+                    continue
+                if ec.exhaustive_scoring_faces and self.view_body_heading(vp, heading, pose.th, occ, grid) is None:
+                    continue
                 choices.append((vp, f))
         # Round-robin over faces before taking alternate viewpoints. The old
         # distance-sorted [:60] silently discarded distant boxes altogether.
@@ -386,16 +444,21 @@ class OnlineExplorer:
         for vp, f in picked[:max(60, min(96, len(pend)))]:
             heading = math.atan2(f.cy - vp[1], f.cx - vp[0])
             got_l, g_l = self._visible_set(vp, heading, pend, occ, grid, sweep, wgt)
-            if any(cov.picture_pending(x) for x in got_l):
+            if ec.exhaustive_scoring_faces and cov.requires_full_view(f):
+                # All scoring gains already use the exact full-image cone.
+                # A forced look does not need a hypothetical 360-degree gain.
+                got_s, g_s = got_l, g_l
+            else:
+                got_s, g_s = self._visible_set(vp, None, pend, occ, grid, 0.0, wgt)
+            if not ec.exhaustive_scoring_faces and any(cov.requires_full_view(x) for x in got_l):
                 # The controller holds pan at zero while classifying photos.
                 # Its predicted gain must use that same camera orientation.
                 got_l, g_l = self._visible_set(vp, heading, pend, occ, grid, 0.0, wgt)
-            got_s, g_s = self._visible_set(vp, None, pend, occ, grid, 0.0, wgt)
             if g_s <= 0:
                 continue
-            look = cov.picture_pending(f) or g_l >= 0.75 * g_s
+            look = cov.requires_full_view(f) or g_l >= 0.75 * g_s
             got, g = (got_l, g_l) if look else (got_s, g_s)
-            photo = any(cov.picture_pending(x) for x in got)
+            photo = any(cov.requires_full_view(x) for x in got)
             # Stable frontal views provide enough classification votes; simply
             # passing through the camera cone is not completion of an M3 face.
             out.append(Cand("face", vp, heading, "look" if look else "spin", [x.key for x in got], gain_f=g,
@@ -430,7 +493,7 @@ class OnlineExplorer:
             if allowed is not None and server_sector(self.geo.sector_of(*vp)) not in allowed:
                 continue
             gu = cov.seen.unseen_gain(vp[0], vp[1], solid, un, ec.frontier_rays, ec.frontier_radius) * ec.w_frontier
-            if cov.uav_layout_state != "available":
+            if not cov.uav_map_ready():
                 # Without overhead geometry, discover neglected sectors using
                 # actual LiDAR frontiers rather than repeatedly servicing the
                 # nearest visible boxes. No hidden arena-object map is used.
@@ -472,6 +535,7 @@ class OnlineExplorer:
             out = [c for c in out if c.vp != incumbent.vp]
             out.append(incumbent)
         self.diagnostics["last_build"] = {"t": round(now, 2), "pending_faces": len(pend), "raw_viewpoints": len(raw),
+                                          "face_viewpoints": {str(f.key): len(per_face.get(f.key, [])) for f in pend},
                                           "sensor_mode": cov.layout_diagnostics()["mode"],
                                           "m3_scoring_sectors": None if allowed is None else sorted(allowed),
                                           "m1_sweep_sectors": sorted(m1),
@@ -518,15 +582,15 @@ class OnlineExplorer:
                 heading = math.atan2(anchor.cy-vp[1], anchor.cx-vp[0])
         got, gain = self._visible_set(vp, heading if mode == "look" else None, pending, occ, grid,
                                       math.radians(25.) if mode == "look" else 0., weights)
-        photo = any(self.cov.picture_pending(f) for f in got)
+        photo = any(self.cov.requires_full_view(f) for f in got)
         if mode == "look" and photo:
             got, gain = self._visible_set(vp, heading, pending, occ, grid, 0., weights)
-            photo = any(self.cov.picture_pending(f) for f in got)
+            photo = any(self.cov.requires_full_view(f) for f in got)
         gain_u = 0.
         if current.kind == "frontier":
             gain_u = self.cov.seen.unseen_gain(vp[0], vp[1], solid, unseen,
                                                self.ec.frontier_rays, self.ec.frontier_radius) * self.ec.w_frontier
-            if self.cov.uav_layout_state != "available":
+            if not self.cov.uav_map_ready():
                 last = self._sector_observed.get(self.geo.sector_of(*vp), self._started)
                 gain_u *= 1. + min(self.ec.coverage_debt_max, max(0., now-last) / self.ec.coverage_debt_s)
         elif current.kind == "survey" and self.geo.sector_of(*vp) not in self._surveyed:
@@ -576,6 +640,9 @@ class OnlineExplorer:
         v = max(self.cfg.nav.v_cruise * ec.plan_speed_scale, 0.05)
         deadline = mc.prestage_at - ec.deadline_margin_s
         stage_deadline = mc.t_base_cmd - ec.stage_margin_s
+        if ec.exhaustive_scoring_faces:
+            deadline = mc.t_total - ec.coverage_goal_reserve_s - ec.deadline_margin_s
+            stage_deadline = mc.t_total - max(8., ec.stage_margin_s)
         good = []
         rejected = {"low_gain": 0, "deadline": 0, "no_path": 0, "path_deadline": 0}
         for c in cands:
@@ -598,7 +665,7 @@ class OnlineExplorer:
         # lower-row candidate behind the A* evaluation budget.
         representatives, sectors = [], set()
         for c in good:
-            sector = self.geo.sector_of(*c.vp)
+            sector = self.candidate_sector(c)
             if sector not in sectors:
                 representatives.append(c)
                 sectors.add(sector)
@@ -652,6 +719,19 @@ class OnlineExplorer:
         if not ranked:
             self.stats["no_candidate"] += 1
             return None
+        if self.ec.exhaustive_scoring_faces:
+            faces = [c for c in ranked if c.kind in ("face", "identify")]
+            if faces:
+                same_sector = [c for c in faces if self.candidate_sector(c) == self._coverage_sector]
+                others = [c for c in faces if self.candidate_sector(c) != self._coverage_sector]
+                if same_sector and self._now-self._coverage_sector_t0 < self.ec.coverage_sector_commit_s:
+                    ranked = same_sector
+                else:
+                    ranked = others or faces
+                    self._coverage_sector = self.candidate_sector(ranked[0])
+                    self._coverage_sector_t0 = self._now
+                    ranked = [c for c in ranked if self.candidate_sector(c) == self._coverage_sector]
+                self.diagnostics["coverage_sector"] = self._coverage_sector
         best = ranked[0]
         if cur is not None:
             same = [c for c in ranked if c.incumbent and c.vp == cur.vp]
@@ -686,6 +766,7 @@ class OnlineExplorer:
         self.stats[best.kind] = self.stats.get(best.kind, 0) + 1
         events = self.diagnostics["events"]
         events.append({"t": round(self._now, 2), "kind": "selected", "candidate": best.kind,
-                       "vp": best.vp, "gain": round(best.gain, 3), "utility": round(best.utility, 3)})
+                       "vp": best.vp, "primary_face": best.primary_face, "sector": self.candidate_sector(best),
+                       "gain": round(best.gain, 3), "utility": round(best.utility, 3)})
         del events[:-80]
         return best

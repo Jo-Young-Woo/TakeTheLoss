@@ -139,7 +139,9 @@ class WingbotRobot(Robot):
             from ..nav.pose_guard import ImpactDetector                        # 지연 import: HAL 이 nav 를 쓰지 않는 기본 경로에는 영향 없음
             ic = self.cfg.impact
             self._impact_det = ImpactDetector(trigger_dg=ic.trigger_dg, major_dg=ic.major_dg, gyro_dps=ic.gyro_dps,
-                                              major_gyro_dps=ic.major_gyro_dps, refractory_s=ic.refractory_s, noise_k=ic.noise_k)
+                                              major_gyro_dps=ic.major_gyro_dps, refractory_s=ic.refractory_s, noise_k=ic.noise_k,
+                                              vib_filter=getattr(ic, "vib_filter", False), vib_window_s=getattr(ic, "vib_window_s", 0.12),
+                                              vib_min_unipolar=getattr(ic, "vib_min_unipolar", 0.45), vib_min_samples=getattr(ic, "vib_min_samples", 4))
         # 센서
         self._odom = Pose2D()
         self._scan: Optional[Scan] = None

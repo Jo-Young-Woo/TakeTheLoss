@@ -1,0 +1,96 @@
+{
+  "completed": true,
+  "agent_returncodes": {
+    "B-1": 0,
+    "B-2": 0,
+    "B-3": 0,
+    "R-1": 0,
+    "R-2": 0,
+    "R-3": 0
+  },
+  "videos": {
+    "uav_native_rgb": {
+      "fps": 30.0,
+      "source_fps": 29.809273265373232,
+      "source_frames": 1814,
+      "held_frames": 44,
+      "missing_frames": 0,
+      "same_slot_frames": 32,
+      "size": [
+        1280,
+        720
+      ],
+      "video_duration_s": 60.86666666666667,
+      "decoded_frames": 1826,
+      "first_last_changed_pixels": 11258,
+      "file_size_bytes": 2216753
+    },
+    "uav_image_face_ledger": {
+      "fps": 30.0,
+      "source_fps": 29.809273265373232,
+      "source_frames": 1814,
+      "held_frames": 44,
+      "missing_frames": 0,
+      "same_slot_frames": 32,
+      "size": [
+        1700,
+        720
+      ],
+      "video_duration_s": 60.86666666666667,
+      "decoded_frames": 1826,
+      "first_last_changed_pixels": 43600,
+      "file_size_bytes": 2874198
+    }
+  },
+  "callback_queue_dropped": 30,
+  "source_hashes_unchanged": true,
+  "source_files_checked": 424,
+  "live_camera_verified": [
+    {
+      "world": "/tmp/maicon_arena_ge0778ki/maicon_arena.sdf",
+      "pid": 470,
+      "cameras": {
+        "uav_camera": {
+          "pose": [
+            0.0,
+            0.0,
+            2.5,
+            0.0,
+            1.5707963,
+            1.570796327
+          ],
+          "rate": 1.0,
+          "topic": "/uav/image_raw",
+          "hfov": 2.2689280275926285,
+          "resolution": [
+            1280,
+            720
+          ]
+        },
+        "validation_camera": {
+          "pose": [
+            0.0,
+            0.0,
+            2.5,
+            0.0,
+            1.5707963,
+            1.570796327
+          ],
+          "rate": 30.0,
+          "topic": "/arena/validation/image_raw",
+          "hfov": 2.2689280275926285,
+          "resolution": [
+            1280,
+            720
+          ]
+        }
+      },
+      "same_viewpoint": true,
+      "render_environment": [
+        "LIBGL_ALWAYS_SOFTWARE=1"
+      ]
+    }
+  ],
+  "tests": "43 passed: UAV face ledger, coordinator, FPV camera, grid calibration",
+  "gpu_attempt": "../gazebo_uav_30fps_sectors_20261112: invalid visual rendering; excluded"
+}

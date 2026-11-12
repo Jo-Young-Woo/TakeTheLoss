@@ -1,0 +1,68 @@
+{
+  "completed": true,
+  "errors": [],
+  "duration_requested_s": 60.0,
+  "recording": {
+    "fps": 1.0,
+    "size": [
+      1700,
+      720
+    ],
+    "source_frames": 61,
+    "encoded_frames": 61,
+    "missing_frames": 0,
+    "held_frames": 0,
+    "callback_queue_dropped": 0,
+    "error": null
+  },
+  "raw": {
+    "fps": 1.0,
+    "size": [
+      1280,
+      720
+    ],
+    "source_frames": 61,
+    "encoded_frames": 61,
+    "missing_frames": 0,
+    "held_frames": 0
+  },
+  "boxes": 20,
+  "face_hypotheses": 80,
+  "exposed_segments": 58,
+  "image_states": {
+    "excluded": 28,
+    "side_identity_unobserved": 52
+  },
+  "ground_states": {
+    "excluded": 28,
+    "empty": 13,
+    "pending": 27,
+    "identified": 11,
+    "viewed": 1
+  },
+  "uav_native_rgb.mp4": {
+    "decoded_frames": 61,
+    "bytes": 358479
+  },
+  "uav_image_face_ledger.mp4": {
+    "decoded_frames": 61,
+    "bytes": 490708
+  },
+  "recorded_source_matches_current": {
+    "maicon26/perception/coverage.py": true,
+    "maicon26/perception/uav_calibration.py": true,
+    "maicon26/perception/uav_face_ledger.py": false,
+    "scripts/uav_view_recording.py": true,
+    "scripts/run_wingbot_selfplay.py": true,
+    "scripts/run_wingbot_autonomous_trial.py": true
+  },
+  "post_run_ui_change": "uav_face_ledger.py: panel title y=34 -> 43; detection, geometry and recording inputs unchanged",
+  "tests": {
+    "first_suite_passed": 64,
+    "second_suite_passed": 83,
+    "overlap": 7,
+    "unique_passed": 140
+  },
+  "review_video": "uav_face_ledger_review.mp4",
+  "review_video_frames_decoded": 61
+}

@@ -1,0 +1,13 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____________ test_lattice_strategy_still_available_and_reaches_m5 _____________
+
+    def test_lattice_strategy_still_available_and_reaches_m5():
+        r = run_trial(3, "lattice", cfg=make_cfg("lattice"), max_t=300.0)
+>       assert r["m5"] is not None and r["m2_ok"]
+E       assert (241.4 is not None and False)
+
+tests/test_explore_online.py:77: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_explore_online.py::test_lattice_strategy_still_available_and_reaches_m5
+1 failed in 13.13s

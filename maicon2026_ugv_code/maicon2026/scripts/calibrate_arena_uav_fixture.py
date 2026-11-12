@@ -52,9 +52,13 @@ def measured_matches(reference, image, arena_size, max_match_ratio=.5):
             continue
         x, y = keys1[match.queryIdx].pt
         pixel = list(keys2[match.trainIdx].pt)
-        arena = [x/reference_width*width, height-y/reference_height*height]
+        # SIFT positions index pixel centres. OpenCV resize maps centres by
+        # (p + .5) * original/scaled - .5; treating p as an image edge biases
+        # the metric reference by half a downsampled pixel (about 4 mm here).
+        arena = [(x+.5)/reference_width*width, height-(y+.5)/reference_height*height]
         candidates.append({"pixel": pixel, "arena": arena,
-                           "reference_pixel": [x/reference_width*reference.shape[1], y/reference_height*reference.shape[0]],
+                           "reference_pixel": [(x+.5)/reference_width*reference.shape[1]-.5,
+                                               (y+.5)/reference_height*reference.shape[0]-.5],
                            "match_ratio": match.distance/other.distance,
                            "source": "mutual_image_feature_in_measured_floor_print"})
     distinct = []
@@ -137,7 +141,12 @@ def main(argv=None):
     if image is None or reference is None:
         parser.error("Input camera image or floor print could not be decoded")
     width, height = spec["floor"]["size"]
-    fit, checks = measured_matches(reference, image, (width, height), args.max_match_ratio)
+    print_width, print_height = spec["floor"].get("print_size", (width, height))
+    fit, checks = measured_matches(reference, image, (print_width, print_height), args.max_match_ratio)
+    # Reference pixels cover the centred original print, not the added margins.
+    for point in (*fit, *checks):
+        point["arena"][0] += (width-print_width)/2
+        point["arena"][1] += (height-print_height)/2
     camera = spec["uav_camera"]["pose"]
     camera_height = camera[2] if args.camera_height is None else args.camera_height
     prefix = args.evidence_prefix

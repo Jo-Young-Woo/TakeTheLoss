@@ -101,7 +101,7 @@ class Navigator:
                 else:                                   # 목표가 장애물 안: 가장 가까운 자유 지점이 실질 목표
                     self.goal_eff = self.path[-1]
                 self._last_plan = now
-                self._occ_snap = self.grid.occupied().copy()
+                self._occ_snap = self.grid.planning_occupied().copy()
                 self.replans += 1
                 self._plan_fail = 0
                 return True
@@ -122,6 +122,8 @@ class Navigator:
         # 정적 구조물만: 로그오즈 ≥ 1.8(같은 셀에 ≥2~3회 연속 관측)인 새 셀. 움직이는 다른 UGV의 표면은 같은 셀에
         # 1~2회만 맞고 지나가므로 걸러진다(시뮬 3v3: 이 조건이 없으면 UGV끼리 재계획 진동으로 충돌이 늘었다).
         new = (self.grid.L > self.INVAL_LOGODDS) & ~self._occ_snap
+        if self.grid.planning_prior is not None:
+            new |= self.grid.planning_prior & ~self._occ_snap
         if self.grid.layer3d is not None:                  # 깊이 카메라가 새로 확정한 장애물(이미 임계 ≥ 3회 관측)
             new |= self.grid.layer3d & ~self._occ_snap
         if not new.any():

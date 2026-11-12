@@ -15,7 +15,7 @@ PACKAGE = Path(__file__).resolve().parents[1]
 
 
 def world_to_pixel(spec: dict, image_size, x: float, y: float, padding=0):
-    width, height = spec["floor"]["size"]
+    width, height = spec["floor"].get("print_size", spec["floor"]["size"])
     return padding + (x + width / 2) * image_size[0] / width, padding + (height / 2 - y) * image_size[1] / height
 
 

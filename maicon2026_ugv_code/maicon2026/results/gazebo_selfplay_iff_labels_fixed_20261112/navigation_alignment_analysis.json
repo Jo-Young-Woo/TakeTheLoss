@@ -1,0 +1,133 @@
+{
+  "source": "results/gazebo_selfplay_iff_labels_fixed_20261112",
+  "method": "Nearest truth within 0.25s; arena 6x4.8; exclude startup <5s. Stall: >80% commands >0.05m/s, <0.02m excursion in 1s. This is not a contact sensor.",
+  "robots": {
+    "B-1": {
+      "samples": 3577,
+      "position_error_m_p50_p95_max": [
+        0.033,
+        0.195,
+        0.443
+      ],
+      "heading_error_deg_p50_p95_max": [
+        1.96,
+        12.29,
+        20.73
+      ],
+      "commanded_stall_s": 0,
+      "stall_windows": []
+    },
+    "B-2": {
+      "samples": 3774,
+      "position_error_m_p50_p95_max": [
+        0.024,
+        0.082,
+        0.24
+      ],
+      "heading_error_deg_p50_p95_max": [
+        1.62,
+        10.81,
+        22.1
+      ],
+      "commanded_stall_s": 3.12,
+      "stall_windows": [
+        {
+          "t": 123.39,
+          "duration_s": 1.048,
+          "mode": "STRIKE_AIM",
+          "position_error_m": 0.022,
+          "heading_error_deg": 1.83
+        },
+        {
+          "t": 127.53,
+          "duration_s": 1.04,
+          "mode": "STRIKE_AIM",
+          "position_error_m": 0.047,
+          "heading_error_deg": 0.9
+        },
+        {
+          "t": 128.57,
+          "duration_s": 1.032,
+          "mode": "STRIKE_AIM",
+          "position_error_m": 0.03,
+          "heading_error_deg": 0.79
+        }
+      ]
+    },
+    "B-3": {
+      "samples": 3513,
+      "position_error_m_p50_p95_max": [
+        0.031,
+        0.277,
+        0.476
+      ],
+      "heading_error_deg_p50_p95_max": [
+        2.64,
+        12.44,
+        20.63
+      ],
+      "commanded_stall_s": 2.04,
+      "stall_windows": [
+        {
+          "t": 200.42,
+          "duration_s": 1.024,
+          "mode": "STRIKE_AIM",
+          "position_error_m": 0.019,
+          "heading_error_deg": 1.0
+        },
+        {
+          "t": 201.45,
+          "duration_s": 1.016,
+          "mode": "STRIKE_AIM",
+          "position_error_m": 0.056,
+          "heading_error_deg": 0.4
+        }
+      ]
+    },
+    "R-1": {
+      "samples": 3665,
+      "position_error_m_p50_p95_max": [
+        0.023,
+        0.221,
+        0.478
+      ],
+      "heading_error_deg_p50_p95_max": [
+        2.26,
+        11.31,
+        19.67
+      ],
+      "commanded_stall_s": 0,
+      "stall_windows": []
+    },
+    "R-2": {
+      "samples": 3551,
+      "position_error_m_p50_p95_max": [
+        0.034,
+        0.555,
+        1.064
+      ],
+      "heading_error_deg_p50_p95_max": [
+        4.16,
+        20.51,
+        36.77
+      ],
+      "commanded_stall_s": 0,
+      "stall_windows": []
+    },
+    "R-3": {
+      "samples": 3666,
+      "position_error_m_p50_p95_max": [
+        0.03,
+        0.142,
+        0.369
+      ],
+      "heading_error_deg_p50_p95_max": [
+        2.63,
+        12.25,
+        19.56
+      ],
+      "commanded_stall_s": 0,
+      "stall_windows": []
+    }
+  }
+}

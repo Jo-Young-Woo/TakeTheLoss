@@ -38,6 +38,20 @@ class OccupancyGrid:
         # extraction, and apply it only to planning centre-cell costs.
         self.keepout: Optional[np.ndarray] = None
         self.keepout_version = 0
+        # Image priors are planning evidence, never SLAM measurements. Keeping
+        # them separate avoids matching LiDAR against its own inferred boxes.
+        self.planning_prior: Optional[np.ndarray] = None
+
+    def set_planning_prior(self, mask: Optional[np.ndarray]) -> None:
+        if mask is not None and mask.shape != self.L.shape:
+            raise ValueError("aerial prior shape differs from planning grid")
+        self.planning_prior = None if mask is None else np.asarray(mask, dtype=bool).copy()
+
+    def planning_occupied(self) -> np.ndarray:
+        occ = self.occupied()
+        if self.planning_prior is not None:
+            occ |= self.planning_prior
+        return occ
 
     def set_keepout(self, mask: Optional[np.ndarray]) -> bool:
         if mask is not None and mask.shape != self.L.shape:
@@ -138,7 +152,7 @@ class OccupancyGrid:
     def cost_maps(self, hard: float, soft: float, soft_w: float,
                   extra_block: Optional[Sequence[Pt]] = None, extra_r: float = 0.3):
         """(blocked bool, cost float) — cost는 이동 1칸당 가중."""
-        occ = self.occupied().copy()
+        occ = self.planning_occupied().copy()
         if extra_block:
             for (x, y) in extra_block:
                 iy, ix = self.to_cell(x, y)

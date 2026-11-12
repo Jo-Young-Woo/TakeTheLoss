@@ -1,0 +1,3786 @@
+{
+  "agent_mode": "DONE",
+  "stop_source": "match_cmd",
+  "m6_result": "acked",
+  "agent_stats": {
+    "mode_time": {
+      "EXPLORE": 60.02
+    },
+    "state_time": {
+      "EXPLORE": 60.02
+    },
+    "strike_shots": 0,
+    "hunt_shots": 0,
+    "recoveries": 0,
+    "multi_output": 0,
+    "det_consumed": 325,
+    "det_dropped": 0,
+    "safe_stops": {},
+    "msg_rejected": {
+      "dup-start": 1,
+      "after-stop": 1
+    },
+    "detector_errors": 0,
+    "link_errors": 0,
+    "lidar_suspects": [],
+    "pose_at_clamped": 0,
+    "aim_resets": 0,
+    "smog_changes": 0,
+    "smog_s": 0.0,
+    "game_events": {},
+    "base_entries": [],
+    "wrong_target_inhibit": 0,
+    "led_confirmed": 0,
+    "tower_obs": 0,
+    "uav_state": "normal",
+    "depth_frames": 0,
+    "depth_stale_skipped": 0,
+    "nav_layer_cells": 0,
+    "depth_guard_ticks": 0,
+    "range_from_depth": 0,
+    "beam_blocked_ticks": 0,
+    "beam_override": 0,
+    "beam_checked": 0,
+    "height_reject": 0,
+    "depth_lidar_alarm": 0,
+    "bump_events": 0,
+    "tick_ms_max": 728.1679219999972,
+    "tick_over_budget": 295,
+    "paused_s": 0.0,
+    "match_locked_s": 0.003999999999997783,
+    "tilt_stops": 0,
+    "restored": false,
+    "oak_frames_seen": 0,
+    "oak_det_consumed": 0,
+    "oak_det_dropped": 0,
+    "oak_dets": 0,
+    "oak_no_camera": 0,
+    "oak_errors": 0,
+    "oak_disagreements": 0,
+    "oak_ring_saved": 0,
+    "avoid_ticks": 0,
+    "avoid_acquired": 0,
+    "carrot_sent": 4,
+    "risk_plans": 500,
+    "risk_plan_fail": 314,
+    "m2_deferred_s": 0.0,
+    "field_builds": 0,
+    "field_ms": 0.0,
+    "friend_map": {
+      "slots": [
+        {
+          "ident": "B-UGV-2",
+          "state": "unidentified",
+          "x": 2.18,
+          "y": 1.847,
+          "age_s": 51.81,
+          "tid": 2,
+          "reason": "timeout",
+          "n_match": 16
+        },
+        {
+          "ident": "B-UGV-3",
+          "state": "unidentified",
+          "x": 2.137,
+          "y": 1.541,
+          "age_s": 44.94,
+          "tid": 3,
+          "reason": "timeout",
+          "n_match": 14
+        }
+      ],
+      "stats": {
+        "born": 2,
+        "matched": 28,
+        "lost_ambiguous": 0,
+        "lost_timeout": 2,
+        "lost_colour": 0,
+        "lost_other": 0,
+        "birth_ambiguous": 0
+      },
+      "events": [
+        {
+          "t": 0.731,
+          "kind": "born",
+          "ident": "B-UGV-2",
+          "x": 0.34,
+          "y": 2.41,
+          "source": "base"
+        },
+        {
+          "t": 0.731,
+          "kind": "born",
+          "ident": "B-UGV-3",
+          "x": 0.3,
+          "y": 0.81,
+          "source": "base"
+        },
+        {
+          "t": 13.208,
+          "kind": "lost",
+          "ident": "B-UGV-2",
+          "reason": "timeout"
+        },
+        {
+          "t": 20.072,
+          "kind": "lost",
+          "ident": "B-UGV-3",
+          "reason": "timeout"
+        }
+      ],
+      "window_end": 3.7313739147955225
+    },
+    "face_registry": {
+      "registered": 70,
+      "identified": 10,
+      "empty": 35,
+      "pending": 25,
+      "hidden": 0,
+      "uav": 49,
+      "restored": 0
+    },
+    "uav_map": {
+      "enabled": true,
+      "t0": 1.8419218849105121,
+      "window_s": 4.0,
+      "registered": 76,
+      "converted": 22,
+      "undetected": 7,
+      "sectors": {
+        "R-S2": {
+          "census": 6,
+          "detected": 3,
+          "undetected": 3,
+          "hidden": 0,
+          "new_faces": 0,
+          "new_detected": 0
+        },
+        "R-S1": {
+          "census": 6,
+          "detected": 2,
+          "undetected": 4,
+          "hidden": 0,
+          "new_faces": 1,
+          "new_detected": 1
+        }
+      },
+      "todo": [
+        [
+          "R-S2",
+          4.19,
+          2.19,
+          "S"
+        ],
+        [
+          "R-S1",
+          4.42,
+          3.79,
+          "E"
+        ],
+        [
+          "R-S1",
+          4.01,
+          4.19,
+          "W"
+        ],
+        [
+          "R-S2",
+          4.81,
+          2.38,
+          "E"
+        ],
+        [
+          "R-S2",
+          4.61,
+          2.18,
+          "S"
+        ],
+        [
+          "R-S1",
+          4.81,
+          4.19,
+          "E"
+        ],
+        [
+          "R-S1",
+          4.61,
+          3.99,
+          "S"
+        ]
+      ]
+    },
+    "uav_layout_state": "available",
+    "own_base_keepout_active": false,
+    "own_base_keepout_cells": 0,
+    "own_base_blocked_commands": 0,
+    "wheel_limited": 0,
+    "m1_sweep": {
+      "sectors": [
+        "R-S1",
+        "R-S2"
+      ],
+      "boxes": 6,
+      "faces": 16,
+      "done": 8,
+      "todo": 8,
+      "hidden": 0,
+      "unreachable": 0,
+      "complete": false,
+      "per_sector": {
+        "R-S1": {
+          "boxes": 4,
+          "faces": 10,
+          "identified": 0,
+          "empty": 4,
+          "hidden": 0,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 3,
+          "pending": 3
+        },
+        "R-S2": {
+          "boxes": 2,
+          "faces": 6,
+          "identified": 4,
+          "empty": 0,
+          "hidden": 0,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 1,
+          "pending": 1
+        }
+      },
+      "tier": {
+        "enemy": [
+          "R-S1",
+          "R-S2"
+        ],
+        "cm": false,
+        "enemy_done": false,
+        "cm_deferred": true,
+        "elapsed_s": 58.4,
+        "weights": {
+          "R-S1": 2.4,
+          "R-S2": 2.4
+        }
+      }
+    },
+    "route_kept": 5,
+    "pose_at_extrapolated": 13,
+    "progress_replans": 4,
+    "progress_abandons": 1,
+    "face_arrival_refinements": 1,
+    "avoid": {
+      "aware_s": 5.903999999999996,
+      "evade_s": 33.11600000000001,
+      "close_s": 18.38,
+      "owner_s": 0.0,
+      "evade_entries": 2,
+      "close_entries": 5,
+      "retreats": 0,
+      "holds": 0,
+      "reverses": 0,
+      "downgrades": 0,
+      "no_candidate": 0,
+      "released": 0,
+      "commit_skips": 0,
+      "plans": 0,
+      "plan_s": 0.0,
+      "max_exposure_s": 0.0
+    },
+    "coverage": {
+      "lidar_faces": {
+        "groups": 19,
+        "closed": 0,
+        "open": 3,
+        "deferred": 7,
+        "units": 17,
+        "faces": 19,
+        "components": 33,
+        "ugv_cells_removed": 2,
+        "no_face": 9,
+        "runs": 32,
+        "thin_or_unknown_outside": 13
+      },
+      "face_registry": {
+        "registered": 70,
+        "identified": 10,
+        "empty": 35,
+        "pending": 25,
+        "hidden": 0,
+        "uav": 49,
+        "restored": 0
+      },
+      "sector_ledger": {
+        "B-S1": {
+          "boxes": 5,
+          "faces": 7,
+          "identified": 0,
+          "empty": 3,
+          "hidden": 0,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 1,
+          "pending": 3,
+          "excluded": 13,
+          "todo": [
+            [
+              10,
+              0
+            ],
+            [
+              23,
+              0
+            ],
+            [
+              23,
+              2
+            ],
+            [
+              30,
+              2
+            ]
+          ],
+          "complete": false
+        },
+        "B-S2": {
+          "boxes": 3,
+          "faces": 10,
+          "identified": 1,
+          "empty": 2,
+          "hidden": 1,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 1,
+          "pending": 5,
+          "excluded": 2,
+          "todo": [
+            [
+              5,
+              2
+            ],
+            [
+              5,
+              3
+            ],
+            [
+              6,
+              3
+            ],
+            [
+              33,
+              0
+            ],
+            [
+              33,
+              1
+            ],
+            [
+              33,
+              3
+            ]
+          ],
+          "complete": false
+        },
+        "B-S3": {
+          "boxes": 4,
+          "faces": 11,
+          "identified": 1,
+          "empty": 2,
+          "hidden": 1,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 0,
+          "pending": 7,
+          "excluded": 5,
+          "todo": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              8,
+              2
+            ],
+            [
+              9,
+              0
+            ],
+            [
+              32,
+              2
+            ],
+            [
+              32,
+              3
+            ]
+          ],
+          "complete": false
+        },
+        "CM": {
+          "boxes": 9,
+          "faces": 32,
+          "identified": 4,
+          "empty": 13,
+          "hidden": 2,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 1,
+          "pending": 12,
+          "excluded": 4,
+          "todo": [
+            [
+              2,
+              3
+            ],
+            [
+              11,
+              2
+            ],
+            [
+              11,
+              3
+            ],
+            [
+              12,
+              0
+            ],
+            [
+              12,
+              1
+            ],
+            [
+              21,
+              3
+            ],
+            [
+              22,
+              0
+            ],
+            [
+              25,
+              0
+            ],
+            [
+              25,
+              1
+            ],
+            [
+              28,
+              2
+            ],
+            [
+              28,
+              3
+            ],
+            [
+              35,
+              2
+            ],
+            [
+              35,
+              3
+            ]
+          ],
+          "complete": false
+        },
+        "R-S1": {
+          "boxes": 4,
+          "faces": 10,
+          "identified": 0,
+          "empty": 4,
+          "hidden": 0,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 3,
+          "pending": 3,
+          "excluded": 6,
+          "todo": [
+            [
+              16,
+              0
+            ],
+            [
+              17,
+              2
+            ],
+            [
+              20,
+              0
+            ],
+            [
+              29,
+              0
+            ],
+            [
+              29,
+              1
+            ],
+            [
+              29,
+              3
+            ]
+          ],
+          "complete": false
+        },
+        "R-S2": {
+          "boxes": 2,
+          "faces": 6,
+          "identified": 4,
+          "empty": 0,
+          "hidden": 0,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 1,
+          "pending": 1,
+          "excluded": 2,
+          "todo": [
+            [
+              19,
+              0
+            ],
+            [
+              19,
+              3
+            ]
+          ],
+          "complete": false
+        },
+        "R-S3": {
+          "boxes": 3,
+          "faces": 7,
+          "identified": 0,
+          "empty": 2,
+          "hidden": 0,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 0,
+          "pending": 5,
+          "excluded": 5,
+          "todo": [
+            [
+              13,
+              0
+            ],
+            [
+              13,
+              2
+            ],
+            [
+              14,
+              2
+            ],
+            [
+              18,
+              0
+            ],
+            [
+              18,
+              3
+            ]
+          ],
+          "complete": false
+        },
+        "none": {
+          "boxes": 5,
+          "faces": 15,
+          "identified": 0,
+          "empty": 7,
+          "hidden": 7,
+          "unreachable": 0,
+          "uncertain": 0,
+          "viewed": 0,
+          "pending": 1,
+          "excluded": 5,
+          "todo": [
+            [
+              34,
+              1
+            ]
+          ],
+          "complete": false
+        }
+      },
+      "boxes": 35,
+      "m3_candidate_boxes": 35,
+      "uav_layout": {
+        "state": "available",
+        "mode": "uav_assisted",
+        "age_s": 0.97,
+        "timeout_s": 12.0,
+        "active_priors": 20,
+        "suspended_image_only_boxes": 0,
+        "local_boxes": 33,
+        "map_frozen": true,
+        "frozen_boxes": 20,
+        "map_stats": {
+          "ugv_excluded": 0,
+          "inner_faces": 28,
+          "frozen_boxes": 20,
+          "frozen_t": 5.86,
+          "late_boxes_ignored": 50
+        },
+        "events": [
+          {
+            "t": 0.731,
+            "from": "unavailable",
+            "to": "acquiring"
+          },
+          {
+            "t": 1.842,
+            "from": "acquiring",
+            "to": "available"
+          },
+          {
+            "t": 5.86,
+            "from": "available",
+            "to": "available",
+            "freeze": 20
+          }
+        ]
+      },
+      "photo_cubes": 0,
+      "photo_faces_pending": 0,
+      "cube_candidates": [
+        {
+          "bid": 1,
+          "cx": 1.439,
+          "cy": 0.986,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "EMPTY",
+            "UNSEEN",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 2,
+          "cx": 3.03,
+          "cy": 2.215,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "CONFIRMED",
+            "UNREACHABLE",
+            "EMPTY",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 3,
+          "cx": 2.673,
+          "cy": 2.619,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "EMPTY",
+            "EMPTY",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 4,
+          "cx": 1.424,
+          "cy": 3.828,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "UNREACHABLE",
+            "EMPTY",
+            "EMPTY"
+          ]
+        },
+        {
+          "bid": 5,
+          "cx": 1.145,
+          "cy": 2.41,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "EMPTY",
+            "VIEWED_NO_DET",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 6,
+          "cx": 1.819,
+          "cy": 2.377,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "CONFIRMED",
+            "EMPTY",
+            "UNREACHABLE",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 7,
+          "cx": 1.079,
+          "cy": 4.2,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "UNREACHABLE",
+            "VIEWED_NO_DET",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 8,
+          "cx": 1.823,
+          "cy": 0.593,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "uav",
+          "available": true,
+          "faces": [
+            "UNSEEN",
+            "UNREACHABLE",
+            "UNSEEN",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 9,
+          "cx": 1.823,
+          "cy": 0.993,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNSEEN",
+            "CONFIRMED",
+            "UNREACHABLE",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 10,
+          "cx": 1.815,
+          "cy": 4.193,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNSEEN",
+            "UNREACHABLE",
+            "UNREACHABLE",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 11,
+          "cx": 3.024,
+          "cy": 1.195,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "EMPTY",
+            "EMPTY",
+            "UNSEEN",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 12,
+          "cx": 3.006,
+          "cy": 3.592,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "UNSEEN",
+            "UNSEEN",
+            "EMPTY",
+            "EMPTY"
+          ]
+        },
+        {
+          "bid": 13,
+          "cx": 4.224,
+          "cy": 0.593,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "uav",
+          "available": true,
+          "faces": [
+            "UNSEEN",
+            "UNREACHABLE",
+            "UNSEEN",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 14,
+          "cx": 4.232,
+          "cy": 1.014,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "EMPTY",
+            "UNSEEN",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 15,
+          "cx": 4.186,
+          "cy": 2.386,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "CONFIRMED",
+            "CONFIRMED",
+            "CONFIRMED"
+          ]
+        },
+        {
+          "bid": 16,
+          "cx": 4.209,
+          "cy": 3.788,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "VIEWED_NO_DET",
+            "UNREACHABLE",
+            "EMPTY",
+            "EMPTY"
+          ]
+        },
+        {
+          "bid": 17,
+          "cx": 4.224,
+          "cy": 4.193,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "UNREACHABLE",
+            "VIEWED_NO_DET",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 18,
+          "cx": 4.627,
+          "cy": 0.997,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "UNSEEN",
+            "EMPTY",
+            "UNREACHABLE",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 19,
+          "cx": 4.599,
+          "cy": 2.381,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "VIEWED_NO_DET",
+            "CONFIRMED",
+            "UNREACHABLE",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 20,
+          "cx": 4.624,
+          "cy": 4.193,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNSEEN",
+            "UNREACHABLE",
+            "UNREACHABLE",
+            "EMPTY"
+          ]
+        },
+        {
+          "bid": 21,
+          "cx": 3.03,
+          "cy": 2.294,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "EMPTY",
+            "UNREACHABLE",
+            "EMPTY",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 22,
+          "cx": 3.029,
+          "cy": 2.582,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "UNSEEN",
+            "CONFIRMED",
+            "EMPTY",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 23,
+          "cx": 1.8,
+          "cy": 3.794,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "VIEWED_NO_DET",
+            "UNREACHABLE",
+            "UNSEEN",
+            "EMPTY"
+          ]
+        },
+        {
+          "bid": 24,
+          "cx": 2.977,
+          "cy": 4.631,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "UNREACHABLE",
+            "EMPTY",
+            "EMPTY"
+          ]
+        },
+        {
+          "bid": 25,
+          "cx": 2.993,
+          "cy": 3.631,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "UNSEEN",
+            "UNSEEN",
+            "CONFIRMED",
+            "EMPTY"
+          ]
+        },
+        {
+          "bid": 26,
+          "cx": 5.835,
+          "cy": 2.4,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "UNREACHABLE",
+            "EMPTY",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 27,
+          "cx": 5.782,
+          "cy": 3.258,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "UNREACHABLE",
+            "EMPTY",
+            "EMPTY"
+          ]
+        },
+        {
+          "bid": 28,
+          "cx": 3.038,
+          "cy": 1.21,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "EMPTY",
+            "CONFIRMED",
+            "VIEWED_NO_DET",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 29,
+          "cx": 4.165,
+          "cy": 3.924,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "full",
+          "available": true,
+          "faces": [
+            "VIEWED_NO_DET",
+            "UNSEEN",
+            "EMPTY",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 30,
+          "cx": 1.125,
+          "cy": 3.825,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "UNREACHABLE",
+            "UNSEEN",
+            "EMPTY"
+          ]
+        },
+        {
+          "bid": 32,
+          "cx": 1.15,
+          "cy": 1.0,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "EMPTY",
+            "UNSEEN",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 33,
+          "cx": 1.573,
+          "cy": 2.325,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNSEEN",
+            "UNSEEN",
+            "UNREACHABLE",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 34,
+          "cx": 3.001,
+          "cy": 0.208,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "UNSEEN",
+            "UNREACHABLE",
+            "UNREACHABLE"
+          ]
+        },
+        {
+          "bid": 35,
+          "cx": 2.704,
+          "cy": 1.2,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "EMPTY",
+            "UNSEEN",
+            "UNSEEN"
+          ]
+        },
+        {
+          "bid": 36,
+          "cx": 5.83,
+          "cy": 1.622,
+          "sx": 0.4,
+          "sy": 0.4,
+          "source": "face",
+          "available": true,
+          "faces": [
+            "UNREACHABLE",
+            "EMPTY",
+            "EMPTY",
+            "UNREACHABLE"
+          ]
+        }
+      ],
+      "confirmed_static_boxes": 10,
+      "uav_alignment": {
+        "dx": 0.02,
+        "dy": -0.008,
+        "matches": 8,
+        "rms": 0.022,
+        "t": 60.0376888123738
+      },
+      "uav_arena_centres": [
+        {
+          "bid": 1,
+          "cx": 1.403,
+          "cy": 1.002
+        },
+        {
+          "bid": 2,
+          "cx": 3.005,
+          "cy": 2.195
+        },
+        {
+          "bid": 3,
+          "cx": 3.005,
+          "cy": 2.595
+        },
+        {
+          "bid": 4,
+          "cx": 1.795,
+          "cy": 3.802
+        },
+        {
+          "bid": 5,
+          "cx": 1.403,
+          "cy": 2.397
+        },
+        {
+          "bid": 6,
+          "cx": 1.803,
+          "cy": 2.397
+        },
+        {
+          "bid": 7,
+          "cx": 1.395,
+          "cy": 4.202
+        },
+        {
+          "bid": 8,
+          "cx": 1.803,
+          "cy": 0.602
+        },
+        {
+          "bid": 9,
+          "cx": 1.803,
+          "cy": 1.002
+        },
+        {
+          "bid": 10,
+          "cx": 1.795,
+          "cy": 4.202
+        },
+        {
+          "bid": 11,
+          "cx": 3.005,
+          "cy": 1.203
+        },
+        {
+          "bid": 12,
+          "cx": 3.005,
+          "cy": 3.6
+        },
+        {
+          "bid": 13,
+          "cx": 4.205,
+          "cy": 0.602
+        },
+        {
+          "bid": 14,
+          "cx": 4.205,
+          "cy": 1.002
+        },
+        {
+          "bid": 15,
+          "cx": 4.197,
+          "cy": 2.397
+        },
+        {
+          "bid": 16,
+          "cx": 4.205,
+          "cy": 3.802
+        },
+        {
+          "bid": 17,
+          "cx": 4.205,
+          "cy": 4.202
+        },
+        {
+          "bid": 18,
+          "cx": 4.605,
+          "cy": 1.002
+        },
+        {
+          "bid": 19,
+          "cx": 4.597,
+          "cy": 2.397
+        },
+        {
+          "bid": 20,
+          "cx": 4.605,
+          "cy": 4.202
+        }
+      ],
+      "oak_identify": {
+        "primary": false,
+        "oak_live": false,
+        "total": 0,
+        "by_reason": {}
+      },
+      "faces": {
+        "UNREACHABLE": 51,
+        "EMPTY": 34,
+        "UNSEEN": 37,
+        "CONFIRMED": 10,
+        "VIEWED_NO_DET": 8
+      },
+      "seen_frac": 0.963,
+      "boxes_created": 36,
+      "boxes_moved": 1,
+      "views": 410,
+      "dropped_faces": 0,
+      "uav_prior_free_overrides": 441,
+      "uav_boxes_created": 13
+    }
+  },
+  "agent_log": [
+    [
+      0.0,
+      "init team=BLUE slot=1 backend=builtin pose=(0.11,4.00,0.00)"
+    ],
+    [
+      0.0,
+      "WARN oak_det.enable 인데 검출기가 OAK 슬롯을 지원하지 않는다(SharedAsyncDetector 필요) — OAK 탐지 없이 계속"
+    ],
+    [
+      0.0,
+      "WARN 틱 224 ms > 100 ms (PDF p18 step 한도) — 1회째. 무거운 처리가 제어 루프에 있다"
+    ],
+    [
+      0.0,
+      "M1 rule -> {'target': 'RADAR_FACILITY', 'sectors': ['R-S1', 'R-S2'], 'goal_base': 'MAINT_DEPOT'} conf=1.00 []"
+    ],
+    [
+      0.0,
+      "M1 full snapshot requested"
+    ],
+    [
+      0.0,
+      "M1 섹터 면 확인 R-S1,R-S2: 상자 0개 — 식별·빈 면 0, 남은 면 0, 가려진 면 0, 못 푼 면 0 (R-S1:0/0 R-S2:0/0)"
+    ],
+    [
+      0.0,
+      "START latched src=robot_match match_id=None"
+    ],
+    [
+      0.0,
+      "mode WAIT->EXPLORE start"
+    ],
+    [
+      0.0,
+      "EXPLORE pick frontier/spin vp=(3.15,2.95) gain=4.11 T=11.7+5.7s faces=0"
+    ],
+    [
+      0.0,
+      "M1 우선순위: 적 섹터 지정 면부터 본다 — CM 은 그 다음 (적 섹터 R-S1,R-S2, CM 없음, 경과 0.0 s)"
+    ],
+    [
+      0.17,
+      "msg start dropped (dup-start)"
+    ],
+    [
+      0.2,
+      "아군 B-UGV-2 추적 시작 (0.34,2.41) — 출발 위치 기준"
+    ],
+    [
+      0.2,
+      "아군 B-UGV-3 추적 시작 (0.30,0.81) — 출발 위치 기준"
+    ],
+    [
+      0.2,
+      "UAV 영상 상태 unknown → normal (주기 ≈ 1.0s) — 상대의 지정표적 유효타격으로 영상이 줄거나 끊긴다(규정). 트랙 보존 3.0s"
+    ],
+    [
+      0.2,
+      "UAV 배치 영상 unavailable → acquiring — 탐색 lidar_camera"
+    ],
+    [
+      0.2,
+      "POSTURE level:0->1:threat_rise"
+    ],
+    [
+      0.2,
+      "EXPLORE pick frontier/spin vp=(3.15,3.05) gain=3.91 T=11.3+5.7s faces=0"
+    ],
+    [
+      1.3,
+      "면 기록부: 등록 76면(UAV 영상 76) — 식별 0, 빈 면 0, 미해결 76, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      1.3,
+      "UAV 배치 영상 acquiring → available — 탐색 uav_assisted"
+    ],
+    [
+      1.3,
+      "EXPLORE pick face/look vp=(1.95,2.81) gain=9.13 T=7.1+1.2s faces=6"
+    ],
+    [
+      2.82,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) B-S1 (1.30,3.82) W면 — 초기 영상 뒤 2.0 s"
+    ],
+    [
+      2.82,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) B-S2 (1.16,2.61) N면 — 초기 영상 뒤 2.0 s"
+    ],
+    [
+      2.82,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) B-S2 (1.50,2.60) N면 — 초기 영상 뒤 2.0 s"
+    ],
+    [
+      3.85,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) CM (2.67,2.82) N면 — 초기 영상 뒤 3.0 s"
+    ],
+    [
+      3.85,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) CM (2.47,2.62) W면 — 초기 영상 뒤 3.0 s"
+    ],
+    [
+      4.85,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) CM (2.50,2.21) W면 — 초기 영상 뒤 4.0 s"
+    ],
+    [
+      4.85,
+      "UAV 지도 면 전환: 미탐지 → 탐지(identified/DRUM) CM (2.49,3.62) W면 — 초기 영상 뒤 4.0 s"
+    ],
+    [
+      4.98,
+      "M1 섹터 면 확인 R-S1,R-S2: 상자 5개 — 식별·빈 면 0, 남은 면 12, 가려진 면 0, 못 푼 면 0 (R-S1:0/6 R-S2:0/6)"
+    ],
+    [
+      5.3,
+      "POSTURE level:1->2:threat_rise"
+    ],
+    [
+      5.87,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) CM (2.69,1.42) N면 — 초기 영상 뒤 5.0 s"
+    ],
+    [
+      6.3,
+      "면 기록부: 등록 51면(UAV 영상 51) — 식별 1, 빈 면 7, 미해결 43, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      7.7,
+      "EXPLORE no_candidate {'t': 7.7, 'candidates': 67, 'path_checks': 24, 'incumbent_path_checks': 0, 'incumbent_accepted': False, 'new_candidate_path_checks': 24, 'accepted': 0, 'rejected': {'low_gain': 0, 'deadline': 0, 'no_path': 24, 'path_deadline': 0}, 'start_blocked': False, 'start_observed_occupied': False, 'snapped_start': (1.975, 2.875), 'field_blocked_start': True, 'prior_free_overrides': 338}"
+    ],
+    [
+      9.7,
+      "EXPLORE pick face/look vp=(2.41,3.30) gain=8.94 T=1.7+1.2s faces=4"
+    ],
+    [
+      9.96,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) CM (2.69,3.42) S면 — 초기 영상 뒤 9.1 s"
+    ],
+    [
+      10.0,
+      "M3 full snapshot requested sectors={'R-S1': 0, 'R-S2': 0, 'R-S3': 0, 'COMMON': 2}"
+    ],
+    [
+      10.0,
+      "M1 섹터 면 확인 R-S1,R-S2: 상자 6개 — 식별·빈 면 0, 남은 면 14, 가려진 면 2, 못 푼 면 0 (R-S1:0/8 R-S2:0/6)"
+    ],
+    [
+      11.3,
+      "면 기록부: 등록 56면(UAV 영상 49) — 식별 2, 빈 면 14, 미해결 40, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      11.88,
+      "EXPLORE pick face/look vp=(2.38,3.38) gain=0.61 T=0.2+1.2s faces=3"
+    ],
+    [
+      12.2,
+      "아군 B-UGV-2 식별 안 됨 — 한동안 확인되지 않음. 위치가 비슷해도 다시 이어 붙이지 않는다"
+    ],
+    [
+      13.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) R-S2 (4.21,2.61) N면 — 초기 영상 뒤 12.2 s"
+    ],
+    [
+      13.1,
+      "EXPLORE pick face/spin vp=(3.57,1.82) gain=23.08 T=8.6+5.7s faces=15"
+    ],
+    [
+      13.93,
+      "POSTURE posture:AVOID->ENGAGE_OK:cm"
+    ],
+    [
+      15.0,
+      "M3 full snapshot requested sectors={'R-S1': 0, 'R-S2': 0, 'R-S3': 0, 'COMMON': 2}"
+    ],
+    [
+      15.0,
+      "M1 섹터 면 확인 R-S1,R-S2: 상자 6개 — 식별·빈 면 1, 남은 면 14, 가려진 면 1, 못 푼 면 0 (R-S1:0/9 R-S2:1/6)"
+    ],
+    [
+      16.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) B-S2 (2.02,2.39) E면 — 초기 영상 뒤 15.2 s"
+    ],
+    [
+      16.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) B-S3 (1.81,1.20) N면 — 초기 영상 뒤 15.2 s"
+    ],
+    [
+      16.3,
+      "면 기록부: 등록 57면(UAV 영상 49) — 식별 2, 빈 면 18, 미해결 37, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      17.0,
+      "POSTURE posture:ENGAGE_OK->AVOID:engage_reason_cleared"
+    ],
+    [
+      17.53,
+      "EXPLORE no_candidate {'t': 17.53, 'candidates': 65, 'path_checks': 24, 'incumbent_path_checks': 0, 'incumbent_accepted': False, 'new_candidate_path_checks': 24, 'accepted': 0, 'rejected': {'low_gain': 0, 'deadline': 0, 'no_path': 24, 'path_deadline': 0}, 'start_blocked': False, 'start_observed_occupied': False, 'snapped_start': (2.475, 2.575), 'field_blocked_start': True, 'prior_free_overrides': 391}"
+    ],
+    [
+      19.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) B-S3 (1.44,1.18) N면 — 초기 영상 뒤 18.2 s"
+    ],
+    [
+      19.06,
+      "아군 B-UGV-3 식별 안 됨 — 한동안 확인되지 않음. 위치가 비슷해도 다시 이어 붙이지 않는다"
+    ],
+    [
+      19.54,
+      "EXPLORE pick face/look vp=(3.43,3.18) gain=12.91 T=5.8+1.2s faces=7"
+    ],
+    [
+      20.0,
+      "M3 full snapshot requested sectors={'R-S1': 0, 'R-S2': 0, 'R-S3': 0, 'COMMON': 4}"
+    ],
+    [
+      20.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) B-S1 (1.42,3.63) S면 — 초기 영상 뒤 19.2 s"
+    ],
+    [
+      20.01,
+      "POSTURE posture:AVOID->ENGAGE_OK:cm"
+    ],
+    [
+      21.1,
+      "M1 섹터 면 확인 R-S1,R-S2: 상자 6개 — 식별·빈 면 2, 남은 면 13, 가려진 면 1, 못 푼 면 0 (R-S1:1/9 R-S2:1/6)"
+    ],
+    [
+      21.32,
+      "면 기록부: 등록 61면(UAV 영상 49) — 식별 6, 빈 면 20, 미해결 35, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      22.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) R-S1 (4.20,3.58) S면 — 초기 영상 뒤 21.2 s"
+    ],
+    [
+      22.1,
+      "WARN 틱 106 ms > 100 ms (PDF p18 step 한도) — 100회째. 무거운 처리가 제어 루프에 있다"
+    ],
+    [
+      23.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) R-S1 (4.01,3.80) W면 — 초기 영상 뒤 22.2 s"
+    ],
+    [
+      23.7,
+      "EXPLORE pick face/look vp=(2.39,4.28) gain=6.90 T=4.2+1.2s faces=4"
+    ],
+    [
+      24.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) R-S2 (4.00,2.39) W면 — 초기 영상 뒤 23.2 s"
+    ],
+    [
+      26.1,
+      "M1 섹터 면 확인 R-S1,R-S2: 상자 6개 — 식별·빈 면 4, 남은 면 11, 가려진 면 1, 못 푼 면 0 (R-S1:2/9 R-S2:2/6)"
+    ],
+    [
+      26.39,
+      "면 기록부: 등록 61면(UAV 영상 49) — 식별 6, 빈 면 23, 미해결 32, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      29.7,
+      "EXPLORE pick face/spin vp=(3.83,1.50) gain=26.50 T=8.1+5.7s faces=13"
+    ],
+    [
+      29.81,
+      "EXPLORE pick face/spin vp=(3.92,1.85) gain=25.53 T=7.3+5.7s faces=13"
+    ],
+    [
+      30.0,
+      "EXPLORE pick face/spin vp=(4.69,3.23) gain=23.41 T=7.1+5.7s faces=10"
+    ],
+    [
+      30.1,
+      "EXPLORE pick face/look vp=(4.63,1.80) gain=18.83 T=9.5+1.2s faces=10"
+    ],
+    [
+      30.24,
+      "EXPLORE pick face/spin vp=(5.12,3.00) gain=24.56 T=8.9+5.7s faces=9"
+    ],
+    [
+      30.4,
+      "EXPLORE pick face/look vp=(5.27,2.40) gain=21.68 T=10.6+1.2s faces=7"
+    ],
+    [
+      30.5,
+      "EXPLORE pick face/look vp=(5.62,2.70) gain=21.33 T=11.0+1.2s faces=7"
+    ],
+    [
+      30.6,
+      "EXPLORE pick face/spin vp=(4.24,1.53) gain=23.16 T=8.7+5.7s faces=11"
+    ],
+    [
+      30.7,
+      "EXPLORE pick face/spin vp=(5.23,2.00) gain=29.81 T=11.8+5.7s faces=12"
+    ],
+    [
+      30.84,
+      "EXPLORE pick face/look vp=(4.99,3.83) gain=16.03 T=9.0+1.2s faces=4"
+    ],
+    [
+      31.0,
+      "EXPLORE pick face/look vp=(5.39,3.23) gain=19.88 T=9.6+1.2s faces=6"
+    ],
+    [
+      31.14,
+      "EXPLORE pick face/look vp=(5.39,3.83) gain=20.64 T=10.3+1.2s faces=5"
+    ],
+    [
+      31.29,
+      "EXPLORE pick face/look vp=(5.19,3.53) gain=17.47 T=9.3+1.2s faces=5"
+    ],
+    [
+      31.36,
+      "EXPLORE pick face/spin vp=(4.02,2.95) gain=17.96 T=5.8+5.7s faces=10"
+    ],
+    [
+      31.48,
+      "면 기록부: 등록 61면(UAV 영상 49) — 식별 7, 빈 면 22, 미해결 32, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      31.48,
+      "EXPLORE pick face/look vp=(4.92,1.60) gain=18.48 T=11.0+1.2s faces=8"
+    ],
+    [
+      31.56,
+      "EXPLORE pick face/spin vp=(5.28,1.60) gain=25.65 T=12.1+5.7s faces=10"
+    ],
+    [
+      31.7,
+      "EXPLORE pick face/look vp=(2.42,4.10) gain=7.94 T=3.6+1.2s faces=4"
+    ],
+    [
+      33.0,
+      "M1 섹터 면 확인 R-S1,R-S2: 상자 6개 — 식별·빈 면 4, 남은 면 10, 가려진 면 1, 못 푼 면 0 (R-S1:2/8 R-S2:2/6)"
+    ],
+    [
+      37.7,
+      "EXPLORE pick face/spin vp=(3.53,1.80) gain=26.42 T=6.7+5.7s faces=13"
+    ],
+    [
+      37.8,
+      "EXPLORE pick face/spin vp=(3.62,1.20) gain=21.11 T=8.9+5.7s faces=8"
+    ],
+    [
+      37.9,
+      "EXPLORE pick face/look vp=(5.62,2.10) gain=18.75 T=11.8+1.2s faces=6"
+    ],
+    [
+      37.9,
+      "WARN 틱 386 ms > 100 ms (PDF p18 step 한도) — 200회째. 무거운 처리가 제어 루프에 있다"
+    ],
+    [
+      38.0,
+      "EXPLORE pick face/look vp=(5.63,4.20) gain=17.77 T=12.2+1.2s faces=4"
+    ],
+    [
+      38.1,
+      "EXPLORE pick face/spin vp=(3.63,2.20) gain=14.65 T=5.4+5.7s faces=8"
+    ],
+    [
+      38.29,
+      "EXPLORE pick face/look vp=(3.71,2.55) gain=9.12 T=4.5+1.2s faces=5"
+    ],
+    [
+      38.46,
+      "EXPLORE pick face/look vp=(5.63,1.30) gain=17.21 T=13.6+1.2s faces=4"
+    ],
+    [
+      38.57,
+      "EXPLORE pick face/look vp=(5.43,1.00) gain=19.34 T=13.4+1.2s faces=5"
+    ],
+    [
+      38.64,
+      "EXPLORE pick face/look vp=(2.40,2.20) gain=6.59 T=3.8+1.2s faces=5"
+    ],
+    [
+      40.0,
+      "면 기록부: 등록 62면(UAV 영상 49) — 식별 7, 빈 면 23, 미해결 32, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      40.0,
+      "M1 섹터 면 확인 R-S1,R-S2: 상자 6개 — 식별·빈 면 4, 남은 면 11, 가려진 면 1, 못 푼 면 0 (R-S1:2/9 R-S2:2/6)"
+    ],
+    [
+      41.52,
+      "EXPLORE no_candidate {'t': 41.52, 'candidates': 38, 'path_checks': 24, 'incumbent_path_checks': 0, 'incumbent_accepted': False, 'new_candidate_path_checks': 24, 'accepted': 0, 'rejected': {'low_gain': 0, 'deadline': 0, 'no_path': 24, 'path_deadline': 0}, 'start_blocked': False, 'start_observed_occupied': False, 'snapped_start': (2.725, 3.225), 'field_blocked_start': True, 'prior_free_overrides': 401}"
+    ],
+    [
+      43.52,
+      "EXPLORE pick face/spin vp=(4.62,1.39) gain=26.34 T=9.1+5.7s faces=10"
+    ],
+    [
+      44.56,
+      "M3 full snapshot requested sectors={'R-S1': 0, 'R-S2': 1, 'R-S3': 0, 'COMMON': 4}"
+    ],
+    [
+      45.0,
+      "면 기록부: 등록 63면(UAV 영상 49) — 식별 8, 빈 면 24, 미해결 31, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      45.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) R-S2 (4.61,2.59) N면 — 초기 영상 뒤 44.2 s"
+    ],
+    [
+      45.0,
+      "M1 섹터 면 확인 R-S1,R-S2: 상자 6개 — 식별·빈 면 6, 남은 면 10, 가려진 면 0, 못 푼 면 0 (R-S1:3/10 R-S2:3/6)"
+    ],
+    [
+      45.07,
+      "POSTURE posture:ENGAGE_OK->AVOID:engage_reason_cleared"
+    ],
+    [
+      46.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) R-S3 (4.22,1.19) N면 — 초기 영상 뒤 45.2 s"
+    ],
+    [
+      46.62,
+      "EXPLORE no_candidate {'t': 46.62, 'candidates': 46, 'path_checks': 24, 'incumbent_path_checks': 0, 'incumbent_accepted': False, 'new_candidate_path_checks': 24, 'accepted': 0, 'rejected': {'low_gain': 0, 'deadline': 0, 'no_path': 24, 'path_deadline': 0}, 'start_blocked': False, 'start_observed_occupied': False, 'snapped_start': (3.6750000000000003, 2.9250000000000003), 'field_blocked_start': True, 'prior_free_overrides': 420}"
+    ],
+    [
+      48.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(identified/DRUM) CM (3.23,2.22) E면 — 초기 영상 뒤 47.2 s"
+    ],
+    [
+      48.66,
+      "EXPLORE pick face/look vp=(3.69,0.60) gain=24.02 T=14.8+1.2s faces=9"
+    ],
+    [
+      49.58,
+      "M3 full snapshot requested sectors={'R-S1': 0, 'R-S2': 1, 'R-S3': 0, 'COMMON': 5}"
+    ],
+    [
+      50.0,
+      "면 기록부: 등록 66면(UAV 영상 49) — 식별 10, 빈 면 27, 미해결 29, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      53.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) R-S3 (4.63,1.20) N면 — 초기 영상 뒤 52.2 s"
+    ],
+    [
+      54.58,
+      "M3 full snapshot requested sectors={'R-S1': 0, 'R-S2': 2, 'R-S3': 0, 'COMMON': 5}"
+    ],
+    [
+      54.66,
+      "EXPLORE pick face/look vp=(5.11,2.08) gain=23.83 T=0.4+1.2s faces=6"
+    ],
+    [
+      55.0,
+      "면 기록부: 등록 69면(UAV 영상 49) — 식별 10, 빈 면 32, 미해결 27, 가려진 면 0. 식별한 면은 다시 보러 가지 않는다"
+    ],
+    [
+      55.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) CM (3.21,1.19) E면 — 초기 영상 뒤 54.2 s"
+    ],
+    [
+      56.0,
+      "UAV 지도 면 전환: 미탐지 → 탐지(identified/MISSILE) R-S2 (4.19,2.19) S면 — 초기 영상 뒤 55.2 s"
+    ],
+    [
+      56.0,
+      "M1 섹터 면 확인 R-S1,R-S2: 상자 6개 — 식별·빈 면 7, 남은 면 9, 가려진 면 0, 못 푼 면 0 (R-S1:3/10 R-S2:4/6)"
+    ],
+    [
+      56.42,
+      "EXPLORE no_candidate {'t': 56.42, 'candidates': 63, 'path_checks': 24, 'incumbent_path_checks': 0, 'incumbent_accepted': False, 'new_candidate_path_checks': 24, 'accepted': 0, 'rejected': {'low_gain': 1, 'deadline': 0, 'no_path': 24, 'path_deadline': 0}, 'start_blocked': False, 'start_observed_occupied': False, 'snapped_start': (4.825000000000001, 1.9249999999999998), 'field_blocked_start': True, 'prior_free_overrides': 411}"
+    ],
+    [
+      58.42,
+      "EXPLORE pick face/look vp=(5.10,2.08) gain=6.83 T=0.2+1.2s faces=4"
+    ],
+    [
+      59.03,
+      "UAV 지도 면 전환: 미탐지 → 탐지(empty) R-S1 (4.61,3.99) S면 — 초기 영상 뒤 58.2 s"
+    ],
+    [
+      59.6,
+      "M3 full snapshot requested sectors={'R-S1': 0, 'R-S2': 3, 'R-S3': 0, 'COMMON': 5}"
+    ],
+    [
+      60.0,
+      "STOP latched via /mil/match cmd=report (서버 STOP 없음)"
+    ],
+    [
+      60.0,
+      "mode EXPLORE->HALT match_cmd"
+    ],
+    [
+      60.0,
+      "HALT source=match_cmd m1=acked m3=acked"
+    ],
+    [
+      60.0,
+      "mode HALT->REPORT halt done"
+    ],
+    [
+      60.0,
+      "M6 submit requested ranking=['R-UGV-3', 'R-UGV-2', 'R-UGV-1'] R-UGV-3:1.91(seen=True,hit=0.0,sec=2,mv=2.7) R-UGV-2:1.90(seen=True,hit=0.0,sec=2,mv=2.3) R-UGV-1:1.40(seen=False,hit=0.0,sec=0,mv=0.0)"
+    ],
+    [
+      60.1,
+      "msg stop dropped (after-stop)"
+    ],
+    [
+      60.14,
+      "M6 result=acked tries=1"
+    ],
+    [
+      60.14,
+      "mode REPORT->DONE report finished"
+    ]
+  ],
+  "m3_counts": {
+    "R-S1": {
+      "AMMO_BOX": 0,
+      "DRUM": 0,
+      "MORTAR": 0,
+      "TRUCK": 0,
+      "TANK": 0,
+      "MISSILE": 0
+    },
+    "R-S2": {
+      "AMMO_BOX": 0,
+      "DRUM": 1,
+      "MORTAR": 1,
+      "TRUCK": 0,
+      "TANK": 0,
+      "MISSILE": 1
+    },
+    "R-S3": {
+      "AMMO_BOX": 0,
+      "DRUM": 0,
+      "MORTAR": 0,
+      "TRUCK": 0,
+      "TANK": 0,
+      "MISSILE": 0
+    },
+    "COMMON": {
+      "AMMO_BOX": 0,
+      "DRUM": 2,
+      "MORTAR": 2,
+      "TRUCK": 0,
+      "TANK": 0,
+      "MISSILE": 1
+    }
+  },
+  "target_done": false,
+  "target_failed": false,
+  "coverage": {
+    "lidar_faces": {
+      "groups": 19,
+      "closed": 0,
+      "open": 3,
+      "deferred": 7,
+      "units": 17,
+      "faces": 19,
+      "components": 33,
+      "ugv_cells_removed": 2,
+      "no_face": 9,
+      "runs": 32,
+      "thin_or_unknown_outside": 13
+    },
+    "face_registry": {
+      "registered": 70,
+      "identified": 10,
+      "empty": 35,
+      "pending": 25,
+      "hidden": 0,
+      "uav": 49,
+      "restored": 0
+    },
+    "sector_ledger": {
+      "B-S1": {
+        "boxes": 5,
+        "faces": 7,
+        "identified": 0,
+        "empty": 3,
+        "hidden": 0,
+        "unreachable": 0,
+        "uncertain": 0,
+        "viewed": 1,
+        "pending": 3,
+        "excluded": 13,
+        "todo": [
+          [
+            10,
+            0
+          ],
+          [
+            23,
+            0
+          ],
+          [
+            23,
+            2
+          ],
+          [
+            30,
+            2
+          ]
+        ],
+        "complete": false
+      },
+      "B-S2": {
+        "boxes": 3,
+        "faces": 10,
+        "identified": 1,
+        "empty": 2,
+        "hidden": 1,
+        "unreachable": 0,
+        "uncertain": 0,
+        "viewed": 1,
+        "pending": 5,
+        "excluded": 2,
+        "todo": [
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            33,
+            0
+          ],
+          [
+            33,
+            1
+          ],
+          [
+            33,
+            3
+          ]
+        ],
+        "complete": false
+      },
+      "B-S3": {
+        "boxes": 4,
+        "faces": 11,
+        "identified": 1,
+        "empty": 2,
+        "hidden": 1,
+        "unreachable": 0,
+        "uncertain": 0,
+        "viewed": 0,
+        "pending": 7,
+        "excluded": 5,
+        "todo": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            8,
+            0
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            9,
+            0
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "complete": false
+      },
+      "CM": {
+        "boxes": 9,
+        "faces": 32,
+        "identified": 4,
+        "empty": 13,
+        "hidden": 2,
+        "unreachable": 0,
+        "uncertain": 0,
+        "viewed": 1,
+        "pending": 12,
+        "excluded": 4,
+        "todo": [
+          [
+            2,
+            3
+          ],
+          [
+            11,
+            2
+          ],
+          [
+            11,
+            3
+          ],
+          [
+            12,
+            0
+          ],
+          [
+            12,
+            1
+          ],
+          [
+            21,
+            3
+          ],
+          [
+            22,
+            0
+          ],
+          [
+            25,
+            0
+          ],
+          [
+            25,
+            1
+          ],
+          [
+            28,
+            2
+          ],
+          [
+            28,
+            3
+          ],
+          [
+            35,
+            2
+          ],
+          [
+            35,
+            3
+          ]
+        ],
+        "complete": false
+      },
+      "R-S1": {
+        "boxes": 4,
+        "faces": 10,
+        "identified": 0,
+        "empty": 4,
+        "hidden": 0,
+        "unreachable": 0,
+        "uncertain": 0,
+        "viewed": 3,
+        "pending": 3,
+        "excluded": 6,
+        "todo": [
+          [
+            16,
+            0
+          ],
+          [
+            17,
+            2
+          ],
+          [
+            20,
+            0
+          ],
+          [
+            29,
+            0
+          ],
+          [
+            29,
+            1
+          ],
+          [
+            29,
+            3
+          ]
+        ],
+        "complete": false
+      },
+      "R-S2": {
+        "boxes": 2,
+        "faces": 6,
+        "identified": 4,
+        "empty": 0,
+        "hidden": 0,
+        "unreachable": 0,
+        "uncertain": 0,
+        "viewed": 1,
+        "pending": 1,
+        "excluded": 2,
+        "todo": [
+          [
+            19,
+            0
+          ],
+          [
+            19,
+            3
+          ]
+        ],
+        "complete": false
+      },
+      "R-S3": {
+        "boxes": 3,
+        "faces": 7,
+        "identified": 0,
+        "empty": 2,
+        "hidden": 0,
+        "unreachable": 0,
+        "uncertain": 0,
+        "viewed": 0,
+        "pending": 5,
+        "excluded": 5,
+        "todo": [
+          [
+            13,
+            0
+          ],
+          [
+            13,
+            2
+          ],
+          [
+            14,
+            2
+          ],
+          [
+            18,
+            0
+          ],
+          [
+            18,
+            3
+          ]
+        ],
+        "complete": false
+      },
+      "none": {
+        "boxes": 5,
+        "faces": 15,
+        "identified": 0,
+        "empty": 7,
+        "hidden": 7,
+        "unreachable": 0,
+        "uncertain": 0,
+        "viewed": 0,
+        "pending": 1,
+        "excluded": 5,
+        "todo": [
+          [
+            34,
+            1
+          ]
+        ],
+        "complete": false
+      }
+    },
+    "boxes": 35,
+    "m3_candidate_boxes": 35,
+    "uav_layout": {
+      "state": "available",
+      "mode": "uav_assisted",
+      "age_s": 0.97,
+      "timeout_s": 12.0,
+      "active_priors": 20,
+      "suspended_image_only_boxes": 0,
+      "local_boxes": 33,
+      "map_frozen": true,
+      "frozen_boxes": 20,
+      "map_stats": {
+        "ugv_excluded": 0,
+        "inner_faces": 28,
+        "frozen_boxes": 20,
+        "frozen_t": 5.86,
+        "late_boxes_ignored": 50
+      },
+      "events": [
+        {
+          "t": 0.731,
+          "from": "unavailable",
+          "to": "acquiring"
+        },
+        {
+          "t": 1.842,
+          "from": "acquiring",
+          "to": "available"
+        },
+        {
+          "t": 5.86,
+          "from": "available",
+          "to": "available",
+          "freeze": 20
+        }
+      ]
+    },
+    "photo_cubes": 0,
+    "photo_faces_pending": 0,
+    "cube_candidates": [
+      {
+        "bid": 1,
+        "cx": 1.439,
+        "cy": 0.986,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "EMPTY",
+          "UNSEEN",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 2,
+        "cx": 3.03,
+        "cy": 2.215,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "CONFIRMED",
+          "UNREACHABLE",
+          "EMPTY",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 3,
+        "cx": 2.673,
+        "cy": 2.619,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "EMPTY",
+          "EMPTY",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 4,
+        "cx": 1.424,
+        "cy": 3.828,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "UNREACHABLE",
+          "EMPTY",
+          "EMPTY"
+        ]
+      },
+      {
+        "bid": 5,
+        "cx": 1.145,
+        "cy": 2.41,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "EMPTY",
+          "VIEWED_NO_DET",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 6,
+        "cx": 1.819,
+        "cy": 2.377,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "CONFIRMED",
+          "EMPTY",
+          "UNREACHABLE",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 7,
+        "cx": 1.079,
+        "cy": 4.2,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "UNREACHABLE",
+          "VIEWED_NO_DET",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 8,
+        "cx": 1.823,
+        "cy": 0.593,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "uav",
+        "available": true,
+        "faces": [
+          "UNSEEN",
+          "UNREACHABLE",
+          "UNSEEN",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 9,
+        "cx": 1.823,
+        "cy": 0.993,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNSEEN",
+          "CONFIRMED",
+          "UNREACHABLE",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 10,
+        "cx": 1.815,
+        "cy": 4.193,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNSEEN",
+          "UNREACHABLE",
+          "UNREACHABLE",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 11,
+        "cx": 3.024,
+        "cy": 1.195,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "EMPTY",
+          "EMPTY",
+          "UNSEEN",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 12,
+        "cx": 3.006,
+        "cy": 3.592,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "UNSEEN",
+          "UNSEEN",
+          "EMPTY",
+          "EMPTY"
+        ]
+      },
+      {
+        "bid": 13,
+        "cx": 4.224,
+        "cy": 0.593,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "uav",
+        "available": true,
+        "faces": [
+          "UNSEEN",
+          "UNREACHABLE",
+          "UNSEEN",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 14,
+        "cx": 4.232,
+        "cy": 1.014,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "EMPTY",
+          "UNSEEN",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 15,
+        "cx": 4.186,
+        "cy": 2.386,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "CONFIRMED",
+          "CONFIRMED",
+          "CONFIRMED"
+        ]
+      },
+      {
+        "bid": 16,
+        "cx": 4.209,
+        "cy": 3.788,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "VIEWED_NO_DET",
+          "UNREACHABLE",
+          "EMPTY",
+          "EMPTY"
+        ]
+      },
+      {
+        "bid": 17,
+        "cx": 4.224,
+        "cy": 4.193,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "UNREACHABLE",
+          "VIEWED_NO_DET",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 18,
+        "cx": 4.627,
+        "cy": 0.997,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "UNSEEN",
+          "EMPTY",
+          "UNREACHABLE",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 19,
+        "cx": 4.599,
+        "cy": 2.381,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "VIEWED_NO_DET",
+          "CONFIRMED",
+          "UNREACHABLE",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 20,
+        "cx": 4.624,
+        "cy": 4.193,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNSEEN",
+          "UNREACHABLE",
+          "UNREACHABLE",
+          "EMPTY"
+        ]
+      },
+      {
+        "bid": 21,
+        "cx": 3.03,
+        "cy": 2.294,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "EMPTY",
+          "UNREACHABLE",
+          "EMPTY",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 22,
+        "cx": 3.029,
+        "cy": 2.582,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "UNSEEN",
+          "CONFIRMED",
+          "EMPTY",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 23,
+        "cx": 1.8,
+        "cy": 3.794,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "VIEWED_NO_DET",
+          "UNREACHABLE",
+          "UNSEEN",
+          "EMPTY"
+        ]
+      },
+      {
+        "bid": 24,
+        "cx": 2.977,
+        "cy": 4.631,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "UNREACHABLE",
+          "EMPTY",
+          "EMPTY"
+        ]
+      },
+      {
+        "bid": 25,
+        "cx": 2.993,
+        "cy": 3.631,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "UNSEEN",
+          "UNSEEN",
+          "CONFIRMED",
+          "EMPTY"
+        ]
+      },
+      {
+        "bid": 26,
+        "cx": 5.835,
+        "cy": 2.4,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "UNREACHABLE",
+          "EMPTY",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 27,
+        "cx": 5.782,
+        "cy": 3.258,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "UNREACHABLE",
+          "EMPTY",
+          "EMPTY"
+        ]
+      },
+      {
+        "bid": 28,
+        "cx": 3.038,
+        "cy": 1.21,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "EMPTY",
+          "CONFIRMED",
+          "VIEWED_NO_DET",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 29,
+        "cx": 4.165,
+        "cy": 3.924,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "full",
+        "available": true,
+        "faces": [
+          "VIEWED_NO_DET",
+          "UNSEEN",
+          "EMPTY",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 30,
+        "cx": 1.125,
+        "cy": 3.825,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "UNREACHABLE",
+          "UNSEEN",
+          "EMPTY"
+        ]
+      },
+      {
+        "bid": 32,
+        "cx": 1.15,
+        "cy": 1.0,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "EMPTY",
+          "UNSEEN",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 33,
+        "cx": 1.573,
+        "cy": 2.325,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNSEEN",
+          "UNSEEN",
+          "UNREACHABLE",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 34,
+        "cx": 3.001,
+        "cy": 0.208,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "UNSEEN",
+          "UNREACHABLE",
+          "UNREACHABLE"
+        ]
+      },
+      {
+        "bid": 35,
+        "cx": 2.704,
+        "cy": 1.2,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "EMPTY",
+          "UNSEEN",
+          "UNSEEN"
+        ]
+      },
+      {
+        "bid": 36,
+        "cx": 5.83,
+        "cy": 1.622,
+        "sx": 0.4,
+        "sy": 0.4,
+        "source": "face",
+        "available": true,
+        "faces": [
+          "UNREACHABLE",
+          "EMPTY",
+          "EMPTY",
+          "UNREACHABLE"
+        ]
+      }
+    ],
+    "confirmed_static_boxes": 10,
+    "uav_alignment": {
+      "dx": 0.02,
+      "dy": -0.008,
+      "matches": 8,
+      "rms": 0.022,
+      "t": 60.0376888123738
+    },
+    "uav_arena_centres": [
+      {
+        "bid": 1,
+        "cx": 1.403,
+        "cy": 1.002
+      },
+      {
+        "bid": 2,
+        "cx": 3.005,
+        "cy": 2.195
+      },
+      {
+        "bid": 3,
+        "cx": 3.005,
+        "cy": 2.595
+      },
+      {
+        "bid": 4,
+        "cx": 1.795,
+        "cy": 3.802
+      },
+      {
+        "bid": 5,
+        "cx": 1.403,
+        "cy": 2.397
+      },
+      {
+        "bid": 6,
+        "cx": 1.803,
+        "cy": 2.397
+      },
+      {
+        "bid": 7,
+        "cx": 1.395,
+        "cy": 4.202
+      },
+      {
+        "bid": 8,
+        "cx": 1.803,
+        "cy": 0.602
+      },
+      {
+        "bid": 9,
+        "cx": 1.803,
+        "cy": 1.002
+      },
+      {
+        "bid": 10,
+        "cx": 1.795,
+        "cy": 4.202
+      },
+      {
+        "bid": 11,
+        "cx": 3.005,
+        "cy": 1.203
+      },
+      {
+        "bid": 12,
+        "cx": 3.005,
+        "cy": 3.6
+      },
+      {
+        "bid": 13,
+        "cx": 4.205,
+        "cy": 0.602
+      },
+      {
+        "bid": 14,
+        "cx": 4.205,
+        "cy": 1.002
+      },
+      {
+        "bid": 15,
+        "cx": 4.197,
+        "cy": 2.397
+      },
+      {
+        "bid": 16,
+        "cx": 4.205,
+        "cy": 3.802
+      },
+      {
+        "bid": 17,
+        "cx": 4.205,
+        "cy": 4.202
+      },
+      {
+        "bid": 18,
+        "cx": 4.605,
+        "cy": 1.002
+      },
+      {
+        "bid": 19,
+        "cx": 4.597,
+        "cy": 2.397
+      },
+      {
+        "bid": 20,
+        "cx": 4.605,
+        "cy": 4.202
+      }
+    ],
+    "oak_identify": {
+      "primary": false,
+      "oak_live": false,
+      "total": 0,
+      "by_reason": {}
+    },
+    "faces": {
+      "UNREACHABLE": 51,
+      "EMPTY": 34,
+      "UNSEEN": 37,
+      "CONFIRMED": 10,
+      "VIEWED_NO_DET": 8
+    },
+    "seen_frac": 0.963,
+    "boxes_created": 36,
+    "boxes_moved": 1,
+    "views": 410,
+    "dropped_faces": 0,
+    "uav_prior_free_overrides": 441,
+    "uav_boxes_created": 13
+  },
+  "observed_classified_faces": [
+    {
+      "x": 3.992461642618206,
+      "y": 2.4057479316810753,
+      "cx": 4.156607539801571,
+      "cy": 2.293023049013768,
+      "votes": {
+        "COMM_FACILITY": 70.63451336706973
+      },
+      "n": 74,
+      "kind": "target",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 48.9,
+      "vx": -0.9892633108644536,
+      "vy": 0.04149373457587525,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 74.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "COMM_FACILITY": 62.8901783669168
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.025070415328717,
+      "y": 2.815249564898278,
+      "cx": 3.025070415328717,
+      "cy": 2.615249564898278,
+      "votes": {
+        "MISSILE": 23.721888604774747
+      },
+      "n": 25,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 42.9,
+      "vx": 0.0,
+      "vy": 1.0,
+      "geometry_key": [
+        22,
+        1
+      ],
+      "src_n": {
+        "pantilt": 25.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MISSILE": 23.721888604774747
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 2.793198308965909,
+      "y": 3.6305826826515157,
+      "cx": 2.9931983089659093,
+      "cy": 3.6305826826515157,
+      "votes": {
+        "DRUM": 11.28026379747593
+      },
+      "n": 12,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 23.6,
+      "vx": -1.0,
+      "vy": 0.0,
+      "geometry_key": [
+        25,
+        2
+      ],
+      "src_n": {
+        "pantilt": 12.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "DRUM": 11.28026379747593
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.2305637611816103,
+      "y": 2.21875,
+      "cx": 3.03056376118161,
+      "cy": 2.21875,
+      "votes": {
+        "DRUM": 3.643754823832987
+      },
+      "n": 4,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 47.9,
+      "vx": 1.0,
+      "vy": 0.0,
+      "geometry_key": [
+        2,
+        0
+      ],
+      "src_n": {
+        "pantilt": 4.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "DRUM": 3.643754823832987
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 1.7024895166706857,
+      "y": 1.303123032070075,
+      "cx": 1.6921416210815532,
+      "cy": 1.1034042365326902,
+      "votes": {
+        "MISSILE": 2.5853965856149888
+      },
+      "n": 3,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 18.0,
+      "vx": 0.0517394779456629,
+      "vy": 0.9985939776869246,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 3.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MISSILE": 2.5853965856149888
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 2.051663185513405,
+      "y": 2.4073452339427552,
+      "cx": 1.8622192603638534,
+      "cy": 2.3500335704792437,
+      "votes": {
+        "COMM_FACILITY": 2.9338039959981788
+      },
+      "n": 3,
+      "kind": "target",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 20.2,
+      "vx": 0.9774760354033079,
+      "vy": 0.15727644170179084,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 3.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "COMM_FACILITY": 2.9338039959981788
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 4.1193641801360235,
+      "y": 2.6370282490276575,
+      "cx": 4.124557661692568,
+      "cy": 2.437664756741272,
+      "votes": {
+        "DRUM": 2.8661051900011074,
+        "MORTAR": 1.9132611007029103
+      },
+      "n": 5,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 48.6,
+      "vx": -0.025967407782724036,
+      "vy": 0.9968174614319281,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 5.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "DRUM": 2.8661051900011074
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 2.4587404401495236,
+      "y": 3.7214661573442713,
+      "cx": 2.6587034449338343,
+      "cy": 3.725228232708578,
+      "votes": {
+        "DRUM": 1.9321004609732015
+      },
+      "n": 2,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 5.2,
+      "vx": -0.9998150239215513,
+      "vy": -0.018810376821535222,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 2.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "DRUM": 1.9321004609732015
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.0399785676154183,
+      "y": 1.3887740688541839,
+      "cx": 3.0345879654313577,
+      "cy": 1.188846728532523,
+      "votes": {
+        "MORTAR": 0.8224656815840461
+      },
+      "n": 1,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 18.6,
+      "vx": 0.026953010920302733,
+      "vy": 0.9996367016083043,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 1.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MORTAR": 0.8224656815840461
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 2.896087176658106,
+      "y": 1.6409783436715235,
+      "cx": 3.0896004909794232,
+      "cy": 1.5904551096065993,
+      "votes": {
+        "MORTAR": 0.8218770245301856
+      },
+      "n": 1,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 18.8,
+      "vx": -0.9675665716065855,
+      "vy": 0.2526161703246213,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 1.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MORTAR": 0.8218770245301856
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 4.188219318181819,
+      "y": 2.190178497442455,
+      "cx": 4.188219318181819,
+      "cy": 2.3901784974424554,
+      "votes": {
+        "MISSILE": 0.9640629629333968
+      },
+      "n": 1,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 56.5,
+      "vx": 0.0,
+      "vy": -1.0,
+      "geometry_key": [
+        15,
+        3
+      ],
+      "src_n": {
+        "pantilt": 1.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MISSILE": 0.9640629629333968
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    }
+  ],
+  "estimated_pose": {
+    "x": 5.137747144934606,
+    "y": 2.1463250300438714,
+    "th": -0.2554819783712212
+  },
+  "lidar_blob_stats": {
+    "scans": 587,
+    "skipped_rot": 153,
+    "candidates": 5670,
+    "clusters": 153,
+    "confirmed": 0,
+    "birth_support_checks": 46,
+    "birth_accepted": 30,
+    "birth_rejected_no_prior_interior": 16,
+    "guarded_free_cells": 9785
+  },
+  "m3_arrival_events": [
+    {
+      "t": 7.508,
+      "outcome": "observe",
+      "view_valid": true,
+      "view_reason": "ok",
+      "estimated_pose": [
+        1.9312439795576368,
+        2.9193907389455225,
+        -0.5510459939689948
+      ],
+      "primary_face": [
+        2,
+        2
+      ],
+      "planned_viewpoint": [
+        1.9511317434210524,
+        2.813828125
+      ],
+      "original_goal_error_m": 0.10741968448333095,
+      "refinement_target": null,
+      "face_geometry": {
+        "cx": 2.4956584275767546,
+        "cy": 2.2098919184027777,
+        "nx": -1.0,
+        "ny": 0.0
+      },
+      "geometry_source": "observed_coverage_ledger",
+      "uses_world_truth": false
+    },
+    {
+      "t": 12.059999999999999,
+      "outcome": "observe",
+      "view_valid": true,
+      "view_reason": "ok",
+      "estimated_pose": [
+        2.2364738004691223,
+        3.3015087977617568,
+        0.1988642513227164
+      ],
+      "primary_face": [
+        22,
+        1
+      ],
+      "planned_viewpoint": [
+        2.4106697500000003,
+        3.3027650000000004
+      ],
+      "original_goal_error_m": 0.17420047898047689,
+      "refinement_target": null,
+      "face_geometry": {
+        "cx": 2.9830357142857142,
+        "cy": 2.78125,
+        "nx": 0.0,
+        "ny": 1.0
+      },
+      "geometry_source": "observed_coverage_ledger",
+      "uses_world_truth": false
+    },
+    {
+      "t": 12.892,
+      "outcome": "observe",
+      "view_valid": true,
+      "view_reason": "ok",
+      "estimated_pose": [
+        2.308343480683302,
+        3.377438738441595,
+        -0.4746782859971364
+      ],
+      "primary_face": [
+        22,
+        1
+      ],
+      "planned_viewpoint": [
+        2.383035714285714,
+        3.38125
+      ],
+      "original_goal_error_m": 0.07478940750657076,
+      "refinement_target": null,
+      "face_geometry": {
+        "cx": 2.9830357142857142,
+        "cy": 2.78125,
+        "nx": 0.0,
+        "ny": 1.0
+      },
+      "geometry_source": "observed_coverage_ledger",
+      "uses_world_truth": false
+    },
+    {
+      "t": 55.664,
+      "outcome": "observe",
+      "view_valid": true,
+      "view_reason": "ok",
+      "estimated_pose": [
+        5.01328150357518,
+        2.0147411419827788,
+        -2.4913053208093263
+      ],
+      "primary_face": [
+        19,
+        0
+      ],
+      "planned_viewpoint": [
+        5.110714285714286,
+        2.076630434782609
+      ],
+      "original_goal_error_m": 0.11542717010578386,
+      "refinement_target": null,
+      "face_geometry": {
+        "cx": 4.810714285714286,
+        "cy": 2.3766304347826086,
+        "nx": 1.0,
+        "ny": 0.0
+      },
+      "geometry_source": "observed_coverage_ledger",
+      "uses_world_truth": false
+    },
+    {
+      "t": 59.428000000000004,
+      "outcome": "refine",
+      "view_valid": false,
+      "view_reason": "range",
+      "estimated_pose": [
+        5.014255427200512,
+        2.050238339188291,
+        0.9182114500241388
+      ],
+      "primary_face": [
+        19,
+        0
+      ],
+      "planned_viewpoint": [
+        5.099418181818182,
+        2.081449578843354
+      ],
+      "original_goal_error_m": 0.09070190877195061,
+      "refinement_target": [
+        5.075000000000001,
+        2.025
+      ],
+      "face_geometry": {
+        "cx": 4.799418181818182,
+        "cy": 2.3814495788433536,
+        "nx": 1.0,
+        "ny": 0.0
+      },
+      "geometry_source": "observed_coverage_ledger",
+      "uses_world_truth": false
+    }
+  ],
+  "detector_stats": {
+    "frames": 327,
+    "detections": 287,
+    "max_duration_s": 1.302955274999988,
+    "classes": {
+      "BUILDING": 35,
+      "TREE": 16,
+      "UGV": 34,
+      "DRUM": 35,
+      "POSITION": 25,
+      "MISSILE": 56,
+      "COMM_FACILITY": 82,
+      "MORTAR": 4
+    }
+  },
+  "hal_stats": {
+    "gimbal_sent": 716,
+    "gimbal_ok": 715,
+    "gimbal_locked": 0,
+    "gimbal_fail": 0,
+    "fire_calls": 0,
+    "cmd_pub": 623,
+    "cmd_zero_stale": 5,
+    "cmd_zero_locked": 14,
+    "frames": 488,
+    "frames_dropped": 127,
+    "oled_sent": 86,
+    "match_changes": 4,
+    "imu_impacts": 0,
+    "invalid": {},
+    "mil_ready": {
+      "state": true,
+      "match": true,
+      "oled": true,
+      "gimbal": true,
+      "fire": true
+    },
+    "scan_callbacks_received": 616,
+    "gimbal_feedback": {
+      "pan": -12.480804240058442,
+      "tilt": -1.589489561906096
+    },
+    "imu_odometry": {
+      "wheel_samples": 1183,
+      "imu_samples": 1230,
+      "fused_steps": 1181,
+      "wheel_fallback_steps": 1,
+      "imu_rejected": 0,
+      "wheel_rejected": 0,
+      "reanchors": 1,
+      "mode": "imu_relative",
+      "imu_age_s": 0.0,
+      "raw_pose": [
+        4.531620571344815,
+        -2.418879553925958,
+        -0.759649387517118
+      ],
+      "fused_pose": [
+        4.6749217640913265,
+        -2.139465017036682,
+        -0.5897152544000472
+      ]
+    },
+    "imu_heading_mount": {
+      "base": "base_footprint",
+      "sensor": "base_imu_link",
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "verified_rigid_mount": true
+    },
+    "camera_calibration": {
+      "camera_xyz_base": [
+        0.05522958796995551,
+        -0.0140576101694071,
+        0.20169210753439326
+      ],
+      "camera_rotation_base": [
+        [
+          0.9759928009761617,
+          0.21611241515571367,
+          0.02708277050582116
+        ],
+        [
+          -0.2160292594289282,
+          0.976368487823918,
+          -0.005994585475609375
+        ],
+        [
+          -0.027738268029842115,
+          1.4133748468467267e-09,
+          0.9996152202156111
+        ]
+      ],
+      "laser_from_camera_xyz": [
+        -0.009000000000000341,
+        6.306066779870889e-14,
+        0.0464999999999538
+      ],
+      "pan_tilt_source": "image_timestamp_tf_and_joint_feedback",
+      "calibration_scope": "simulation_only",
+      "sensor_stamp": 61.6,
+      "optical_frame": "pt_camera_optical_link",
+      "camera_info": {
+        "raw_K": [
+          205.4696273803711,
+          0.0,
+          320.0,
+          0.0,
+          205.46964168548584,
+          240.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "advertised_D": [
+          -0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "effective_D": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "distortion_model": "plumb_bob",
+        "output_K": [
+          205.46963709898583,
+          0.0,
+          320.0,
+          0.0,
+          205.46963709898583,
+          240.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "distortion_status": "requested_but_renderer_unsupported"
+    },
+    "oak_topics_missing": []
+  },
+  "api_stats": {
+    "captured": 61,
+    "cadence_or_duplicate": 1
+  },
+  "http_attempts": {
+    "me": 395,
+    "ready": 1,
+    "order": 1,
+    "target": 11,
+    "interpretation": 1,
+    "drone": 59,
+    "detection": 7,
+    "situation": 1
+  },
+  "submitted_reports": {
+    "m1": {
+      "target": "RED_RADAR",
+      "search_sectors": [
+        "R-S1",
+        "R-S2"
+      ],
+      "base": "RED_MAINTENANCE"
+    },
+    "m3": {
+      "sectors": [
+        {
+          "sector": "CM",
+          "objects": [
+            {
+              "type": "DRUM",
+              "count": 2
+            },
+            {
+              "type": "MISSILE",
+              "count": 1
+            },
+            {
+              "type": "MORTAR",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "sector": "R-S1",
+          "objects": []
+        },
+        {
+          "sector": "R-S2",
+          "objects": [
+            {
+              "type": "DRUM",
+              "count": 1
+            },
+            {
+              "type": "MISSILE",
+              "count": 1
+            },
+            {
+              "type": "MORTAR",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "sector": "R-S3",
+          "objects": []
+        }
+      ]
+    },
+    "m6": {
+      "ranking": [
+        "R-3",
+        "R-2",
+        "R-1"
+      ]
+    }
+  },
+  "error": null,
+  "interrupted": false,
+  "match_start_sim_s": 1.044,
+  "end_sim_s": 61.7,
+  "referee_state": {
+    "phase": "finished",
+    "paused": false,
+    "elapsed": 60.68,
+    "ugvs": {
+      "B-1": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "B-2": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "B-3": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-1": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-2": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      },
+      "R-3": {
+        "hp": 4,
+        "ammo": 8,
+        "lock_until": 0.0,
+        "drive_lock_until": 0.0,
+        "reload_until": 0.0
+      }
+    },
+    "destroyed": {
+      "BLUE": 0,
+      "RED": 0
+    }
+  },
+  "referee_events": [
+    {
+      "type": "base_beam",
+      "time": 0.052000000000000005,
+      "base": "B-1",
+      "blocked": true
+    },
+    {
+      "type": "base_beam",
+      "time": 0.052000000000000005,
+      "base": "B-2",
+      "blocked": true
+    },
+    {
+      "type": "base_beam",
+      "time": 0.052000000000000005,
+      "base": "B-3",
+      "blocked": true
+    },
+    {
+      "type": "base_beam",
+      "time": 0.052000000000000005,
+      "base": "R-1",
+      "blocked": true
+    },
+    {
+      "type": "base_beam",
+      "time": 0.052000000000000005,
+      "base": "R-2",
+      "blocked": true
+    },
+    {
+      "type": "base_beam",
+      "time": 0.052000000000000005,
+      "base": "R-3",
+      "blocked": true
+    },
+    {
+      "type": "match_start",
+      "time": 1.02
+    },
+    {
+      "type": "base_beam",
+      "time": 1.856,
+      "base": "B-1",
+      "blocked": false
+    },
+    {
+      "type": "base_beam",
+      "time": 1.856,
+      "base": "R-2",
+      "blocked": false
+    },
+    {
+      "type": "base_beam",
+      "time": 1.9520000000000002,
+      "base": "B-2",
+      "blocked": false
+    },
+    {
+      "type": "base_beam",
+      "time": 2.056,
+      "base": "B-3",
+      "blocked": false
+    },
+    {
+      "type": "base_beam",
+      "time": 2.152,
+      "base": "R-1",
+      "blocked": false
+    },
+    {
+      "type": "base_beam",
+      "time": 2.452,
+      "base": "R-3",
+      "blocked": false
+    },
+    {
+      "type": "match_report",
+      "time": 61.05200000000001,
+      "reason": "operator"
+    },
+    {
+      "type": "match_finished",
+      "time": 61.300000000000004
+    }
+  ],
+  "evaluation": {
+    "truth_only_for_evaluation": true,
+    "physical_ugvs": [
+      "ugv_B1",
+      "ugv_B2",
+      "ugv_B3",
+      "ugv_R1",
+      "ugv_R2",
+      "ugv_R3"
+    ],
+    "truth_samples": 5606,
+    "distance_m": 8.942855062668608,
+    "first_world_pose": [
+      -2.660000000174664,
+      1.6,
+      -7.002730772873801e-16
+    ],
+    "last_world_pose": [
+      2.143662741385875,
+      -0.2529377788826731,
+      -0.5897152544000406
+    ],
+    "pose_jumps_rejected": 0,
+    "robot_moved": true
+  },
+  "sensor_source": "actual ROS camera/scan/odom/imu; no synthetic detections",
+  "all_missions_success_claimed": false,
+  "limitation": "Six physical UGVs; no external LLM. Submission ACKs do not prove M3 correctness.",
+  "imu_odometry": {
+    "wheel_samples": 1183,
+    "imu_samples": 1230,
+    "fused_steps": 1181,
+    "wheel_fallback_steps": 1,
+    "imu_rejected": 0,
+    "wheel_rejected": 0,
+    "reanchors": 1,
+    "mode": "imu_relative",
+    "imu_age_s": 0.0,
+    "raw_pose": [
+      4.531620571344815,
+      -2.418879553925958,
+      -0.759649387517118
+    ],
+    "fused_pose": [
+      4.6749217640913265,
+      -2.139465017036682,
+      -0.5897152544000472
+    ],
+    "saved_rows": 2413
+  },
+  "aim_evidence": {
+    "accepted": 0,
+    "saved": 0,
+    "missing_exact_source": 0,
+    "queue_full": 0,
+    "errors": [],
+    "files": []
+  },
+  "recording": {
+    "enabled": false,
+    "recorded_by": "multi-agent coordinator"
+  },
+  "artifact_io_stats": {
+    "replace_retries": 0,
+    "preview_skipped": 0
+  }
+}

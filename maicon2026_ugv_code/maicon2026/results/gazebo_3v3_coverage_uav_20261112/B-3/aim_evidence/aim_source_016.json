@@ -1,0 +1,80 @@
+{
+  "tick": 1791,
+  "now": 37.136,
+  "mode": "STRIKE",
+  "detection_stamp": 37.1,
+  "consumed_frame_stamp": 37.1,
+  "capture_robot_time": 37.1,
+  "capture_pose": [
+    2.9259763703267114,
+    0.747132916371042,
+    0.22769886637213244
+  ],
+  "capture_pan_tilt": [
+    -0.0019848303417808063,
+    3.9241878906779943
+  ],
+  "current_pose": [
+    2.932122410637996,
+    0.7448924699965154,
+    0.2282653025283796
+  ],
+  "current_pan_tilt": [
+    -0.0019848303417808063,
+    3.9241878906779943
+  ],
+  "pan_tilt_command": [
+    -0.06651448129139434,
+    4.672910503064767
+  ],
+  "range_m": 1.106734382408753,
+  "target_class": "RADAR_FACILITY",
+  "target_confidence": 0.9597549054313781,
+  "target_box": [
+    281.7711181640625,
+    215.36329650878906,
+    358.7348937988281,
+    296.77667236328125
+  ],
+  "receiver_candidates": [],
+  "selected_filtered_pixel": [
+    320.2571236678688,
+    228.38353562556796
+  ],
+  "same_detection_reuse_count": 0,
+  "err_pan": -0.07169961216623726,
+  "err_tilt": 0.8319140137630807,
+  "body_w": -5.5426919292095105e-05,
+  "aligned": true,
+  "sensor_locked": false,
+  "sensor_ok": true,
+  "held_for_s": 14.424000000000003,
+  "source_frame_available": true,
+  "updated_this_tick": true,
+  "guards_called_this_tick": {
+    "vision_fresh": {
+      "tick": 1791,
+      "value": true
+    },
+    "_strike_incidence_ok": {
+      "tick": 1791,
+      "value": true
+    },
+    "_may_fire": {
+      "tick": 1791,
+      "value": true
+    },
+    "_fire_conf_ok": {
+      "tick": 1791,
+      "value": true
+    },
+    "_wrong_target_in_line": {
+      "tick": 1791,
+      "value": false
+    }
+  },
+  "uncalled_guards": "unknown; short-circuit or outside the firing branch",
+  "source_image": "aim_source_016.png",
+  "exact_capture_stamp_match": true,
+  "pixels": "Original detector source RGB/BGR frame; no annotation or crop"
+}

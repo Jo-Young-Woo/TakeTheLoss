@@ -1,0 +1,407 @@
+{
+  "elapsed": 248.30800000000002,
+  "sectors": {
+    "CM": {
+      "boxes": 5,
+      "faces": 17,
+      "identified": 10,
+      "empty": 7,
+      "hidden": 0,
+      "unreachable": 0,
+      "uncertain": 0,
+      "viewed": 0,
+      "pending": 0,
+      "todo": [],
+      "complete": true
+    },
+    "R-S1": {
+      "boxes": 3,
+      "faces": 6,
+      "identified": 6,
+      "empty": 0,
+      "hidden": 0,
+      "unreachable": 0,
+      "uncertain": 0,
+      "viewed": 0,
+      "pending": 0,
+      "todo": [],
+      "complete": true
+    },
+    "R-S2": {
+      "boxes": 3,
+      "faces": 10,
+      "identified": 6,
+      "empty": 3,
+      "hidden": 0,
+      "unreachable": 0,
+      "uncertain": 0,
+      "viewed": 0,
+      "pending": 1,
+      "todo": [
+        [
+          39,
+          1
+        ]
+      ],
+      "complete": false
+    },
+    "R-S3": {
+      "boxes": 5,
+      "faces": 11,
+      "identified": 6,
+      "empty": 2,
+      "hidden": 2,
+      "unreachable": 0,
+      "uncertain": 0,
+      "viewed": 0,
+      "pending": 1,
+      "todo": [
+        [
+          35,
+          3
+        ]
+      ],
+      "complete": false
+    }
+  },
+  "boxes": {
+    "R-S1": [
+      {
+        "id": 18,
+        "faces": {
+          "E": "identified",
+          "N": "hidden",
+          "W": "identified",
+          "S": "identified"
+        }
+      },
+      {
+        "id": 19,
+        "faces": {
+          "E": "hidden",
+          "N": "hidden",
+          "W": "identified",
+          "S": "hidden"
+        }
+      },
+      {
+        "id": 22,
+        "faces": {
+          "E": "identified",
+          "N": "hidden",
+          "W": "hidden",
+          "S": "identified"
+        }
+      }
+    ],
+    "R-S2": [
+      {
+        "id": 26,
+        "faces": {
+          "E": "hidden",
+          "N": "identified",
+          "W": "identified",
+          "S": "identified"
+        }
+      },
+      {
+        "id": 29,
+        "faces": {
+          "E": "empty",
+          "N": "identified",
+          "W": "hidden",
+          "S": "identified"
+        }
+      },
+      {
+        "id": 39,
+        "faces": {
+          "E": "empty",
+          "N": "pending",
+          "W": "identified",
+          "S": "empty"
+        }
+      }
+    ],
+    "R-S3": [
+      {
+        "id": 15,
+        "faces": {
+          "E": "identified",
+          "N": "hidden",
+          "W": "identified",
+          "S": "hidden"
+        }
+      },
+      {
+        "id": 16,
+        "faces": {
+          "E": "identified",
+          "N": "identified",
+          "W": "identified",
+          "S": "hidden"
+        }
+      },
+      {
+        "id": 20,
+        "faces": {
+          "E": "identified",
+          "N": "identified",
+          "W": "hidden",
+          "S": "identified"
+        }
+      },
+      {
+        "id": 32,
+        "faces": {
+          "E": "empty",
+          "N": "hidden",
+          "W": "hidden",
+          "S": "hidden"
+        }
+      },
+      {
+        "id": 35,
+        "faces": {
+          "E": "hidden",
+          "N": "identified",
+          "W": "empty",
+          "S": "pending"
+        }
+      }
+    ],
+    "CM": [
+      {
+        "id": 6,
+        "faces": {
+          "E": "identified",
+          "N": "empty",
+          "W": "identified",
+          "S": "identified"
+        }
+      },
+      {
+        "id": 7,
+        "faces": {
+          "E": "identified",
+          "N": "empty",
+          "W": "identified",
+          "S": "identified"
+        }
+      },
+      {
+        "id": 13,
+        "faces": {
+          "E": "identified",
+          "N": "hidden",
+          "W": "identified",
+          "S": "identified"
+        }
+      },
+      {
+        "id": 14,
+        "faces": {
+          "E": "empty",
+          "N": "identified",
+          "W": "empty",
+          "S": "hidden"
+        }
+      },
+      {
+        "id": 34,
+        "faces": {
+          "E": "hidden",
+          "N": "empty",
+          "W": "empty",
+          "S": "empty"
+        }
+      }
+    ]
+  },
+  "uav_map": {
+    "layout": {
+      "state": "available",
+      "mode": "uav_assisted",
+      "age_s": 0.521,
+      "timeout_s": 12.0,
+      "active_priors": 18,
+      "suspended_image_only_boxes": 0,
+      "local_boxes": 37,
+      "map_frozen": true,
+      "frozen_boxes": 18,
+      "map_stats": {
+        "ugv_excluded": 2,
+        "inner_faces": 28,
+        "frozen_boxes": 20,
+        "frozen_t": 7.956,
+        "late_boxes_ignored": 22
+      },
+      "events": [
+        {
+          "t": 2.875,
+          "from": "unavailable",
+          "to": "acquiring"
+        },
+        {
+          "t": 3.901,
+          "from": "acquiring",
+          "to": "available"
+        },
+        {
+          "t": 7.956,
+          "from": "available",
+          "to": "available",
+          "freeze": 20
+        }
+      ]
+    },
+    "boxes": [
+      {
+        "id": 1,
+        "x": 1.403125,
+        "y": 1.0015624999999995,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 2,
+        "x": 1.8031249999999999,
+        "y": 1.0015624999999995,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 3,
+        "x": 1.3953125,
+        "y": 4.2015625,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 4,
+        "x": 1.7953124999999999,
+        "y": 3.8015624999999997,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 5,
+        "x": 1.403125,
+        "y": 2.3968749999999996,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 6,
+        "x": 3.0046875,
+        "y": 3.5999999999999996,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 7,
+        "x": 3.0046875,
+        "y": 1.2031249999999996,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 10,
+        "x": 1.8031249999999999,
+        "y": 0.6015625,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 11,
+        "x": 1.8031249999999999,
+        "y": 2.3968749999999996,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 12,
+        "x": 1.7953124999999999,
+        "y": 4.2015625,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 13,
+        "x": 3.0046875,
+        "y": 2.1953124999999996,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 14,
+        "x": 3.0046875,
+        "y": 2.5953124999999995,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 15,
+        "x": 4.2046875,
+        "y": 0.6015625,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 16,
+        "x": 4.2046875,
+        "y": 1.0015624999999995,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 18,
+        "x": 4.2046875,
+        "y": 3.8015624999999997,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 19,
+        "x": 4.2046875,
+        "y": 4.2015625,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 20,
+        "x": 4.6046875,
+        "y": 1.0015624999999995,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      },
+      {
+        "id": 22,
+        "x": 4.6046875,
+        "y": 4.2015625,
+        "active": true,
+        "frozen": true,
+        "locally_observed": true
+      }
+    ],
+    "coordinates": "arena image: x 0..6 m right, y 0..4.8 m up"
+  },
+  "source": "Agent observed face ledger; no referee truth"
+}

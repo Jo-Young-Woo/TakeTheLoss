@@ -1,0 +1,107 @@
+{
+  "observer": "B-2",
+  "image_stamp_s": 283.936,
+  "ground_state_stamp_s": 282.90000000000003,
+  "mission_complete": true,
+  "sectors": {
+    "R-S1": {
+      "boxes": 3,
+      "identified_boxes": 3,
+      "resolved_boxes": 3,
+      "identified_faces": 7,
+      "empty_faces": 1,
+      "unresolved_faces": 0,
+      "eligible_faces": 8,
+      "states": {
+        "identified": 7,
+        "empty": 1
+      },
+      "m3_expected": 6,
+      "m3_reported": 6,
+      "missing": {},
+      "extra": {},
+      "exact": true,
+      "remaining": []
+    },
+    "R-S2": {
+      "boxes": 2,
+      "identified_boxes": 2,
+      "resolved_boxes": 2,
+      "identified_faces": 4,
+      "empty_faces": 2,
+      "unresolved_faces": 0,
+      "eligible_faces": 6,
+      "states": {
+        "identified": 4,
+        "empty": 2
+      },
+      "m3_expected": 3,
+      "m3_reported": 3,
+      "missing": {},
+      "extra": {},
+      "exact": true,
+      "remaining": []
+    },
+    "R-S3": {
+      "boxes": 3,
+      "identified_boxes": 3,
+      "resolved_boxes": 3,
+      "identified_faces": 5,
+      "empty_faces": 3,
+      "unresolved_faces": 0,
+      "eligible_faces": 8,
+      "states": {
+        "identified": 5,
+        "empty": 3
+      },
+      "m3_expected": 3,
+      "m3_reported": 3,
+      "missing": {},
+      "extra": {},
+      "exact": true,
+      "remaining": []
+    },
+    "CM": {
+      "boxes": 4,
+      "identified_boxes": 3,
+      "resolved_boxes": 2,
+      "identified_faces": 6,
+      "empty_faces": 6,
+      "unresolved_faces": 2,
+      "eligible_faces": 14,
+      "states": {
+        "pending": 1,
+        "empty": 6,
+        "identified": 6,
+        "uncertain": 1
+      },
+      "m3_expected": 9,
+      "m3_reported": 6,
+      "missing": {
+        "MORTAR": 2,
+        "TANK": 1
+      },
+      "extra": {},
+      "exact": false,
+      "remaining": [
+        {
+          "key": "U09-E",
+          "state": "pending",
+          "center": [
+            3.0578125000000003,
+            1.4968749999999997
+          ]
+        },
+        {
+          "key": "U11-E",
+          "state": "uncertain",
+          "center": [
+            3.0578125000000003,
+            2.6937499999999996
+          ]
+        }
+      ]
+    }
+  },
+  "basis": "Final UAV image-associated geometry with B-2 ground observations; M3 uses last server-accepted replacement snapshot. I includes M2/M3; E means empty."
+}

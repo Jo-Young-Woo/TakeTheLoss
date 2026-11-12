@@ -53,7 +53,7 @@ def test_fixed_geometry_uses_yaml_dimensions_and_has_exact_four_walls_eight_sens
     changed["walls"]["height"] = .53
     geometry = fixed_geometry(changed, floor_thickness=.03)
     floor = next(g for g in geometry if g["kind"] == "floor")
-    assert floor["size"] == [6, 4.8, .03]
+    assert floor["size"] == [6.12, 5., .03]
     assert floor["center"][2] == -.015
     walls = [g for g in geometry if g["kind"] == "wall"]
     assert len(walls) == 4 and all(g["size"][2] == .53 for g in walls)
@@ -65,9 +65,9 @@ def test_target_receiver_faces_height_and_led_are_derived_not_world_oracle(spec,
     targets = target_metadata(spec, default)
     first = targets[0]
     assert first["camp"] == "B" and first["face"] == "E"
-    assert first["receiver"] == pytest.approx([-1, 1.8, .337])
+    assert first["receiver"] == pytest.approx([-.8, 1.6, .337])
     assert first["diameter"] == .057
-    assert first["led_center"] == pytest.approx([-1.2, 1.8, .41])
+    assert first["led_center"] == pytest.approx([-1., 1.6, .41])
     changed = deepcopy(spec)
     changed["cubes"]["target_receiver"]["z"] = .3
     assert target_metadata(changed, default)[0]["receiver"][2] == .3

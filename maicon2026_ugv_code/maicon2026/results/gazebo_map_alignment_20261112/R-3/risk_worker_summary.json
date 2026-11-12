@@ -1,0 +1,50 @@
+{
+  "risk_submit_to_publish": {
+    "count": 897,
+    "p50_ms": 36.28121399998463,
+    "p95_ms": 110.35178320000794,
+    "max_ms": 222.48647300000357
+  },
+  "risk_build": {
+    "count": 897,
+    "p50_ms": 30.938775999970858,
+    "p95_ms": 103.6816913999928,
+    "max_ms": 206.61316100000704
+  },
+  "lidar_blob_processing": {
+    "count": 898,
+    "p50_ms": 1.7580250000008846,
+    "p95_ms": 21.089197299991714,
+    "max_ms": 125.22413099998175
+  },
+  "worker_errors": [],
+  "scan_callback_to_publish": {
+    "count": 897,
+    "p50_ms": 99.43009700003813,
+    "p95_ms": 203.75776660000597,
+    "max_ms": 472.8896969999994
+  },
+  "scan_callback_to_publish_by_category": {
+    "urgent_fresh_scan": {
+      "count": 897,
+      "p50_ms": 99.43009700003813,
+      "p95_ms": 203.75776660000597,
+      "max_ms": 472.8896969999994
+    }
+  },
+  "scan_lineage": {
+    "counts": {
+      "submitted_requests": 897,
+      "urgent_fresh_scan": 897,
+      "distinct_scan_submissions": 897,
+      "builds_started": 897,
+      "published_requests": 897,
+      "receipt_sequences_not_submitted": 5
+    },
+    "retained_limit": 10000,
+    "retained_records": 897,
+    "truncated_records": 0,
+    "scope": "Monotonic ROS scan-handler entry to publication of the request built from that exact scan. Includes queued Agent/map processing; excludes transport before callback and Agent consumption after publication. Receipt gaps are not DDS-loss evidence."
+  },
+  "scope": "Worker submission and exact scan-callback-entry to field publication are distinct wall-time intervals. No DDS-arrival or Agent-reaction claim. Worker histories retain up to 10000 publications; LiDAR processing retains its last 2000 samples."
+}

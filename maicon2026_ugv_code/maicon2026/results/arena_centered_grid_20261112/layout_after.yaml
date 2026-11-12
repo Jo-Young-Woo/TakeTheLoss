@@ -1,0 +1,161 @@
+# MAICON 2026 — 중앙 방향 격자 정렬 기본 배치 (2026-11-12)
+meta:
+  seed: 2026
+  source: '2026-11-12 사용자 요청: 각 장애물 묶음을 중앙 방향으로 20cm 격자 한 칸 이동; 형태·면 배정 유지'
+  confidence: assumed
+  face_keys: N=+Y, E=+X, S=-Y, W=-X 쪽 옆면. hidden=다른 박스·벽에 붙어 안 보임. m3:<type> | target:<kind> | deco:<kind> | blank
+  clearance_check: 'OK: >=0.40 m clearances, mirrored targets and reachable image faces checked with actual WINGBOT footprint'
+  center_snap:
+    grid_m: 0.2
+    grid_frame: 'world: original printed floor grid, navigation offset (3.06,2.50)'
+    moves:
+    - cluster: B_S1_L
+      translation_m: [0.2, -0.2]
+      old_bbox_center: [-1.4, 1.6]
+      new_bbox_center: [-1.2, 1.4]
+    - cluster: R_S1_L
+      translation_m: [-0.2, -0.2]
+      old_bbox_center: [1.4, 1.6]
+      new_bbox_center: [1.2, 1.4]
+    - cluster: B_S2_pair
+      translation_m: [0.2, 0]
+      old_bbox_center: [-1.4, 0.0]
+      new_bbox_center: [-1.2, 0.0]
+    - cluster: R_S2_pair
+      translation_m: [-0.2, 0]
+      old_bbox_center: [1.4, 0.0]
+      new_bbox_center: [1.2, 0.0]
+    - cluster: B_S3_L
+      translation_m: [0.2, 0.2]
+      old_bbox_center: [-1.4, -1.6]
+      new_bbox_center: [-1.2, -1.4]
+    - cluster: R_S3_L
+      translation_m: [-0.2, 0.2]
+      old_bbox_center: [1.4, -1.6]
+      new_bbox_center: [1.2, -1.4]
+    - cluster: CM_upper
+      translation_m: [0, -0.2]
+      old_bbox_center: [0.0, 1.2]
+      new_bbox_center: [0.0, 1.0]
+    - cluster: CM_center
+      translation_m: [0, 0]
+      old_bbox_center: [0.0, 0.0]
+      new_bbox_center: [0.0, 0.0]
+    - cluster: CM_lower
+      translation_m: [0, 0.2]
+      old_bbox_center: [0.0, -1.2]
+      new_bbox_center: [0.0, -1.0]
+boxes:
+- cluster: B_S1_L
+  sector: B-S1
+  center: [-1.0, 1.6]
+  faces: {N: 'm3:ammo_box', E: 'target:outpost', S: hidden, W: hidden}
+- cluster: B_S1_L
+  sector: B-S1
+  center: [-1.0, 1.2]
+  faces: {N: hidden, E: 'deco:city_tree', S: blank, W: blank}
+- cluster: B_S1_L
+  sector: B-S1
+  center: [-1.4, 1.6]
+  faces: {N: 'deco:ruined_building', E: hidden, S: 'deco:ruined_building', W: 'deco:ruined_building'}
+- cluster: R_S1_L
+  sector: R-S1
+  center: [1.0, 1.6]
+  faces: {N: 'm3:ammo_box', E: hidden, S: hidden, W: 'target:outpost'}
+- cluster: R_S1_L
+  sector: R-S1
+  center: [1.0, 1.2]
+  faces: {N: hidden, E: 'm3:tank', S: blank, W: 'm3:drum'}
+- cluster: R_S1_L
+  sector: R-S1
+  center: [1.4, 1.6]
+  faces: {N: 'm3:tank', E: 'm3:tank', S: 'm3:tank', W: hidden}
+- cluster: B_S2_pair
+  sector: B-S2
+  center: [-1.4, 0.0]
+  faces: {N: blank, E: hidden, S: blank, W: 'm3:military_truck'}
+- cluster: B_S2_pair
+  sector: B-S2
+  center: [-1.0, 0.0]
+  faces: {N: 'deco:city_tree', E: 'target:comms', S: 'deco:field_bunker', W: hidden}
+- cluster: R_S2_pair
+  sector: R-S2
+  center: [1.4, 0.0]
+  faces: {N: 'm3:mortar', E: blank, S: 'deco:field_bunker', W: hidden}
+- cluster: R_S2_pair
+  sector: R-S2
+  center: [1.0, 0.0]
+  faces: {N: 'm3:drum', E: hidden, S: 'm3:missile', W: 'target:comms'}
+- cluster: B_S3_L
+  sector: B-S3
+  center: [-1.0, -1.2]
+  faces: {N: 'm3:missile', E: 'target:radar', S: hidden, W: hidden}
+- cluster: B_S3_L
+  sector: B-S3
+  center: [-1.0, -1.6]
+  faces: {N: hidden, E: blank, S: 'deco:city_tree', W: 'm3:ammo_box'}
+- cluster: B_S3_L
+  sector: B-S3
+  center: [-1.4, -1.2]
+  faces: {N: blank, E: hidden, S: 'm3:ammo_box', W: 'm3:missile'}
+- cluster: R_S3_L
+  sector: R-S3
+  center: [1.0, -1.2]
+  faces: {N: 'deco:ruined_building', E: hidden, S: hidden, W: 'target:radar'}
+- cluster: R_S3_L
+  sector: R-S3
+  center: [1.0, -1.6]
+  faces: {N: hidden, E: 'm3:military_truck', S: 'deco:barrier_wall', W: blank}
+- cluster: R_S3_L
+  sector: R-S3
+  center: [1.4, -1.2]
+  faces: {N: blank, E: 'm3:drum', S: 'm3:ammo_box', W: hidden}
+- cluster: CM_upper
+  sector: CM
+  center: [0.0, 1.0]
+  faces: {N: 'm3:mortar', E: 'm3:mortar', S: blank, W: 'm3:drum'}
+- cluster: CM_center
+  sector: CM
+  center: [0.0, 0.2]
+  faces: {N: 'm3:missile', E: 'deco:field_bunker', S: hidden, W: 'deco:field_bunker'}
+- cluster: CM_center
+  sector: CM
+  center: [0.0, -0.2]
+  faces: {N: hidden, E: 'm3:drum', S: 'm3:missile', W: blank}
+- cluster: CM_lower
+  sector: CM
+  center: [0.0, -1.0]
+  faces: {N: 'm3:mortar', E: 'm3:tank', S: 'm3:mortar', W: 'deco:ruined_building'}
+targets_summary:
+- camp: B
+  center: [-1.0, 1.6]
+  face: E
+  kind: outpost
+- camp: R
+  center: [1.0, 1.6]
+  face: W
+  kind: outpost
+- camp: B
+  center: [-1.0, 0.0]
+  face: E
+  kind: comms
+- camp: R
+  center: [1.0, 0.0]
+  face: W
+  kind: comms
+- camp: B
+  center: [-1.0, -1.2]
+  face: E
+  kind: radar
+- camp: R
+  center: [1.0, -1.2]
+  face: W
+  kind: radar
+m3_ground_truth:
+  B-S1: {ammo_box: 1}
+  B-S2: {military_truck: 1}
+  B-S3: {ammo_box: 2, missile: 2}
+  CM: {drum: 2, missile: 2, mortar: 4, tank: 1}
+  R-S1: {ammo_box: 1, drum: 1, tank: 4}
+  R-S2: {drum: 1, missile: 1, mortar: 1}
+  R-S3: {ammo_box: 1, drum: 1, military_truck: 1}

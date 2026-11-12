@@ -10,6 +10,59 @@ from run_wingbot_autonomous_trial import json_value, write_json, apply_trial_var
 import run_wingbot_autonomous_trial as trial
 
 
+def test_final_uav_ledger_survives_post_match_recording_without_new_identity(tmp_path,monkeypatch):
+    import io
+    import json
+    import threading
+    from types import SimpleNamespace
+    import uav_view_recording as recording
+    frames=[];observations=[]
+    obj=recording.UavViewRecording.__new__(recording.UavViewRecording)
+    obj.output=tmp_path
+    obj.raw=SimpleNamespace(add=lambda image,stamp:frames.append(stamp))
+    obj.snapshot=None
+    obj.mission_finished=threading.Event()
+    obj.finalized=False
+    obj.history=io.StringIO()
+    obj.ground_provider=lambda:(None,None)
+    def update(image,stamp,ground,ground_stamp):
+        observations.append(stamp)
+        return dict(image_stamp_s=stamp,identified_faces=8)
+    obj.ledger=SimpleNamespace(update=update,calibration=None)
+    obj.camera={'topic':'/arena/validation/image_raw'}
+    monkeypatch.setattr(recording,'draw_uav_image_ledger',lambda image,*args,**kwargs:image)
+    obj.process('actual frame 1',1.)
+    obj.process('actual frame 2',2.)
+    obj.finish_mission()
+    obj.process('actual final frame',2.1)
+    obj.process('actual later frame',45.)
+    assert frames==[1.,2.,2.1,45.] and observations==[1.,2.,2.1]
+    final=json.loads((tmp_path/'uav_image_face_ledger.json').read_text())
+    assert final['mission_complete'] and final['image_stamp_s']==2.1
+    assert final['identified_faces']==8 and obj.finalized
+
+
+def test_uav_recording_profile_is_real_high_rate_camera_without_agent_rate_change(tmp_path):
+    import math
+    import yaml
+    from uav_view_recording import prepare_uav_recording_profile
+    root=Path(__file__).resolve().parents[1]/"ros2/maicon_arena_gz"
+    before=(root/"config/profiles/wingbot_recording.yaml").read_bytes()
+    path=prepare_uav_recording_profile(tmp_path,root,30.)
+    profile=yaml.safe_load(path.read_text())
+    spec=yaml.safe_load((root/"config/arena_spec.yaml").read_text())
+    recording=profile["validation_camera"]
+    assert profile["uav_camera"]["update_rate"]==1.
+    assert recording["update_rate"]==30. and recording["resolution"]==[1280,720]
+    pose=list(spec["uav_camera"]["pose"])
+    pose[5]+=profile["uav_camera"]["mount_yaw_offset"]
+    assert recording["pose"]==pose
+    assert math.isclose(recording["hfov"],profile["uav_camera"]["optical_hfov"])
+    assert (root/"config/profiles/wingbot_recording.yaml").read_bytes()==before
+    with pytest.raises(ValueError):
+        prepare_uav_recording_profile(tmp_path,root,1.)
+
+
 @pytest.mark.parametrize("scenario,policy",[("vs_evaders","evader"),("vs_hunters","hunter"),("vs_blockers","blocker")])
 def test_opponent_policies_leave_blue_agents_intact(scenario,policy):
     roles=policies_for(scenario)

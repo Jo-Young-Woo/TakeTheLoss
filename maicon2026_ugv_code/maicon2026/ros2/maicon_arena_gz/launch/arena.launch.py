@@ -76,7 +76,10 @@ def _setup(context):
                      "MESA_GLSL_VERSION_OVERRIDE": "430"}
                     if _boolean(context, "wsl_gpu_compat") else {})
     output = Path(tempfile.mkdtemp(prefix="maicon_arena_"))
-    spec = root/"config/arena_spec.yaml"
+    spec_arg = LaunchConfiguration("arena_spec").perform(context)
+    spec = Path(spec_arg).expanduser() if spec_arg else root/"config/arena_spec.yaml"
+    if not spec.is_file():
+        raise ValueError("arena_spec must name an existing YAML file")
     base_map = LaunchConfiguration("base_map").perform(context)
     if base_map:
         document = yaml.safe_load(spec.read_text(encoding="utf-8"))
@@ -199,7 +202,7 @@ def _setup(context):
 
 
 def generate_launch_description():
-    defaults = {"layout": "layout_default.yaml", "profile": "standard", "gui": "false",
+    defaults = {"arena_spec": "", "layout": "layout_default.yaml", "profile": "standard", "gui": "false",
                 "render_engine": "ogre2", "simulator": "fortress", "ugvs": "1", "ego_slot": "B-2",
                 "uav_cam": "true", "base_map": "", "validation_camera": "false", "referee": "true",
                 "interface_package": "mil_interfaces_sim", "gui_render_engine": "", "gui_software_rendering": "",

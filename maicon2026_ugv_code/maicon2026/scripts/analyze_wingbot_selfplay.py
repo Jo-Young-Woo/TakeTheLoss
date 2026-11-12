@@ -77,7 +77,7 @@ def independent_audit(rows, slot, truth_rows):
     return result
 
 
-def analyze_trace(rows, slot, truth_rows):
+def analyze_trace(rows, slot, truth_rows, world_offset=(-3., -2.4)):
     stamps = [row["sim_s"] for row in truth_rows]
     previous_t = previous_decision = None
     direction = 0
@@ -123,7 +123,7 @@ def analyze_trace(rows, slot, truth_rows):
             point = match["poses"][slot]
             nearest = min((math.dist(point[:2],p[:2]) for s,p in match["poses"].items() if s!=slot),default=math.inf)
             est = row.get("estimated_nav_xy_yaw")
-            if est is not None: errors.append(math.hypot(est[0]-(point[0]+3.),est[1]-(point[1]+2.4)))
+            if est is not None: errors.append(math.hypot(est[0]-(point[0]-world_offset[0]),est[1]-(point[1]-world_offset[1])))
             if last_true is not None:
                 delta=math.dist(point[:2],last_true[:2])
                 if delta<.5: distance+=delta
@@ -180,15 +180,18 @@ def main():
     out=args.output
     report=json.loads((out/"selfplay_report.json").read_text(encoding="utf8"))
     truth=list(json_lines(out/"evaluation_truth_all.jsonl"))
-    spec=load_spec(ROOT/"ros2/maicon_arena_gz/config/arena_spec.yaml")
-    layout=load_layout(ROOT/"ros2/maicon_arena_gz/config/layouts/layout_default.yaml")
+    spec_path=out/"arena_spec.yaml"
+    layout_path=out/"layout_default.yaml"
+    spec=load_spec(spec_path if spec_path.is_file() else ROOT/"ros2/maicon_arena_gz/config/arena_spec.yaml")
+    layout=load_layout(layout_path if layout_path.is_file() else ROOT/"ros2/maicon_arena_gz/config/layouts/layout_default.yaml")
     agents={}
     for slot in SLOTS:
         folder=out/slot
         rows=list(json_lines(folder/"agent_trace.jsonl"))
-        analysis=analyze_trace(rows,slot,truth)
         mission=json.loads((folder/"mission_report.json").read_text(encoding="utf8"))
         config=json.loads((folder/"trial_config.json").read_text(encoding="utf8"))
+        # Older recordings still carry their original frame in trial_config.
+        analysis=analyze_trace(rows,slot,truth,config["arena"]["world_offset"])
         evaluated=evaluate(mission,config,spec,layout,m2_target=("RED_RADAR" if slot.startswith("B") else "BLUE_RADAR"))
         evaluated["m4"]["limitation"]="Six physical UGVs are present. Only recorded referee ugv_hit events confirm hits; no event means engagement performance is unvalidated."
         evaluated["m6"]["limitation"]="Six physical UGVs are present. API acceptance does not independently grade opponent ranking quality."

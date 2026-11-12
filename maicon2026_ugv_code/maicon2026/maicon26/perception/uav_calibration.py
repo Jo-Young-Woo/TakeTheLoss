@@ -136,6 +136,14 @@ class FourCornerCalibration:
         correction = np.array([[ratio, 0., (1-ratio)*cx], [0., ratio, (1-ratio)*cy], [0., 0., 1.]])
         return correction @ self._homography
 
+    def arena_to_pixels(self, points, plane_z=None) -> np.ndarray:
+        """Project arena XY back onto the original calibrated image plane.
+        Outside-image results are allowed so the renderer can clip segments.
+        This is not the rectified-map coordinate system.
+        """
+        z = self.object_plane_z if plane_z is None else plane_z
+        return _project(np.linalg.inv(self.plane_homography(z)), _points(points))
+
     def project(self, pixels: Sequence[Sequence[float]], plane_z: float | None = None,
                 *, require_inside: bool = True) -> np.ndarray:
         points = _points(pixels)
@@ -291,6 +299,7 @@ class GridCalibration:
     _validate_pixels = FourCornerCalibration._validate_pixels
     plane_homography = FourCornerCalibration.plane_homography
     project = FourCornerCalibration.project
+    arena_to_pixels = FourCornerCalibration.arena_to_pixels
     rectify_top = FourCornerCalibration.rectify_top
     save = FourCornerCalibration.save
 

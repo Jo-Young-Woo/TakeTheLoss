@@ -1,0 +1,37 @@
+{
+  "basis": "Single-run descriptive comparison; arena dimensions/calibration/layout changed; not controlled statistical evidence.",
+  "before_folder": "gazebo_3v3_coverage_uav_20261112",
+  "before_B2": {
+    "m3_reported": 15,
+    "m3_expected": 21,
+    "m3_missing": 6,
+    "m3_extra": 0,
+    "exact_sectors": [
+      "R-S2"
+    ],
+    "m2_confirmed_hit": false,
+    "m5_team_capture": true,
+    "mode": "DONE",
+    "error": null,
+    "cleanup_errors": [],
+    "reported_deadlocks": 7,
+    "reported_stall_ratio": 0.3666453128336536,
+    "physical_distance_m": 36.51459253379199,
+    "localization_error_m": {
+      "mean": 0.011537167022127587,
+      "p95": 0.026999177294402887,
+      "max": 0.09927844897563877
+    }
+  },
+  "after_B2": {
+    "m3_reported": 18,
+    "m3_expected": 21,
+    "m3_missing": 3,
+    "m3_extra": 0,
+    "exact_sectors": [
+      "R-S1",
+      "R-S2",
+      "R-S3"
+    ]
+  }
+}

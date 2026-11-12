@@ -94,19 +94,41 @@ def cube_obj():
     return "\n".join(lines) + "\n"
 
 
-def floor_obj():
+def floor_obj(print_fraction=(1.0, 1.0)):
     # Pixel (0,0) -> world(-width/2,+height/2); OBJ v=1 is image top.
+    fx, fy = map(float, print_fraction)
+    if not (0 < fx <= 1 and 0 < fy <= 1):
+        raise ValueError("floor print must fit inside the floor")
+    if (fx, fy) != (1., 1.):
+        # Keep the original 20 cm grid and base outlines at their metric size.
+        # Extend only edge texels into the new margins; still one floor visual.
+        xs, ys = (-.5, -fx/2, fx/2, .5), (-.5, -fy/2, fy/2, .5)
+        uv = (1e-6, 1e-6, 1-1e-6, 1-1e-6)
+        lines = ["# Unit floor with a centred unscaled print and edge margins", "o floor", "vn 0 0 1"]
+        for j, y in enumerate(ys):
+            for i, x in enumerate(xs):
+                lines += [f"v {x:.12g} {y:.12g} 0", f"vt {uv[i]} {uv[j]}"]
+        for j in range(3):
+            for i in range(3):
+                if xs[i] == xs[i+1] or ys[j] == ys[j+1]:
+                    continue
+                a = 1+j*4+i
+                for triangle in ((a, a+1, a+5), (a, a+5, a+4)):
+                    lines.append("f " + " ".join(f"{k}/{k}/1" for k in triangle))
+        return "\n".join(lines)+"\n"
     return ("# Unit floor rectangle; scale comes from arena YAML.\no floor\n"
             "v -0.5 -0.5 0\nv 0.5 -0.5 0\nv 0.5 0.5 0\nv -0.5 0.5 0\n"
             "vt 0 0\nvt 1 0\nvt 1 1\nvt 0 1\nvn 0 0 1\n"
             "f 1/1/1 2/2/1 3/3/1\nf 1/1/1 3/3/1 4/4/1\n")
 
 
-def write_shared_meshes(package_root):
+def write_shared_meshes(package_root, print_fraction=(1.0, 1.0)):
     package_root = Path(package_root)
     paths = {}
+    floor_text = floor_obj(print_fraction)
+    floor_name = "floor" if tuple(print_fraction) == (1., 1.) else "floor_"+hashlib.sha256(floor_text.encode()).hexdigest()[:12]
     for key, relative, text in (("cube", "models/cube_atlas/meshes/cube.obj", cube_obj()),
-                                ("floor", "models/floor/meshes/floor.obj", floor_obj())):
+                                ("floor", f"models/floor/meshes/{floor_name}.obj", floor_text)):
         path = package_root / relative
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")

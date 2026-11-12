@@ -1,0 +1,227 @@
+{
+  "scans": {
+    "raw": {
+      "sensor_stamp": 0.5,
+      "frame": "lidar_scan_link",
+      "samples": 450,
+      "near_under_15cm": 93,
+      "nan_count": 0,
+      "min_finite_m": 0.020079510286450386
+    },
+    "filtered": {
+      "sensor_stamp": 0.5,
+      "frame": "lidar_scan_link",
+      "samples": 450,
+      "near_under_15cm": 0,
+      "nan_count": 131,
+      "min_finite_m": 0.40002426505088806
+    }
+  },
+  "camera_and_gimbal": {
+    "gimbal_sent": 0,
+    "gimbal_ok": 0,
+    "gimbal_locked": 0,
+    "gimbal_fail": 0,
+    "fire_calls": 0,
+    "cmd_pub": 5,
+    "cmd_zero_stale": 2,
+    "cmd_zero_locked": 4,
+    "frames": 3,
+    "frames_dropped": 1,
+    "oled_sent": 0,
+    "match_changes": 1,
+    "imu_impacts": 0,
+    "invalid": {},
+    "mil_ready": {
+      "state": true,
+      "match": true,
+      "oled": true,
+      "gimbal": true,
+      "fire": true
+    },
+    "scan_callbacks_received": 5,
+    "gimbal_feedback": {
+      "pan": -8.760380653853061e-15,
+      "tilt": -0.6794659769233643
+    },
+    "imu_odometry": {
+      "wheel_samples": 9,
+      "imu_samples": 9,
+      "fused_steps": 7,
+      "wheel_fallback_steps": 1,
+      "imu_rejected": 0,
+      "wheel_rejected": 0,
+      "reanchors": 1,
+      "mode": "imu_relative",
+      "imu_age_s": 0.02399999999999991,
+      "raw_pose": [
+        -2.976545064177121e-19,
+        -9.861856495737446e-34,
+        3.169097500285241e-19
+      ],
+      "fused_pose": [
+        -2.976545064177121e-19,
+        -8.141308538486365e-34,
+        1.3323378849910798e-15
+      ]
+    },
+    "imu_heading_mount": {
+      "base": "base_footprint",
+      "sensor": "base_imu_link",
+      "roll_deg": 0.0,
+      "pitch_deg": 0.0,
+      "verified_rigid_mount": true
+    },
+    "camera_tf_dropped": 1,
+    "camera_calibration": {
+      "camera_xyz_base": [
+        0.05690643519011008,
+        2.841626589585095e-09,
+        0.2027263847155606
+      ],
+      "camera_rotation_base": [
+        [
+          0.9999296838520275,
+          -4.355921821637122e-08,
+          0.01185864037663405
+        ],
+        [
+          4.355921821901394e-08,
+          0.999999999999999,
+          2.5828540994721535e-10
+        ],
+        [
+          -0.01185864037663405,
+          2.5828585563450185e-10,
+          0.9999296838520285
+        ]
+      ],
+      "laser_from_camera_xyz": [
+        -0.009000000000000001,
+        6.267871240450018e-14,
+        0.04649999999995369
+      ],
+      "pan_tilt_source": "image_timestamp_tf_and_joint_feedback",
+      "calibration_scope": "simulation_only",
+      "sensor_stamp": 0.5,
+      "optical_frame": "pt_camera_optical_link",
+      "camera_info": {
+        "raw_K": [
+          205.4696273803711,
+          0.0,
+          320.0,
+          0.0,
+          205.46964168548584,
+          240.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "advertised_D": [
+          -0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "effective_D": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "distortion_model": "plumb_bob",
+        "output_K": [
+          205.46963709898583,
+          0.0,
+          320.0,
+          0.0,
+          205.46963709898583,
+          240.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "distortion_status": "requested_but_renderer_unsupported"
+    }
+  },
+  "frame_metadata": {
+    "camera_xyz_base": [
+      0.05690643519068931,
+      2.8416265732966382e-09,
+      0.2027263847201228
+    ],
+    "camera_rotation_base": [
+      [
+        0.9999296838528575,
+        -4.355921797897024e-08,
+        0.011858640306652776
+      ],
+      [
+        4.355921797371223e-08,
+        0.999999999999999,
+        2.582860732101992e-10
+      ],
+      [
+        -0.011858640306652776,
+        2.582851864606673e-10,
+        0.9999296838528584
+      ]
+    ],
+    "laser_from_camera_xyz": [
+      -0.009000000000000008,
+      6.269062855809394e-14,
+      0.046499999999953745
+    ],
+    "pan_tilt_source": "image_timestamp_tf_and_joint_feedback",
+    "calibration_scope": "simulation_only",
+    "sensor_stamp": 0.4,
+    "optical_frame": "pt_camera_optical_link",
+    "camera_info": {
+      "raw_K": [
+        205.4696273803711,
+        0.0,
+        320.0,
+        0.0,
+        205.46964168548584,
+        240.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "advertised_D": [
+        -0.25,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "effective_D": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "distortion_model": "plumb_bob",
+      "output_K": [
+        205.46963709898583,
+        0.0,
+        320.0,
+        0.0,
+        205.46963709898583,
+        240.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "distortion_status": "requested_but_renderer_unsupported"
+  },
+  "frame_pan_tilt": [
+    2.49593485330651e-06,
+    -0.6794659662192052
+  ]
+}

@@ -208,7 +208,8 @@ def generate_world(spec, layout, profile, *, package_root=PACKAGE_ROOT, render_e
     if not validation["ok"]:
         raise ValueError("Invalid arena layout: " + "; ".join(validation["errors"]))
     package_root = Path(package_root).resolve()
-    meshes = write_shared_meshes(package_root)
+    print_size = spec["floor"].get("print_size", spec["floor"]["size"])
+    meshes = write_shared_meshes(package_root, tuple(p/s for p, s in zip(print_size, spec["floor"]["size"])))
     texture_root = package_root / "media/textures"
     atlas_root = texture_root / "atlases"
     tile_px = int(profile["textures"]["atlas_tile_px"])

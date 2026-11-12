@@ -28,6 +28,11 @@ class LocalStack(NavStack):
         self.grid = self.navigator.grid
         self.field: Optional[MapLikelihood] = MapLikelihood() if cfg.nav.slam else None
         self._field_t = -1e9
+        self.aerial_landmarks = ()
+
+    def set_aerial_landmarks(self, rects) -> None:
+        # These are calibrated image coordinates, not locally shifted boxes.
+        self.aerial_landmarks = tuple(rects) if len(rects) >= 3 else ()
 
     # ------------------------------------------------------------------ 상태
     @property
@@ -52,7 +57,9 @@ class LocalStack(NavStack):
     def diagnostics(self) -> Dict[str, Any]:
         return {"replans": self.replans, "recoveries": self.recoveries,
                 "invalidations": self.navigator.invalidations, "spread": round(self.spread(), 3),
-                "map_box_cells": self.field.n_cells if self.field else 0}
+                "map_box_cells": self.field.n_cells if self.field else 0,
+                "aerial_localization_landmarks": len(self.aerial_landmarks),
+                "swept_stops": self.navigator.safety.swept_stops}
 
     # ------------------------------------------------------------------ 시작
     def start(self, scan: Scan, odom: Pose2D, xy_guess: Pt) -> Pose2D:
@@ -68,7 +75,7 @@ class LocalStack(NavStack):
         if self.field is not None and now - self._field_t >= 0.5:
             self.field.refresh(self.grid)
             self._field_t = now
-        self.pe.correct(scan, field=self.field)
+        self.pe.correct(scan, field=self.field, aerial_landmarks=self.aerial_landmarks)
         self.navigator.update_map(scan, self.pe.pose)
 
     # ------------------------------------------------------------------ 항법(내장 A*)

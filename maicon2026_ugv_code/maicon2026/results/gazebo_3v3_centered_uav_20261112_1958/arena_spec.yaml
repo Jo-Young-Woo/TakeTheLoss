@@ -1,0 +1,148 @@
+# =====================================================================
+# MAICON 2026 시뮬레이션 경기장 — 공통 좌표 사양
+# 근거: 1차 사전교육자료(2026-11-04) p12-15, p20-25 / 2차(11-06) p10-18 /
+#       게임서버 API 안내(2026-11-04 스냅숏) 부록 · 6·7·8·9단계
+# 바닥 치수는 p24 바닥 인쇄 원본(1204x958 px)의 20 cm 격자(=40 px)를 픽셀 단위로 재서 얻었다.
+# =====================================================================
+meta:
+  version: 2026-11-12
+  size_basis: "사용자 요청: 주행 영역 6.12 x 5.00 m. 공식 현장 실측을 주장하지 않음. 원본 인쇄와 고정물의 중심 좌표/규격은 유지."
+  frame: >-
+    world 원점 = 바닥 인쇄 중심. +X = RED 진영 쪽(평면도 오른쪽), +Y = 1번 줄(평면도 위쪽),
+    +Z = 위. yaw 0 = +X 방향. 단위 m, rad.
+  plan_to_world: "X = (x_cm - 306)/100 ; Y = (250 - y_cm)/100 # 새 경기장 좌상단 원점; 원본 인쇄 좌상단은 (6,10) cm"
+  confidence_legend: {measured: "인쇄·문서에서 직접 잼", official: "문서 수치 그대로", assumed: "추정 — 현장 실측으로 교체"}
+
+floor:
+  size: [6.12, 5.00]                 # 주행 영역 및 벽 안쪽 치수
+  print_size: [6.00, 4.80]           # 원본 인쇄는 중앙에 실제 크기로 유지; 바깥 6/10 cm는 가장자리 색 연장
+  grid_cell: 0.20                    # official
+  texture: textures/floor_print_2400x1920.png      # 4 px/cm. 픽셀(0,0) = 평면도(0,0) = world(-3.0, +2.4)
+  texture_lite: textures/floor_print_1200x960_lite.png
+  texture_orientation_check: "위에서 볼 때 'B-1' 글자가 world(-2.66, +1.6) 근처, 'R-3'이 (+2.66, -1.6) 근처에 보여야 한다"
+  friction_mu: 0.8                   # assumed (실사 인쇄 포맥스)
+
+walls:
+  height: 0.40                       # official
+  thickness: 0.06                    # assumed: (612 - 600) / 2
+  inner_size: [6.12, 5.00]           # floor.size와 동일. 6 cm 벽을 포함한 생성 외곽은 6.24 x 5.12 m
+  outer_nominal_official: [6.12, 5.00]
+  color_rgb: [0.06, 0.06, 0.06]
+  banner_outer_face: false           # 외곽 현수막은 로봇 시야 밖 → 기본 생략
+
+sectors:            # [xmin, xmax, ymin, ymax]  — 보고 이름 그대로 (API 부록)
+  B-S1: [-2.20, -0.60,  0.80,  2.50]
+  B-S2: [-2.20, -0.60, -0.80,  0.80]
+  B-S3: [-2.20, -0.60, -2.50, -0.80]
+  CM:   [-0.60,  0.60, -2.00,  2.00]  # measured: 인쇄의 COMMON 사각형(y 40~440 cm)
+  R-S1: [ 0.60,  2.20,  0.80,  2.50]
+  R-S2: [ 0.60,  2.20, -0.80,  0.80]
+  R-S3: [ 0.60,  2.20, -2.50, -0.80]
+non_sector:
+  base_band_blue: [-3.06, -2.20, -2.50, 2.50]   # API: "좌우 끝 띠는 어느 구역도 아닙니다"
+  base_band_red:  [ 2.20,  3.06, -2.50, 2.50]
+  cm_end_strips:  [[-0.60, 0.60, 2.00, 2.50], [-0.60, 0.60, -2.50, -2.00]]   # 소속 미확인(assumed: 구역 아님)
+
+floor_marks:        # 모두 바닥 텍스처에 이미 그려져 있음 — 형상으로 만들지 말 것(참고·검증용)
+  center_line_x: 0.0
+  center_circle: {center: [0.0, 0.0], radius: 0.60}
+  sector_lines_x: [-2.20, -0.60, 0.60, 2.20]
+  sector_lines_y: [0.80, -0.80]
+  hazard_stripe_bands:              # 바닥 인쇄(평면), 충돌체 아님
+    - [-2.16, -0.64,  2.22,  2.40]
+    - [ 0.64,  2.16,  2.22,  2.40]
+    - [-2.16, -0.64, -2.40, -2.22]
+    - [ 0.64,  2.16, -2.40, -2.22]
+  base_entry_chevrons_x: {blue: [-2.36, -2.26], red: [2.26, 2.36]}
+
+bases:              # 출발 위치 겸 M5 목표거점. 줄 번호 k = 호출부호 B-k / R-k (API 부록)
+  official_size_mm: [1200, 400]     # official '1200(w) x 400(d)' — 벽을 따라 1.2 m, 깊이 0.4 m(센서 박스 깊이)로 해석
+  printed_outline:                  # measured: 노란 테두리 [xmin, xmax, ymin, ymax]
+    B-1: [-2.97, -2.35,  1.20,  2.00]
+    B-2: [-2.97, -2.35, -0.40,  0.40]
+    B-3: [-2.97, -2.35, -2.00, -1.20]
+    R-1: [ 2.35,  2.97,  1.20,  2.00]
+    R-2: [ 2.35,  2.97, -0.40,  0.40]
+    R-3: [ 2.35,  2.97, -2.00, -1.20]
+  start_pose:                       # [x, y, yaw] — 테두리 중심, 화살표(경기장 안쪽) 방향. assumed: 운영진이 놓는 정확한 자리 미확인
+    B-1: [-2.66,  1.60, 0.0]
+    B-2: [-2.66,  0.00, 0.0]
+    B-3: [-2.66, -1.60, 0.0]
+    R-1: [ 2.66,  1.60, 3.14159265]
+    R-2: [ 2.66,  0.00, 3.14159265]
+    R-3: [ 2.66, -1.60, 3.14159265]
+  label_map:                        # assumed — 거점 이름↔줄이 고정인지 경기마다 바뀌는지 미확인. launch 인자로 교체
+    row1: COMMAND_POST              # 작전지휘소
+    row2: MAINTENANCE               # 정비소
+    row3: SUPPLY_DEPOT              # 군수보급소
+  photoelectric_beam:               # 판정: 게시(4:00) 뒤 목표거점 빔이 '처음 가려지는 순간' 그 거점을 목표로 받은 연합의 점령
+    x_from_wall: 0.41               # 새 벽 x=±3.06에서 기존 빔 x=±2.65까지; 빔/인쇄/출발 중심은 이동하지 않음
+    height: 0.10                    # assumed
+    segments:                       # [x, y_from, y_to] — 위쪽 센서 박스 남쪽 면 → 아래쪽 박스 북쪽 면
+      B-1: [-2.65,  2.00,  1.00]
+      B-2: [-2.65,  0.60, -0.60]
+      B-3: [-2.65, -1.00, -2.00]
+      R-1: [ 2.65,  2.00,  1.00]
+      R-2: [ 2.65,  0.60, -0.60]
+      R-3: [ 2.65, -1.00, -2.00]
+    note: "센서는 어느 UGV인지 모른다 — 상대 목표가 된 우리 거점에 우리 UGV가 들어가도 상대 점령 (API 9단계)"
+
+sensor_boxes:       # 노랑·검정 사선 박스(광전센서·3색 타워 LED 장착). 고정 설비 — 40 cm 이격 규칙 예외
+  size: [0.40, 0.40, 0.40]          # official 장애물 정육면체
+  texture: textures/hazard_stripe_256.png
+  centers:                          # measured: 바닥 인쇄의 회색 패드 위치
+    blue: [[-2.80, 2.20], [-2.80, 0.80], [-2.80, -0.80], [-2.80, -2.20]]
+    red:  [[ 2.80, 2.20], [ 2.80, 0.80], [ 2.80, -0.80], [ 2.80, -2.20]]
+  corner_note: >-
+    인쇄의 모서리 패드는 40x20 cm(벽에서 20 cm)뿐이다. 렌더는 모서리에 온전한 정육면체.
+    원본 인쇄 패드 중심과 0.40 정육면체를 유지한다. 확장 벽과의 간격은 가로 0.06 / 세로 0.10 m — 현장 확인.
+tower_leds:         # official "각 진영 양측 2개씩" → 모서리 박스 위(assumed). 빛을 내는 light 아님 — emissive 재질만
+  mounts: [[-2.80, 2.20], [-2.80, -2.20], [2.80, 2.20], [2.80, -2.20]]
+  geometry: {radius: 0.025, segment_height: 0.04, segments: [red, amber, green], pole_height: 0.06}
+
+center_pads:        # measured: 긴 벽 가운데 40x40 회색 패드. 렌더상 검은 박스. 스모그 발생장치가 '중앙 측면 1개소'
+  centers: [[0.0, 2.20], [0.0, -2.20]]
+  default: black_cube               # 한쪽이 스모그 장치일 수 있음 — 형상은 같은 0.4 정육면체로 둔다
+
+cubes:              # 객체·표적·비인식용 박스 공통 (위치는 layout_*.yaml)
+  size: 0.40                        # official 400x400x400
+  min_clearance: 0.40               # official 박스-박스, 박스-벽 최소 이격 (붙여 놓은 덩어리는 하나로 본다)
+  top_face: black                   # M3 판정 대상 아님("블록 겉면은 보고하면 틀립니다")
+  face_rules: >-
+    M3 객체는 옆면 4면에, 한 면에 1개만. M2 지정표적은 옆면 1개 면, 이미지 상단에 수광부,
+    박스 윗면에 빨강 시그널 LED. 양 진영은 대칭되는 같은 위치에 표적을 둔다.
+  target_receiver:                  # measured: 표적 이미지 위쪽 흰 원(타일 350 px 중 중심 y≈55 px, 지름≈50 px)
+    z: 0.337
+    diameter: 0.057
+  target_signal_led: {size: [0.10, 0.03, 0.02], on_top_center: true, color_hit: red}
+
+uav_camera:         # official: 높이 약 2.5 m, HD 이상, 1 FPS. 자세·화각은 assumed(p22 렌더는 모서리 갠트리 팔)
+  pose: [0.0, 0.0, 2.50, 0.0, 1.5707963, 0.0]   # 정중앙 수직 하향(assumed) — 연습 기간 camera=main 화면으로 재보정
+  resolution: [1280, 720]
+  hfov: 2.15                        # 2.5 m에서 6.12 x 5.0 m 전체가 들어가는 최소 화각 근처
+  update_rate: 1.0
+  degrade: {destroyed_1: 2.0, destroyed_2: 5.0, destroyed_3: none}   # 우리 진영 표적 파괴 수 → 프레임 간격(s), 3개면 403
+
+ugv:                # WINGBOT-UGV (official p20-21, 2차 p10-17)
+  footprint_lwh: [0.25, 0.23, 0.32]   # '250(가로) x 230(세로) x 320(높이)' — 길이/폭 방향 미확인
+  mass: 2.9
+  drive: 6WD skid-steer
+  cmd_vel_limits: {linear_x: 0.6, angular_z: 3.0}
+  cmd_vel_timeout: 0.5               # 0.5 s 끊기면 자동 정지
+  odom_rate: 20                      # 출발점 기준 위치
+  imu_rate: 20
+  camera: {topic: /image_raw, resolution: [640, 480], encoding: bgr8, max_fps: 30, recommended_fps: 10, lens_fov_deg: 160, mounted_on: pan_tilt}
+  lidar: {model: D500, type: 2D 360deg, topic_assumed: /scan, sim_samples_assumed: 450, sim_rate_hz: 10}
+  depth_camera: {model: OAK stereo, default_enabled: false}
+  pan_tilt: {pan_units: [-100, 100], pan_deg_per_unit: 0.5, tilt_units: [-100, 100], tilt_deg_per_unit: 0.15, speed_dps: [1, 270]}
+  laser: {emit_s: 5, refire_interval_s: 10, magazine: 8, hit_continuous_s: 2}
+  hit_rules: {hp: 4, invuln_s: 10, lock_laser_tilt_s: 10, on_4th_hit_lock_drive_s: 10, friendly_fire_counts: true}
+  receivers: "좌/우 차체 옆 흰 돔 2개(높이 약 0.12 m, assumed)"
+  iff_antenna: "피아식별 안테나 구조물 색상(팀 색) — 드론 화면 추적에 쓰임"
+
+match_timeline:     # API 표지·10단계
+  phases: [idle, waiting, ready, running, reporting, finished]
+  running_s: 300
+  objective_post_at_s: 240
+  reporting_s: 30
+  ends_early_on_m5_capture: true

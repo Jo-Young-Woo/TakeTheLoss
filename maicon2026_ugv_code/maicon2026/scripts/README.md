@@ -8,6 +8,7 @@
 | 실행 코드 선택 | [selected_runtime.py](selected_runtime.py) | `config/active_candidate.json`이 없으면 개발 코드 `maicon26/`를 사용(후보 02 삭제 후 기본). 경기를 시작하지 않음 |
 | 전체 경기 | [run_selected_gazebo.sh](run_selected_gazebo.sh) | 기본 6대 자가 대전·시드 0·최대 300초 (개발 코드) |
 | 6대 실행 상세 | [run_wingbot_selfplay.py](run_wingbot_selfplay.py) | 시드·시나리오·UAV·녹화 옵션을 처리하는 실제 실행기 |
+| UAV 시점·영상 기반 면 장부 | [uav_view_recording.py](uav_view_recording.py) | 위 실행기에 `--record-view uav` 추가. 실제 1 Hz UAV 원본·투영 경계 영상·프레임별 장부를 저장 |
 | B-2 단독 경기 | [launch_wingbot_autonomous_trial.py](launch_wingbot_autonomous_trial.py) | 경기장 준비와 단독 실행 절차 |
 | 임무 채점 검토 | [evaluate_wingbot_missions.py](evaluate_wingbot_missions.py) | 로컬 점수 추정; 공식 서버 확정 점수가 아님 |
 

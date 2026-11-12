@@ -27,7 +27,7 @@ python3 scripts/run_arena_mock_api.py --slot B-2 --code-file /비밀파일/경�
 --simulation-uav-calibration ros2/maicon_arena_gz/config/uav_grid_calibration.json
 ```
 
-`--arena-spec`이 없거나 보정의6×4.8m 치수·0.4m 윗면 높이가 다르거나 독립 검증점이 통과하지 않으면 하드웨어 초기화 전에 실패한다. 이 보정은 왼쪽 아래가(0,0)인 기존 항법 좌표와 같으므로 Gazebo 중심 좌표의 오프셋을 두 번 더하지 않는다. 레이아웃 YAML·정답·모델 pose는 검출 입력에 들어가지 않는다.
+`--arena-spec`이 없거나 사양과 보정의 경기장 치수(현재 6.12×5.00m)·0.4m 윗면 높이가 다르거나 독립 검증점이 통과하지 않으면 하드웨어 초기화 전에 실패한다. 이 보정은 왼쪽 아래가(0,0)인 기존 항법 좌표와 같으므로 Gazebo 중심 좌표의 오프셋을 두 번 더하지 않는다. 레이아웃 YAML·정답·모델 pose는 검출 입력에 들어가지 않는다. 바닥 원본 인쇄는 6.00×4.80m로 보존하므로 이미지 기준점은 새 좌표 원점으로 (+0.06,+0.10)m 이동한다.
 
 검출은 `HttpServerLink.get_uav()`의 선택적 콜백으로 실행되고, 실기 진입점에서는 기존 `AsyncServerLink`의 UAV 작업 스레드가 처리한다. 제어 루프에서 이미지 처리를 기다리지 않는다. `layout_source="gazebo_uav_image"`인 형상 후보만 전달하며 UGV 식별이나 M3 사진 종류를 만들지 않는다. 지상 사진으로 확인하기 전의 M3 집계는0이다. 두 번 일치한 새 프레임부터 기존 CoverageMap의 탐색 후보가 된다.
 

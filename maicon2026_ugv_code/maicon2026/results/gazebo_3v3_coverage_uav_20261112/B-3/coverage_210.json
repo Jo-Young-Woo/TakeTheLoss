@@ -1,0 +1,6415 @@
+{
+  "elapsed": 210.01600000000002,
+  "observed_classified_faces": [
+    {
+      "x": 4.00255155240565,
+      "y": 0.9962369451063059,
+      "cx": 4.195606751599868,
+      "cy": 1.0367576838549137,
+      "votes": {
+        "RADAR_FACILITY": 248.45496254015407
+      },
+      "n": 259,
+      "kind": "target",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 62.1,
+      "vx": -0.9984407545815653,
+      "vy": 0.0086523319530376,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 259.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "RADAR_FACILITY": 248.45496254015407
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.9974999999999996,
+      "y": 3.8134594298245617,
+      "cx": 4.1975,
+      "cy": 3.8134594298245617,
+      "votes": {
+        "DRUM": 57.922576109376585
+      },
+      "n": 60,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 165.8,
+      "vx": -1.0,
+      "vy": 0.0,
+      "geometry_key": [
+        20,
+        2
+      ],
+      "src_n": {
+        "pantilt": 60.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "DRUM": 57.922576109376585
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 4.2046875,
+      "y": 2.597395833333334,
+      "cx": 4.2046875,
+      "cy": 2.397395833333334,
+      "votes": {
+        "DRUM": 54.5525705838887,
+        "MORTAR": 0.9443561110146852
+      },
+      "n": 58,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 168.7,
+      "vx": 0.0,
+      "vy": 1.0,
+      "geometry_key": [
+        19,
+        1
+      ],
+      "src_n": {
+        "pantilt": 58.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "DRUM": 54.5525705838887,
+          "MORTAR": 0.9443561110146852
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 2.9828125,
+      "y": 3.8091745457916204,
+      "cx": 2.9828125,
+      "cy": 3.6091745457916202,
+      "votes": {
+        "MORTAR": 50.826949933857534
+      },
+      "n": 52,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 163.3,
+      "vx": 0.0,
+      "vy": 1.0,
+      "geometry_key": [
+        16,
+        1
+      ],
+      "src_n": {
+        "pantilt": 52.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MORTAR": 50.826949933857534
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 2.0041112173439495,
+      "y": 4.20324461021753,
+      "cx": 1.8087525497461112,
+      "cy": 4.233599388953345,
+      "votes": {
+        "GUARD_POST": 48.88095013404644
+      },
+      "n": 51,
+      "kind": "target",
+      "led_on": true,
+      "led_votes": 3,
+      "last_t": 160.6,
+      "vx": 0.9983595980055924,
+      "vy": 0.015393032129519141,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 51.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "GUARD_POST": 48.88095013404644
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.9799449780033838,
+      "y": 4.176663397256387,
+      "cx": 4.156956240818198,
+      "cy": 4.238286630361047,
+      "votes": {
+        "GUARD_POST": 50.27717740639955
+      },
+      "n": 52,
+      "kind": "target",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 165.4,
+      "vx": -0.9882371131082226,
+      "vy": -0.023156529429984585,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 52.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "GUARD_POST": 46.3845406897033
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 4.617434210526316,
+      "y": 3.999155890804598,
+      "cx": 4.617434210526316,
+      "cy": 4.199155890804598,
+      "votes": {
+        "TANK": 38.25148730178709
+      },
+      "n": 40,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 210.5,
+      "vx": 0.0,
+      "vy": -1.0,
+      "geometry_key": [
+        24,
+        3
+      ],
+      "src_n": {
+        "pantilt": 40.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "TANK": 38.25148730178709
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.985125762325103,
+      "y": 2.291381076941807,
+      "cx": 4.12961821607203,
+      "cy": 2.3501959389291374,
+      "votes": {
+        "COMM_FACILITY": 42.68534159039087
+      },
+      "n": 44,
+      "kind": "target",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 81.5,
+      "vx": -0.9875422909414713,
+      "vy": 0.02003952984976603,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 44.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "COMM_FACILITY": 34.909064577325346
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.0208441558441557,
+      "y": 1.9805555555555558,
+      "cx": 3.0208441558441557,
+      "cy": 2.180555555555556,
+      "votes": {
+        "MISSILE": 31.75599948023516
+      },
+      "n": 33,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 68.4,
+      "vx": 0.0,
+      "vy": -1.0,
+      "geometry_key": [
+        14,
+        3
+      ],
+      "src_n": {
+        "pantilt": 33.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MISSILE": 31.75599948023516
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 4.813715277777779,
+      "y": 0.9863584743107772,
+      "cx": 4.613715277777779,
+      "cy": 0.9863584743107772,
+      "votes": {
+        "DRUM": 32.09448709316194
+      },
+      "n": 33,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 200.7,
+      "vx": 1.0,
+      "vy": 0.0,
+      "geometry_key": [
+        22,
+        0
+      ],
+      "src_n": {
+        "pantilt": 33.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "DRUM": 32.09448709316194
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 4.6046875,
+      "y": 2.597395833333334,
+      "cx": 4.6046875,
+      "cy": 2.397395833333334,
+      "votes": {
+        "MORTAR": 27.731375727535344
+      },
+      "n": 29,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 169.3,
+      "vx": 0.0,
+      "vy": 1.0,
+      "geometry_key": [
+        23,
+        1
+      ],
+      "src_n": {
+        "pantilt": 29.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MORTAR": 27.731375727535344
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.210245535714286,
+      "y": 3.6056490384615385,
+      "cx": 3.0102455357142857,
+      "cy": 3.6056490384615385,
+      "votes": {
+        "MORTAR": 25.958463480509785
+      },
+      "n": 27,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 142.6,
+      "vx": 1.0,
+      "vy": 0.0,
+      "geometry_key": [
+        16,
+        0
+      ],
+      "src_n": {
+        "pantilt": 27.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MORTAR": 25.958463480509785
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 4.3990728725129316,
+      "y": 0.5417951849071574,
+      "cx": 4.199083920464939,
+      "cy": 0.5420114068434361,
+      "votes": {
+        "TRUCK": 26.185966498727733
+      },
+      "n": 27,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 200.6,
+      "vx": 0.9999447602399597,
+      "vy": -0.0010811096813941711,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 27.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "TRUCK": 26.185966498727733
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.200034506556246,
+      "y": 2.204357638888889,
+      "cx": 3.0000345065562457,
+      "cy": 2.204357638888889,
+      "votes": {
+        "DRUM": 18.156003525763676
+      },
+      "n": 19,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 167.8,
+      "vx": 1.0,
+      "vy": 0.0,
+      "geometry_key": [
+        14,
+        0
+      ],
+      "src_n": {
+        "pantilt": 19.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "DRUM": 18.156003525763676
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 2.78066534914361,
+      "y": 3.6100361476008027,
+      "cx": 2.98066534914361,
+      "cy": 3.6100361476008027,
+      "votes": {
+        "DRUM": 18.415500737064203
+      },
+      "n": 19,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 160.0,
+      "vx": -1.0,
+      "vy": 0.0,
+      "geometry_key": [
+        16,
+        2
+      ],
+      "src_n": {
+        "pantilt": 19.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "DRUM": 18.415500737064203
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 4.206250000000001,
+      "y": 2.180729166666667,
+      "cx": 4.206250000000001,
+      "cy": 2.3807291666666672,
+      "votes": {
+        "MISSILE": 16.087081386773797
+      },
+      "n": 17,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 203.6,
+      "vx": 0.0,
+      "vy": -1.0,
+      "geometry_key": [
+        19,
+        3
+      ],
+      "src_n": {
+        "pantilt": 17.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MISSILE": 16.087081386773797
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 2.004731702256153,
+      "y": 0.9735104326942838,
+      "cx": 1.811149402735312,
+      "cy": 1.023040082521018,
+      "votes": {
+        "RADAR_FACILITY": 13.40773814621843
+      },
+      "n": 14,
+      "kind": "target",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 56.5,
+      "vx": 0.9979903356453002,
+      "vy": 0.01826390388454603,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 14.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "RADAR_FACILITY": 13.40773814621843
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 0.9065262746962707,
+      "y": 0.954705504497471,
+      "cx": 1.1064340282463412,
+      "cy": 0.9568491981260464,
+      "votes": {
+        "MISSILE": 11.597096980361556
+      },
+      "n": 12,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 2.0,
+      "vx": -0.9995387677503536,
+      "vy": -0.010718468142876816,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 12.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MISSILE": 11.597096980361556
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 2.003474078730027,
+      "y": 2.3200775267809153,
+      "cx": 1.8278851784339785,
+      "cy": 2.4153375586299917,
+      "votes": {
+        "COMM_FACILITY": 13.616441112400748
+      },
+      "n": 16,
+      "kind": "target",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 68.3,
+      "vx": 0.982290472274918,
+      "vy": -0.07241440965513853,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 16.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "COMM_FACILITY": 9.823252119486593
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.018489583333334,
+      "y": 0.9850446428571431,
+      "cx": 3.018489583333334,
+      "cy": 1.185044642857143,
+      "votes": {
+        "MORTAR": 9.682630378651753
+      },
+      "n": 10,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 56.9,
+      "vx": 0.0,
+      "vy": -1.0,
+      "geometry_key": [
+        13,
+        3
+      ],
+      "src_n": {
+        "pantilt": 10.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MORTAR": 9.682630378651753
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.019805194805195,
+      "y": 1.3913070436507937,
+      "cx": 3.019805194805195,
+      "cy": 1.1913070436507938,
+      "votes": {
+        "MORTAR": 9.605999339326676
+      },
+      "n": 10,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 85.3,
+      "vx": 0.0,
+      "vy": 1.0,
+      "geometry_key": [
+        13,
+        1
+      ],
+      "src_n": {
+        "pantilt": 10.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MORTAR": 9.605999339326676
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 4.816169905462185,
+      "y": 4.206459530651341,
+      "cx": 4.6161699054621845,
+      "cy": 4.206459530651341,
+      "votes": {
+        "TANK": 9.576432902464125
+      },
+      "n": 10,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 136.0,
+      "vx": 1.0,
+      "vy": 0.0,
+      "geometry_key": [
+        24,
+        0
+      ],
+      "src_n": {
+        "pantilt": 10.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "TANK": 9.576432902464125
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 3.2107142857142863,
+      "y": 1.1872767857142859,
+      "cx": 3.010714285714286,
+      "cy": 1.1872767857142859,
+      "votes": {
+        "TANK": 8.795681976293661
+      },
+      "n": 9,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 64.1,
+      "vx": 1.0,
+      "vy": 0.0,
+      "geometry_key": [
+        13,
+        0
+      ],
+      "src_n": {
+        "pantilt": 9.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "TANK": 8.795681976293661
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 4.417434210526316,
+      "y": 3.799155890804598,
+      "cx": 4.217434210526315,
+      "cy": 3.799155890804598,
+      "votes": {
+        "TANK": 7.63389774461702
+      },
+      "n": 8,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 209.1,
+      "vx": 1.0,
+      "vy": 0.0,
+      "geometry_key": [
+        20,
+        0
+      ],
+      "src_n": {
+        "pantilt": 8.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "TANK": 7.63389774461702
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 1.7225972773225824,
+      "y": 1.1874897166467386,
+      "cx": 1.7215100603945395,
+      "cy": 0.9879818606678297,
+      "votes": {
+        "MISSILE": 5.655553132534914
+      },
+      "n": 6,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 9.9,
+      "vx": 0.005436084640214167,
+      "vy": 0.9975392798945444,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 6.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MISSILE": 5.655553132534914
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 2.98066534914361,
+      "y": 2.8053486476008027,
+      "cx": 2.98066534914361,
+      "cy": 2.6053486476008025,
+      "votes": {
+        "MISSILE": 5.75700098564292
+      },
+      "n": 6,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 159.5,
+      "vx": 0.0,
+      "vy": 1.0,
+      "geometry_key": [
+        15,
+        1
+      ],
+      "src_n": {
+        "pantilt": 6.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "MISSILE": 5.75700098564292
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    },
+    {
+      "x": 1.3597968353094136,
+      "y": 0.586733171448733,
+      "cx": 1.559740980090898,
+      "cy": 0.5891682180364346,
+      "votes": {
+        "AMMO_BOX": 3.776979022841043
+      },
+      "n": 4,
+      "kind": "object",
+      "led_on": false,
+      "led_votes": 0,
+      "last_t": 1.1,
+      "vx": -0.9997207239074212,
+      "vy": -0.012175232938507651,
+      "geometry_key": null,
+      "src_n": {
+        "pantilt": 4.0
+      },
+      "src_votes": {
+        "pantilt": {
+          "AMMO_BOX": 3.776979022841043
+        }
+      },
+      "oak_obs": [],
+      "disagreed": []
+    }
+  ],
+  "coverage_faces": [
+    {
+      "bid": 1,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 2.9529166666666673,
+      "cy": 2.17125,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 119,
+      "last_occl_t": 179.4,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 1,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 2.752916666666667,
+      "cy": 2.3712500000000003,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 1,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 2.552916666666667,
+      "cy": 2.17125,
+      "views": 16,
+      "view_poses": [
+        [
+          1.4103117830790013,
+          1.5378605065884312,
+          0.6663807694279651
+        ],
+        [
+          1.5532502956028271,
+          1.6075670211568556,
+          -0.11424100155615413
+        ],
+        [
+          1.6986203733743568,
+          1.6130871578216925,
+          -0.3292198368987127
+        ],
+        [
+          1.9269474053232214,
+          1.5310647482706259,
+          -0.3372645098436484
+        ],
+        [
+          1.949108545260956,
+          3.338038621097946,
+          0.34096990907908786
+        ],
+        [
+          1.9677480565135026,
+          3.341952180156619,
+          0.09422988469803828
+        ]
+      ],
+      "last_view_t": 159.0,
+      "last_cam_yaw": -0.7697195312364471,
+      "occluded_views": 7,
+      "last_occl_t": 13.8,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 1,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 2.752916666666667,
+      "cy": 1.9712500000000002,
+      "views": 8,
+      "view_poses": [
+        [
+          1.9473190594755718,
+          1.5160427898263342,
+          -0.3434966968944053
+        ],
+        [
+          3.477412701736613,
+          1.1764489231751247,
+          1.4688466581493902
+        ],
+        [
+          3.7277674754014627,
+          1.186311094126544,
+          -3.12829710589303
+        ],
+        [
+          3.625595945270252,
+          1.1437111090769305,
+          2.4858415654924766
+        ],
+        [
+          3.5078006938194854,
+          1.2044226317643518,
+          1.4404524364040494
+        ],
+        [
+          3.4886083577701577,
+          1.541659817515273,
+          1.0270700064521021
+        ]
+      ],
+      "last_view_t": 66.1,
+      "last_cam_yaw": 1.8894904425228307,
+      "occluded_views": 11,
+      "last_occl_t": 64.2,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 2,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 2.9529166666666673,
+      "cy": 2.61375,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 114,
+      "last_occl_t": 167.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 2,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 2.752916666666667,
+      "cy": 2.81375,
+      "views": 10,
+      "view_poses": [
+        [
+          2.6204583155497416,
+          4.045740603287429,
+          -1.9742427490549748
+        ],
+        [
+          2.6061381838099678,
+          4.019356046496235,
+          -1.9803060396204903
+        ],
+        [
+          1.9392171658768664,
+          3.347061713669336,
+          1.2063616391197796
+        ],
+        [
+          1.9505494861013992,
+          3.346874780582158,
+          0.4085249168847831
+        ],
+        [
+          1.970848935333716,
+          3.360139572488486,
+          0.1158540894474056
+        ],
+        [
+          2.041463616964214,
+          3.3688750099953415,
+          0.2786903332753714
+        ]
+      ],
+      "last_view_t": 159.4,
+      "last_cam_yaw": 0.10984431272246431,
+      "occluded_views": 76,
+      "last_occl_t": 146.7,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 2,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 2.552916666666667,
+      "cy": 2.61375,
+      "views": 10,
+      "view_poses": [
+        [
+          1.4176013521431785,
+          1.5404039934974454,
+          0.6048684254203343
+        ],
+        [
+          1.4857878199972816,
+          1.563923809013584,
+          0.45818124941279725
+        ],
+        [
+          1.6295350680749643,
+          1.636732497719487,
+          -0.22611947014127676
+        ],
+        [
+          1.6986203733743568,
+          1.6130871578216925,
+          -0.3292198368987127
+        ],
+        [
+          1.9505494861013992,
+          3.346874780582158,
+          0.4085249168847831
+        ],
+        [
+          1.970848935333716,
+          3.360139572488486,
+          0.1158540894474056
+        ]
+      ],
+      "last_view_t": 158.8,
+      "last_cam_yaw": -0.7566493432256487,
+      "occluded_views": 7,
+      "last_occl_t": 11.5,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 2,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 2.752916666666667,
+      "cy": 2.41375,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 3,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 1.7545,
+      "cy": 0.6000000000000001,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 43,
+      "last_occl_t": 64.3,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 3,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 1.5545,
+      "cy": 0.8,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 17,
+      "last_occl_t": 10.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 3,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 1.3545,
+      "cy": 0.6000000000000001,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 4,
+      "det_votes": {
+        "AMMO_BOX": 3.776979022841043
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 1,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 3,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 1.5545,
+      "cy": 0.4000000000000001,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 4,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 1.6054398148148157,
+      "cy": 4.201707702020203,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 4,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 1.4054398148148157,
+      "cy": 4.401707702020203,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 10,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 4,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 1.2054398148148158,
+      "cy": 4.201707702020203,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 11,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 4,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 1.4054398148148157,
+      "cy": 4.0017077020202025,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 4,
+      "last_occl_t": 156.6,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 12,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 5,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 1.6158717105263154,
+      "cy": 0.9991558908045979,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 5,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 1.4158717105263154,
+      "cy": 1.1991558908045978,
+      "views": 3,
+      "view_poses": [
+        [
+          1.1938773765744717,
+          1.6254361315653043,
+          -0.3474890772898611
+        ],
+        [
+          1.2175565083189084,
+          1.6342853066792657,
+          -0.569232704474973
+        ],
+        [
+          1.2142654765787266,
+          1.6118892939351002,
+          -1.2123369961935189
+        ]
+      ],
+      "last_view_t": 8.5,
+      "last_cam_yaw": -1.6324552367372551,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 1,
+      "det_votes": {
+        "MISSILE": 0.9641774487626822
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 4,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 5,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 1.2158717105263155,
+      "cy": 0.9991558908045979,
+      "views": 2,
+      "view_poses": [
+        [
+          0.2818693048840538,
+          0.860120382750729,
+          0.3868259548969397
+        ],
+        [
+          0.4257961657383955,
+          0.9438275321311967,
+          0.8346179930657751
+        ]
+      ],
+      "last_view_t": 2.4,
+      "last_cam_yaw": 0.9497031264911178,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 2,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 5,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 1.4158717105263154,
+      "cy": 0.7991558908045979,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 5,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 6,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 1.331375,
+      "cy": 2.391875,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 6,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 1.131375,
+      "cy": 2.5918750000000004,
+      "views": 10,
+      "view_poses": [
+        [
+          2.6061381838099678,
+          4.019356046496235,
+          -1.9803060396204903
+        ],
+        [
+          2.5203280303742694,
+          3.8270526801719638,
+          -2.0778959800042074
+        ],
+        [
+          2.4110074762959637,
+          3.6413983667246774,
+          -2.1324882483432366
+        ],
+        [
+          2.3256288430494827,
+          3.5066428839816846,
+          -2.261173975923726
+        ],
+        [
+          2.193685523424313,
+          3.4020643335643506,
+          -2.7308077728459343
+        ],
+        [
+          2.0559514206644027,
+          3.322216683354411,
+          3.0887095750431204
+        ]
+      ],
+      "last_view_t": 155.7,
+      "last_cam_yaw": 3.455202622709966,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 6,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 0.9313750000000001,
+      "cy": 2.391875,
+      "views": 1,
+      "view_poses": [
+        [
+          0.2818693048840538,
+          0.860120382750729,
+          0.3868259548969397
+        ]
+      ],
+      "last_view_t": 1.8,
+      "last_cam_yaw": 0.7709554941008383,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 6,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 1.131375,
+      "cy": 2.191875,
+      "views": 7,
+      "view_poses": [
+        [
+          0.4257961657383955,
+          0.9438275321311967,
+          0.8346179930657751
+        ],
+        [
+          0.6928940842854102,
+          1.0236668793113606,
+          1.0371782999750225
+        ],
+        [
+          0.8585377351605291,
+          1.1139156976216025,
+          2.137845406579692
+        ],
+        [
+          0.8536012818635814,
+          1.2081453673520508,
+          1.5042620577436647
+        ],
+        [
+          0.8933511690478596,
+          1.3904538828415787,
+          1.1291430842754329
+        ],
+        [
+          1.0249358677541414,
+          1.54828204422621,
+          0.48988061283017714
+        ]
+      ],
+      "last_view_t": 5.9,
+      "last_cam_yaw": 0.8757483662712184,
+      "occluded_views": 2,
+      "last_occl_t": 3.7,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 7,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 1.6158717105263154,
+      "cy": 2.3944683908045983,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 7,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 1.4158717105263154,
+      "cy": 2.5944683908045985,
+      "views": 24,
+      "view_poses": [
+        [
+          2.6061381838099678,
+          4.019356046496235,
+          -1.9803060396204903
+        ],
+        [
+          2.5203280303742694,
+          3.8270526801719638,
+          -2.0778959800042074
+        ],
+        [
+          2.4110074762959637,
+          3.6413983667246774,
+          -2.1324882483432366
+        ],
+        [
+          2.3256288430494827,
+          3.5066428839816846,
+          -2.261173975923726
+        ],
+        [
+          2.193685523424313,
+          3.4020643335643506,
+          -2.7308077728459343
+        ],
+        [
+          2.0559514206644027,
+          3.322216683354411,
+          3.0887095750431204
+        ]
+      ],
+      "last_view_t": 155.7,
+      "last_cam_yaw": 3.455202622709966,
+      "occluded_views": 8,
+      "last_occl_t": 97.3,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 7,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 7,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 1.2158717105263155,
+      "cy": 2.3944683908045983,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 3,
+      "last_occl_t": 4.7,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 81,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 7,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 1.4158717105263154,
+      "cy": 2.194468390804598,
+      "views": 9,
+      "view_poses": [
+        [
+          0.8536012818635814,
+          1.2081453673520508,
+          1.5042620577436647
+        ],
+        [
+          0.8933511690478596,
+          1.3904538828415787,
+          1.1291430842754329
+        ],
+        [
+          1.0249358677541414,
+          1.54828204422621,
+          0.48988061283017714
+        ],
+        [
+          1.1617095863230904,
+          1.6262519053479074,
+          -0.04224624160886181
+        ],
+        [
+          1.4180811264840971,
+          1.5381647595107064,
+          0.7024538664336104
+        ],
+        [
+          3.060530850909375,
+          0.7362431468252425,
+          1.9698851395176744
+        ]
+      ],
+      "last_view_t": 56.8,
+      "last_cam_yaw": 1.5423126305596262,
+      "occluded_views": 2,
+      "last_occl_t": 3.5,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 8,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 8,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 2.0132523148148156,
+      "cy": 0.6017077020202026,
+      "views": 12,
+      "view_poses": [
+        [
+          3.455406387053084,
+          0.6456830957821382,
+          2.1365988771013056
+        ],
+        [
+          3.320506430270065,
+          0.638781365636217,
+          2.8364268832205113
+        ],
+        [
+          3.1524378090534513,
+          0.6875179905349456,
+          2.8712547366771783
+        ],
+        [
+          3.056688774243305,
+          0.7046437521559745,
+          2.6816861710137783
+        ],
+        [
+          3.693954625332559,
+          1.1613766846958284,
+          2.9882181421740217
+        ],
+        [
+          3.60095121600746,
+          1.1255104118128088,
+          2.4369342629633186
+        ]
+      ],
+      "last_view_t": 64.1,
+      "last_cam_yaw": 2.837989577079899,
+      "occluded_views": 4,
+      "last_occl_t": 64.3,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 13,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 8,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 1.8132523148148156,
+      "cy": 0.8017077020202026,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 8,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 1.6132523148148157,
+      "cy": 0.6017077020202026,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 3,
+      "last_occl_t": 8.5,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 15,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 8,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 1.8132523148148156,
+      "cy": 0.4017077020202026,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 16,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 9,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 2.0158717105263153,
+      "cy": 0.9991558908045979,
+      "views": 7,
+      "view_poses": [
+        [
+          3.6241748565466883,
+          0.6367087781602956,
+          2.816922088060134
+        ],
+        [
+          3.487259956406535,
+          0.6410527821711628,
+          2.2432854417552157
+        ],
+        [
+          3.3439187757253546,
+          0.6401012622889709,
+          2.5237467817024193
+        ],
+        [
+          3.2145542833178773,
+          0.6618801919042966,
+          2.9957361371384605
+        ],
+        [
+          3.108357496032578,
+          0.6920046703267027,
+          2.9555986721986383
+        ],
+        [
+          3.056688774243305,
+          0.7046437521559745,
+          2.6816861710137783
+        ]
+      ],
+      "last_view_t": 56.4,
+      "last_cam_yaw": 2.3889048676713123,
+      "occluded_views": 11,
+      "last_occl_t": 85.3,
+      "arrive_attempts": 0,
+      "det_n": 16,
+      "det_votes": {
+        "RADAR_FACILITY": 15.280056188416737
+      },
+      "det_kind": "target",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 17,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 9,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 1.8158717105263154,
+      "cy": 1.1991558908045978,
+      "views": 8,
+      "view_poses": [
+        [
+          1.207953861405382,
+          1.637426007228515,
+          -0.46550680276467826
+        ],
+        [
+          1.2087167475750145,
+          1.6286333123852614,
+          -0.6117896593147125
+        ],
+        [
+          1.2919916596908847,
+          1.53767623314915,
+          -1.028091898851013
+        ],
+        [
+          1.2814757263847734,
+          1.5223083028207915,
+          -0.3440872345989039
+        ],
+        [
+          1.2863169184011956,
+          1.5216816519761798,
+          -0.2892449149767393
+        ],
+        [
+          1.4150023694225458,
+          1.524221665303723,
+          0.11932091976131431
+        ]
+      ],
+      "last_view_t": 12.9,
+      "last_cam_yaw": -0.19249875338626687,
+      "occluded_views": 8,
+      "last_occl_t": 158.7,
+      "arrive_attempts": 0,
+      "det_n": 8,
+      "det_votes": {
+        "MISSILE": 7.583967776791534
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 18,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 9,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 1.6158717105263154,
+      "cy": 0.9991558908045979,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 9,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 1.8158717105263154,
+      "cy": 0.7991558908045979,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 10,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 2.0158717105263153,
+      "cy": 2.3944683908045983,
+      "views": 23,
+      "view_poses": [
+        [
+          2.760120208630067,
+          4.040439850005647,
+          -2.9009706076110766
+        ],
+        [
+          2.6105130330054553,
+          4.021876926313512,
+          -2.8706882937150375
+        ],
+        [
+          2.6140500447485806,
+          4.025314065153746,
+          -2.257253802473354
+        ],
+        [
+          2.622669678793977,
+          4.041250477554585,
+          -1.9806343549732734
+        ],
+        [
+          2.6139334740178293,
+          4.038043243996519,
+          -1.963527291510252
+        ],
+        [
+          2.5965308060453034,
+          3.9896658163520606,
+          -1.9985396083517986
+        ]
+      ],
+      "last_view_t": 153.0,
+      "last_cam_yaw": -1.8423734377692098,
+      "occluded_views": 41,
+      "last_occl_t": 146.0,
+      "arrive_attempts": 0,
+      "det_n": 16,
+      "det_votes": {
+        "COMM_FACILITY": 13.616441112400748
+      },
+      "det_kind": "target",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 21,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 10,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 1.8158717105263154,
+      "cy": 2.5944683908045985,
+      "views": 26,
+      "view_poses": [
+        [
+          2.6061381838099678,
+          4.019356046496235,
+          -1.9803060396204903
+        ],
+        [
+          2.5203280303742694,
+          3.8270526801719638,
+          -2.0778959800042074
+        ],
+        [
+          2.4110074762959637,
+          3.6413983667246774,
+          -2.1324882483432366
+        ],
+        [
+          2.3256288430494827,
+          3.5066428839816846,
+          -2.261173975923726
+        ],
+        [
+          2.193685523424313,
+          3.4020643335643506,
+          -2.7308077728459343
+        ],
+        [
+          2.0559514206644027,
+          3.322216683354411,
+          3.0887095750431204
+        ]
+      ],
+      "last_view_t": 155.7,
+      "last_cam_yaw": 3.455202622709966,
+      "occluded_views": 9,
+      "last_occl_t": 145.8,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 22,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 10,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 1.6158717105263154,
+      "cy": 2.3944683908045983,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 10,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 1.8158717105263154,
+      "cy": 2.194468390804598,
+      "views": 8,
+      "view_poses": [
+        [
+          0.8933511690478596,
+          1.3904538828415787,
+          1.1291430842754329
+        ],
+        [
+          1.291202487041799,
+          1.5208969990262409,
+          -0.2586656798564988
+        ],
+        [
+          1.3135033878782276,
+          1.5237349211594313,
+          -0.04478511036959398
+        ],
+        [
+          1.4103117830790013,
+          1.5378605065884312,
+          0.6663807694279651
+        ],
+        [
+          1.5532502956028271,
+          1.6075670211568556,
+          -0.11424100155615413
+        ],
+        [
+          3.4886083577701577,
+          1.541659817515273,
+          1.0270700064521021
+        ]
+      ],
+      "last_view_t": 66.1,
+      "last_cam_yaw": 1.8894904425228307,
+      "occluded_views": 17,
+      "last_occl_t": 64.3,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 24,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 11,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 2.0080592105263153,
+      "cy": 3.799155890804598,
+      "views": 21,
+      "view_poses": [
+        [
+          2.8553122770842605,
+          4.055064272570324,
+          -2.9634147907210155
+        ],
+        [
+          2.6712099052768017,
+          4.030854845596047,
+          -3.0485752188708175
+        ],
+        [
+          2.606268661776529,
+          4.0224425940565025,
+          -3.1092462747157845
+        ],
+        [
+          2.6105130330054553,
+          4.021876926313512,
+          -2.8706882937150375
+        ],
+        [
+          2.554924954089413,
+          3.9040022296100223,
+          -2.0441775780321425
+        ],
+        [
+          2.465413539640897,
+          3.725588584020752,
+          -2.1156113786355215
+        ]
+      ],
+      "last_view_t": 153.7,
+      "last_cam_yaw": -2.5515085433258595,
+      "occluded_views": 34,
+      "last_occl_t": 142.7,
+      "arrive_attempts": 0,
+      "det_n": 3,
+      "det_votes": {
+        "GUARD_POST": 2.899913545064183
+      },
+      "det_kind": "target",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 25,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 11,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 1.8080592105263154,
+      "cy": 3.999155890804598,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 11,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 1.6080592105263154,
+      "cy": 3.799155890804598,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 27,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 11,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 1.8080592105263154,
+      "cy": 3.5991558908045977,
+      "views": 1,
+      "view_poses": [
+        [
+          2.255737084596514,
+          3.4448847425740006,
+          -2.5907491446858213
+        ]
+      ],
+      "last_view_t": 154.9,
+      "last_cam_yaw": -2.619200659570151,
+      "occluded_views": 26,
+      "last_occl_t": 86.2,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 28,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 12,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 2.0054398148148156,
+      "cy": 4.201707702020203,
+      "views": 21,
+      "view_poses": [
+        [
+          2.8553122770842605,
+          4.055064272570324,
+          -2.9634147907210155
+        ],
+        [
+          2.6712099052768017,
+          4.030854845596047,
+          -3.0485752188708175
+        ],
+        [
+          2.606268661776529,
+          4.0224425940565025,
+          -3.1092462747157845
+        ],
+        [
+          2.2654305501606298,
+          3.47637553293967,
+          0.7868739798143727
+        ],
+        [
+          2.387670969951219,
+          3.607411453776807,
+          1.0510897920000613
+        ],
+        [
+          2.498948041726681,
+          3.790066892367544,
+          1.3021223540139362
+        ]
+      ],
+      "last_view_t": 161.4,
+      "last_cam_yaw": 1.6526990400223265,
+      "occluded_views": 20,
+      "last_occl_t": 142.9,
+      "arrive_attempts": 0,
+      "det_n": 51,
+      "det_votes": {
+        "GUARD_POST": 48.88095013404644
+      },
+      "det_kind": "target",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 29,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 12,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 1.8054398148148156,
+      "cy": 4.401707702020203,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 30,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 12,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 1.6054398148148157,
+      "cy": 4.201707702020203,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 12,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 1.8054398148148156,
+      "cy": 4.0017077020202025,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 13,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 3.217434210526316,
+      "cy": 1.200718390804598,
+      "views": 9,
+      "view_poses": [
+        [
+          3.746445598332902,
+          1.2329368778392644,
+          -2.6979869675036183
+        ],
+        [
+          3.6511243909424698,
+          1.1355881727226933,
+          2.644105338296674
+        ],
+        [
+          3.6587832859062157,
+          2.3863848193647508,
+          -1.7066236916110882
+        ],
+        [
+          3.668967009450377,
+          2.364424669100884,
+          -2.5795640626447067
+        ],
+        [
+          3.65097069457041,
+          2.378043459286994,
+          -1.6502331566960615
+        ],
+        [
+          3.682991650885114,
+          2.3718757148270955,
+          -2.6112439330992983
+        ]
+      ],
+      "last_view_t": 79.1,
+      "last_cam_yaw": -2.2253448830155222,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 9,
+      "det_votes": {
+        "TANK": 8.795681976293661
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 33,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 13,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 3.0174342105263157,
+      "cy": 1.400718390804598,
+      "views": 5,
+      "view_poses": [
+        [
+          3.6156540497501126,
+          2.4972451890119363,
+          -1.3069231939870716
+        ],
+        [
+          3.6655792147517947,
+          2.380163776809886,
+          -1.8558945556893556
+        ],
+        [
+          3.6793229213779832,
+          2.3570057205700916,
+          -2.952611384379446
+        ],
+        [
+          3.656141875407018,
+          2.38160829664616,
+          -1.8549464082758587
+        ],
+        [
+          3.686902451129094,
+          2.363737216740635,
+          -2.788682964324321
+        ]
+      ],
+      "last_view_t": 79.2,
+      "last_cam_yaw": -2.421351038861389,
+      "occluded_views": 8,
+      "last_occl_t": 85.3,
+      "arrive_attempts": 0,
+      "det_n": 10,
+      "det_votes": {
+        "MORTAR": 9.605999339326676
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 34,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 13,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 2.8174342105263155,
+      "cy": 1.200718390804598,
+      "views": 5,
+      "view_poses": [
+        [
+          1.5221037326231943,
+          1.5824521737387727,
+          0.03964206315439922
+        ],
+        [
+          1.6655285380933202,
+          1.6289495168318073,
+          -0.3149451477166991
+        ],
+        [
+          1.8585684328728507,
+          1.556525763003562,
+          -0.34151422529413544
+        ],
+        [
+          2.0777681543685524,
+          1.4633277108929783,
+          -0.47817818556761305
+        ],
+        [
+          2.1692587062385233,
+          1.4142483860932502,
+          -0.7918563906994893
+        ]
+      ],
+      "last_view_t": 16.8,
+      "last_cam_yaw": -0.6306743270732416,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 35,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 13,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 3.0174342105263157,
+      "cy": 1.000718390804598,
+      "views": 4,
+      "view_poses": [
+        [
+          2.708093759653406,
+          0.6888175457633647,
+          -0.10643010547129661
+        ],
+        [
+          3.7221319248045264,
+          0.7096717699152902,
+          -2.788318764434759
+        ],
+        [
+          3.5998990131446056,
+          0.6326528516472598,
+          2.6924884679819954
+        ],
+        [
+          3.455406387053084,
+          0.6456830957821382,
+          2.1365988771013056
+        ]
+      ],
+      "last_view_t": 54.4,
+      "last_cam_yaw": 2.5641876167509743,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 10,
+      "det_votes": {
+        "MORTAR": 9.682630378651753
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 36,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 14,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 3.217434210526316,
+      "cy": 2.1929058908045977,
+      "views": 12,
+      "view_poses": [
+        [
+          3.6793229213779832,
+          2.3570057205700916,
+          -2.952611384379446
+        ],
+        [
+          3.682991650885114,
+          2.3718757148270955,
+          -2.6112439330992983
+        ],
+        [
+          3.668168008819063,
+          2.342976046514702,
+          2.795419421959042
+        ],
+        [
+          3.5542458238884285,
+          2.4087957388692924,
+          -2.1316091561571033
+        ],
+        [
+          4.109737710571316,
+          3.225752079800926,
+          2.9448426928937987
+        ],
+        [
+          3.7659481253647415,
+          3.3289978718462514,
+          -0.8429066910354557
+        ]
+      ],
+      "last_view_t": 167.7,
+      "last_cam_yaw": -1.1992897357069134,
+      "occluded_views": 2,
+      "last_occl_t": 167.3,
+      "arrive_attempts": 0,
+      "det_n": 19,
+      "det_votes": {
+        "DRUM": 18.156003525763676
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 37,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 14,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 3.0174342105263157,
+      "cy": 2.392905890804598,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 14,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 2.8174342105263155,
+      "cy": 2.1929058908045977,
+      "views": 4,
+      "view_poses": [
+        [
+          1.5221037326231943,
+          1.5824521737387727,
+          0.03964206315439922
+        ],
+        [
+          1.6655285380933202,
+          1.6289495168318073,
+          -0.3149451477166991
+        ],
+        [
+          1.8585684328728507,
+          1.556525763003562,
+          -0.34151422529413544
+        ],
+        [
+          1.9677480565135026,
+          3.341952180156619,
+          0.09422988469803828
+        ]
+      ],
+      "last_view_t": 159.0,
+      "last_cam_yaw": -0.7697195312364471,
+      "occluded_views": 1,
+      "last_occl_t": 16.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 39,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 14,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 3.0174342105263157,
+      "cy": 1.9929058908045978,
+      "views": 9,
+      "view_poses": [
+        [
+          3.6511243909424698,
+          1.1355881727226933,
+          2.644105338296674
+        ],
+        [
+          3.5831216724470303,
+          1.1216983921689543,
+          2.288690290574367
+        ],
+        [
+          3.5078006938194854,
+          1.2044226317643518,
+          1.4404524364040494
+        ],
+        [
+          3.4931715926374487,
+          1.542356605507557,
+          0.9606032244495637
+        ],
+        [
+          3.4985371719865612,
+          1.5247566592201693,
+          1.082132002586298
+        ],
+        [
+          3.5548597741760672,
+          1.6875741990838564,
+          1.451039553036792
+        ]
+      ],
+      "last_view_t": 68.8,
+      "last_cam_yaw": 1.844450317541224,
+      "occluded_views": 6,
+      "last_occl_t": 59.7,
+      "arrive_attempts": 0,
+      "det_n": 33,
+      "det_votes": {
+        "MISSILE": 31.75599948023516
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 40,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 15,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 3.217434210526316,
+      "cy": 2.592905890804598,
+      "views": 14,
+      "view_poses": [
+        [
+          3.754814582790182,
+          3.5378562322657565,
+          -1.2716497877697501
+        ],
+        [
+          4.407002080263292,
+          3.271479270074609,
+          -2.8616074409580277
+        ],
+        [
+          4.240127027831986,
+          3.225964491687102,
+          3.1130890104895315
+        ],
+        [
+          4.0528432302310105,
+          3.2239961752714827,
+          2.8839222775671427
+        ],
+        [
+          3.654089229558518,
+          3.6994683867379057,
+          -1.3167732826053469
+        ],
+        [
+          3.6814041638389763,
+          3.5704347495634132,
+          -1.4231203935159498
+        ]
+      ],
+      "last_view_t": 167.0,
+      "last_cam_yaw": -1.4129939510529521,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 1,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 41,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 15,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 3.0174342105263157,
+      "cy": 2.7929058908045983,
+      "views": 7,
+      "view_poses": [
+        [
+          3.9251040467215716,
+          3.2673605221780795,
+          2.5355618603719936
+        ],
+        [
+          1.9348719820484481,
+          3.34171993324796,
+          1.2586488378974625
+        ],
+        [
+          1.9534885019013266,
+          3.3260148418255318,
+          0.7557463434454035
+        ],
+        [
+          1.949108545260956,
+          3.338038621097946,
+          0.34096990907908786
+        ],
+        [
+          1.9677480565135026,
+          3.341952180156619,
+          0.09422988469803828
+        ],
+        [
+          2.0802473779072024,
+          3.3768758467162443,
+          0.39825225583207313
+        ]
+      ],
+      "last_view_t": 159.5,
+      "last_cam_yaw": 0.27273406589394544,
+      "occluded_views": 85,
+      "last_occl_t": 163.3,
+      "arrive_attempts": 0,
+      "det_n": 6,
+      "det_votes": {
+        "MISSILE": 5.75700098564292
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 42,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 15,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 2.8174342105263155,
+      "cy": 2.592905890804598,
+      "views": 3,
+      "view_poses": [
+        [
+          1.9489876894678047,
+          3.317886536895963,
+          0.8946470434319318
+        ],
+        [
+          1.949108545260956,
+          3.338038621097946,
+          0.34096990907908786
+        ],
+        [
+          1.9677480565135026,
+          3.341952180156619,
+          0.09422988469803828
+        ]
+      ],
+      "last_view_t": 159.0,
+      "last_cam_yaw": -0.7697195312364471,
+      "occluded_views": 3,
+      "last_occl_t": 16.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 43,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 15,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 3.0174342105263157,
+      "cy": 2.392905890804598,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 16,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 3.217434210526316,
+      "cy": 3.5975933908045983,
+      "views": 10,
+      "view_poses": [
+        [
+          4.584220940419778,
+          3.3743311950532062,
+          -2.5062656575849673
+        ],
+        [
+          4.407002080263292,
+          3.271479270074609,
+          -2.8616074409580277
+        ],
+        [
+          4.240127027831986,
+          3.225964491687102,
+          3.1130890104895315
+        ],
+        [
+          4.0528432302310105,
+          3.2239961752714827,
+          2.8839222775671427
+        ],
+        [
+          3.9251040467215716,
+          3.2673605221780795,
+          2.5355618603719936
+        ],
+        [
+          3.7418470545014935,
+          3.4027977608006994,
+          2.2411518546232454
+        ]
+      ],
+      "last_view_t": 142.5,
+      "last_cam_yaw": 2.4256817897640865,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 27,
+      "det_votes": {
+        "MORTAR": 25.958463480509785
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 45,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 16,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 3.0174342105263157,
+      "cy": 3.7975933908045985,
+      "views": 5,
+      "view_poses": [
+        [
+          2.764651329151958,
+          4.162667236340392,
+          -1.2893192733555272
+        ],
+        [
+          2.764835625347486,
+          4.14792420179194,
+          -0.4653397216342885
+        ],
+        [
+          2.6253748293387065,
+          4.021593032083528,
+          -2.1063873312023027
+        ],
+        [
+          2.6204583155497416,
+          4.045740603287429,
+          -1.9742427490549748
+        ],
+        [
+          2.671822347462818,
+          4.147803666927715,
+          0.058657044677667525
+        ]
+      ],
+      "last_view_t": 163.1,
+      "last_cam_yaw": -0.36059256908893444,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 52,
+      "det_votes": {
+        "MORTAR": 50.826949933857534
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 46,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 16,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 2.8174342105263155,
+      "cy": 3.5975933908045983,
+      "views": 8,
+      "view_poses": [
+        [
+          1.9242909042989051,
+          3.305570701382774,
+          1.8903692085418102
+        ],
+        [
+          1.9348719820484481,
+          3.34171993324796,
+          1.2586488378974625
+        ],
+        [
+          1.9534885019013266,
+          3.3260148418255318,
+          0.7557463434454035
+        ],
+        [
+          1.949108545260956,
+          3.338038621097946,
+          0.34096990907908786
+        ],
+        [
+          2.041463616964214,
+          3.3688750099953415,
+          0.2786903332753714
+        ],
+        [
+          2.1538503491627687,
+          3.392936402438593,
+          0.6352628643245528
+        ]
+      ],
+      "last_view_t": 159.9,
+      "last_cam_yaw": 0.7129706793444053,
+      "occluded_views": 2,
+      "last_occl_t": 152.9,
+      "arrive_attempts": 0,
+      "det_n": 19,
+      "det_votes": {
+        "DRUM": 18.415500737064203
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 47,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 16,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 3.0174342105263157,
+      "cy": 3.397593390804598,
+      "views": 12,
+      "view_poses": [
+        [
+          3.5725280564207704,
+          2.408624514653755,
+          -3.124975445970767
+        ],
+        [
+          3.533089843405149,
+          2.420796710809861,
+          2.316654039806293
+        ],
+        [
+          3.5149399350188233,
+          2.46085950680069,
+          1.6188649902752932
+        ],
+        [
+          3.521475817895176,
+          2.6747761668953713,
+          1.476123496346223
+        ],
+        [
+          3.5421239585451527,
+          2.860616694790145,
+          1.4540087227091085
+        ],
+        [
+          3.5762550752277806,
+          3.069232747153771,
+          1.4988499141193454
+        ]
+      ],
+      "last_view_t": 88.4,
+      "last_cam_yaw": 1.9360569077892293,
+      "occluded_views": 6,
+      "last_occl_t": 80.2,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 48,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 17,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 4.414814814814815,
+      "cy": 0.6017077020202026,
+      "views": 4,
+      "view_poses": [
+        [
+          5.194472022856656,
+          0.5197229964312681,
+          -2.2726629188289027
+        ],
+        [
+          5.1889272109416,
+          0.5243040740360911,
+          -2.691905877293103
+        ],
+        [
+          5.18739751531038,
+          0.5218932587052473,
+          -2.784789322432022
+        ],
+        [
+          5.185058197799961,
+          0.5340886183581753,
+          -2.830222696974012
+        ]
+      ],
+      "last_view_t": 200.7,
+      "last_cam_yaw": -3.245786420578674,
+      "occluded_views": 9,
+      "last_occl_t": 193.4,
+      "arrive_attempts": 0,
+      "det_n": 27,
+      "det_votes": {
+        "TRUCK": 26.185966498727733
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 49,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 17,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 4.214814814814815,
+      "cy": 0.8017077020202026,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 17,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 4.014814814814815,
+      "cy": 0.6017077020202026,
+      "views": 19,
+      "view_poses": [
+        [
+          3.137255315637177,
+          0.770925745606795,
+          0.061000065045510254
+        ],
+        [
+          3.3042460590268075,
+          0.7809487613828927,
+          0.15986261908379218
+        ],
+        [
+          3.393942654699184,
+          0.7819290564356105,
+          0.11626239120601811
+        ],
+        [
+          3.041962194750355,
+          0.7468032624251661,
+          0.9960328794631312
+        ],
+        [
+          3.072835743498483,
+          0.7380700351482066,
+          0.16891321429714967
+        ],
+        [
+          3.2217526323768375,
+          0.7752925951181359,
+          0.1021056954725772
+        ]
+      ],
+      "last_view_t": 58.4,
+      "last_cam_yaw": 0.21205640443325485,
+      "occluded_views": 2,
+      "last_occl_t": 62.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 51,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 17,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 4.214814814814815,
+      "cy": 0.4017077020202026,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 52,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 18,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 4.417434210526316,
+      "cy": 0.9991558908045979,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 18,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 4.217434210526315,
+      "cy": 1.1991558908045978,
+      "views": 6,
+      "view_poses": [
+        [
+          3.6267168355348502,
+          1.4055154106759717,
+          -0.5989982411257793
+        ],
+        [
+          3.6577407133772066,
+          2.405629139569621,
+          -1.658282422143941
+        ],
+        [
+          3.6587013215568893,
+          2.369638754616142,
+          -2.391970990716214
+        ],
+        [
+          3.622736092815546,
+          2.43651708875382,
+          -1.335150084918252
+        ],
+        [
+          3.664974396016426,
+          2.3832230108374093,
+          -2.2618680534455553
+        ],
+        [
+          3.5817927195779897,
+          2.4341450731427745,
+          -1.8582435284558625
+        ]
+      ],
+      "last_view_t": 84.7,
+      "last_cam_yaw": -1.7295466885217923,
+      "occluded_views": 4,
+      "last_occl_t": 192.5,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 54,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 18,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 4.017434210526315,
+      "cy": 0.9991558908045979,
+      "views": 20,
+      "view_poses": [
+        [
+          3.393942654699184,
+          0.7819290564356105,
+          0.11626239120601811
+        ],
+        [
+          3.037707853917169,
+          0.7175963825291284,
+          1.399982637721478
+        ],
+        [
+          3.0470806259473284,
+          0.7541624401876662,
+          0.48885569223390624
+        ],
+        [
+          3.2217526323768375,
+          0.7752925951181359,
+          0.1021056954725772
+        ],
+        [
+          3.3532957043628797,
+          0.7936496413655396,
+          0.2117596064859799
+        ],
+        [
+          3.5946357356194945,
+          1.3939868850481683,
+          -0.20536532806501118
+        ]
+      ],
+      "last_view_t": 61.6,
+      "last_cam_yaw": -0.6241158346580932,
+      "occluded_views": 3,
+      "last_occl_t": 62.0,
+      "arrive_attempts": 0,
+      "det_n": 259,
+      "det_votes": {
+        "RADAR_FACILITY": 248.45496254015407
+      },
+      "det_kind": "target",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 55,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 18,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 4.217434210526315,
+      "cy": 0.7991558908045979,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 19,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 4.409621710526316,
+      "cy": 2.3944683908045983,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 19,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 4.209621710526315,
+      "cy": 2.5944683908045985,
+      "views": 16,
+      "view_poses": [
+        [
+          3.580344755387262,
+          3.8358568009597684,
+          -1.1517472419709989
+        ],
+        [
+          3.6633874822831887,
+          3.6735727761677532,
+          -1.3454534458468963
+        ],
+        [
+          3.7180807317396463,
+          3.5089381862842113,
+          -1.1855979196518651
+        ],
+        [
+          3.7659481253647415,
+          3.3289978718462514,
+          -0.8429066910354557
+        ],
+        [
+          3.8899665174685314,
+          3.2081162130627154,
+          -0.7296798623018739
+        ],
+        [
+          4.028864618229451,
+          3.1083235765601587,
+          -0.3782873384934602
+        ]
+      ],
+      "last_view_t": 168.9,
+      "last_cam_yaw": -0.6319977478456009,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 58,
+      "det_votes": {
+        "DRUM": 54.5525705838887,
+        "MORTAR": 0.9443561110146852
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 58,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 19,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 4.009621710526315,
+      "cy": 2.3944683908045983,
+      "views": 11,
+      "view_poses": [
+        [
+          3.4942920311553487,
+          2.490043131013922,
+          0.7608606611500175
+        ],
+        [
+          3.495208201429937,
+          2.52414168941466,
+          0.2719139703981659
+        ],
+        [
+          3.5100016914643724,
+          2.5373155845805835,
+          0.3713523987026912
+        ],
+        [
+          3.5229561137092102,
+          2.5182383366368355,
+          -0.5684320898761985
+        ],
+        [
+          3.451887356543144,
+          2.502931923229062,
+          0.916235988207899
+        ],
+        [
+          3.4544256258569086,
+          2.529329093377854,
+          0.06996149127785678
+        ]
+      ],
+      "last_view_t": 81.5,
+      "last_cam_yaw": -0.33105646987720283,
+      "occluded_views": 15,
+      "last_occl_t": 68.8,
+      "arrive_attempts": 0,
+      "det_n": 44,
+      "det_votes": {
+        "COMM_FACILITY": 42.68534159039087
+      },
+      "det_kind": "target",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 59,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 19,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 4.209621710526315,
+      "cy": 2.194468390804598,
+      "views": 9,
+      "view_poses": [
+        [
+          3.5078006938194854,
+          1.2044226317643518,
+          1.4404524364040494
+        ],
+        [
+          3.4782817555066448,
+          1.4343430291646702,
+          1.0853236235748023
+        ],
+        [
+          3.5128628726349405,
+          1.548938415653107,
+          0.7657062453731802
+        ],
+        [
+          5.143717708905896,
+          1.1410126027759995,
+          1.3504350590347567
+        ],
+        [
+          5.155321709872228,
+          1.3523422297862668,
+          1.5496661810729027
+        ],
+        [
+          5.158378684479485,
+          1.532777222801738,
+          1.514022641917106
+        ]
+      ],
+      "last_view_t": 204.5,
+      "last_cam_yaw": 1.9498694808414425,
+      "occluded_views": 2,
+      "last_occl_t": 191.7,
+      "arrive_attempts": 0,
+      "det_n": 17,
+      "det_votes": {
+        "MISSILE": 16.087081386773797
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 60,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 20,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 4.417434210526316,
+      "cy": 3.799155890804598,
+      "views": 6,
+      "view_poses": [
+        [
+          5.155748715800018,
+          2.6348080933117046,
+          1.3195230373632763
+        ],
+        [
+          5.1710660544816625,
+          2.816786031183591,
+          1.1539075149757174
+        ],
+        [
+          5.087931262380326,
+          2.580643507658808,
+          1.8677282201025012
+        ],
+        [
+          5.036554689581273,
+          2.723209309145635,
+          1.9692440996974465
+        ],
+        [
+          5.004094890099233,
+          2.8796594702948743,
+          1.2211384490594597
+        ],
+        [
+          5.056493379641679,
+          3.1077093700917735,
+          1.4103996446717284
+        ]
+      ],
+      "last_view_t": 210.1,
+      "last_cam_yaw": 1.595968827662522,
+      "occluded_views": 2,
+      "last_occl_t": 136.1,
+      "arrive_attempts": 0,
+      "det_n": 8,
+      "det_votes": {
+        "TANK": 7.63389774461702
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 61,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 20,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 4.217434210526315,
+      "cy": 3.999155890804598,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 20,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 4.017434210526315,
+      "cy": 3.799155890804598,
+      "views": 17,
+      "view_poses": [
+        [
+          2.674257177852841,
+          4.146058849510507,
+          0.16523192395654318
+        ],
+        [
+          2.7639439703574094,
+          4.160425348478782,
+          -0.10201200619325412
+        ],
+        [
+          2.965051791324906,
+          4.133025119161143,
+          -0.16531952860129362
+        ],
+        [
+          3.1289360811264197,
+          4.100457296123898,
+          -0.1678560876452737
+        ],
+        [
+          3.301595047982287,
+          4.061822883933849,
+          -0.4668796676647746
+        ],
+        [
+          3.4709381326174524,
+          3.982073184859334,
+          -0.8585126646181598
+        ]
+      ],
+      "last_view_t": 165.6,
+      "last_cam_yaw": -0.4307246030131497,
+      "occluded_views": 23,
+      "last_occl_t": 88.4,
+      "arrive_attempts": 0,
+      "det_n": 60,
+      "det_votes": {
+        "DRUM": 57.922576109376585
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 63,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 20,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 4.217434210526315,
+      "cy": 3.5991558908045977,
+      "views": 15,
+      "view_poses": [
+        [
+          3.521475817895176,
+          2.6747761668953713,
+          1.476123496346223
+        ],
+        [
+          5.151491328780616,
+          2.6021000873426243,
+          1.3683147699655347
+        ],
+        [
+          5.162030017442266,
+          2.783961307126585,
+          1.1770610018969911
+        ],
+        [
+          5.087931262380326,
+          2.580643507658808,
+          1.8677282201025012
+        ],
+        [
+          5.036554689581273,
+          2.723209309145635,
+          1.9692440996974465
+        ],
+        [
+          5.004094890099233,
+          2.8796594702948743,
+          1.2211384490594597
+        ]
+      ],
+      "last_view_t": 208.7,
+      "last_cam_yaw": 1.56844220281959,
+      "occluded_views": 5,
+      "last_occl_t": 139.6,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 64,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 21,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 4.414814814814815,
+      "cy": 4.201707702020203,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 21,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 4.214814814814815,
+      "cy": 4.401707702020203,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 66,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 21,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 4.014814814814815,
+      "cy": 4.201707702020203,
+      "views": 14,
+      "view_poses": [
+        [
+          2.604464179708423,
+          4.0460941684605904,
+          0.5467134949383112
+        ],
+        [
+          2.674257177852841,
+          4.146058849510507,
+          0.16523192395654318
+        ],
+        [
+          2.7639439703574094,
+          4.160425348478782,
+          -0.10201200619325412
+        ],
+        [
+          2.965051791324906,
+          4.133025119161143,
+          -0.16531952860129362
+        ],
+        [
+          3.1289360811264197,
+          4.100457296123898,
+          -0.1678560876452737
+        ],
+        [
+          3.301595047982287,
+          4.061822883933849,
+          -0.4668796676647746
+        ]
+      ],
+      "last_view_t": 165.1,
+      "last_cam_yaw": -0.1820127382613101,
+      "occluded_views": 11,
+      "last_occl_t": 143.4,
+      "arrive_attempts": 0,
+      "det_n": 48,
+      "det_votes": {
+        "GUARD_POST": 46.3845406897033
+      },
+      "det_kind": "target",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 67,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 21,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 4.214814814814815,
+      "cy": 4.0017077020202025,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 22,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 4.817434210526316,
+      "cy": 0.9991558908045979,
+      "views": 11,
+      "view_poses": [
+        [
+          5.244327696557928,
+          1.6946619220665657,
+          -1.6135197042493115
+        ],
+        [
+          5.213554032873483,
+          1.5076473012155744,
+          -1.520300933888406
+        ],
+        [
+          5.191233659789891,
+          0.5233676399792428,
+          -2.6277847846203675
+        ],
+        [
+          5.18699820506669,
+          0.5206242808563468,
+          -2.785447939774579
+        ],
+        [
+          5.185058197799961,
+          0.5340886183581753,
+          -2.830222696974012
+        ],
+        [
+          5.194698339937639,
+          0.5337562172157773,
+          2.4610969273946264
+        ]
+      ],
+      "last_view_t": 201.2,
+      "last_cam_yaw": 2.2373457877558516,
+      "occluded_views": 31,
+      "last_occl_t": 187.8,
+      "arrive_attempts": 0,
+      "det_n": 33,
+      "det_votes": {
+        "DRUM": 32.09448709316194
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 69,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 22,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 4.617434210526316,
+      "cy": 1.1991558908045978,
+      "views": 10,
+      "view_poses": [
+        [
+          5.450713831790632,
+          1.908443714931897,
+          -2.088445090889818
+        ],
+        [
+          5.453798655595528,
+          1.9085527246048999,
+          -2.089174541112776
+        ],
+        [
+          5.457029962431952,
+          1.9153411123527264,
+          -2.38992980554668
+        ],
+        [
+          5.3189819144065025,
+          1.8081261724273572,
+          -2.735977846372795
+        ],
+        [
+          5.298897259130821,
+          1.7468461445574315,
+          -2.132462228163089
+        ],
+        [
+          5.213385995167432,
+          1.5440453127367326,
+          -1.5404382671602312
+        ]
+      ],
+      "last_view_t": 192.8,
+      "last_cam_yaw": -1.891415606811364,
+      "occluded_views": 17,
+      "last_occl_t": 192.5,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 70,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 22,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 4.417434210526316,
+      "cy": 0.9991558908045979,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 22,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 4.617434210526316,
+      "cy": 0.7991558908045979,
+      "views": 5,
+      "view_poses": [
+        [
+          5.187537182540971,
+          0.513989993975863,
+          -2.4841247036699845
+        ],
+        [
+          5.183478953698417,
+          0.5111008137309885,
+          -2.768485019707022
+        ],
+        [
+          5.178831369824432,
+          0.5224038658611849,
+          -2.79132689117917
+        ],
+        [
+          5.186719473310202,
+          0.5349418703298476,
+          -2.9861247728405744
+        ],
+        [
+          5.167469166208151,
+          0.5380139701630378,
+          2.3278914747075614
+        ]
+      ],
+      "last_view_t": 201.3,
+      "last_cam_yaw": 2.0531125787464086,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 2,
+      "det_votes": {
+        "AMMO_BOX": 1.7924517042759673
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 72,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 23,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 4.809621710526316,
+      "cy": 2.3944683908045983,
+      "views": 15,
+      "view_poses": [
+        [
+          5.140750422052506,
+          2.1380871805737147,
+          2.2175772852546736
+        ],
+        [
+          5.545222752406997,
+          2.0434679580498583,
+          -2.4781449350434546
+        ],
+        [
+          5.311657727952192,
+          1.792952740262516,
+          3.132178434386182
+        ],
+        [
+          5.155587427110307,
+          1.4477496913942958,
+          1.5289082272720114
+        ],
+        [
+          5.166766647189564,
+          1.6358418310711036,
+          1.5028222829875784
+        ],
+        [
+          5.169512803465985,
+          1.809031403118697,
+          1.5401250646565883
+        ]
+      ],
+      "last_view_t": 205.4,
+      "last_cam_yaw": 1.6406544717046898,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 73,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 23,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 4.609621710526316,
+      "cy": 2.5944683908045985,
+      "views": 14,
+      "view_poses": [
+        [
+          5.041593895942832,
+          3.9158806771164323,
+          -1.907592091513589
+        ],
+        [
+          4.951011210821518,
+          3.7387571876873262,
+          -2.13309880964153
+        ],
+        [
+          3.6734866852817363,
+          3.626939202008055,
+          -1.3995472823647015
+        ],
+        [
+          3.7177604611960566,
+          3.480806127538332,
+          -1.045418824114214
+        ],
+        [
+          3.7890751860152396,
+          3.310715186110466,
+          -0.822688993101429
+        ],
+        [
+          4.061241710324651,
+          3.089834557582427,
+          -0.21862830847967984
+        ]
+      ],
+      "last_view_t": 169.0,
+      "last_cam_yaw": -0.44733460108708745,
+      "occluded_views": 5,
+      "last_occl_t": 168.9,
+      "arrive_attempts": 0,
+      "det_n": 29,
+      "det_votes": {
+        "MORTAR": 27.731375727535344
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 74,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 23,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 4.409621710526316,
+      "cy": 2.3944683908045983,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 23,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 4.609621710526316,
+      "cy": 2.194468390804598,
+      "views": 10,
+      "view_poses": [
+        [
+          5.3209334576247285,
+          1.7720395309544583,
+          -2.9022590498724683
+        ],
+        [
+          5.1029996883785795,
+          0.9941100761163563,
+          1.306915581987739
+        ],
+        [
+          5.143717708905896,
+          1.1410126027759995,
+          1.3504350590347567
+        ],
+        [
+          5.155321709872228,
+          1.3523422297862668,
+          1.5496661810729027
+        ],
+        [
+          5.158378684479485,
+          1.532777222801738,
+          1.514022641917106
+        ],
+        [
+          5.168143487701114,
+          1.7331089097026864,
+          1.5281976975276619
+        ]
+      ],
+      "last_view_t": 205.2,
+      "last_cam_yaw": 1.76323900835416,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 76,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 24,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 4.817434210526316,
+      "cy": 4.199155890804598,
+      "views": 7,
+      "view_poses": [
+        [
+          5.269864091262232,
+          3.109216220104858,
+          1.6289968095781804
+        ],
+        [
+          5.255167236815215,
+          3.3073491980978136,
+          1.6432184300058426
+        ],
+        [
+          5.2408752851235425,
+          3.4995936029494725,
+          1.6616487493498546
+        ],
+        [
+          5.229027815458167,
+          3.655137171599066,
+          1.6696579340544595
+        ],
+        [
+          5.208849318603404,
+          3.826374405653758,
+          1.6664080338305371
+        ],
+        [
+          5.206228722591849,
+          4.311663069594093,
+          -2.8544398394427857
+        ]
+      ],
+      "last_view_t": 135.9,
+      "last_cam_yaw": -2.640005412118415,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 10,
+      "det_votes": {
+        "TANK": 9.576432902464125
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 77,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 24,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 4.617434210526316,
+      "cy": 4.3991558908045985,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 78,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 24,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 4.417434210526316,
+      "cy": 4.199155890804598,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 24,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 4.617434210526316,
+      "cy": 3.999155890804598,
+      "views": 10,
+      "view_poses": [
+        [
+          5.251167871421924,
+          3.4390525953016464,
+          1.655432185314683
+        ],
+        [
+          5.225299708604765,
+          3.7018472635064725,
+          1.6680852989140735
+        ],
+        [
+          5.058299554451512,
+          2.667385469218947,
+          1.992838381269392
+        ],
+        [
+          5.008404055332466,
+          2.8095995895069508,
+          1.4512025794472088
+        ],
+        [
+          5.020522196933073,
+          3.0008332559405746,
+          1.0541150492893667
+        ],
+        [
+          5.06629397819991,
+          3.1933541367734013,
+          1.4630853040414724
+        ]
+      ],
+      "last_view_t": 210.5,
+      "last_cam_yaw": 1.4262478792953897,
+      "occluded_views": 2,
+      "last_occl_t": 131.7,
+      "arrive_attempts": 0,
+      "det_n": 36,
+      "det_votes": {
+        "TANK": 34.3859529705931
+      },
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": 80,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 25,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 0.35014412002499995,
+      "cy": 3.1500000000000004,
+      "views": 3,
+      "view_poses": [
+        [
+          2.465413539640897,
+          3.725588584020752,
+          -2.1156113786355215
+        ],
+        [
+          2.3748565519770186,
+          3.586998754339932,
+          -2.140046255462853
+        ],
+        [
+          2.2721764337021244,
+          3.4599508561778074,
+          -2.5316881185098334
+        ]
+      ],
+      "last_view_t": 154.8,
+      "last_cam_yaw": -2.601649724483998,
+      "occluded_views": 3,
+      "last_occl_t": 156.2,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 25,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 0.15014412002499997,
+      "cy": 3.3500000000000005,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 25,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": -0.049855879975000045,
+      "cy": 3.1500000000000004,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 25,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 0.15014412002499997,
+      "cy": 2.95,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 26,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 6.021150456068079,
+      "cy": 1.5802096495331315,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 26,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 5.821150456068079,
+      "cy": 1.7802096495331314,
+      "views": 24,
+      "view_poses": [
+        [
+          5.219109105501329,
+          2.422945796841103,
+          -1.1477999115302917
+        ],
+        [
+          5.2435517188209415,
+          2.373690631848787,
+          -1.1297391098259526
+        ],
+        [
+          5.26224184480354,
+          2.3353786951106885,
+          -1.1475071752472408
+        ],
+        [
+          5.328436592813378,
+          2.1716221388977823,
+          -1.1846480503665893
+        ],
+        [
+          5.192082646050712,
+          2.1862715706021953,
+          -0.1387872855573793
+        ],
+        [
+          5.383439700051627,
+          2.1307778656648177,
+          -1.0280521247816314
+        ]
+      ],
+      "last_view_t": 181.2,
+      "last_cam_yaw": -0.8920327337042054,
+      "occluded_views": 11,
+      "last_occl_t": 169.5,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 26,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 5.6211504560680785,
+      "cy": 1.5802096495331315,
+      "views": 27,
+      "view_poses": [
+        [
+          5.361442774333175,
+          2.070342629887573,
+          -1.7630986866838732
+        ],
+        [
+          5.249406920477143,
+          2.1671211386741365,
+          -0.6219493729964869
+        ],
+        [
+          5.167469166208151,
+          0.5380139701630378,
+          2.3278914747075614
+        ],
+        [
+          5.060864965831795,
+          0.6289652326748919,
+          1.54310376373786
+        ],
+        [
+          5.068183671854562,
+          0.8147070557616171,
+          1.3178115424032626
+        ],
+        [
+          5.115745592091889,
+          1.0441414094071297,
+          1.3050750402332953
+        ]
+      ],
+      "last_view_t": 203.1,
+      "last_cam_yaw": 1.2416117682774943,
+      "occluded_views": 9,
+      "last_occl_t": 181.3,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 26,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 5.821150456068079,
+      "cy": 1.3802096495331315,
+      "views": 4,
+      "view_poses": [
+        [
+          5.100652839803087,
+          0.5847733974483916,
+          1.7408266705586097
+        ],
+        [
+          5.050557950736965,
+          0.6795818174629389,
+          1.4633212406222889
+        ],
+        [
+          5.08112053055608,
+          0.9023685186411344,
+          1.2914304135495067
+        ],
+        [
+          5.1218364750321275,
+          1.067750299437076,
+          1.2977080616323953
+        ]
+      ],
+      "last_view_t": 203.2,
+      "last_cam_yaw": 1.2691835839847372,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 27,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 6.000253411306044,
+      "cy": 1.8399999999999999,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 27,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 5.800253411306044,
+      "cy": 2.04,
+      "views": 29,
+      "view_poses": [
+        [
+          4.922519539190144,
+          2.8671794375932147,
+          -0.7083298481770601
+        ],
+        [
+          5.0535299632923865,
+          2.7523559215924513,
+          -1.0394519182289663
+        ],
+        [
+          5.196214503174561,
+          2.477748512392395,
+          -1.1498747988064062
+        ],
+        [
+          5.240266926134661,
+          2.3728197212254907,
+          -1.1338814516455393
+        ],
+        [
+          5.246664241340485,
+          2.3575838461224947,
+          -1.1359881454950322
+        ],
+        [
+          5.259446890276051,
+          2.320221199599785,
+          -1.1577384494005971
+        ]
+      ],
+      "last_view_t": 175.0,
+      "last_cam_yaw": -0.7899686354895297,
+      "occluded_views": 1,
+      "last_occl_t": 112.6,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 27,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 5.600253411306044,
+      "cy": 1.8399999999999999,
+      "views": 27,
+      "view_poses": [
+        [
+          5.249406920477143,
+          2.1671211386741365,
+          -0.6219493729964869
+        ],
+        [
+          5.100652839803087,
+          0.5847733974483916,
+          1.7408266705586097
+        ],
+        [
+          5.050557950736965,
+          0.6795818174629389,
+          1.4633212406222889
+        ],
+        [
+          5.08112053055608,
+          0.9023685186411344,
+          1.2914304135495067
+        ],
+        [
+          5.1218364750321275,
+          1.067750299437076,
+          1.2977080616323953
+        ],
+        [
+          5.153189051528618,
+          1.2272793554561077,
+          1.488670503935671
+        ]
+      ],
+      "last_view_t": 203.7,
+      "last_cam_yaw": 1.7559217071181368,
+      "occluded_views": 19,
+      "last_occl_t": 169.8,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 27,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 5.800253411306044,
+      "cy": 1.64,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 28,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 3.225971378654198,
+      "cy": 0.17858059483809868,
+      "views": 9,
+      "view_poses": [
+        [
+          3.664980036396198,
+          1.4037562773399255,
+          -0.9545662179984036
+        ],
+        [
+          3.7615536943476227,
+          1.360635408492852,
+          -1.889544598454493
+        ],
+        [
+          3.7555711646261094,
+          1.265376387860237,
+          -2.549144805839705
+        ],
+        [
+          5.194472022856656,
+          0.5197229964312681,
+          -2.2726629188289027
+        ],
+        [
+          5.189485757883017,
+          0.5238695534632083,
+          -2.7315063808619997
+        ],
+        [
+          5.1794912896009055,
+          0.5223436405795812,
+          -2.7865132379984026
+        ]
+      ],
+      "last_view_t": 200.2,
+      "last_cam_yaw": -3.5633200444558364,
+      "occluded_views": 4,
+      "last_occl_t": 200.7,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 28,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 3.025971378654198,
+      "cy": 0.3785805948380987,
+      "views": 17,
+      "view_poses": [
+        [
+          3.6241748565466883,
+          0.6367087781602956,
+          2.816922088060134
+        ],
+        [
+          3.3439187757253546,
+          0.6401012622889709,
+          2.5237467817024193
+        ],
+        [
+          3.664980036396198,
+          1.4037562773399255,
+          -0.9545662179984036
+        ],
+        [
+          3.7615536943476227,
+          1.360635408492852,
+          -1.889544598454493
+        ],
+        [
+          3.7555711646261094,
+          1.265376387860237,
+          -2.549144805839705
+        ],
+        [
+          3.693954625332559,
+          1.1613766846958284,
+          2.9882181421740217
+        ]
+      ],
+      "last_view_t": 63.5,
+      "last_cam_yaw": 3.2314125384737373,
+      "occluded_views": 10,
+      "last_occl_t": 85.1,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 28,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 2.825971378654198,
+      "cy": 0.17858059483809868,
+      "views": 5,
+      "view_poses": [
+        [
+          2.1098172392039065,
+          1.4472298985005083,
+          -0.5697875812392157
+        ],
+        [
+          2.1692587062385233,
+          1.4142483860932502,
+          -0.7918563906994893
+        ],
+        [
+          2.296418623470599,
+          1.2686829868916882,
+          -1.0392556385170177
+        ],
+        [
+          2.4071354370017155,
+          1.065990006166548,
+          -1.1412165042828653
+        ],
+        [
+          2.472880060263716,
+          0.904144587349853,
+          -1.179065522438004
+        ]
+      ],
+      "last_view_t": 18.5,
+      "last_cam_yaw": -1.596884333481353,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 28,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 3.025971378654198,
+      "cy": -0.021419405161901328,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 29,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 6.05130832947664,
+      "cy": 3.1715051368654668,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 29,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 5.85130832947664,
+      "cy": 3.371505136865467,
+      "views": 3,
+      "view_poses": [
+        [
+          5.189892511081915,
+          4.279964056966645,
+          -2.1839054386008923
+        ],
+        [
+          5.12582638523044,
+          4.234724522490296,
+          -1.9042711596793438
+        ],
+        [
+          5.093471222993789,
+          4.083804558288087,
+          -1.7904935404529252
+        ]
+      ],
+      "last_view_t": 137.3,
+      "last_cam_yaw": -1.4578508308312432,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 29,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 5.65130832947664,
+      "cy": 3.1715051368654668,
+      "views": 34,
+      "view_poses": [
+        [
+          5.136672938739819,
+          2.147523028796579,
+          1.2192553852581547
+        ],
+        [
+          5.1642535471964255,
+          2.1803184862213896,
+          0.20433857632316155
+        ],
+        [
+          5.177359416456618,
+          1.8965487967095365,
+          1.5585124505993058
+        ],
+        [
+          5.172927392940034,
+          2.0786048884432295,
+          1.5776420926684365
+        ],
+        [
+          5.167101627581091,
+          2.2833705794869417,
+          1.7455207653257219
+        ],
+        [
+          5.121783433743168,
+          2.472661894009201,
+          1.8292486896263256
+        ]
+      ],
+      "last_view_t": 207.3,
+      "last_cam_yaw": 1.4778189358955143,
+      "occluded_views": 4,
+      "last_occl_t": 166.5,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 29,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 5.85130832947664,
+      "cy": 2.9715051368654666,
+      "views": 14,
+      "view_poses": [
+        [
+          5.155587427110307,
+          1.4477496913942958,
+          1.5289082272720114
+        ],
+        [
+          5.166766647189564,
+          1.6358418310711036,
+          1.5028222829875784
+        ],
+        [
+          5.169512803465985,
+          1.809031403118697,
+          1.5401250646565883
+        ],
+        [
+          5.1701709906373985,
+          2.043099591009531,
+          1.5774672349604675
+        ],
+        [
+          5.170163877492452,
+          2.2154747288732155,
+          1.6054903761582384
+        ],
+        [
+          5.131390163459644,
+          2.4283744076702125,
+          1.8173646528434553
+        ]
+      ],
+      "last_view_t": 207.2,
+      "last_cam_yaw": 1.433359486084275,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 30,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 3.2330213852272736,
+      "cy": 1.4874999999999998,
+      "views": 11,
+      "view_poses": [
+        [
+          5.360438663394716,
+          2.022505861736754,
+          2.993003058743388
+        ],
+        [
+          5.270271768105223,
+          2.062718556998726,
+          2.5220567368496827
+        ],
+        [
+          5.140895897004565,
+          2.141509805073409,
+          2.2007057378018615
+        ],
+        [
+          5.3952814663920945,
+          1.865191333042735,
+          -2.579261262799042
+        ],
+        [
+          5.311657727952192,
+          1.792952740262516,
+          3.132178434386182
+        ],
+        [
+          5.3128417801601024,
+          1.7509610734867416,
+          -2.32942911087081
+        ]
+      ],
+      "last_view_t": 192.0,
+      "last_cam_yaw": -2.714706044275302,
+      "occluded_views": 9,
+      "last_occl_t": 201.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 30,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 3.0330213852272734,
+      "cy": 1.6874999999999998,
+      "views": 1,
+      "view_poses": [
+        [
+          4.407002080263292,
+          3.271479270074609,
+          -2.8616074409580277
+        ]
+      ],
+      "last_view_t": 140.4,
+      "last_cam_yaw": -2.8313356307593174,
+      "occluded_views": 35,
+      "last_occl_t": 168.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 30,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 2.833021385227273,
+      "cy": 1.4874999999999998,
+      "views": 2,
+      "view_poses": [
+        [
+          1.949108545260956,
+          3.338038621097946,
+          0.34096990907908786
+        ],
+        [
+          1.9677480565135026,
+          3.341952180156619,
+          0.09422988469803828
+        ]
+      ],
+      "last_view_t": 159.0,
+      "last_cam_yaw": -0.7697195312364471,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 30,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 3.0330213852272734,
+      "cy": 1.2874999999999999,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 31,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 5.8500000000000005,
+      "cy": 0.1375,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 31,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 5.65,
+      "cy": 0.3375,
+      "views": 24,
+      "view_poses": [
+        [
+          5.213554032873483,
+          1.5076473012155744,
+          -1.520300933888406
+        ],
+        [
+          5.23193105496343,
+          1.3117399222317918,
+          -1.4333991959531072
+        ],
+        [
+          5.253712106050711,
+          1.1611419496840751,
+          -1.466260001216616
+        ],
+        [
+          5.256240047579027,
+          0.9794814770267228,
+          -1.6404719836429509
+        ],
+        [
+          5.24520391486731,
+          0.8214941935323651,
+          -1.641296036829994
+        ],
+        [
+          5.227802963839149,
+          0.634052097546962,
+          -1.6447052057792428
+        ]
+      ],
+      "last_view_t": 195.7,
+      "last_cam_yaw": -1.5023872429679042,
+      "occluded_views": 1,
+      "last_occl_t": 181.8,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 31,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 5.45,
+      "cy": 0.1375,
+      "views": 2,
+      "view_poses": [
+        [
+          5.2378008819311965,
+          0.6965800046642563,
+          -1.6375250989902226
+        ],
+        [
+          5.222933072399141,
+          0.5963355089747627,
+          -1.6421779298784933
+        ]
+      ],
+      "last_view_t": 195.9,
+      "last_cam_yaw": -1.5764610148060652,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 31,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 5.65,
+      "cy": -0.0625,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": true,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 32,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 3.2379949852294887,
+      "cy": 4.658805875620795,
+      "views": 8,
+      "view_poses": [
+        [
+          3.9251040467215716,
+          3.2673605221780795,
+          2.5355618603719936
+        ],
+        [
+          3.7418470545014935,
+          3.4027977608006994,
+          2.2411518546232454
+        ],
+        [
+          3.628178628476533,
+          3.5555532182535847,
+          1.915111817999513
+        ],
+        [
+          3.572282087792563,
+          3.685127393959429,
+          1.7522214406007723
+        ],
+        [
+          3.517356544598746,
+          3.875336275500186,
+          2.1138918557847823
+        ],
+        [
+          3.445640030601474,
+          4.006647866992388,
+          2.564523706705934
+        ]
+      ],
+      "last_view_t": 144.6,
+      "last_cam_yaw": 2.248245782930809,
+      "occluded_views": 5,
+      "last_occl_t": 138.9,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 32,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 3.0379949852294885,
+      "cy": 4.858805875620795,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 32,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": 2.8379949852294883,
+      "cy": 4.658805875620795,
+      "views": 6,
+      "view_poses": [
+        [
+          1.9483960261141737,
+          3.311848993756028,
+          2.3409350386354246
+        ],
+        [
+          1.9249929400307169,
+          3.304050708448759,
+          1.7703943615038291
+        ],
+        [
+          1.9392171658768664,
+          3.347061713669336,
+          1.2063616391197796
+        ],
+        [
+          2.104448650429724,
+          3.381088660555536,
+          0.49087589625788874
+        ],
+        [
+          2.225383527114072,
+          3.4438230215684738,
+          0.7380677413981171
+        ],
+        [
+          2.363820865616389,
+          3.575431608273994,
+          0.9994216063568055
+        ]
+      ],
+      "last_view_t": 160.7,
+      "last_cam_yaw": 1.4178622210694873,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 32,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 3.0379949852294885,
+      "cy": 4.4588058756207944,
+      "views": 22,
+      "view_poses": [
+        [
+          2.1715401532065135,
+          3.4024826928025766,
+          0.6625652723879485
+        ],
+        [
+          2.3427014980452645,
+          3.552052453554714,
+          0.9309485632365515
+        ],
+        [
+          2.452771648351986,
+          3.697912806006079,
+          1.1965676300466832
+        ],
+        [
+          2.5081898590094323,
+          3.8434878810479587,
+          1.3431162699608628
+        ],
+        [
+          2.5412751198841783,
+          3.9608548588518273,
+          0.9161018903459173
+        ],
+        [
+          2.662880329397235,
+          4.116433442100077,
+          0.28837042826291626
+        ]
+      ],
+      "last_view_t": 162.7,
+      "last_cam_yaw": -0.00490652255471663,
+      "occluded_views": 3,
+      "last_occl_t": 139.7,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 33,
+      "idx": 0,
+      "nx": 1.0,
+      "ny": 0.0,
+      "cx": 0.39500071428571426,
+      "cy": 1.6210752414929317,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": true,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 33,
+      "idx": 1,
+      "nx": 0.0,
+      "ny": 1.0,
+      "cx": 0.19500071428571428,
+      "cy": 1.8210752414929317,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 33,
+      "idx": 2,
+      "nx": -1.0,
+      "ny": 0.0,
+      "cx": -0.004999285714285734,
+      "cy": 1.6210752414929317,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    },
+    {
+      "bid": 33,
+      "idx": 3,
+      "nx": 0.0,
+      "ny": -1.0,
+      "cx": 0.19500071428571428,
+      "cy": 1.4210752414929317,
+      "views": 0,
+      "view_poses": [],
+      "last_view_t": -1000000000.0,
+      "last_cam_yaw": 0.0,
+      "occluded_views": 0,
+      "last_occl_t": -1000000000.0,
+      "arrive_attempts": 0,
+      "det_n": 0,
+      "det_votes": {},
+      "det_kind": "object",
+      "exterior_open": false,
+      "suspect": false,
+      "id_tries": 0,
+      "reg": null,
+      "recheck": false,
+      "pt_fallback": false,
+      "oak_fail": "",
+      "oak_none": 0,
+      "last_id_t": -1000000000.0
+    }
+  ]
+}

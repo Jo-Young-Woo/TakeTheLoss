@@ -3,8 +3,8 @@
   "world": "maicon_arena",
   "frame": "world 원점 = 바닥 인쇄 중심. +X = RED 진영 쪽(평면도 오른쪽), +Y = 1번 줄(평면도 위쪽), +Z = 위. yaw 0 = +X 방향. 단위 m, rad.",
   "floor_size": [
-    6.0,
-    4.8
+    6.12,
+    5.0
   ],
   "static_geometry": [
     {
@@ -16,8 +16,8 @@
         -0.01
       ],
       "size": [
-        6.0,
-        4.8,
+        6.12,
+        5.0,
         0.02
       ]
     },
@@ -26,11 +26,11 @@
       "kind": "wall",
       "center": [
         0,
-        2.4299999999999997,
+        2.53,
         0.2
       ],
       "size": [
-        6.12,
+        6.24,
         0.06,
         0.4
       ]
@@ -40,11 +40,11 @@
       "kind": "wall",
       "center": [
         0,
-        -2.4299999999999997,
+        -2.53,
         0.2
       ],
       "size": [
-        6.12,
+        6.24,
         0.06,
         0.4
       ]
@@ -53,13 +53,13 @@
       "name": "wall_east",
       "kind": "wall",
       "center": [
-        3.03,
+        3.09,
         0,
         0.2
       ],
       "size": [
         0.06,
-        4.8,
+        5.0,
         0.4
       ]
     },
@@ -67,13 +67,13 @@
       "name": "wall_west",
       "kind": "wall",
       "center": [
-        -3.03,
+        -3.09,
         0,
         0.2
       ],
       "size": [
         0.06,
-        4.8,
+        5.0,
         0.4
       ]
     },
@@ -224,8 +224,8 @@
       "level": 0,
       "name": "cube_0_0",
       "center": [
-        -1.2,
-        1.8,
+        -1.0,
+        1.6,
         0.2
       ],
       "size": [
@@ -249,8 +249,8 @@
       "level": 0,
       "name": "cube_1_0",
       "center": [
-        -1.2,
-        1.4,
+        -1.0,
+        1.2,
         0.2
       ],
       "size": [
@@ -274,8 +274,8 @@
       "level": 0,
       "name": "cube_2_0",
       "center": [
-        -1.6,
-        1.8,
+        -1.4,
+        1.6,
         0.2
       ],
       "size": [
@@ -299,8 +299,8 @@
       "level": 0,
       "name": "cube_3_0",
       "center": [
-        1.2,
-        1.8,
+        1.0,
+        1.6,
         0.2
       ],
       "size": [
@@ -324,8 +324,8 @@
       "level": 0,
       "name": "cube_4_0",
       "center": [
+        1.0,
         1.2,
-        1.4,
         0.2
       ],
       "size": [
@@ -349,8 +349,8 @@
       "level": 0,
       "name": "cube_5_0",
       "center": [
+        1.4,
         1.6,
-        1.8,
         0.2
       ],
       "size": [
@@ -374,7 +374,7 @@
       "level": 0,
       "name": "cube_6_0",
       "center": [
-        -1.6,
+        -1.4,
         0.0,
         0.2
       ],
@@ -399,7 +399,7 @@
       "level": 0,
       "name": "cube_7_0",
       "center": [
-        -1.2,
+        -1.0,
         0.0,
         0.2
       ],
@@ -424,7 +424,7 @@
       "level": 0,
       "name": "cube_8_0",
       "center": [
-        1.6,
+        1.4,
         0.0,
         0.2
       ],
@@ -449,7 +449,7 @@
       "level": 0,
       "name": "cube_9_0",
       "center": [
-        1.2,
+        1.0,
         0.0,
         0.2
       ],
@@ -474,8 +474,8 @@
       "level": 0,
       "name": "cube_10_0",
       "center": [
+        -1.0,
         -1.2,
-        -1.4,
         0.2
       ],
       "size": [
@@ -499,8 +499,8 @@
       "level": 0,
       "name": "cube_11_0",
       "center": [
-        -1.2,
-        -1.8,
+        -1.0,
+        -1.6,
         0.2
       ],
       "size": [
@@ -524,8 +524,8 @@
       "level": 0,
       "name": "cube_12_0",
       "center": [
-        -1.6,
         -1.4,
+        -1.2,
         0.2
       ],
       "size": [
@@ -549,8 +549,8 @@
       "level": 0,
       "name": "cube_13_0",
       "center": [
-        1.2,
-        -1.4,
+        1.0,
+        -1.2,
         0.2
       ],
       "size": [
@@ -574,8 +574,8 @@
       "level": 0,
       "name": "cube_14_0",
       "center": [
-        1.2,
-        -1.8,
+        1.0,
+        -1.6,
         0.2
       ],
       "size": [
@@ -599,8 +599,8 @@
       "level": 0,
       "name": "cube_15_0",
       "center": [
-        1.6,
-        -1.4,
+        1.4,
+        -1.2,
         0.2
       ],
       "size": [
@@ -625,7 +625,7 @@
       "name": "cube_16_0",
       "center": [
         0.0,
-        1.2,
+        1.0,
         0.2
       ],
       "size": [
@@ -700,7 +700,7 @@
       "name": "cube_19_0",
       "center": [
         0.0,
-        -1.2,
+        -1.0,
         0.2
       ],
       "size": [
@@ -728,8 +728,8 @@
       "camp": "BLUE",
       "kind": "outpost",
       "position": [
-        -1.0,
-        1.8,
+        -0.8,
+        1.6,
         0.337
       ],
       "normal": [
@@ -746,8 +746,8 @@
       "camp": "RED",
       "kind": "outpost",
       "position": [
-        1.0,
-        1.8,
+        0.8,
+        1.6,
         0.337
       ],
       "normal": [
@@ -764,7 +764,7 @@
       "camp": "BLUE",
       "kind": "comms",
       "position": [
-        -1.0,
+        -0.8,
         0.0,
         0.337
       ],
@@ -782,7 +782,7 @@
       "camp": "RED",
       "kind": "comms",
       "position": [
-        1.0,
+        0.8,
         0.0,
         0.337
       ],
@@ -800,8 +800,8 @@
       "camp": "BLUE",
       "kind": "radar",
       "position": [
-        -1.0,
-        -1.4,
+        -0.8,
+        -1.2,
         0.337
       ],
       "normal": [
@@ -818,8 +818,8 @@
       "camp": "RED",
       "kind": "radar",
       "position": [
-        1.0,
-        -1.4,
+        0.8,
+        -1.2,
         0.337
       ],
       "normal": [
@@ -835,8 +835,8 @@
       "name": "B_S1_L_collision_0",
       "cluster": "B_S1_L",
       "center": [
-        -1.4000000000000001,
-        1.7999999999999998,
+        -1.2,
+        1.6,
         0.2
       ],
       "size": [
@@ -849,8 +849,8 @@
       "name": "B_S1_L_collision_1",
       "cluster": "B_S1_L",
       "center": [
-        -1.2000000000000002,
-        1.4,
+        -0.9999999999999999,
+        1.2,
         0.2
       ],
       "size": [
@@ -863,8 +863,8 @@
       "name": "R_S1_L_collision_0",
       "cluster": "R_S1_L",
       "center": [
-        1.2,
-        1.5999999999999999,
+        1.0,
+        1.4,
         0.2
       ],
       "size": [
@@ -877,8 +877,8 @@
       "name": "R_S1_L_collision_1",
       "cluster": "R_S1_L",
       "center": [
+        1.4,
         1.6,
-        1.7999999999999998,
         0.2
       ],
       "size": [
@@ -891,7 +891,7 @@
       "name": "B_S2_pair_collision_0",
       "cluster": "B_S2_pair",
       "center": [
-        -1.4000000000000001,
+        -1.2,
         0.0,
         0.2
       ],
@@ -905,7 +905,7 @@
       "name": "R_S2_pair_collision_0",
       "cluster": "R_S2_pair",
       "center": [
-        1.4,
+        1.2,
         0.0,
         0.2
       ],
@@ -919,8 +919,8 @@
       "name": "B_S3_L_collision_0",
       "cluster": "B_S3_L",
       "center": [
-        -1.4000000000000001,
-        -1.4,
+        -1.2,
+        -1.2000000000000002,
         0.2
       ],
       "size": [
@@ -933,8 +933,8 @@
       "name": "B_S3_L_collision_1",
       "cluster": "B_S3_L",
       "center": [
-        -1.2000000000000002,
-        -1.8,
+        -0.9999999999999999,
+        -1.6,
         0.2
       ],
       "size": [
@@ -947,8 +947,8 @@
       "name": "R_S3_L_collision_0",
       "cluster": "R_S3_L",
       "center": [
-        1.2,
-        -1.6,
+        1.0,
+        -1.4000000000000001,
         0.2
       ],
       "size": [
@@ -961,8 +961,8 @@
       "name": "R_S3_L_collision_1",
       "cluster": "R_S3_L",
       "center": [
-        1.6,
-        -1.4,
+        1.4,
+        -1.2000000000000002,
         0.2
       ],
       "size": [
@@ -976,7 +976,7 @@
       "cluster": "CM_upper",
       "center": [
         0.0,
-        1.2,
+        1.0,
         0.2
       ],
       "size": [
@@ -1004,7 +1004,7 @@
       "cluster": "CM_lower",
       "center": [
         0.0,
-        -1.2,
+        -1.0,
         0.2
       ],
       "size": [
@@ -1055,10 +1055,10 @@
     "sensors": {
       "gpu_lidar": 1,
       "imu": 1,
-      "camera": 2
+      "camera": 3
     }
   },
-  "profile": "standard",
+  "profile": "wingbot_recording",
   "render_engine": "ogre2",
   "gui_render_engine": "ogre2",
   "opaque_material_compat": false,
@@ -1073,7 +1073,7 @@
     }
   },
   "uav_camera": true,
-  "validation_camera": false,
+  "validation_camera": true,
   "robot_models": [
     "ugv_B2"
   ],
@@ -1094,6 +1094,10 @@
     "frames_file": "/mnt/c/Users/jojo0/OneDrive/바탕 화면/MAICON2026/maicon2026_ugv_code/maicon2026/ros2/wingbot_description/config/frames.yaml",
     "lidar_mode": "single360",
     "lidar_crop_location": "mil_emulator",
+    "full_sensors": false,
+    "namespaces": {
+      "B-2": "/arena/ego"
+    },
     "sensor_count": 3
   },
   "start_poses": {
@@ -1138,8 +1142,8 @@
       0.0
     ]
   },
-  "spec_sha256": "918da5bf5c45740505c74515d3c2bb2fc683329dd926481170f1c96f9dbb8278",
-  "layout_sha256": "9b85ac6d9c3ff943e0682641c940732f588a197781a5038fef1f317c5a0ed1a6",
+  "spec_sha256": "a0ac7e2f25bc2b43cb88a8c3b880531bf2b12daa7b8c0176e15db96cfcee3a6d",
+  "layout_sha256": "9c909f12b915bc1f34cc0822a9c9f955b72ce325b6c9b334dad1d0067dcfef25",
   "spec_file": "arena_spec.yaml",
   "layout_file": "layout_default.yaml"
 }

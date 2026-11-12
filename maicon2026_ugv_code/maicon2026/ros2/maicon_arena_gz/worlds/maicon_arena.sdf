@@ -38,7 +38,7 @@
         <scene>scene</scene>
         <ambient_light>0.6 0.6 0.6</ambient_light>
         <background_color>0.12 0.12 0.12</background_color>
-        <camera_pose>0 0 6 0 1.570796327 1.570796327</camera_pose>
+        <camera_pose>0 -6.2 5.5 0 0.7072964857 1.570796327</camera_pose>
         <grid>false</grid>
       </plugin>
       <plugin filename="GzSceneManager" name="GzSceneManager">
@@ -78,7 +78,7 @@
           <pose>0 0 -0.01 0 0 0</pose>
           <geometry>
             <box>
-              <size>6 4.8 0.02</size>
+              <size>6.12 5 0.02</size>
             </box>
           </geometry>
           <surface>
@@ -94,8 +94,8 @@
           <pose>0 0 0 0 0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://maicon_arena_gz/models/floor/meshes/floor.obj</uri>
-              <scale>6 4.8 1</scale>
+              <uri>model://maicon_arena_gz/models/floor/meshes/floor_20f4f9a1ff7f.obj</uri>
+              <scale>6.12 5 1</scale>
             </mesh>
           </geometry>
           <material>
@@ -123,18 +123,18 @@
       <static>true</static>
       <link name="wall">
         <collision name="wall_north">
-          <pose>0 2.43 0.2 0 0 0</pose>
+          <pose>0 2.53 0.2 0 0 0</pose>
           <geometry>
             <box>
-              <size>6.12 0.06 0.4</size>
+              <size>6.24 0.06 0.4</size>
             </box>
           </geometry>
         </collision>
         <visual name="wall_north_visual">
-          <pose>0 2.43 0.2 0 0 0</pose>
+          <pose>0 2.53 0.2 0 0 0</pose>
           <geometry>
             <box>
-              <size>6.12 0.06 0.4</size>
+              <size>6.24 0.06 0.4</size>
             </box>
           </geometry>
           <material>
@@ -144,18 +144,18 @@
           </material>
         </visual>
         <collision name="wall_south">
-          <pose>0 -2.43 0.2 0 0 0</pose>
+          <pose>0 -2.53 0.2 0 0 0</pose>
           <geometry>
             <box>
-              <size>6.12 0.06 0.4</size>
+              <size>6.24 0.06 0.4</size>
             </box>
           </geometry>
         </collision>
         <visual name="wall_south_visual">
-          <pose>0 -2.43 0.2 0 0 0</pose>
+          <pose>0 -2.53 0.2 0 0 0</pose>
           <geometry>
             <box>
-              <size>6.12 0.06 0.4</size>
+              <size>6.24 0.06 0.4</size>
             </box>
           </geometry>
           <material>
@@ -165,18 +165,18 @@
           </material>
         </visual>
         <collision name="wall_east">
-          <pose>3.03 0 0.2 0 0 0</pose>
+          <pose>3.09 0 0.2 0 0 0</pose>
           <geometry>
             <box>
-              <size>0.06 4.8 0.4</size>
+              <size>0.06 5 0.4</size>
             </box>
           </geometry>
         </collision>
         <visual name="wall_east_visual">
-          <pose>3.03 0 0.2 0 0 0</pose>
+          <pose>3.09 0 0.2 0 0 0</pose>
           <geometry>
             <box>
-              <size>0.06 4.8 0.4</size>
+              <size>0.06 5 0.4</size>
             </box>
           </geometry>
           <material>
@@ -186,18 +186,18 @@
           </material>
         </visual>
         <collision name="wall_west">
-          <pose>-3.03 0 0.2 0 0 0</pose>
+          <pose>-3.09 0 0.2 0 0 0</pose>
           <geometry>
             <box>
-              <size>0.06 4.8 0.4</size>
+              <size>0.06 5 0.4</size>
             </box>
           </geometry>
         </collision>
         <visual name="wall_west_visual">
-          <pose>-3.03 0 0.2 0 0 0</pose>
+          <pose>-3.09 0 0.2 0 0 0</pose>
           <geometry>
             <box>
-              <size>0.06 4.8 0.4</size>
+              <size>0.06 5 0.4</size>
             </box>
           </geometry>
           <material>
@@ -766,7 +766,7 @@
       <static>true</static>
       <link name="B_S1_L">
         <collision name="B_S1_L_collision_0">
-          <pose>-1.4 1.8 0.2 0 0 0</pose>
+          <pose>-1.2 1.6 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.8 0.4 0.4</size>
@@ -774,7 +774,7 @@
           </geometry>
         </collision>
         <collision name="B_S1_L_collision_1">
-          <pose>-1.2 1.4 0.2 0 0 0</pose>
+          <pose>-1 1.2 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.4 0.4 0.4</size>
@@ -782,7 +782,7 @@
           </geometry>
         </collision>
         <visual name="cube_0_0">
-          <pose>-1.2 1.8 0.2 0 0 0</pose>
+          <pose>-1 1.6 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -808,7 +808,7 @@
           </material>
         </visual>
         <visual name="cube_0_0_signal">
-          <pose>-1.2 1.8 0.41 0 0 0</pose>
+          <pose>-1 1.6 0.41 0 0 0</pose>
           <geometry>
             <box>
               <size>0.1 0.03 0.02</size>
@@ -822,7 +822,7 @@
           </material>
         </visual>
         <visual name="cube_1_0">
-          <pose>-1.2 1.4 0.2 0 0 0</pose>
+          <pose>-1 1.2 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -848,7 +848,7 @@
           </material>
         </visual>
         <visual name="cube_2_0">
-          <pose>-1.6 1.8 0.2 0 0 0</pose>
+          <pose>-1.4 1.6 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -876,7 +876,7 @@
       </link>
       <link name="R_S1_L">
         <collision name="R_S1_L_collision_0">
-          <pose>1.2 1.6 0.2 0 0 0</pose>
+          <pose>1 1.4 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.4 0.8 0.4</size>
@@ -884,7 +884,7 @@
           </geometry>
         </collision>
         <collision name="R_S1_L_collision_1">
-          <pose>1.6 1.8 0.2 0 0 0</pose>
+          <pose>1.4 1.6 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.4 0.4 0.4</size>
@@ -892,7 +892,7 @@
           </geometry>
         </collision>
         <visual name="cube_3_0">
-          <pose>1.2 1.8 0.2 0 0 0</pose>
+          <pose>1 1.6 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -918,7 +918,7 @@
           </material>
         </visual>
         <visual name="cube_3_0_signal">
-          <pose>1.2 1.8 0.41 0 0 0</pose>
+          <pose>1 1.6 0.41 0 0 0</pose>
           <geometry>
             <box>
               <size>0.1 0.03 0.02</size>
@@ -932,7 +932,7 @@
           </material>
         </visual>
         <visual name="cube_4_0">
-          <pose>1.2 1.4 0.2 0 0 0</pose>
+          <pose>1 1.2 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -958,7 +958,7 @@
           </material>
         </visual>
         <visual name="cube_5_0">
-          <pose>1.6 1.8 0.2 0 0 0</pose>
+          <pose>1.4 1.6 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -986,7 +986,7 @@
       </link>
       <link name="B_S2_pair">
         <collision name="B_S2_pair_collision_0">
-          <pose>-1.4 0 0.2 0 0 0</pose>
+          <pose>-1.2 0 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.8 0.4 0.4</size>
@@ -994,7 +994,7 @@
           </geometry>
         </collision>
         <visual name="cube_6_0">
-          <pose>-1.6 0 0.2 0 0 0</pose>
+          <pose>-1.4 0 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1020,7 +1020,7 @@
           </material>
         </visual>
         <visual name="cube_7_0">
-          <pose>-1.2 0 0.2 0 0 0</pose>
+          <pose>-1 0 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1046,7 +1046,7 @@
           </material>
         </visual>
         <visual name="cube_7_0_signal">
-          <pose>-1.2 0 0.41 0 0 0</pose>
+          <pose>-1 0 0.41 0 0 0</pose>
           <geometry>
             <box>
               <size>0.1 0.03 0.02</size>
@@ -1062,7 +1062,7 @@
       </link>
       <link name="R_S2_pair">
         <collision name="R_S2_pair_collision_0">
-          <pose>1.4 0 0.2 0 0 0</pose>
+          <pose>1.2 0 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.8 0.4 0.4</size>
@@ -1070,7 +1070,7 @@
           </geometry>
         </collision>
         <visual name="cube_8_0">
-          <pose>1.6 0 0.2 0 0 0</pose>
+          <pose>1.4 0 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1096,7 +1096,7 @@
           </material>
         </visual>
         <visual name="cube_9_0">
-          <pose>1.2 0 0.2 0 0 0</pose>
+          <pose>1 0 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1122,7 +1122,7 @@
           </material>
         </visual>
         <visual name="cube_9_0_signal">
-          <pose>1.2 0 0.41 0 0 0</pose>
+          <pose>1 0 0.41 0 0 0</pose>
           <geometry>
             <box>
               <size>0.1 0.03 0.02</size>
@@ -1138,7 +1138,7 @@
       </link>
       <link name="B_S3_L">
         <collision name="B_S3_L_collision_0">
-          <pose>-1.4 -1.4 0.2 0 0 0</pose>
+          <pose>-1.2 -1.2 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.8 0.4 0.4</size>
@@ -1146,7 +1146,7 @@
           </geometry>
         </collision>
         <collision name="B_S3_L_collision_1">
-          <pose>-1.2 -1.8 0.2 0 0 0</pose>
+          <pose>-1 -1.6 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.4 0.4 0.4</size>
@@ -1154,7 +1154,7 @@
           </geometry>
         </collision>
         <visual name="cube_10_0">
-          <pose>-1.2 -1.4 0.2 0 0 0</pose>
+          <pose>-1 -1.2 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1180,7 +1180,7 @@
           </material>
         </visual>
         <visual name="cube_10_0_signal">
-          <pose>-1.2 -1.4 0.41 0 0 0</pose>
+          <pose>-1 -1.2 0.41 0 0 0</pose>
           <geometry>
             <box>
               <size>0.1 0.03 0.02</size>
@@ -1194,7 +1194,7 @@
           </material>
         </visual>
         <visual name="cube_11_0">
-          <pose>-1.2 -1.8 0.2 0 0 0</pose>
+          <pose>-1 -1.6 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1220,7 +1220,7 @@
           </material>
         </visual>
         <visual name="cube_12_0">
-          <pose>-1.6 -1.4 0.2 0 0 0</pose>
+          <pose>-1.4 -1.2 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1248,7 +1248,7 @@
       </link>
       <link name="R_S3_L">
         <collision name="R_S3_L_collision_0">
-          <pose>1.2 -1.6 0.2 0 0 0</pose>
+          <pose>1 -1.4 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.4 0.8 0.4</size>
@@ -1256,7 +1256,7 @@
           </geometry>
         </collision>
         <collision name="R_S3_L_collision_1">
-          <pose>1.6 -1.4 0.2 0 0 0</pose>
+          <pose>1.4 -1.2 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.4 0.4 0.4</size>
@@ -1264,7 +1264,7 @@
           </geometry>
         </collision>
         <visual name="cube_13_0">
-          <pose>1.2 -1.4 0.2 0 0 0</pose>
+          <pose>1 -1.2 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1290,7 +1290,7 @@
           </material>
         </visual>
         <visual name="cube_13_0_signal">
-          <pose>1.2 -1.4 0.41 0 0 0</pose>
+          <pose>1 -1.2 0.41 0 0 0</pose>
           <geometry>
             <box>
               <size>0.1 0.03 0.02</size>
@@ -1304,7 +1304,7 @@
           </material>
         </visual>
         <visual name="cube_14_0">
-          <pose>1.2 -1.8 0.2 0 0 0</pose>
+          <pose>1 -1.6 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1330,7 +1330,7 @@
           </material>
         </visual>
         <visual name="cube_15_0">
-          <pose>1.6 -1.4 0.2 0 0 0</pose>
+          <pose>1.4 -1.2 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1358,7 +1358,7 @@
       </link>
       <link name="CM_upper">
         <collision name="CM_upper_collision_0">
-          <pose>0 1.2 0.2 0 0 0</pose>
+          <pose>0 1 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.4 0.4 0.4</size>
@@ -1366,7 +1366,7 @@
           </geometry>
         </collision>
         <visual name="cube_16_0">
-          <pose>0 1.2 0.2 0 0 0</pose>
+          <pose>0 1 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -1456,7 +1456,7 @@
       </link>
       <link name="CM_lower">
         <collision name="CM_lower_collision_0">
-          <pose>0 -1.2 0.2 0 0 0</pose>
+          <pose>0 -1 0.2 0 0 0</pose>
           <geometry>
             <box>
               <size>0.4 0.4 0.4</size>
@@ -1464,7 +1464,7 @@
           </geometry>
         </collision>
         <visual name="cube_19_0">
-          <pose>0 -1.2 0.2 0 0 0</pose>
+          <pose>0 -1 0.2 0 0 0</pose>
           <geometry>
             <mesh>
               <uri>model://maicon_arena_gz/models/cube_atlas/meshes/cube.obj</uri>
@@ -2798,6 +2798,30 @@
             <clip>
               <near>0.02</near>
               <far>100</far>
+            </clip>
+          </camera>
+        </sensor>
+      </link>
+    </model>
+    <model name="validation_camera">
+      <static>true</static>
+      <pose>0 -6.2 5.5 0 0.7072964857 1.570796327</pose>
+      <link name="camera_link">
+        <sensor name="camera" type="camera">
+          <always_on>true</always_on>
+          <update_rate>10.0</update_rate>
+          <visualize>false</visualize>
+          <topic>/arena/validation/image_raw</topic>
+          <camera>
+            <horizontal_fov>1.2</horizontal_fov>
+            <image>
+              <width>1280</width>
+              <height>720</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>20</far>
             </clip>
           </camera>
         </sensor>

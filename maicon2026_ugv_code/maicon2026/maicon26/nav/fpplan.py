@@ -141,7 +141,7 @@ def _axis_detour(grid: OccupancyGrid, budget: ClearanceBudget, path: Sequence[Pt
     th = math.atan2(path[best_i + 1][1] - path[best_i][1], path[best_i + 1][0] - path[best_i][0])
     axis = round(th / (math.pi / 2)) * (math.pi / 2)
     c, s = math.cos(axis), math.sin(axis)
-    occ = grid.occupied()
+    occ = grid.planning_occupied()
     from ..footprint import circle_cells_free
     rr = budget.plan_inflate_rotate
 
@@ -175,7 +175,7 @@ def plan_footprint(grid: OccupancyGrid, inflate_hard: float, inflate_soft: float
             blocked[max(by - 1, 0):by + 2, max(bx - 1, 0):bx + 2] = True
         if check:
             # 트인 칸(어느 방향으로 서도 직사각형이 들어가는 칸) = 장애물 중심까지 거리 > 회전 소거 반경. 좁은 칸은 축 방향으로만 지나간다.
-            open_mask = (grid.distance_field(grid.occupied(), budget.plan_inflate_rotate + 0.05) > budget.plan_inflate_rotate) & ~blocked
+            open_mask = (grid.distance_field(grid.planning_occupied(), budget.plan_inflate_rotate + 0.05) > budget.plan_inflate_rotate) & ~blocked
             p = _astar_open_diag(grid, blocked, cost, open_mask, start, goal, max_expand)
             path = _simplify_open(grid, blocked, open_mask, p) if p else None
         else:
@@ -184,7 +184,7 @@ def plan_footprint(grid: OccupancyGrid, inflate_hard: float, inflate_soft: float
         if not p:
             return None
         if check:
-            viol = path_violations(grid.occupied(), grid.res, grid.ox, grid.oy, path, budget, start_heading=start_heading)
+            viol = path_violations(grid.planning_occupied(), grid.res, grid.ox, grid.oy, path, budget, start_heading=start_heading)
             if viol:
                 rejects += 1
                 body = [v for v in viol if v[2] == "body"]

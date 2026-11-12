@@ -1,0 +1,3997 @@
+{
+  "observer": "B-2",
+  "evaluation_only": true,
+  "state_time_s": {
+    "EXPLORE": 245.08399999999997,
+    "STRIKE_AIM": 15.120000000000005,
+    "STRIKE_APPROACH": 14.884000000000007,
+    "GOAL": 7.319999999999993
+  },
+  "mode_time_s": {
+    "EXPLORE": 245.08399999999997,
+    "STRIKE": 30.004000000000012,
+    "GOAL": 7.319999999999993
+  },
+  "total_classification_changes": 18,
+  "final_local_counts": {
+    "R-S1": {
+      "AMMO_BOX": 1,
+      "DRUM": 1,
+      "MORTAR": 0,
+      "TRUCK": 0,
+      "TANK": 4,
+      "MISSILE": 0
+    },
+    "R-S2": {
+      "AMMO_BOX": 0,
+      "DRUM": 1,
+      "MORTAR": 1,
+      "TRUCK": 0,
+      "TANK": 0,
+      "MISSILE": 1
+    },
+    "R-S3": {
+      "AMMO_BOX": 1,
+      "DRUM": 1,
+      "MORTAR": 0,
+      "TRUCK": 1,
+      "TANK": 0,
+      "MISSILE": 0
+    },
+    "COMMON": {
+      "AMMO_BOX": 0,
+      "DRUM": 2,
+      "MORTAR": 2,
+      "TRUCK": 0,
+      "TANK": 0,
+      "MISSILE": 2
+    }
+  },
+  "accepted_m3": {
+    "sectors": [
+      {
+        "sector": "CM",
+        "objects": [
+          {
+            "type": "DRUM",
+            "count": 2
+          },
+          {
+            "type": "MISSILE",
+            "count": 2
+          },
+          {
+            "type": "MORTAR",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "sector": "R-S1",
+        "objects": [
+          {
+            "type": "AMMO_BOX",
+            "count": 1
+          },
+          {
+            "type": "DRUM",
+            "count": 1
+          },
+          {
+            "type": "TANK",
+            "count": 4
+          }
+        ]
+      },
+      {
+        "sector": "R-S2",
+        "objects": [
+          {
+            "type": "DRUM",
+            "count": 1
+          },
+          {
+            "type": "MISSILE",
+            "count": 1
+          },
+          {
+            "type": "MORTAR",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "sector": "R-S3",
+        "objects": [
+          {
+            "type": "AMMO_BOX",
+            "count": 1
+          },
+          {
+            "type": "DRUM",
+            "count": 1
+          },
+          {
+            "type": "MILITARY_TRUCK",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "last_classification_change": {
+    "elapsed_s": 263.94,
+    "counts": {
+      "R-S1": {
+        "AMMO_BOX": 1,
+        "DRUM": 1,
+        "MORTAR": 0,
+        "TRUCK": 0,
+        "TANK": 4,
+        "MISSILE": 0
+      },
+      "R-S2": {
+        "AMMO_BOX": 0,
+        "DRUM": 1,
+        "MORTAR": 1,
+        "TRUCK": 0,
+        "TANK": 0,
+        "MISSILE": 1
+      },
+      "R-S3": {
+        "AMMO_BOX": 1,
+        "DRUM": 1,
+        "MORTAR": 0,
+        "TRUCK": 1,
+        "TANK": 0,
+        "MISSILE": 0
+      },
+      "COMMON": {
+        "AMMO_BOX": 0,
+        "DRUM": 2,
+        "MORTAR": 2,
+        "TRUCK": 0,
+        "TANK": 0,
+        "MISSILE": 2
+      }
+    },
+    "mode": "EXPLORE"
+  },
+  "arrival_outcomes": {
+    "refine": 9,
+    "observe": 14,
+    "refinement_timeout": 1,
+    "defer": 2
+  },
+  "arrival_view_reasons": {
+    "incidence": 7,
+    "ok": 15,
+    "range": 2,
+    "occluded": 2
+  },
+  "exploration_final": {
+    "last_build": {
+      "t": 275.04,
+      "pending_faces": 2,
+      "raw_viewpoints": 42,
+      "face_viewpoints": {
+        "(1, 0)": 0,
+        "(11, 0)": 0
+      },
+      "sensor_mode": "uav_assisted",
+      "m3_scoring_sectors": [
+        "CM",
+        "R-S1",
+        "R-S2",
+        "R-S3"
+      ],
+      "m1_sweep_sectors": [
+        "R-S1",
+        "R-S2"
+      ],
+      "incumbent_requested": false,
+      "incumbent_rebuilt": false,
+      "face": 0,
+      "frontier": 0,
+      "survey": 0,
+      "scout": 2,
+      "identify": 0
+    },
+    "last_evaluate": {
+      "t": 274.39,
+      "candidates": 2,
+      "path_checks": 0,
+      "incumbent_path_checks": 0,
+      "incumbent_accepted": false,
+      "new_candidate_path_checks": 0,
+      "accepted": 0,
+      "rejected": {
+        "low_gain": 0,
+        "deadline": 2,
+        "no_path": 0,
+        "path_deadline": 0
+      },
+      "start_blocked": false,
+      "start_observed_occupied": false,
+      "snapped_start": [
+        3.525,
+        1.175
+      ],
+      "field_blocked_start": false,
+      "prior_free_overrides": 264
+    },
+    "observed_sectors": {
+      "R-S1": 3,
+      "R-S2": 3,
+      "R-S3": 2,
+      "COMMON": 2
+    },
+    "events": [
+      {
+        "t": 0.64,
+        "kind": "selected",
+        "candidate": "frontier",
+        "vp": [
+          3.1500000000000004,
+          1.6500000000000001
+        ],
+        "primary_face": null,
+        "sector": "COMMON",
+        "gain": 3.84,
+        "utility": 0.205
+      },
+      {
+        "t": 0.85,
+        "kind": "selected",
+        "candidate": "frontier",
+        "vp": [
+          3.35,
+          1.9500000000000002
+        ],
+        "primary_face": null,
+        "sector": "COMMON",
+        "gain": 3.742,
+        "utility": 0.204
+      },
+      {
+        "t": 2.93,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.216964285714286,
+          1.9840625
+        ],
+        "primary_face": [
+          18,
+          3
+        ],
+        "sector": "R-S2",
+        "gain": 7.671,
+        "utility": 0.206
+      },
+      {
+        "t": 10.49,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.4682291666666667,
+          1.6943548387096774
+        ],
+        "primary_face": [
+          14,
+          3
+        ],
+        "sector": "R-S2",
+        "gain": 6.15,
+        "utility": 0.053
+      },
+      {
+        "t": 28.47,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.6532451923076925,
+          1.688281250000001
+        ],
+        "primary_face": [
+          18,
+          3
+        ],
+        "sector": "R-S2",
+        "gain": 8.616,
+        "utility": 0.031
+      },
+      {
+        "t": 34.08,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.5078124999999996,
+          2.2918749999999997
+        ],
+        "primary_face": [
+          14,
+          2
+        ],
+        "sector": "R-S2",
+        "gain": 9.386,
+        "utility": 0.066
+      },
+      {
+        "t": 38.61,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.6578125,
+          3.135729166666667
+        ],
+        "primary_face": [
+          14,
+          1
+        ],
+        "sector": "R-S2",
+        "gain": 10.006,
+        "utility": 0.118
+      },
+      {
+        "t": 38.73,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.440624999999998,
+          3.2857291666666675
+        ],
+        "primary_face": [
+          15,
+          0
+        ],
+        "sector": "R-S1",
+        "gain": 15.035,
+        "utility": 0.135
+      },
+      {
+        "t": 38.84,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.654278273809524,
+          2.885052083333334
+        ],
+        "primary_face": [
+          19,
+          3
+        ],
+        "sector": "R-S1",
+        "gain": 15.057,
+        "utility": 0.125
+      },
+      {
+        "t": 39.03,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.863653273809522,
+          3.185052083333334
+        ],
+        "primary_face": [
+          15,
+          3
+        ],
+        "sector": "R-S1",
+        "gain": 15.097,
+        "utility": 0.121
+      },
+      {
+        "t": 39.13,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          5.0542782738095235,
+          2.885052083333334
+        ],
+        "primary_face": [
+          19,
+          3
+        ],
+        "sector": "R-S1",
+        "gain": 15.117,
+        "utility": 0.114
+      },
+      {
+        "t": 39.26,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          5.063653273809522,
+          3.4850520833333336
+        ],
+        "primary_face": [
+          15,
+          0
+        ],
+        "sector": "R-S1",
+        "gain": 15.145,
+        "utility": 0.112
+      },
+      {
+        "t": 39.43,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.263653273809522,
+          3.885052083333334
+        ],
+        "primary_face": [
+          15,
+          2
+        ],
+        "sector": "R-S1",
+        "gain": 10.119,
+        "utility": 0.09
+      },
+      {
+        "t": 39.56,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.654278273809524,
+          4.585052083333334
+        ],
+        "primary_face": [
+          19,
+          1
+        ],
+        "sector": "R-S1",
+        "gain": 15.206,
+        "utility": 0.052
+      },
+      {
+        "t": 45.63,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.069078947368421,
+          3.1528819444444447
+        ],
+        "primary_face": [
+          14,
+          1
+        ],
+        "sector": "R-S2",
+        "gain": 13.255,
+        "utility": 0.081
+      },
+      {
+        "t": 51.54,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          5.270028409090909,
+          3.163839285714287
+        ],
+        "primary_face": [
+          18,
+          1
+        ],
+        "sector": "R-S2",
+        "gain": 17.669,
+        "utility": 0.089
+      },
+      {
+        "t": 57.54,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.6531249999999993,
+          3.5108870967741943
+        ],
+        "primary_face": [
+          18,
+          1
+        ],
+        "sector": "R-S2",
+        "gain": 12.603,
+        "utility": 0.1
+      },
+      {
+        "t": 62.33,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.6415178571428575,
+          2.0003472222222225
+        ],
+        "primary_face": [
+          18,
+          3
+        ],
+        "sector": "R-S2",
+        "gain": 19.89,
+        "utility": 0.068
+      },
+      {
+        "t": 64.34,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.509375,
+          2.289656910456062
+        ],
+        "primary_face": [
+          14,
+          2
+        ],
+        "sector": "R-S2",
+        "gain": 13.535,
+        "utility": 0.074
+      },
+      {
+        "t": 72.36,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.5124999999999997,
+          2.295221027479092
+        ],
+        "primary_face": [
+          14,
+          2
+        ],
+        "sector": "R-S2",
+        "gain": 14.635,
+        "utility": 0.05
+      },
+      {
+        "t": 78.36,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.068142361111111,
+          3.294613227660364
+        ],
+        "primary_face": [
+          14,
+          1
+        ],
+        "sector": "R-S2",
+        "gain": 15.458,
+        "utility": 0.194
+      },
+      {
+        "t": 84.44,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.0640625,
+          1.8499999999999999
+        ],
+        "primary_face": [
+          14,
+          3
+        ],
+        "sector": "R-S2",
+        "gain": 19.686,
+        "utility": 0.191
+      },
+      {
+        "t": 90.44,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.571125,
+          2.8912523213079844
+        ],
+        "primary_face": [
+          15,
+          0
+        ],
+        "sector": "R-S1",
+        "gain": 25.2,
+        "utility": 0.227
+      },
+      {
+        "t": 106.64,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.443923611111111,
+          3.307291666666668
+        ],
+        "primary_face": [
+          15,
+          0
+        ],
+        "sector": "R-S1",
+        "gain": 16.8,
+        "utility": 0.356
+      },
+      {
+        "t": 113.56,
+        "kind": "observed",
+        "sector": "R-S1",
+        "vp": [
+          4.443923611111111,
+          3.307291666666668
+        ],
+        "faces": 2
+      },
+      {
+        "t": 113.64,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.864750267094017,
+          4.470128536226318
+        ],
+        "primary_face": [
+          19,
+          1
+        ],
+        "sector": "R-S1",
+        "gain": 6.093,
+        "utility": 0.037
+      },
+      {
+        "t": 121.66,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.66657196969697,
+          4.755613159242192
+        ],
+        "primary_face": [
+          19,
+          1
+        ],
+        "sector": "R-S1",
+        "gain": 7.487,
+        "utility": 1.266
+      },
+      {
+        "t": 127.54,
+        "kind": "observed",
+        "sector": "R-S1",
+        "vp": [
+          3.66657196969697,
+          4.755613159242192
+        ],
+        "faces": 2
+      },
+      {
+        "t": 127.58,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.834375,
+          4.510714285714286
+        ],
+        "primary_face": [
+          19,
+          0
+        ],
+        "sector": "R-S1",
+        "gain": 4.325,
+        "utility": 0.495
+      },
+      {
+        "t": 133.62,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.963541666666667,
+          3.3001152073732722
+        ],
+        "primary_face": [
+          18,
+          0
+        ],
+        "sector": "R-S2",
+        "gain": 10.64,
+        "utility": 1.028
+      },
+      {
+        "t": 136.65,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          5.113690476190477,
+          3.3001152073732722
+        ],
+        "primary_face": [
+          18,
+          0
+        ],
+        "sector": "R-S2",
+        "gain": 10.64,
+        "utility": 1.315
+      },
+      {
+        "t": 141.86,
+        "kind": "observed",
+        "sector": "R-S2",
+        "vp": [
+          5.113690476190477,
+          3.3001152073732722
+        ],
+        "faces": 1
+      },
+      {
+        "t": 141.89,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.8682291666666675,
+          2.1183805418719213
+        ],
+        "primary_face": [
+          18,
+          3
+        ],
+        "sector": "R-S2",
+        "gain": 3.683,
+        "utility": 0.176
+      },
+      {
+        "t": 152.12,
+        "kind": "observed",
+        "sector": "R-S2",
+        "vp": [
+          4.8682291666666675,
+          2.1183805418719213
+        ],
+        "faces": 1
+      },
+      {
+        "t": 152.13,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.465104166666666,
+          1.833913412563667
+        ],
+        "primary_face": [
+          18,
+          3
+        ],
+        "sector": "R-S2",
+        "gain": 4.321,
+        "utility": 0.056
+      },
+      {
+        "t": 157.24,
+        "kind": "observed",
+        "sector": "R-S2",
+        "vp": [
+          4.465104166666666,
+          1.833913412563667
+        ],
+        "faces": 1
+      },
+      {
+        "t": 157.26,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.967708333333333,
+          3.28203125
+        ],
+        "primary_face": [
+          19,
+          0
+        ],
+        "sector": "R-S1",
+        "gain": 7.989,
+        "utility": 0.193
+      },
+      {
+        "t": 168.92,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.8421875000000005,
+          3.6907647907647907
+        ],
+        "primary_face": [
+          19,
+          0
+        ],
+        "sector": "R-S1",
+        "gain": 9.428,
+        "utility": 1.004
+      },
+      {
+        "t": 175.14,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          5.275520833333333,
+          3.682638888888889
+        ],
+        "primary_face": [
+          19,
+          0
+        ],
+        "sector": "R-S1",
+        "gain": 10.195,
+        "utility": 1.551
+      },
+      {
+        "t": 179.78,
+        "kind": "observed",
+        "sector": "R-S1",
+        "vp": [
+          5.275520833333333,
+          3.682638888888889
+        ],
+        "faces": 1
+      },
+      {
+        "t": 179.84,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          5.266666666666667,
+          0.6879464285714292
+        ],
+        "primary_face": [
+          12,
+          0
+        ],
+        "sector": "R-S3",
+        "gain": 10.5,
+        "utility": 0.334
+      },
+      {
+        "t": 194.43,
+        "kind": "observed",
+        "sector": "R-S3",
+        "vp": [
+          5.266666666666667,
+          0.6879464285714292
+        ],
+        "faces": 2
+      },
+      {
+        "t": 194.43,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.856597222222222,
+          0.37716710372960366
+        ],
+        "primary_face": [
+          12,
+          3
+        ],
+        "sector": "R-S3",
+        "gain": 3.665,
+        "utility": 0.557
+      },
+      {
+        "t": 202.06,
+        "kind": "observed",
+        "sector": "R-S3",
+        "vp": [
+          4.856597222222222,
+          0.37716710372960366
+        ],
+        "faces": 3
+      },
+      {
+        "t": 202.08,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.4162946428571432,
+          0.6972693452380955
+        ],
+        "primary_face": [
+          1,
+          3
+        ],
+        "sector": "COMMON",
+        "gain": 3.5,
+        "utility": 0.035
+      },
+      {
+        "t": 207.5,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.6040436126373634,
+          2.4771816724941726
+        ],
+        "primary_face": [
+          11,
+          0
+        ],
+        "sector": "COMMON",
+        "gain": 3.5,
+        "utility": 0.022
+      },
+      {
+        "t": 215.52,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.062760416666667,
+          1.8880208333333337
+        ],
+        "primary_face": [
+          11,
+          0
+        ],
+        "sector": "COMMON",
+        "gain": 3.5,
+        "utility": 0.061
+      },
+      {
+        "t": 221.85,
+        "kind": "observed",
+        "sector": "COMMON",
+        "vp": [
+          4.062760416666667,
+          1.8880208333333337
+        ],
+        "faces": 1
+      },
+      {
+        "t": 221.86,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.610890151515152,
+          2.4859375000000004
+        ],
+        "primary_face": [
+          11,
+          0
+        ],
+        "sector": "COMMON",
+        "gain": 1.0,
+        "utility": 0.013
+      },
+      {
+        "t": 225.64,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.4618634259259258,
+          1.9041193181818181
+        ],
+        "primary_face": [
+          10,
+          3
+        ],
+        "sector": "COMMON",
+        "gain": 1.108,
+        "utility": 0.071
+      },
+      {
+        "t": 228.62,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.6108974358974364,
+          2.8833333333333337
+        ],
+        "primary_face": [
+          11,
+          0
+        ],
+        "sector": "COMMON",
+        "gain": 1.193,
+        "utility": 0.064
+      },
+      {
+        "t": 236.49,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.4845625000000005,
+          3.2832175925925924
+        ],
+        "primary_face": [
+          11,
+          0
+        ],
+        "sector": "COMMON",
+        "gain": 1.418,
+        "utility": 0.226
+      },
+      {
+        "t": 240.17,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          4.06389802631579,
+          3.096180555555555
+        ],
+        "primary_face": [
+          11,
+          0
+        ],
+        "sector": "COMMON",
+        "gain": 1.523,
+        "utility": 0.196
+      },
+      {
+        "t": 243.04,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.8598484848484853,
+          1.7833333333333334
+        ],
+        "primary_face": [
+          10,
+          3
+        ],
+        "sector": "COMMON",
+        "gain": 1.605,
+        "utility": 0.011
+      },
+      {
+        "t": 255.1,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.8598484848484853,
+          1.7833333333333334
+        ],
+        "primary_face": [
+          10,
+          3
+        ],
+        "sector": "COMMON",
+        "gain": 1.95,
+        "utility": 0.031
+      },
+      {
+        "t": 263.53,
+        "kind": "observed",
+        "sector": "COMMON",
+        "vp": [
+          3.8598484848484853,
+          1.7833333333333334
+        ],
+        "faces": 1
+      },
+      {
+        "t": 263.53,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.4162946428571432,
+          0.9972693452380954
+        ],
+        "primary_face": [
+          1,
+          3
+        ],
+        "sector": "COMMON",
+        "gain": 1.0,
+        "utility": 0.021
+      },
+      {
+        "t": 267.54,
+        "kind": "selected",
+        "candidate": "face",
+        "vp": [
+          3.0162946428571433,
+          0.9972693452380954
+        ],
+        "primary_face": [
+          1,
+          3
+        ],
+        "sector": "COMMON",
+        "gain": 1.412,
+        "utility": 0.235
+      }
+    ],
+    "stats": {
+      "selected": 48,
+      "frontier": 2,
+      "face": 46,
+      "rejected_time": 13,
+      "no_candidate": 6,
+      "loop_breaks": 1
+    },
+    "coverage_sector": "COMMON"
+  },
+  "localization_error_m": {
+    "mean": 0.01721603366594632,
+    "p95": 0.02850270939021186,
+    "max": 0.46246029670890165
+  },
+  "independent_progress": {
+    "deadlock_events": [
+      {
+        "robot": "B-2",
+        "t": 49.84,
+        "kind": "E",
+        "stalled_s": 12.099999999999994,
+        "mode": "EXPLORE",
+        "goal": [
+          4.07,
+          3.15
+        ],
+        "nearest_ugv_m": 1.0148695100037313,
+        "reason": "12 s without qualifying path/face/shot/arrival progress"
+      },
+      {
+        "robot": "B-2",
+        "t": 105.24000000000001,
+        "kind": "E",
+        "stalled_s": 12.099999999999994,
+        "mode": "STRIKE_APPROACH",
+        "goal": [
+          3.04,
+          1.07
+        ],
+        "nearest_ugv_m": 1.024061296010303,
+        "reason": "12 s without qualifying path/face/shot/arrival progress"
+      }
+    ],
+    "oscillation_events": [],
+    "categories": {
+      "E": 2
+    },
+    "active_s": 231.9439999999999,
+    "stall_s": 44.79600000000005,
+    "stall_ratio": 0.1931328251646952,
+    "verified": true,
+    "unmatched_rows": 0,
+    "trace_rows": 4296,
+    "reason": "Independent qualifying route/face/shot progress; goal changes alone never reset stall"
+  },
+  "detector_errors": 0,
+  "detector_stats": {
+    "frames": 1938,
+    "detections": 1851,
+    "max_duration_s": 1.1930132769998636,
+    "classes": {
+      "TRUCK": 82,
+      "MISSILE": 129,
+      "BUILDING": 148,
+      "POSITION": 293,
+      "MORTAR": 227,
+      "RADAR_FACILITY": 175,
+      "UGV": 84,
+      "COMM_FACILITY": 16,
+      "TREE": 44,
+      "DRUM": 284,
+      "GUARD_POST": 73,
+      "TANK": 222,
+      "AMMO_BOX": 66,
+      "BARRIER": 8
+    }
+  },
+  "registered_box_geometry": [
+    {
+      "bid": 1,
+      "ground_center": [
+        2.616,
+        1.497
+      ],
+      "raw_uav_center": [
+        3.058,
+        1.497
+      ],
+      "aligned_uav_center": [
+        3.0709999999999997,
+        1.4840000000000002
+      ],
+      "residual_m": 0.4551856764003011,
+      "source": "full"
+    },
+    {
+      "bid": 2,
+      "ground_center": [
+        2.075,
+        4.082
+      ],
+      "raw_uav_center": [
+        2.069,
+        4.097
+      ],
+      "aligned_uav_center": [
+        2.082,
+        4.0840000000000005
+      ],
+      "residual_m": 0.007280109889280387,
+      "source": "full"
+    },
+    {
+      "bid": 3,
+      "ground_center": [
+        2.081,
+        3.684
+      ],
+      "raw_uav_center": [
+        2.069,
+        3.697
+      ],
+      "aligned_uav_center": [
+        2.082,
+        3.684
+      ],
+      "residual_m": 0.0009999999999998899,
+      "source": "full"
+    },
+    {
+      "bid": 4,
+      "ground_center": [
+        1.681,
+        1.283
+      ],
+      "raw_uav_center": [
+        1.669,
+        1.295
+      ],
+      "aligned_uav_center": [
+        1.682,
+        1.282
+      ],
+      "residual_m": 0.0014142135623729393,
+      "source": "full"
+    },
+    {
+      "bid": 5,
+      "ground_center": [
+        2.081,
+        1.283
+      ],
+      "raw_uav_center": [
+        2.069,
+        1.295
+      ],
+      "aligned_uav_center": [
+        2.082,
+        1.282
+      ],
+      "residual_m": 0.0014142135623729393,
+      "source": "full"
+    },
+    {
+      "bid": 6,
+      "ground_center": [
+        3.07,
+        3.49
+      ],
+      "raw_uav_center": [
+        3.058,
+        3.503
+      ],
+      "aligned_uav_center": [
+        3.0709999999999997,
+        3.49
+      ],
+      "residual_m": 0.0009999999999998899,
+      "source": "full"
+    },
+    {
+      "bid": 7,
+      "ground_center": [
+        1.681,
+        2.484
+      ],
+      "raw_uav_center": [
+        1.669,
+        2.497
+      ],
+      "aligned_uav_center": [
+        1.682,
+        2.484
+      ],
+      "residual_m": 0.0009999999999998899,
+      "source": "full"
+    },
+    {
+      "bid": 8,
+      "ground_center": [
+        2.081,
+        0.883
+      ],
+      "raw_uav_center": [
+        2.069,
+        0.895
+      ],
+      "aligned_uav_center": [
+        2.082,
+        0.882
+      ],
+      "residual_m": 0.0014142135623730178,
+      "source": "face"
+    },
+    {
+      "bid": 9,
+      "ground_center": [
+        2.081,
+        2.484
+      ],
+      "raw_uav_center": [
+        2.069,
+        2.497
+      ],
+      "aligned_uav_center": [
+        2.082,
+        2.484
+      ],
+      "residual_m": 0.0009999999999998899,
+      "source": "full"
+    },
+    {
+      "bid": 10,
+      "ground_center": [
+        3.07,
+        2.281
+      ],
+      "raw_uav_center": [
+        3.058,
+        2.294
+      ],
+      "aligned_uav_center": [
+        3.0709999999999997,
+        2.281
+      ],
+      "residual_m": 0.0009999999999998899,
+      "source": "full"
+    },
+    {
+      "bid": 11,
+      "ground_center": [
+        3.07,
+        2.681
+      ],
+      "raw_uav_center": [
+        3.058,
+        2.694
+      ],
+      "aligned_uav_center": [
+        3.0709999999999997,
+        2.681
+      ],
+      "residual_m": 0.0009999999999998899,
+      "source": "full"
+    },
+    {
+      "bid": 12,
+      "ground_center": [
+        4.069,
+        0.883
+      ],
+      "raw_uav_center": [
+        4.056,
+        0.895
+      ],
+      "aligned_uav_center": [
+        4.069,
+        0.882
+      ],
+      "residual_m": 0.0010000000000000009,
+      "source": "full"
+    },
+    {
+      "bid": 13,
+      "ground_center": [
+        4.069,
+        1.283
+      ],
+      "raw_uav_center": [
+        4.056,
+        1.295
+      ],
+      "aligned_uav_center": [
+        4.069,
+        1.282
+      ],
+      "residual_m": 0.0009999999999998899,
+      "source": "full"
+    },
+    {
+      "bid": 14,
+      "ground_center": [
+        4.07,
+        2.484
+      ],
+      "raw_uav_center": [
+        4.058,
+        2.497
+      ],
+      "aligned_uav_center": [
+        4.071,
+        2.484
+      ],
+      "residual_m": 0.0009999999999994458,
+      "source": "full"
+    },
+    {
+      "bid": 15,
+      "ground_center": [
+        4.078,
+        3.684
+      ],
+      "raw_uav_center": [
+        4.066,
+        3.697
+      ],
+      "aligned_uav_center": [
+        4.079,
+        3.684
+      ],
+      "residual_m": 0.0009999999999994458,
+      "source": "full"
+    },
+    {
+      "bid": 16,
+      "ground_center": [
+        4.066,
+        4.081
+      ],
+      "raw_uav_center": [
+        4.066,
+        4.097
+      ],
+      "aligned_uav_center": [
+        4.079,
+        4.0840000000000005
+      ],
+      "residual_m": 0.013341664064126263,
+      "source": "full"
+    },
+    {
+      "bid": 17,
+      "ground_center": [
+        4.468,
+        1.285
+      ],
+      "raw_uav_center": [
+        4.456,
+        1.295
+      ],
+      "aligned_uav_center": [
+        4.469,
+        1.282
+      ],
+      "residual_m": 0.003162277660168382,
+      "source": "full"
+    },
+    {
+      "bid": 18,
+      "ground_center": [
+        4.469,
+        2.484
+      ],
+      "raw_uav_center": [
+        4.456,
+        2.497
+      ],
+      "aligned_uav_center": [
+        4.469,
+        2.484
+      ],
+      "residual_m": 0.0,
+      "source": "full"
+    },
+    {
+      "bid": 19,
+      "ground_center": [
+        4.469,
+        4.084
+      ],
+      "raw_uav_center": [
+        4.456,
+        4.097
+      ],
+      "aligned_uav_center": [
+        4.469,
+        4.0840000000000005
+      ],
+      "residual_m": 8.881784197001252e-16,
+      "source": "full"
+    },
+    {
+      "bid": 20,
+      "ground_center": [
+        1.666,
+        4.092
+      ],
+      "raw_uav_center": [
+        1.669,
+        4.097
+      ],
+      "aligned_uav_center": [
+        1.682,
+        4.0840000000000005
+      ],
+      "residual_m": 0.017888543819997937,
+      "source": "full"
+    }
+  ],
+  "uav_alignment": {
+    "dx": 0.013,
+    "dy": -0.013,
+    "matches": 12,
+    "rms": 0.021,
+    "t": 281.7650833209999
+  },
+  "confirmed_classified_face_count": 32,
+  "m3_sides": [
+    {
+      "key": "U09-E",
+      "sector": "CM",
+      "expected_class": "tank",
+      "ground_state": "pending",
+      "ground_box": 1,
+      "center": [
+        3.0578125000000003,
+        1.4968749999999997
+      ],
+      "match_error_m": 0.0038145486299168783,
+      "truth_box_index": 19,
+      "identified": false,
+      "ground_key": [
+        1,
+        0
+      ],
+      "classified_votes": {},
+      "dominant_class": null,
+      "dominant_class_matches_truth": null,
+      "retained_arrival_events": [],
+      "retained_selection_events": [],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        }
+      ]
+    },
+    {
+      "key": "U09-N",
+      "sector": "CM",
+      "expected_class": "mortar",
+      "ground_state": "empty",
+      "ground_box": 1,
+      "center": [
+        3.0578125000000003,
+        1.4968749999999997
+      ],
+      "match_error_m": 0.0038145486299168783,
+      "truth_box_index": 19,
+      "identified": false,
+      "ground_key": [
+        1,
+        1
+      ],
+      "classified_votes": {},
+      "dominant_class": null,
+      "dominant_class_matches_truth": null,
+      "retained_arrival_events": [],
+      "retained_selection_events": [],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 7.116,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 41.928,
+          "state": "empty"
+        }
+      ]
+    },
+    {
+      "key": "U09-S",
+      "sector": "CM",
+      "expected_class": "mortar",
+      "ground_state": "empty",
+      "ground_box": 1,
+      "center": [
+        3.0578125000000003,
+        1.4968749999999997
+      ],
+      "match_error_m": 0.0038145486299168783,
+      "truth_box_index": 19,
+      "identified": false,
+      "ground_key": [
+        1,
+        3
+      ],
+      "classified_votes": {},
+      "dominant_class": null,
+      "dominant_class_matches_truth": null,
+      "retained_arrival_events": [
+        {
+          "t": 266.332,
+          "outcome": "refine",
+          "view_valid": false,
+          "view_reason": "incidence",
+          "estimated_pose": [
+            3.4819316279911234,
+            1.1564011896876178,
+            -1.8574513045841325
+          ],
+          "primary_face": [
+            1,
+            3
+          ],
+          "planned_viewpoint": [
+            3.4162946428571432,
+            0.9972693452380954
+          ],
+          "original_goal_error_m": 0.1721370318536524,
+          "refinement_target": [
+            3.375,
+            0.975
+          ],
+          "face_geometry": {
+            "cx": 2.6162946428571434,
+            "cy": 1.2972693452380955,
+            "nx": 0.0,
+            "ny": -1.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        },
+        {
+          "t": 267.464,
+          "outcome": "defer",
+          "view_valid": false,
+          "view_reason": "occluded",
+          "estimated_pose": [
+            3.3941074946568746,
+            0.996035752375065,
+            -2.3635496211286906
+          ],
+          "primary_face": [
+            1,
+            3
+          ],
+          "planned_viewpoint": [
+            3.4162946428571432,
+            0.9972693452380954
+          ],
+          "original_goal_error_m": 0.02222141527023887,
+          "refinement_target": null,
+          "face_geometry": {
+            "cx": 2.6162946428571434,
+            "cy": 1.2972693452380955,
+            "nx": 0.0,
+            "ny": -1.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        },
+        {
+          "t": 268.688,
+          "outcome": "observe",
+          "view_valid": true,
+          "view_reason": "ok",
+          "estimated_pose": [
+            3.141318095661828,
+            0.8807740311455126,
+            2.734962868502902
+          ],
+          "primary_face": [
+            1,
+            3
+          ],
+          "planned_viewpoint": [
+            3.0162946428571433,
+            0.9972693452380954
+          ],
+          "original_goal_error_m": 0.17088599110733071,
+          "refinement_target": null,
+          "face_geometry": {
+            "cx": 2.6162946428571434,
+            "cy": 1.2972693452380955,
+            "nx": 0.0,
+            "ny": -1.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        }
+      ],
+      "retained_selection_events": [
+        {
+          "t": 202.08,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.4162946428571432,
+            0.6972693452380955
+          ],
+          "primary_face": [
+            1,
+            3
+          ],
+          "sector": "COMMON",
+          "gain": 3.5,
+          "utility": 0.035
+        },
+        {
+          "t": 263.53,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.4162946428571432,
+            0.9972693452380954
+          ],
+          "primary_face": [
+            1,
+            3
+          ],
+          "sector": "COMMON",
+          "gain": 1.0,
+          "utility": 0.021
+        },
+        {
+          "t": 267.54,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.0162946428571433,
+            0.9972693452380954
+          ],
+          "primary_face": [
+            1,
+            3
+          ],
+          "sector": "COMMON",
+          "gain": 1.412,
+          "utility": 0.235
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 268.012,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 271.08,
+          "state": "empty"
+        }
+      ]
+    },
+    {
+      "key": "U10-E",
+      "sector": "CM",
+      "expected_class": "drum",
+      "ground_state": "identified",
+      "ground_box": 10,
+      "center": [
+        3.0578125000000003,
+        2.2937499999999997
+      ],
+      "match_error_m": 0.006621756281380354,
+      "truth_box_index": 18,
+      "identified": true,
+      "ground_key": [
+        10,
+        0
+      ],
+      "classified_votes": {
+        "DRUM": 34.57412235046663
+      },
+      "dominant_class": "DRUM",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 154.46,
+          "state": "uncertain"
+        },
+        {
+          "elapsed_s": 218.90800000000002,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U10-S",
+      "sector": "CM",
+      "expected_class": "missile",
+      "ground_state": "identified",
+      "ground_box": 10,
+      "center": [
+        3.0578125000000003,
+        2.2937499999999997
+      ],
+      "match_error_m": 0.006621756281380354,
+      "truth_box_index": 18,
+      "identified": true,
+      "ground_key": [
+        10,
+        3
+      ],
+      "classified_votes": {
+        "MISSILE": 6.600036491601533
+      },
+      "dominant_class": "MISSILE",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [
+        {
+          "t": 258.34799999999996,
+          "outcome": "refine",
+          "view_valid": false,
+          "view_reason": "incidence",
+          "estimated_pose": [
+            4.0282278320377785,
+            1.7673406387662123,
+            3.092673368220523
+          ],
+          "primary_face": [
+            10,
+            3
+          ],
+          "planned_viewpoint": [
+            3.8598484848484853,
+            1.7833333333333334
+          ],
+          "original_goal_error_m": 0.16913713619252796,
+          "refinement_target": [
+            3.725,
+            1.775
+          ],
+          "face_geometry": {
+            "cx": 3.059848484848485,
+            "cy": 2.0833333333333335,
+            "nx": 0.0,
+            "ny": -1.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        },
+        {
+          "t": 259.996,
+          "outcome": "observe",
+          "view_valid": true,
+          "view_reason": "ok",
+          "estimated_pose": [
+            3.7535630994299876,
+            1.779559079673751,
+            -3.1004337546468013
+          ],
+          "primary_face": [
+            10,
+            3
+          ],
+          "planned_viewpoint": [
+            3.8598484848484853,
+            1.7833333333333334
+          ],
+          "original_goal_error_m": 0.10635237723833672,
+          "refinement_target": null,
+          "face_geometry": {
+            "cx": 3.059848484848485,
+            "cy": 2.0833333333333335,
+            "nx": 0.0,
+            "ny": -1.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        }
+      ],
+      "retained_selection_events": [
+        {
+          "t": 225.64,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.4618634259259258,
+            1.9041193181818181
+          ],
+          "primary_face": [
+            10,
+            3
+          ],
+          "sector": "COMMON",
+          "gain": 1.108,
+          "utility": 0.071
+        },
+        {
+          "t": 243.04,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.8598484848484853,
+            1.7833333333333334
+          ],
+          "primary_face": [
+            10,
+            3
+          ],
+          "sector": "COMMON",
+          "gain": 1.605,
+          "utility": 0.011
+        },
+        {
+          "t": 255.1,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.8598484848484853,
+            1.7833333333333334
+          ],
+          "primary_face": [
+            10,
+            3
+          ],
+          "sector": "COMMON",
+          "gain": 1.95,
+          "utility": 0.031
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 7.116,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 32.687999999999995,
+          "state": "uncertain"
+        },
+        {
+          "elapsed_s": 264.944,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U11-N",
+      "sector": "CM",
+      "expected_class": "missile",
+      "ground_state": "identified",
+      "ground_box": 11,
+      "center": [
+        3.0578125000000003,
+        2.6937499999999996
+      ],
+      "match_error_m": 0.006621756281380773,
+      "truth_box_index": 17,
+      "identified": true,
+      "ground_key": [
+        11,
+        1
+      ],
+      "classified_votes": {
+        "MISSILE": 8.471820118496057
+      },
+      "dominant_class": "MISSILE",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 63.41199999999999,
+          "state": "uncertain"
+        },
+        {
+          "elapsed_s": 81.824,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U12-E",
+      "sector": "CM",
+      "expected_class": "mortar",
+      "ground_state": "identified",
+      "ground_box": 6,
+      "center": [
+        3.0578125000000003,
+        3.503125
+      ],
+      "match_error_m": 0.0038145486299165144,
+      "truth_box_index": 16,
+      "identified": true,
+      "ground_key": [
+        6,
+        0
+      ],
+      "classified_votes": {
+        "MORTAR": 28.936031670667
+      },
+      "dominant_class": "MORTAR",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 79.78,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 80.804,
+          "state": "uncertain"
+        },
+        {
+          "elapsed_s": 81.824,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U12-N",
+      "sector": "CM",
+      "expected_class": "mortar",
+      "ground_state": "identified",
+      "ground_box": 6,
+      "center": [
+        3.0578125000000003,
+        3.503125
+      ],
+      "match_error_m": 0.0038145486299165144,
+      "truth_box_index": 16,
+      "identified": true,
+      "ground_key": [
+        6,
+        1
+      ],
+      "classified_votes": {
+        "MORTAR": 10.703802944222783
+      },
+      "dominant_class": "MORTAR",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 58.296,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 59.32,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U12-W",
+      "sector": "CM",
+      "expected_class": "drum",
+      "ground_state": "identified",
+      "ground_box": 6,
+      "center": [
+        3.0578125000000003,
+        3.503125
+      ],
+      "match_error_m": 0.0038145486299165144,
+      "truth_box_index": 16,
+      "identified": true,
+      "ground_key": [
+        6,
+        2
+      ],
+      "classified_votes": {
+        "DRUM": 7.742870446833782
+      },
+      "dominant_class": "DRUM",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 38.827999999999996,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 39.884,
+          "state": "empty"
+        },
+        {
+          "elapsed_s": 52.16,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U13-E",
+      "sector": "R-S3",
+      "expected_class": "military_truck",
+      "ground_state": "identified",
+      "ground_box": 12,
+      "center": [
+        4.05625,
+        0.8953125000000002
+      ],
+      "match_error_m": 0.006002928972593176,
+      "truth_box_index": 14,
+      "identified": true,
+      "ground_key": [
+        12,
+        0
+      ],
+      "classified_votes": {
+        "TRUCK": 25.074222838598583
+      },
+      "dominant_class": "TRUCK",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [
+        {
+          "t": 190.208,
+          "outcome": "observe",
+          "view_valid": true,
+          "view_reason": "ok",
+          "estimated_pose": [
+            5.2689190750115635,
+            0.8532005936053109,
+            -1.6059969550502655
+          ],
+          "primary_face": [
+            12,
+            0
+          ],
+          "planned_viewpoint": [
+            5.266666666666667,
+            0.6879464285714292
+          ],
+          "original_goal_error_m": 0.16526951444352211,
+          "refinement_target": null,
+          "face_geometry": {
+            "cx": 4.269270833333333,
+            "cy": 0.8817708333333341,
+            "nx": 1.0,
+            "ny": 0.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        }
+      ],
+      "retained_selection_events": [
+        {
+          "t": 179.84,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            5.266666666666667,
+            0.6879464285714292
+          ],
+          "primary_face": [
+            12,
+            0
+          ],
+          "sector": "R-S3",
+          "gain": 10.5,
+          "utility": 0.334
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 191.288,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 195.38000000000002,
+          "state": "empty"
+        },
+        {
+          "elapsed_s": 200.496,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U15-N",
+      "sector": "R-S2",
+      "expected_class": "drum",
+      "ground_state": "identified",
+      "ground_box": 14,
+      "center": [
+        4.0578125,
+        2.4968749999999997
+      ],
+      "match_error_m": 0.0038145486299173874,
+      "truth_box_index": 9,
+      "identified": true,
+      "ground_key": [
+        14,
+        1
+      ],
+      "classified_votes": {
+        "DRUM": 29.86767709314052,
+        "MORTAR": 0.970722217344965
+      },
+      "dominant_class": "DRUM",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [
+        {
+          "t": 38.61,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.6578125,
+            3.135729166666667
+          ],
+          "primary_face": [
+            14,
+            1
+          ],
+          "sector": "R-S2",
+          "gain": 10.006,
+          "utility": 0.118
+        },
+        {
+          "t": 45.63,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.069078947368421,
+            3.1528819444444447
+          ],
+          "primary_face": [
+            14,
+            1
+          ],
+          "sector": "R-S2",
+          "gain": 13.255,
+          "utility": 0.081
+        },
+        {
+          "t": 78.36,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.068142361111111,
+            3.294613227660364
+          ],
+          "primary_face": [
+            14,
+            1
+          ],
+          "sector": "R-S2",
+          "gain": 15.458,
+          "utility": 0.194
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 80.804,
+          "state": "uncertain"
+        },
+        {
+          "elapsed_s": 82.848,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U15-S",
+      "sector": "R-S2",
+      "expected_class": "missile",
+      "ground_state": "identified",
+      "ground_box": 14,
+      "center": [
+        4.0578125,
+        2.4968749999999997
+      ],
+      "match_error_m": 0.0038145486299173874,
+      "truth_box_index": 9,
+      "identified": true,
+      "ground_key": [
+        14,
+        3
+      ],
+      "classified_votes": {
+        "MISSILE": 45.77233103351357
+      },
+      "dominant_class": "MISSILE",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [
+        {
+          "t": 10.49,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.4682291666666667,
+            1.6943548387096774
+          ],
+          "primary_face": [
+            14,
+            3
+          ],
+          "sector": "R-S2",
+          "gain": 6.15,
+          "utility": 0.053
+        },
+        {
+          "t": 84.44,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.0640625,
+            1.8499999999999999
+          ],
+          "primary_face": [
+            14,
+            3
+          ],
+          "sector": "R-S2",
+          "gain": 19.686,
+          "utility": 0.191
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 92.056,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U16-E",
+      "sector": "R-S1",
+      "expected_class": "tank",
+      "ground_state": "identified",
+      "ground_box": 15,
+      "center": [
+        4.05625,
+        3.6968750000000004
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 4,
+      "identified": true,
+      "ground_key": [
+        15,
+        0
+      ],
+      "classified_votes": {
+        "TANK": 31.16561588917409
+      },
+      "dominant_class": "TANK",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [
+        {
+          "t": 109.436,
+          "outcome": "refine",
+          "view_valid": false,
+          "view_reason": "incidence",
+          "estimated_pose": [
+            4.247589318202048,
+            3.2325426377834034,
+            0.056757978182077735
+          ],
+          "primary_face": [
+            15,
+            0
+          ],
+          "planned_viewpoint": [
+            4.443923611111111,
+            3.307291666666668
+          ],
+          "original_goal_error_m": 0.21008229790035302,
+          "refinement_target": [
+            4.525,
+            3.275
+          ],
+          "face_geometry": {
+            "cx": 4.269704861111111,
+            "cy": 3.7041979166666668,
+            "nx": 1.0,
+            "ny": 0.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        },
+        {
+          "t": 111.048,
+          "outcome": "observe",
+          "view_valid": true,
+          "view_reason": "ok",
+          "estimated_pose": [
+            4.499977371251646,
+            3.2597784400931773,
+            0.23374925884135334
+          ],
+          "primary_face": [
+            15,
+            0
+          ],
+          "planned_viewpoint": [
+            4.443923611111111,
+            3.307291666666668
+          ],
+          "original_goal_error_m": 0.0734814992043335,
+          "refinement_target": null,
+          "face_geometry": {
+            "cx": 4.275607638888889,
+            "cy": 3.6955081083450216,
+            "nx": 1.0,
+            "ny": 0.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        }
+      ],
+      "retained_selection_events": [
+        {
+          "t": 38.73,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.440624999999998,
+            3.2857291666666675
+          ],
+          "primary_face": [
+            15,
+            0
+          ],
+          "sector": "R-S1",
+          "gain": 15.035,
+          "utility": 0.135
+        },
+        {
+          "t": 39.26,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            5.063653273809522,
+            3.4850520833333336
+          ],
+          "primary_face": [
+            15,
+            0
+          ],
+          "sector": "R-S1",
+          "gain": 15.145,
+          "utility": 0.112
+        },
+        {
+          "t": 90.44,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.571125,
+            2.8912523213079844
+          ],
+          "primary_face": [
+            15,
+            0
+          ],
+          "sector": "R-S1",
+          "gain": 25.2,
+          "utility": 0.227
+        },
+        {
+          "t": 106.64,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.443923611111111,
+            3.307291666666668
+          ],
+          "primary_face": [
+            15,
+            0
+          ],
+          "sector": "R-S1",
+          "gain": 16.8,
+          "utility": 0.356
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 112.51599999999999,
+          "state": "uncertain"
+        },
+        {
+          "elapsed_s": 113.53999999999999,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U16-W",
+      "sector": "R-S1",
+      "expected_class": "drum",
+      "ground_state": "identified",
+      "ground_box": 15,
+      "center": [
+        4.05625,
+        3.6968750000000004
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 4,
+      "identified": true,
+      "ground_key": [
+        15,
+        2
+      ],
+      "classified_votes": {
+        "DRUM": 27.89407149823981
+      },
+      "dominant_class": "DRUM",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [
+        {
+          "t": 39.43,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.263653273809522,
+            3.885052083333334
+          ],
+          "primary_face": [
+            15,
+            2
+          ],
+          "sector": "R-S1",
+          "gain": 10.119,
+          "utility": 0.09
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 56.251999999999995,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U17-N",
+      "sector": "R-S1",
+      "expected_class": "ammo_box",
+      "ground_state": "identified",
+      "ground_box": 16,
+      "center": [
+        4.05625,
+        4.096875
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 3,
+      "identified": true,
+      "ground_key": [
+        16,
+        1
+      ],
+      "classified_votes": {
+        "AMMO_BOX": 22.36973092279572
+      },
+      "dominant_class": "AMMO_BOX",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 124.792,
+          "state": "uncertain"
+        },
+        {
+          "elapsed_s": 125.816,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U18-E",
+      "sector": "R-S3",
+      "expected_class": "drum",
+      "ground_state": "identified",
+      "ground_box": 17,
+      "center": [
+        4.45625,
+        1.2953124999999996
+      ],
+      "match_error_m": 0.006002928972593697,
+      "truth_box_index": 15,
+      "identified": true,
+      "ground_key": [
+        17,
+        0
+      ],
+      "classified_votes": {
+        "DRUM": 40.76515794898368
+      },
+      "dominant_class": "DRUM",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 186.17200000000003,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U18-S",
+      "sector": "R-S3",
+      "expected_class": "ammo_box",
+      "ground_state": "identified",
+      "ground_box": 17,
+      "center": [
+        4.45625,
+        1.2953124999999996
+      ],
+      "match_error_m": 0.006002928972593697,
+      "truth_box_index": 15,
+      "identified": true,
+      "ground_key": [
+        17,
+        3
+      ],
+      "classified_votes": {
+        "AMMO_BOX": 17.81508606152363
+      },
+      "dominant_class": "AMMO_BOX",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 199.472,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 200.496,
+          "state": "uncertain"
+        },
+        {
+          "elapsed_s": 201.51600000000002,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U19-N",
+      "sector": "R-S2",
+      "expected_class": "mortar",
+      "ground_state": "identified",
+      "ground_box": 18,
+      "center": [
+        4.45625,
+        2.4968749999999997
+      ],
+      "match_error_m": 0.004881406047441939,
+      "truth_box_index": 8,
+      "identified": true,
+      "ground_key": [
+        18,
+        1
+      ],
+      "classified_votes": {
+        "MORTAR": 38.21597568733132
+      },
+      "dominant_class": "MORTAR",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [
+        {
+          "t": 51.54,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            5.270028409090909,
+            3.163839285714287
+          ],
+          "primary_face": [
+            18,
+            1
+          ],
+          "sector": "R-S2",
+          "gain": 17.669,
+          "utility": 0.089
+        },
+        {
+          "t": 57.54,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.6531249999999993,
+            3.5108870967741943
+          ],
+          "primary_face": [
+            18,
+            1
+          ],
+          "sector": "R-S2",
+          "gain": 12.603,
+          "utility": 0.1
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 82.848,
+          "state": "uncertain"
+        },
+        {
+          "elapsed_s": 83.872,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U20-E",
+      "sector": "R-S1",
+      "expected_class": "tank",
+      "ground_state": "identified",
+      "ground_box": 19,
+      "center": [
+        4.45625,
+        4.096875
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 5,
+      "identified": true,
+      "ground_key": [
+        19,
+        0
+      ],
+      "classified_votes": {
+        "TANK": 14.504574151694284
+      },
+      "dominant_class": "TANK",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [
+        {
+          "t": 172.088,
+          "outcome": "refine",
+          "view_valid": false,
+          "view_reason": "incidence",
+          "estimated_pose": [
+            4.72263307547175,
+            3.5647309976768744,
+            0.7894262834795731
+          ],
+          "primary_face": [
+            19,
+            0
+          ],
+          "planned_viewpoint": [
+            4.8421875000000005,
+            3.6907647907647907
+          ],
+          "original_goal_error_m": 0.17371752192685944,
+          "refinement_target": [
+            4.925000000000001,
+            3.625
+          ],
+          "face_geometry": {
+            "cx": 4.670833333333334,
+            "cy": 4.0841666666666665,
+            "nx": 1.0,
+            "ny": 0.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        },
+        {
+          "t": 175.104,
+          "outcome": "refinement_timeout",
+          "view_valid": true,
+          "view_reason": "ok",
+          "estimated_pose": [
+            4.952930459752061,
+            3.5694118413926863,
+            2.988823464067486
+          ],
+          "primary_face": [
+            19,
+            0
+          ],
+          "planned_viewpoint": [
+            4.8421875000000005,
+            3.6907647907647907
+          ],
+          "original_goal_error_m": 0.16428798329748573,
+          "refinement_target": [
+            4.925000000000001,
+            3.625
+          ],
+          "face_geometry": {
+            "cx": 4.675520833333334,
+            "cy": 4.082638888888889,
+            "nx": 1.0,
+            "ny": 0.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        },
+        {
+          "t": 177.38400000000001,
+          "outcome": "observe",
+          "view_valid": true,
+          "view_reason": "ok",
+          "estimated_pose": [
+            5.103660909377911,
+            3.721244591193022,
+            0.09202474302216446
+          ],
+          "primary_face": [
+            19,
+            0
+          ],
+          "planned_viewpoint": [
+            5.275520833333333,
+            3.682638888888889
+          ],
+          "original_goal_error_m": 0.176142651599091,
+          "refinement_target": null,
+          "face_geometry": {
+            "cx": 4.65892094017094,
+            "cy": 4.094201388888889,
+            "nx": 1.0,
+            "ny": 0.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        }
+      ],
+      "retained_selection_events": [
+        {
+          "t": 127.58,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.834375,
+            4.510714285714286
+          ],
+          "primary_face": [
+            19,
+            0
+          ],
+          "sector": "R-S1",
+          "gain": 4.325,
+          "utility": 0.495
+        },
+        {
+          "t": 157.26,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.967708333333333,
+            3.28203125
+          ],
+          "primary_face": [
+            19,
+            0
+          ],
+          "sector": "R-S1",
+          "gain": 7.989,
+          "utility": 0.193
+        },
+        {
+          "t": 168.92,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.8421875000000005,
+            3.6907647907647907
+          ],
+          "primary_face": [
+            19,
+            0
+          ],
+          "sector": "R-S1",
+          "gain": 9.428,
+          "utility": 1.004
+        },
+        {
+          "t": 175.14,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            5.275520833333333,
+            3.682638888888889
+          ],
+          "primary_face": [
+            19,
+            0
+          ],
+          "sector": "R-S1",
+          "gain": 10.195,
+          "utility": 1.551
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 175.94000000000003,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 176.964,
+          "state": "uncertain"
+        },
+        {
+          "elapsed_s": 180.032,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U20-N",
+      "sector": "R-S1",
+      "expected_class": "tank",
+      "ground_state": "identified",
+      "ground_box": 19,
+      "center": [
+        4.45625,
+        4.096875
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 5,
+      "identified": true,
+      "ground_key": [
+        19,
+        1
+      ],
+      "classified_votes": {
+        "TANK": 7.802744019793045
+      },
+      "dominant_class": "TANK",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [
+        {
+          "t": 122.06400000000001,
+          "outcome": "refine",
+          "view_valid": false,
+          "view_reason": "incidence",
+          "estimated_pose": [
+            3.6759318802342418,
+            4.503300763090679,
+            1.0129515712769086
+          ],
+          "primary_face": [
+            19,
+            1
+          ],
+          "planned_viewpoint": [
+            3.66657196969697,
+            4.755613159242192
+          ],
+          "original_goal_error_m": 0.25248594649402545,
+          "refinement_target": [
+            3.775,
+            4.675000000000001
+          ],
+          "face_geometry": {
+            "cx": 4.46657196969697,
+            "cy": 4.305613159242192,
+            "nx": 0.0,
+            "ny": 1.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        },
+        {
+          "t": 123.924,
+          "outcome": "observe",
+          "view_valid": true,
+          "view_reason": "ok",
+          "estimated_pose": [
+            3.7507900275217985,
+            4.659721321824819,
+            0.6597932005391763
+          ],
+          "primary_face": [
+            19,
+            1
+          ],
+          "planned_viewpoint": [
+            3.66657196969697,
+            4.755613159242192
+          ],
+          "original_goal_error_m": 0.12762415816398615,
+          "refinement_target": null,
+          "face_geometry": {
+            "cx": 4.464054608585858,
+            "cy": 4.30582729468599,
+            "nx": 0.0,
+            "ny": 1.0
+          },
+          "geometry_source": "observed_coverage_ledger",
+          "uses_world_truth": false
+        }
+      ],
+      "retained_selection_events": [
+        {
+          "t": 39.56,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.654278273809524,
+            4.585052083333334
+          ],
+          "primary_face": [
+            19,
+            1
+          ],
+          "sector": "R-S1",
+          "gain": 15.206,
+          "utility": 0.052
+        },
+        {
+          "t": 113.64,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.864750267094017,
+            4.470128536226318
+          ],
+          "primary_face": [
+            19,
+            1
+          ],
+          "sector": "R-S1",
+          "gain": 6.093,
+          "utility": 0.037
+        },
+        {
+          "t": 121.66,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            3.66657196969697,
+            4.755613159242192
+          ],
+          "primary_face": [
+            19,
+            1
+          ],
+          "sector": "R-S1",
+          "gain": 7.487,
+          "utility": 1.266
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 124.792,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 127.86,
+          "state": "empty"
+        },
+        {
+          "elapsed_s": 129.90800000000002,
+          "state": "identified"
+        }
+      ]
+    },
+    {
+      "key": "U20-S",
+      "sector": "R-S1",
+      "expected_class": "tank",
+      "ground_state": "identified",
+      "ground_box": 19,
+      "center": [
+        4.45625,
+        4.096875
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 5,
+      "identified": true,
+      "ground_key": [
+        19,
+        3
+      ],
+      "classified_votes": {
+        "TANK": 57.10151941767727
+      },
+      "dominant_class": "TANK",
+      "dominant_class_matches_truth": true,
+      "retained_arrival_events": [],
+      "retained_selection_events": [
+        {
+          "t": 38.84,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            4.654278273809524,
+            2.885052083333334
+          ],
+          "primary_face": [
+            19,
+            3
+          ],
+          "sector": "R-S1",
+          "gain": 15.057,
+          "utility": 0.125
+        },
+        {
+          "t": 39.13,
+          "kind": "selected",
+          "candidate": "face",
+          "vp": [
+            5.0542782738095235,
+            2.885052083333334
+          ],
+          "primary_face": [
+            19,
+            3
+          ],
+          "sector": "R-S1",
+          "gain": 15.117,
+          "utility": 0.114
+        }
+      ],
+      "evidence_note": "Retained diagnostics can be bounded; no entry does not prove that a viewpoint was never considered.",
+      "ledger_state_transitions": [
+        {
+          "elapsed_s": 0.9760000000000001,
+          "state": null
+        },
+        {
+          "elapsed_s": 4.044,
+          "state": "pending"
+        },
+        {
+          "elapsed_s": 111.492,
+          "state": "viewed"
+        },
+        {
+          "elapsed_s": 112.51599999999999,
+          "state": "identified"
+        }
+      ]
+    }
+  ],
+  "classification_timeline": [
+    {
+      "elapsed_s": 0.040000000000000036,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 51.84,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 56.040000000000006,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 59.040000000000006,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 81.54,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 82.54,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 83.04,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 91.64000000000001,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 111.39200000000001,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 1,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 113.04,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 2,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 125.14000000000001,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 2,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 129.34,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 3,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 179.292,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 4,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 0,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 185.34,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 4,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 199.544,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 4,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 1,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 200.592,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 4,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 1,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 218.89200000000002,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 4,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 1,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 2,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        }
+      },
+      "mode": "EXPLORE"
+    },
+    {
+      "elapsed_s": 263.94,
+      "counts": {
+        "R-S1": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 0,
+          "TANK": 4,
+          "MISSILE": 0
+        },
+        "R-S2": {
+          "AMMO_BOX": 0,
+          "DRUM": 1,
+          "MORTAR": 1,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 1
+        },
+        "R-S3": {
+          "AMMO_BOX": 1,
+          "DRUM": 1,
+          "MORTAR": 0,
+          "TRUCK": 1,
+          "TANK": 0,
+          "MISSILE": 0
+        },
+        "COMMON": {
+          "AMMO_BOX": 0,
+          "DRUM": 2,
+          "MORTAR": 2,
+          "TRUCK": 0,
+          "TANK": 0,
+          "MISSILE": 2
+        }
+      },
+      "mode": "EXPLORE"
+    }
+  ],
+  "limitation": "Final accepted sector/class counts determine the aggregate result. Local per-face states and retained events diagnose coverage only; counts are not individual target recall."
+}

@@ -41,11 +41,20 @@ DEFAULTS = [
     ("oak_det", "ugv_only", False), ("oak_det", "depth_range", False), ("oak_det", "depth_max_dt_s", 0.35), ("oak_det", "iff_max_range_m", 2.2),
     ("depth", "gate_drive", True), ("hal", "imu_mount_yaw_deg", 0.0),
     ("impact", "enable", False), ("impact", "trigger_dg", 0.45), ("impact", "backoff", True),
+    ("impact", "vib_filter", False), ("impact", "vib_window_s", 0.12), ("impact", "vib_min_unipolar", 0.45), ("impact", "vib_min_samples", 4),
     ("pose_guard", "enable", False), ("pose_guard", "link_check", True), ("pose_guard", "link_trim", False), ("pose_guard", "fallback_deg", 5.0),
     ("pose_guard", "reanchor", False), ("pose_guard", "reanchor_use_uav_boxes", False), ("pose_guard", "reanchor_max_m", 0.6),
     ("pose_guard", "reanchor_confirm_n", 3),
     ("pose_guard", "structures", "fixed"), ("pose_guard", "structures_min_boxes", 4),
     ("explore", "m1_priority_enemy_first", False), ("explore", "uav_census", False), ("explore", "m1_cm_defer", 0.3),
+    ("explore", "sector_finish_bonus", 0.0), ("explore", "sector_finish_max_todo", 3), ("explore", "sector_finish_min_done", 0.5),
+    ("explore", "m3_dedupe", False), ("explore", "m3_dedupe_dist_m", 0.25),
+    ("explore", "uav_map_freeze", False), ("explore", "uav_map_freeze_s", 4.0), ("explore", "uav_map_freeze_min_boxes", 1),
+    ("explore", "uav_outer_faces", False), ("explore", "uav_adjacent_tol_m", 0.14), ("explore", "uav_cover_frac", 0.2),
+    ("explore", "uav_exclude_ugv", False), ("explore", "uav_ugv_exclude_m", 0.25),
+    ("mission", "m2_robust_abandon", False), ("mission", "m2_nav_budget_s", 12.0), ("mission", "m2_blocked_s", 4.0), ("mission", "m2_unreach_max", 3),
+    ("perception", "pose_extrap_max_s", 0.0),
+    ("mission", "m2_lost_robust", False), ("mission", "m2_lost_cooldown_s", 6.0), ("mission", "m2_lost_max", 3), ("mission", "m2_evidence_w", 0.0),
 ]
 
 # 문서의 기본이 '다른 키와 같다/창 없음' 으로 적힌 키

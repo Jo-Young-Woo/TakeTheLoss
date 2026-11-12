@@ -1,0 +1,118 @@
+# MAICON 2026 — 기본 박스 배치 (경기마다 바뀌는 값). gen_layout.py로 생성
+meta: {seed: 2026, source: 1차 자료 p23 참고 렌더 위치(추정) + 무작위 면 배정. 경기마다 바뀌는 값 — 현장 배치를 보면 이 파일만 고친다, confidence: assumed, face_keys: 'N=+Y,
+    E=+X, S=-Y, W=-X 쪽 옆면. hidden=다른 박스·벽에 붙어 안 보임. m3:<type> | target:<kind> | deco:<kind> | blank', clearance_check: OK
+    (모든 덩어리 간·벽·고정설비와 >= 0.40 m)}
+boxes:
+- cluster: B_S1_L
+  sector: B-S1
+  center: [-1.2, 1.8]
+  faces: {N: 'm3:ammo_box', E: 'target:outpost', S: hidden, W: hidden}
+- cluster: B_S1_L
+  sector: B-S1
+  center: [-1.2, 1.4]
+  faces: {N: hidden, E: 'deco:city_tree', S: blank, W: blank}
+- cluster: B_S1_L
+  sector: B-S1
+  center: [-1.6, 1.8]
+  faces: {N: 'deco:ruined_building', E: hidden, S: 'deco:ruined_building', W: 'deco:ruined_building'}
+- cluster: R_S1_L
+  sector: R-S1
+  center: [1.2, 1.8]
+  faces: {N: 'm3:ammo_box', E: hidden, S: hidden, W: 'target:outpost'}
+- cluster: R_S1_L
+  sector: R-S1
+  center: [1.2, 1.4]
+  faces: {N: hidden, E: 'm3:tank', S: blank, W: 'm3:drum'}
+- cluster: R_S1_L
+  sector: R-S1
+  center: [1.6, 1.8]
+  faces: {N: 'm3:tank', E: 'm3:tank', S: 'm3:tank', W: hidden}
+- cluster: B_S2_pair
+  sector: B-S2
+  center: [-1.6, 0.0]
+  faces: {N: blank, E: hidden, S: blank, W: 'm3:military_truck'}
+- cluster: B_S2_pair
+  sector: B-S2
+  center: [-1.2, 0.0]
+  faces: {N: 'deco:city_tree', E: 'target:comms', S: 'deco:field_bunker', W: hidden}
+- cluster: R_S2_pair
+  sector: R-S2
+  center: [1.6, 0.0]
+  faces: {N: 'm3:mortar', E: blank, S: 'deco:field_bunker', W: hidden}
+- cluster: R_S2_pair
+  sector: R-S2
+  center: [1.2, 0.0]
+  faces: {N: 'm3:drum', E: hidden, S: 'm3:missile', W: 'target:comms'}
+- cluster: B_S3_L
+  sector: B-S3
+  center: [-1.2, -1.4]
+  faces: {N: 'm3:missile', E: 'target:radar', S: hidden, W: hidden}
+- cluster: B_S3_L
+  sector: B-S3
+  center: [-1.2, -1.8]
+  faces: {N: hidden, E: blank, S: 'deco:city_tree', W: 'm3:ammo_box'}
+- cluster: B_S3_L
+  sector: B-S3
+  center: [-1.6, -1.4]
+  faces: {N: blank, E: hidden, S: 'm3:ammo_box', W: 'm3:missile'}
+- cluster: R_S3_L
+  sector: R-S3
+  center: [1.2, -1.4]
+  faces: {N: 'deco:ruined_building', E: hidden, S: hidden, W: 'target:radar'}
+- cluster: R_S3_L
+  sector: R-S3
+  center: [1.2, -1.8]
+  faces: {N: hidden, E: 'm3:military_truck', S: 'deco:barrier_wall', W: blank}
+- cluster: R_S3_L
+  sector: R-S3
+  center: [1.6, -1.4]
+  faces: {N: blank, E: 'm3:drum', S: 'm3:ammo_box', W: hidden}
+- cluster: CM_upper
+  sector: CM
+  center: [0.0, 1.2]
+  faces: {N: 'm3:mortar', E: 'm3:mortar', S: blank, W: 'm3:drum'}
+- cluster: CM_center
+  sector: CM
+  center: [0.0, 0.2]
+  faces: {N: 'm3:missile', E: 'deco:field_bunker', S: hidden, W: 'deco:field_bunker'}
+- cluster: CM_center
+  sector: CM
+  center: [0.0, -0.2]
+  faces: {N: hidden, E: 'm3:drum', S: 'm3:missile', W: blank}
+- cluster: CM_lower
+  sector: CM
+  center: [0.0, -1.2]
+  faces: {N: 'm3:mortar', E: 'm3:tank', S: 'm3:mortar', W: 'deco:ruined_building'}
+targets_summary:
+- camp: B
+  center: [-1.2, 1.8]
+  face: E
+  kind: outpost
+- camp: R
+  center: [1.2, 1.8]
+  face: W
+  kind: outpost
+- camp: B
+  center: [-1.2, 0.0]
+  face: E
+  kind: comms
+- camp: R
+  center: [1.2, 0.0]
+  face: W
+  kind: comms
+- camp: B
+  center: [-1.2, -1.4]
+  face: E
+  kind: radar
+- camp: R
+  center: [1.2, -1.4]
+  face: W
+  kind: radar
+m3_ground_truth:
+  B-S1: {ammo_box: 1}
+  B-S2: {military_truck: 1}
+  B-S3: {ammo_box: 2, missile: 2}
+  CM: {drum: 2, missile: 2, mortar: 4, tank: 1}
+  R-S1: {ammo_box: 1, drum: 1, tank: 4}
+  R-S2: {drum: 1, missile: 1, mortar: 1}
+  R-S3: {ammo_box: 1, drum: 1, military_truck: 1}

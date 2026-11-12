@@ -67,12 +67,22 @@ class ImpactDetector:
     - 문턱 = max(trigger_dg, noise_k × 최근 평균 편차) — 거친 바닥의 모터 진동이 충돌로 오인되지 않게 한다.
     - 편차가 sustain_s 넘게 이어지면 충돌이 아니라 기울기 변화(경사로)로 보고 기준선을 현재 값으로 옮긴다.
     - ax, ay(차체 기준 수평 가속도 [g])가 있으면 방향을 낸다: 몸이 받은 가속도의 반대쪽이 접촉 방위.
+    - 진동 거르기(vib_filter, 기본 꺼짐): 바퀴·바닥 진동은 부호가 번갈아 바뀌어 한 덩어리의 가속도를 시간으로 적분하면 거의 0 이고,
+      진짜 충돌은 한쪽 방향 펄스라 알짜 충격량이 크다. 덩어리가 시작되면 vib_window_s 동안 수평 가속도를 모아
+      '알짜 충격량 / 절댓값 충격량' 이 vib_min_unipolar 미만이면 진동으로 보고 이벤트를 내지 않는다. 큰 충격(major_dg 이상)·자이로 충격·수평
+      가속도(ax, ay)를 모르는 경우·표본이 vib_min_samples 미만이라 판단할 수 없는 경우는 거르지 않고 지금처럼 바로/그대로 낸다.
     - 한 번의 충돌은 refractory_s 안에 한 번만 낸다(그 안의 더 큰 값은 같은 사건의 peak 에 반영).
     스레드: IMU 콜백 스레드에서 add(), Agent 스레드에서 pop() — 내부 deque 가 한 방향이라 별도 잠금은 쓰지 않는다."""
 
     def __init__(self, trigger_dg: float = 0.45, major_dg: float = 1.2, gyro_dps: float = 180.0, major_gyro_dps: float = 400.0,
                  refractory_s: float = 0.35, baseline_tau_s: float = 1.5, noise_k: float = 5.0, warmup_s: float = 0.5,
-                 sustain_s: float = 0.6) -> None:
+                 sustain_s: float = 0.6, vib_filter: bool = False, vib_window_s: float = 0.12, vib_min_unipolar: float = 0.45,
+                 vib_min_samples: int = 4) -> None:
+        self.vib_filter, self.vib_window_s, self.vib_min_unipolar, self.vib_min_samples = vib_filter, vib_window_s, vib_min_unipolar, vib_min_samples
+        self._cand: Optional[Dict[str, Any]] = None                      # 판정 대기 중인 가속도 덩어리(진동 거르기가 켜졌을 때만)
+        self.vib_regime_s, self.vib_regime_unipolar, self._vib_until = 2.0, 0.7, -1e18      # 진동으로 거른 뒤 이 시간 동안은 일치도 0.7 이상만 충돌
+        self.vib_rejected = 0                                            # 진동으로 보고 버린 덩어리 수
+        self.vib_last_unipolar: Optional[float] = None
         self.trigger_dg, self.major_dg, self.gyro_dps, self.major_gyro_dps = trigger_dg, major_dg, gyro_dps, major_gyro_dps
         self.refractory_s, self.tau, self.noise_k, self.warmup_s, self.sustain_s = refractory_s, baseline_tau_s, noise_k, warmup_s, sustain_s
         self._t0: Optional[float] = None
@@ -110,6 +120,7 @@ class ImpactDetector:
         thr = max(self.trigger_dg, self.noise_k * self._noise)
         warm = (t - self._t0) < self.warmup_s
         trig = (not warm) and (mag >= thr or gyro >= self.gyro_dps)
+        cand_ev = self._cand_feed(t, dt, hx, hy, dh, mag, gyro, trig) if self._cand is not None else None
         if not trig:
             self._trig_since = None
             self._bg += alpha * dev_g
@@ -119,10 +130,12 @@ class ImpactDetector:
             self._n_noise += 1
             a_noise = max(alpha, 1.0 / self._n_noise) if warm else alpha          # 시작 구간은 단순 평균으로 잡음 수준을 빨리 잡는다
             self._noise += a_noise * (min(mag, 0.5) - self._noise)
-            return None
+            return cand_ev
         rising = self._trig_since is None
         if rising:
             self._trig_since = t
+            if self._cand is not None or cand_ev is not None:                      # 판정 대기 덩어리의 연속(사이에 한 표본이 문턱 아래였다)
+                return cand_ev
         else:
             if self._cur is not None:                                              # 같은 덩어리의 후속 표본: 더 큰 값은 같은 사건에 반영
                 if mag > self._cur.peak_dg:
@@ -135,19 +148,61 @@ class ImpactDetector:
                 self._bg, self._trig_since = g, None                                # 이어지는 편차 = 기울기 변화: 기준선을 옮긴다
                 if has_xy:
                     self._bx, self._by = float(ax), float(ay)
-            return None
+                self._cand = None                                                   # 기울기 변화였다 — 판정 대기 덩어리도 버린다
+            return cand_ev
         if self._cur is not None and t < self._until:                              # refractory 안의 두 번째 덩어리 = 같은 충돌
             if mag > self._cur.peak_dg:
                 self._cur.peak_dg = mag
             if gyro > self._cur.gyro_dps:
                 self._cur.gyro_dps = gyro
             return None
-        ev = ImpactEvent(t, mag, math.atan2(-hy, -hx) if (has_xy and dh >= 0.5 * mag and dh >= 0.5 * thr) else None, gyro,
-                         "gyro" if (gyro >= self.gyro_dps and mag < thr) else "accel", self.major_dg, self.major_gyro_dps)
+        bearing = math.atan2(-hy, -hx) if (has_xy and dh >= 0.5 * mag and dh >= 0.5 * thr) else None
+        if (self.vib_filter and has_xy and mag < self.major_dg and gyro < self.gyro_dps):
+            # 가속도만으로 난 작은 덩어리: 바로 내지 않고 vib_window_s 동안 알짜 충격량을 모아 진동인지 가린다.
+            self._cand = {"t0": t, "peak": mag, "bearing": bearing, "dh": dh, "thr": thr, "gyro": gyro,
+                          "sx": hx * min(dt, 0.05), "sy": hy * min(dt, 0.05), "sa": dh * min(dt, 0.05), "n": 1}
+            return None
+        ev = ImpactEvent(t, mag, bearing, gyro, "gyro" if (gyro >= self.gyro_dps and mag < thr) else "accel", self.major_dg, self.major_gyro_dps)
+        return self._emit(ev, dh, t)
+
+    def _emit(self, ev: ImpactEvent, dh: float, t: float) -> ImpactEvent:
         self._cur, self._cur_h, self._until = ev, dh, t + self.refractory_s
         self.events.append(ev)
         self.count += 1
         return ev
+
+    def _cand_feed(self, t: float, dt: float, hx: float, hy: float, dh: float, mag: float, gyro: float, trig: bool) -> Optional[ImpactEvent]:
+        """판정 대기 덩어리에 표본을 더하고, 창이 끝났거나 덩어리가 끝났으면 진동 여부를 가려 이벤트를 낸다(진동이면 None)."""
+        c = self._cand
+        assert c is not None
+        w = min(dt, 0.05)
+        if dh >= 0.5 * c["thr"]:                                           # 문턱의 절반 아래 표본(잡음·약한 잔향)은 충격량에 넣지 않는다 — 진짜 펄스를 희석한다
+            c["sx"] += hx * w
+            c["sy"] += hy * w
+            c["sa"] += dh * w
+        c["n"] += 1
+        if mag > c["peak"]:
+            c["peak"] = mag
+        if gyro > c["gyro"]:
+            c["gyro"] = gyro
+        if dh > c["dh"]:
+            c["dh"] = dh
+            if dh >= 0.5 * c["thr"]:
+                c["bearing"] = math.atan2(-hy, -hx)
+        big = c["peak"] >= self.major_dg or c["gyro"] >= self.gyro_dps
+        window_over = (t - c["t0"]) >= self.vib_window_s       # 덩어리가 끝나도 창이 끝날 때까지 모은다 — 진동은 영점마다 문턱 아래로 내려가므로 반주기만 보고 판정하면 한쪽 펄스로 오인된다
+        if not (big or window_over):
+            return None
+        self._cand = None
+        uni = math.hypot(c["sx"], c["sy"]) / max(c["sa"], 1e-9)
+        self.vib_last_unipolar = uni
+        need = max(self.vib_min_unipolar, self.vib_regime_unipolar) if t < self._vib_until else self.vib_min_unipolar
+        if not big and c["n"] >= self.vib_min_samples and uni < need:
+            self.vib_rejected += 1                                         # 부호가 번갈아 바뀌는 진동 — 충돌이 아니다
+            self._vib_until = t + self.vib_regime_s                       # 진동 구간: 한동안은 더 엄격하게(한쪽 펄스만) 본다
+            return None
+        ev = ImpactEvent(c["t0"], c["peak"], c["bearing"], c["gyro"], "accel", self.major_dg, self.major_gyro_dps)
+        return self._emit(ev, c["dh"], c["t0"])
 
     def pop(self) -> List[ImpactEvent]:
         out: List[ImpactEvent] = []

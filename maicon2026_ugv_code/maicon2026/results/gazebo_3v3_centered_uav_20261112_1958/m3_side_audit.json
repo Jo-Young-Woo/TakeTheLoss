@@ -1,0 +1,300 @@
+{
+  "evaluation_only": true,
+  "sides": [
+    {
+      "key": "U09-E",
+      "sector": "CM",
+      "expected_class": "tank",
+      "ground_state": "pending",
+      "ground_box": 1,
+      "center": [
+        3.0578125000000003,
+        1.4968749999999997
+      ],
+      "match_error_m": 0.0038145486299168783,
+      "truth_box_index": 19,
+      "identified": false
+    },
+    {
+      "key": "U09-N",
+      "sector": "CM",
+      "expected_class": "mortar",
+      "ground_state": "empty",
+      "ground_box": 1,
+      "center": [
+        3.0578125000000003,
+        1.4968749999999997
+      ],
+      "match_error_m": 0.0038145486299168783,
+      "truth_box_index": 19,
+      "identified": false
+    },
+    {
+      "key": "U09-S",
+      "sector": "CM",
+      "expected_class": "mortar",
+      "ground_state": "empty",
+      "ground_box": 1,
+      "center": [
+        3.0578125000000003,
+        1.4968749999999997
+      ],
+      "match_error_m": 0.0038145486299168783,
+      "truth_box_index": 19,
+      "identified": false
+    },
+    {
+      "key": "U10-E",
+      "sector": "CM",
+      "expected_class": "drum",
+      "ground_state": "identified",
+      "ground_box": 10,
+      "center": [
+        3.0578125000000003,
+        2.2937499999999997
+      ],
+      "match_error_m": 0.006621756281380354,
+      "truth_box_index": 18,
+      "identified": true
+    },
+    {
+      "key": "U10-S",
+      "sector": "CM",
+      "expected_class": "missile",
+      "ground_state": "identified",
+      "ground_box": 10,
+      "center": [
+        3.0578125000000003,
+        2.2937499999999997
+      ],
+      "match_error_m": 0.006621756281380354,
+      "truth_box_index": 18,
+      "identified": true
+    },
+    {
+      "key": "U11-N",
+      "sector": "CM",
+      "expected_class": "missile",
+      "ground_state": "identified",
+      "ground_box": 11,
+      "center": [
+        3.0578125000000003,
+        2.6937499999999996
+      ],
+      "match_error_m": 0.006621756281380773,
+      "truth_box_index": 17,
+      "identified": true
+    },
+    {
+      "key": "U12-E",
+      "sector": "CM",
+      "expected_class": "mortar",
+      "ground_state": "identified",
+      "ground_box": 6,
+      "center": [
+        3.0578125000000003,
+        3.503125
+      ],
+      "match_error_m": 0.0038145486299165144,
+      "truth_box_index": 16,
+      "identified": true
+    },
+    {
+      "key": "U12-N",
+      "sector": "CM",
+      "expected_class": "mortar",
+      "ground_state": "identified",
+      "ground_box": 6,
+      "center": [
+        3.0578125000000003,
+        3.503125
+      ],
+      "match_error_m": 0.0038145486299165144,
+      "truth_box_index": 16,
+      "identified": true
+    },
+    {
+      "key": "U12-W",
+      "sector": "CM",
+      "expected_class": "drum",
+      "ground_state": "identified",
+      "ground_box": 6,
+      "center": [
+        3.0578125000000003,
+        3.503125
+      ],
+      "match_error_m": 0.0038145486299165144,
+      "truth_box_index": 16,
+      "identified": true
+    },
+    {
+      "key": "U13-E",
+      "sector": "R-S3",
+      "expected_class": "military_truck",
+      "ground_state": "identified",
+      "ground_box": 12,
+      "center": [
+        4.05625,
+        0.8953125000000002
+      ],
+      "match_error_m": 0.006002928972593176,
+      "truth_box_index": 14,
+      "identified": true
+    },
+    {
+      "key": "U15-N",
+      "sector": "R-S2",
+      "expected_class": "drum",
+      "ground_state": "identified",
+      "ground_box": 14,
+      "center": [
+        4.0578125,
+        2.4968749999999997
+      ],
+      "match_error_m": 0.0038145486299173874,
+      "truth_box_index": 9,
+      "identified": true
+    },
+    {
+      "key": "U15-S",
+      "sector": "R-S2",
+      "expected_class": "missile",
+      "ground_state": "identified",
+      "ground_box": 14,
+      "center": [
+        4.0578125,
+        2.4968749999999997
+      ],
+      "match_error_m": 0.0038145486299173874,
+      "truth_box_index": 9,
+      "identified": true
+    },
+    {
+      "key": "U16-E",
+      "sector": "R-S1",
+      "expected_class": "tank",
+      "ground_state": "identified",
+      "ground_box": 15,
+      "center": [
+        4.05625,
+        3.6968750000000004
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 4,
+      "identified": true
+    },
+    {
+      "key": "U16-W",
+      "sector": "R-S1",
+      "expected_class": "drum",
+      "ground_state": "identified",
+      "ground_box": 15,
+      "center": [
+        4.05625,
+        3.6968750000000004
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 4,
+      "identified": true
+    },
+    {
+      "key": "U17-N",
+      "sector": "R-S1",
+      "expected_class": "ammo_box",
+      "ground_state": "identified",
+      "ground_box": 16,
+      "center": [
+        4.05625,
+        4.096875
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 3,
+      "identified": true
+    },
+    {
+      "key": "U18-E",
+      "sector": "R-S3",
+      "expected_class": "drum",
+      "ground_state": "identified",
+      "ground_box": 17,
+      "center": [
+        4.45625,
+        1.2953124999999996
+      ],
+      "match_error_m": 0.006002928972593697,
+      "truth_box_index": 15,
+      "identified": true
+    },
+    {
+      "key": "U18-S",
+      "sector": "R-S3",
+      "expected_class": "ammo_box",
+      "ground_state": "identified",
+      "ground_box": 17,
+      "center": [
+        4.45625,
+        1.2953124999999996
+      ],
+      "match_error_m": 0.006002928972593697,
+      "truth_box_index": 15,
+      "identified": true
+    },
+    {
+      "key": "U19-N",
+      "sector": "R-S2",
+      "expected_class": "mortar",
+      "ground_state": "identified",
+      "ground_box": 18,
+      "center": [
+        4.45625,
+        2.4968749999999997
+      ],
+      "match_error_m": 0.004881406047441939,
+      "truth_box_index": 8,
+      "identified": true
+    },
+    {
+      "key": "U20-E",
+      "sector": "R-S1",
+      "expected_class": "tank",
+      "ground_state": "identified",
+      "ground_box": 19,
+      "center": [
+        4.45625,
+        4.096875
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 5,
+      "identified": true
+    },
+    {
+      "key": "U20-N",
+      "sector": "R-S1",
+      "expected_class": "tank",
+      "ground_state": "identified",
+      "ground_box": 19,
+      "center": [
+        4.45625,
+        4.096875
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 5,
+      "identified": true
+    },
+    {
+      "key": "U20-S",
+      "sector": "R-S1",
+      "expected_class": "tank",
+      "ground_state": "identified",
+      "ground_box": 19,
+      "center": [
+        4.45625,
+        4.096875
+      ],
+      "match_error_m": 0.004881406047441654,
+      "truth_box_index": 5,
+      "identified": true
+    }
+  ],
+  "limitation": "Spatial matches to layout after the run. Identified state alone does not prove the correct class; official scoring is sector/class counts, and classification must be assessed separately."
+}

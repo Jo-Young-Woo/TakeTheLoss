@@ -1,0 +1,49 @@
+[
+  {
+    "world": "/tmp/maicon_arena_sf_f20xz/maicon_arena.sdf",
+    "pid": 3932,
+    "physical_ugvs": [
+      "ugv_B2"
+    ],
+    "cameras": {
+      "uav_camera": {
+        "pose": [
+          0.0,
+          0.0,
+          2.5,
+          0.0,
+          1.5707963,
+          1.570796327
+        ],
+        "rate": 1.0,
+        "topic": "/uav/image_raw",
+        "hfov": 2.2689280275926285,
+        "resolution": [
+          1280,
+          720
+        ]
+      },
+      "validation_camera": {
+        "pose": [
+          0.0,
+          0.0,
+          2.5,
+          0.0,
+          1.5707963,
+          1.570796327
+        ],
+        "rate": 30.0,
+        "topic": "/arena/validation/image_raw",
+        "hfov": 2.2689280275926285,
+        "resolution": [
+          1280,
+          720
+        ]
+      }
+    },
+    "same_viewpoint": true,
+    "render_environment": [
+      "LIBGL_ALWAYS_SOFTWARE=1"
+    ]
+  }
+]

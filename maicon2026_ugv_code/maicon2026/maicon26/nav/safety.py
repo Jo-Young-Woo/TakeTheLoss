@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import math
+import numpy as np
 from typing import Optional, Tuple
 
 from ..config import Config
@@ -17,6 +18,9 @@ class SafetyLimiter:
     def __init__(self, cfg: Config) -> None:
         self.n = cfg.nav
         self.rob = cfg.robot.radius
+        self.budget = cfg.budget()
+        self.decel = max(cfg.robot.a_max, .1)
+        self.swept_stops = 0
         self._front_blocked_since: Optional[float] = None
         self.blocked_long = False          # 직전 호출에서 '오래 막힘'이 판정되었는가(호출자가 복구 동작을 시작하는 신호)
         self.blocked_turn = 1.0            # 복구 때 도는 방향(트인 쪽)
@@ -61,4 +65,50 @@ class SafetyLimiter:
                 v = 0.0
             elif rear < n.slow_dist:
                 v *= (rear - n.stop_dist) / (n.slow_dist - n.stop_dist)
-        return v, w
+        return self.limit_swept(scan, v, w)
+
+    def limit_swept(self, scan: Scan, v: float, w: float) -> Tuple[float, float]:
+        """Check the moving rectangle in the *base* scan frame, independent of
+        UAV/SLAM registration. Include reaction time and braking distance.
+        A nearby return may be left behind, but must never be driven deeper
+        into the body margin. This allows backing out of an existing contact.
+        """
+        valid = scan.valid()
+        if not valid.any():
+            # Explicit no-return (+inf) is clear; all-NaN is not a clear scan.
+            return (v, w) if np.isposinf(scan.ranges).any() else (0., 0.)
+        fp = self.budget.fp
+        horizon = .20 + max(abs(v) / (2 * self.decel), abs(w) / 8.)
+        pad = self.budget.sensor_margin
+        reach = fp.circumradius + pad + abs(v) * horizon + .03
+        valid &= scan.ranges < reach
+        if not valid.any():
+            return v, w
+        a, r = scan.angles[valid], scan.ranges[valid]
+        px, py = r * np.cos(a), r * np.sin(a)
+        initial = np.maximum(np.abs(px) - fp.half_l, np.abs(py) - fp.half_w)
+        threshold = np.minimum(pad, initial) - .001
+
+        def safe(cv, cw):
+            # <= 1cm translation and <= 2deg corner motion per step.
+            count = max(4, int(math.ceil(abs(cv) * horizon / .01)),
+                        int(math.ceil(abs(cw) * horizon / math.radians(2))))
+            ts = np.linspace(horizon / count, horizon, count)[:, None]
+            th = cw * ts
+            c, s = np.cos(th), np.sin(th)
+            x = cv * ts if abs(cw) < 1e-6 else cv / cw * s
+            y = np.zeros_like(ts) if abs(cw) < 1e-6 else cv / cw * (1 - c)
+            dx, dy = px[None, :] - x, py[None, :] - y
+            clearance = np.maximum(np.abs(c * dx + s * dy) - fp.half_l,
+                                   np.abs(-s * dx + c * dy) - fp.half_w)
+            return bool(np.all(clearance >= threshold[None, :]))
+
+        if safe(v, w):
+            return v, w
+        self.swept_stops += 1
+        # Dropping an unsafe turn preserves a straight escape/corridor route.
+        if abs(v) > 1e-6 and safe(v, 0.):
+            return v, 0.
+        if abs(w) > 1e-6 and safe(0., w):
+            return 0., w
+        return 0., 0.

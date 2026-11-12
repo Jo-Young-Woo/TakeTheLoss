@@ -13,7 +13,7 @@
   STAGE      prestage_at 이후: 상대 진영 중앙으로 사전 이동                                  [M5 대비]
   RECOVER    항법이 recover_after_s 넘게 막히면: 제한된 후진·회전 뒤 재계획                   [순위 13·14]
   STRIKE     지정표적 접근(nav)·조준(aim)·발사. 세부 상태는 state_name (STRIKE_APPROACH/AIM)  [M2]
-  HUNT       상대 UGV 교전 — 기본 OFF(mission.engage_ugv)                                    [M4]
+  HUNT       상대 UGV 교전 — 기본 OFF(mission.engage_ugv). hunt_on_engage_ok 면 자세 ENGAGE_OK 동안 허용  [M4]
   EXPLORE    시점 순회 + 360° 회전 관측으로 객체/표적/적 탐색                                [M3 + 탐색]
   WAIT       START 전.
 피격은 두 잠금값으로 분리: weapon_locked(발사·틸트), drive_locked(주행; 4회째부터).
@@ -94,6 +94,20 @@ class Mode(str, Enum):
     DONE = "DONE"
 
 
+def hunt_allowed(agent, mc) -> bool:
+    """HUNT(상대 UGV 교전)를 고를 수 있는가.
+    mission.engage_ugv 면 언제나. 아니면 mission.hunt_on_engage_ok 이고 지금 자세가 ENGAGE_OK 일 때만.
+    자세는 진척 감시(progress.enabled)가 켜져 있을 때만 갱신되므로, 꺼져 있으면 남아 있는 옛 자세로 켜지 않는다.
+    가짜 객체로 _arbitrate 를 부르는 시험이 있어 속성은 getattr 로 읽는다."""
+    if mc.engage_ugv:
+        return True
+    if not getattr(mc, "hunt_on_engage_ok", False) or not agent.cfg.progress.enabled:
+        return False
+    state = getattr(agent, "posture_state", None)
+    posture = getattr(state, "posture", None)
+    return getattr(posture, "value", posture) == "ENGAGE_OK"
+
+
 class Agent(DeadlockMixin):
     def __init__(self, robot: Robot, server: ServerLink, cfg: Optional[Config] = None,
                  detector: Optional[Detector] = None, llm: Optional[LLMClient] = None,
@@ -167,6 +181,9 @@ class Agent(DeadlockMixin):
         self.m5_entered_local: Optional[float] = None    # 자체 위치로 거점 진입을 추정한 시각 — 경기 종료의 근거가 아니다 (R14)
         self.target_done = False
         self.target_failed = False
+        self._m2_retry_until = -1e9
+        self._m2_bad: List[List[float]] = []                   # m2_lost_robust: 조준 중 놓친 면 [x, y, 놓친 횟수, 제외 끝 시각]
+        self._m2_unreach_n = 0                                 # m2_robust_abandon: 접근 포기 횟수(m2_unreach_max 번째에 영구 포기)
         self.log: List[Tuple[float, str]] = []
         self.stats: Dict[str, Any] = {"mode_time": {}, "state_time": {}, "strike_shots": 0, "hunt_shots": 0,
                                       "recoveries": 0, "multi_output": 0, "det_consumed": 0, "det_dropped": 0,
@@ -324,6 +341,9 @@ class Agent(DeadlockMixin):
         h = self._hist
         if not h:
             return self.stack.pose.copy()
+        ex = self.cfg.perception.pose_extrap_max_s
+        if ex > 0.0 and len(h) >= 2 and 0.0 < t - h[-1][0] <= ex:
+            return self._pose_extrapolated(t, ex)
         if t > h[-1][0] + 0.3 or t < h[0][0] - 0.3:          # 이력 범위 밖: 센서 stamp 시계가 로봇 시계와 다르다는 신호(⑧). 조용히 넘기지 않는다
             self.stats["pose_at_clamped"] += 1
             n = self.stats["pose_at_clamped"]
@@ -340,6 +360,28 @@ class Agent(DeadlockMixin):
                 k = (t - a[0]) / max(b[0] - a[0], 1e-9)
                 return Pose2D(a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k, wrap(a[3] + wrap(b[3] - a[3]) * k))
         return self.stack.pose.copy()
+
+    def _pose_extrapolated(self, t: float, ex: float) -> Pose2D:
+        """이력 끝보다 늦은 시각 t 의 자세: 최근 ~0.35 s 의 평균 속도로 외삽한다(속도는 로봇 한계의 1.5 배, 각속도도 같은 비율로 제한)."""
+        h = self._hist
+        b = h[-1]
+        a = h[-2]
+        for e in reversed(h):
+            if b[0] - e[0] > 0.35:
+                break
+            a = e
+        dt_h = b[0] - a[0]
+        if dt_h < 0.03:
+            return Pose2D(b[1], b[2], b[3])
+        ahead = t - b[0]
+        vx, vy, w = (b[1] - a[1]) / dt_h, (b[2] - a[2]) / dt_h, wrap(b[3] - a[3]) / dt_h
+        vmax, wmax = 1.5 * self.cfg.robot.v_max, 1.5 * self.cfg.robot.w_max
+        sp = math.hypot(vx, vy)
+        if sp > vmax:
+            vx, vy = vx * vmax / sp, vy * vmax / sp
+        w = clamp(w, -wmax, wmax)
+        self.stats["pose_at_extrapolated"] = self.stats.get("pose_at_extrapolated", 0) + 1
+        return Pose2D(b[1] + vx * ahead, b[2] + vy * ahead, wrap(b[3] + w * ahead))
 
     def _pose_at_scan(self) -> Optional[Pose2D]:
         """최신 스캔을 받은 시각의 자세(스캔 stamp 가 아니라 robot.now() 시계로 변환한 시각)."""
@@ -630,8 +672,14 @@ class Agent(DeadlockMixin):
                 uav = dataclasses.replace(uav, stamp=now - uav.age_s - waited)
             if getattr(uav, "layout_source", None) is not None:
                 layout_t = getattr(uav, "layout_stamp", None)
+                ugv_xy = None
+                if self.cfg.explore.uav_exclude_ugv:                          # UAV 가 UGV 로 본 위치(아군·적·자기)는 장애물 상자 후보에서 뺀다
+                    ugv_xy = [(d.x, d.y) for d in getattr(uav, "detections", ())]
+                    al_now = self.coverage.uav_alignment_report or {}
+                    own = self.pose_at(uav.stamp)
+                    ugv_xy.append((own.x - al_now.get("dx", 0.0), own.y - al_now.get("dy", 0.0)))
                 self.coverage.ingest_uav_boxes(getattr(uav, "boxes", ()),
-                                               uav.stamp if layout_t is None else layout_t, self.stack.grid)
+                                               uav.stamp if layout_t is None else layout_t, self.stack.grid, ugv_xy=ugv_xy)
             capture_pose = self.pose_at(uav.stamp)
             alignment = self.coverage.uav_alignment_report
             self_pose_arena = Pose2D(capture_pose.x - alignment.get("dx", 0.0),
@@ -646,6 +694,12 @@ class Agent(DeadlockMixin):
             self.stats["uav_state"] = self.uavmon.state
         self._feed_ugv_points(now)                                   # LiDAR 면 지도(explore.lidar_faces)가 UGV 주변을 면 기록에서 빼도록 위치를 알려 준다
         self.coverage.refresh(self.stack.grid, self.omap, now)       # 박스·면 장부, 이동 감지, 분류 득표 동기화(내부에서 1 s 주기로만 실행)
+        # All built-in routes (normal, recovery and risk) use the same image
+        # priors as the face-view planner. Do not write image guesses to grid.L.
+        self.stack.grid.set_planning_prior(self.coverage.visibility_occupancy(self.stack.grid)
+                                           & ~self.stack.grid.occupied())
+        if self.cfg.pose_guard.enable and hasattr(self.stack, "set_aerial_landmarks"):
+            self.stack.set_aerial_landmarks(self.coverage.aerial_landmarks())
         self._registry_report(now)
         self._m1_sweep_report(now)
         if old_layout_state != self.coverage.uav_layout_state:
@@ -1861,12 +1915,15 @@ class Agent(DeadlockMixin):
                                   force=self.m3_submitted, backoff=True):
             self._m3_last = (now, counts)
             self._m3_final_requested |= final_due
-            self._log(now, f"M3 full snapshot requested sectors={ {k: sum(v.values()) for k, v in counts.items()} }")
+            merged = self.coverage.m3_dedupe_last.get("merged", 0) if self.cfg.explore.m3_dedupe else 0
+            self._log(now, f"M3 full snapshot requested sectors={ {k: sum(v.values()) for k, v in counts.items()} }"
+                           + (f" dedupe_merged={merged}" if merged else ""))
 
     def _m3_counts(self) -> Dict[str, Dict[str, int]]:
         """M3 제출용 섹터별 객체 수. explore.m3_counting: "ledger"(면 장부, 같은 면 1회) | "omap"(기존 위치 합치기)."""
         if self.cfg.explore.m3_counting == "ledger" and self.coverage.boxes:
-            raw = self.coverage.m3_counts(self.omap)
+            ec = self.cfg.explore
+            raw = self.coverage.m3_counts(self.omap, dedupe=ec.m3_dedupe, dedupe_dist=ec.m3_dedupe_dist_m)
         else:
             raw = self.omap.counts_by_sector()
         if not self.team:
@@ -2069,7 +2126,8 @@ class Agent(DeadlockMixin):
             self._nav_to(now, dt, escape, self.stack.grid.res, raw=True)
             return
         # ---- (06) M5 최우선. 단, GOAL 에서 시작한 RECOVER 는 끝까지 한다
-        if self.m5_type is not None and t >= mc.t_base_cmd - 1.0 and not (
+        continuing_coverage = self._continue_scoring_coverage(t)
+        if self.m5_type is not None and t >= mc.t_base_cmd - 1.0 and not continuing_coverage and not (
                 self.mode == Mode.RECOVER and self._rec.get("from") == Mode.GOAL):
             self._set_mode(now, Mode.GOAL)
             self._mode_goal(now, dt, t)
@@ -2084,7 +2142,7 @@ class Agent(DeadlockMixin):
             self._run_mode(now, dt, t)
             return
         # ---- 사전 이동
-        if t >= mc.prestage_at:
+        if t >= mc.prestage_at and not continuing_coverage:
             if self._m2_can_finish_before_stage(now, t):
                 self._run_mode(now, dt, t)
                 return
@@ -2180,7 +2238,49 @@ class Agent(DeadlockMixin):
             self.target_done = True
             self.stats["led_confirmed"] += 1
             self._log(self.robot.now(), "M2 target signal LED lit (visual confirm)")
+        if self.cfg.mission.m2_lost_robust and self._m2_bad:
+            now = self.robot.now()
+            live = [f for f in live if not self._m2_face_banned(f, now)]
         return live
+
+    # ---- m2_lost_robust: 조준 중 표적을 놓친 면의 기억·갈아타기 (배치·좌표를 가정하지 않는다 — 관측된 면의 위치만 쓴다)
+    def _m2_bad_entry(self, f):
+        r = 2.0 * self.cfg.perception.object_merge_dist
+        for e in self._m2_bad:
+            if math.hypot(e[0] - f.x, e[1] - f.y) <= r:
+                return e
+        return None
+
+    def _m2_face_banned(self, f, now: float) -> bool:
+        e = self._m2_bad_entry(f)
+        return e is not None and now < e[3]
+
+    def _m2_register_lost(self, now: float, f) -> float:
+        """면 f 를 놓친 것으로 기록하고 제외가 끝나는 시각을 돌려준다. 같은 면을 m2_lost_max 번 놓치면 경기 끝까지 제외한다."""
+        mc = self.cfg.mission
+        e = self._m2_bad_entry(f)
+        if e is None:
+            e = [f.x, f.y, 0.0, 0.0]
+            self._m2_bad.append(e)
+        e[2] += 1.0
+        e[3] = float("inf") if e[2] >= mc.m2_lost_max else now + mc.m2_lost_cooldown_s * e[2]
+        self.stats["m2_lost_n"] = self.stats.get("m2_lost_n", 0) + 1
+        return e[3]
+
+    def _m2_pick_face(self, faces, pose):
+        w = self.cfg.mission.m2_evidence_w
+        return min(faces, key=lambda f: math.hypot(f.x - pose.x, f.y - pose.y) - w * min(float(f.n), 15.0))
+
+    def _m2_adopt(self, faces, cur, cls):
+        """지금 표적 면은 안 보이는데 같은 종류의 다른 살아 있는 면이 화면에 맞으면 그 (면, 검출)을 돌려준다."""
+        for g in sorted(faces, key=lambda g: math.hypot(g.x - cur.x, g.y - cur.y)):
+            if g is cur:
+                continue
+            d = self._best_det(lambda d, g=g: d.cls == cls and d.conf >= self.cfg.perception.conf_min
+                               and self._target_detection_matches(d, g))
+            if d is not None:
+                return g, d
+        return None
 
     def _hunt_candidates(self, now: float) -> List[Track]:
         out = []
@@ -2203,17 +2303,47 @@ class Agent(DeadlockMixin):
         near_enemy = [e for e in enemies if math.hypot(e.x - px, e.y - py) < 1.6 and now - e.last_cam_t < 1.0]
         faces = self._target_faces()
         ammo = gate_ammo(st, self.cfg.laser.ammo)                     # 연습 모드는 자동 회복이라 사격 조건에서 가득으로 본다(2장)
-        hunt_ok = (mc.engage_ugv and can_shoot and ammo > self._reserve() and enemies and
+        hunt_ok = (hunt_allowed(self, mc) and can_shoot and ammo > self._reserve() and enemies and
                    any(now - e.last_cam_t < 2.0 or math.hypot(e.x - px, e.y - py) < 2.5 for e in enemies))
         if hunt_ok and near_enemy:
             return Mode.HUNT
         if faces and can_shoot and ammo > 0:
+            if self._coverage_defers_m2():
+                return Mode.EXPLORE
+            if now < getattr(self, "_m2_retry_until", -1e9):
+                return Mode.EXPLORE                                  # 접근이 막혀 포기한 뒤의 쿨다운(m2_robust_abandon) — 회피 연기 상한과 무관하게 지킨다
             if now < self._strike_block_until and self._m2_defer_s < self.cfg.avoid.m2_defer_max_s:
                 return Mode.EXPLORE                                  # 회피 직후 쿨다운(같은 적 앞으로 곧장 다시 가지 않는다). 연기 합계 상한을 넘으면 무시
             return Mode.STRIKE
         if hunt_ok:
             return Mode.HUNT
         return Mode.EXPLORE
+
+    def _coverage_defers_m2(self) -> bool:
+        """Reserve search time without claiming M2 failure or interrupting a shot.
+
+        _decide completes an active emission before arbitration. M2 is released
+        again when all known scoring sides are resolved. No referee truth enters
+        this decision; unknown/unreachable sides remain unfinished.
+        """
+        ec = self.cfg.explore
+        if not ec.exhaustive_scoring_faces or ec.coverage_m2_budget_s <= 0:
+            return False
+        used = float(self.stats.get("mode_time", {}).get("STRIKE", 0.))
+        if used < ec.coverage_m2_budget_s:
+            return False
+        progress = self.coverage.sector_progress(schema.scoring_sectors(self.team))
+        defer = not progress["complete"]
+        self.stats["coverage_m2_deferred"] = defer
+        self.stats["coverage_m2_time_used_s"] = used
+        return defer
+
+    def _continue_scoring_coverage(self, elapsed: float) -> bool:
+        ec = self.cfg.explore
+        if (not ec.exhaustive_scoring_faces or
+                elapsed >= self.cfg.mission.t_total - ec.coverage_goal_reserve_s):
+            return False
+        return not self.coverage.sector_progress(schema.scoring_sectors(self.team))["complete"]
 
     # ================================================================== 적 UGV 회피 (안전 계층)
     def _goal_xy(self) -> Optional[Tuple[float, float]]:
@@ -2508,7 +2638,7 @@ class Agent(DeadlockMixin):
             v = self._depth_guard(v)
         v = self._v_cmd + clamp(v - self._v_cmd, -r.a_max * dt * 1.6, r.a_max * dt * 1.6)
         w = self._w_cmd + clamp(w - self._w_cmd, -8.0 * dt, 8.0 * dt)
-        if self._deadlock_enabled() and self._scan is not None:
+        if self._scan is not None:
             # A deceleration ramp must never restore motion after a LiDAR
             # wall stop, including already-limited Navigator/Nav2 commands.
             v, w = self.stack.limit(self._scan, v, w, self.robot.now())
@@ -2702,7 +2832,7 @@ class Agent(DeadlockMixin):
             el = now - self._ex_obs_t0
             done = False
             pending_pictures = [f for k in c.faces if (f := self.coverage.get_face(k)) is not None
-                                and self.coverage.picture_pending(f)]
+                                and self.coverage.requires_full_view(f) and self.coverage.face_weight(f) > 0]
             if c.kind == "identify":
                 done = self._identify_step(c, now, dt, el)
             elif c.mode == "spin" and mc.spin_w > 0:
@@ -2723,6 +2853,19 @@ class Agent(DeadlockMixin):
                     c.heading = math.atan2(f.cy-pose.y, f.cx-pose.x)
                 want = wrap(c.heading - pose.th)
                 pan = 0.0 if pending_pictures else self._sweep_pan(now, 20.0, 1.5)
+                if pending_pictures and ec.exhaustive_scoring_faces:
+                    body = self.explorer.view_body_heading(
+                        (pose.x, pose.y), c.heading, pose.th,
+                        self.coverage.visibility_occupancy(self.stack.grid), self.stack.grid)
+                    if body is None:
+                        self.explorer.mark_bad(c.vp, now)
+                        self._ex_cand, self._ex_phase = None, "travel"
+                        self._ex_sel_t = -1e9
+                        self._stop_output()
+                        return
+                    want = wrap(body - pose.th)
+                    pan = clamp(math.degrees(wrap(c.heading-pose.th)),
+                                -self.cfg.robot.pan_limit, self.cfg.robot.pan_limit)
                 self._apply(0.0, clamp(2.2 * want, -1.2, 1.2), pan, 0.0, dt)
                 if pending_pictures:
                     if self._ex_aligned_face != c.primary_face:
@@ -2786,7 +2929,8 @@ class Agent(DeadlockMixin):
             if self._deadlock_enabled():
                 cands = [c for c in cands if self.progress.eligible(self._goal_key(c.vp), now)]
             ac = self.cfg.avoid
-            ranked = self.explorer.evaluate(cands, pose, self.stack.grid, blocked, cost, t, self._stage_point(),
+            return_point = self._goal_xy() if ec.exhaustive_scoring_faces else self._stage_point()
+            ranked = self.explorer.evaluate(cands, pose, self.stack.grid, blocked, cost, t, return_point,
                                             self._field, self._risk_weight(), ac.w_close)
             if self._deadlock_enabled():
                 ranked.sort(key=lambda c: (-round(c.utility, 6), self.progress.tie_break(self._goal_key(c.vp))))
@@ -3128,14 +3272,21 @@ class Agent(DeadlockMixin):
             self._set_mode(now, Mode.EXPLORE, "no target face")
             return
         if "phase" not in S or S.get("face") not in faces:
-            f = min(faces, key=lambda f: math.hypot(f.x - pose.x, f.y - pose.y))
+            f = self._m2_pick_face(faces, pose)
             S.clear()
-            S.update(face=f, phase="nav", fails=0, shots0=self.laser.shots, lost_since=None, t0=now)
+            S.update(face=f, phase="nav", fails=0, shots0=self.laser.shots, lost_since=None, t0=now, defer0=self._m2_defer_s, blocked_since=None)
             self.aim.reset()                                         # 새 표적 면: 옛 표적의 필터·겨냥점 연속성을 끊는다
         f = S["face"]
         cls = self.cmd.target
         det = self._best_det(lambda d: d.cls == cls and d.conf >= self.cfg.perception.conf_min
                              and self._target_detection_matches(d, f))
+        if det is None and mc.m2_lost_robust and len(faces) > 1:
+            alt = self._m2_adopt(faces, f, cls)
+            if alt is not None:
+                f, det = alt
+                S.update(face=f, goal=None, lost_since=None)
+                self.aim.reset()
+                self._log(now, f"M2 switch to the visible {cls} face ({f.x:.2f},{f.y:.2f})")
         # 서버/LED 확인
         if f.led_on:
             self.target_done = True
@@ -3170,10 +3321,16 @@ class Agent(DeadlockMixin):
                 S["phase"], S["lost_since"], S["t_aim0"] = "aim", None, now      # (11) 목표 취소 뒤 조준 시작
                 self.stack.clear_goal()
                 self.aim.reset()
-            elif out.status == "blocked" and now - S["t0"] > 12.0:
-                self.target_failed = True
-                S.clear()
-                self._set_mode(now, Mode.EXPLORE, "M2 unreachable")
+            elif not mc.m2_robust_abandon:
+                if out.status == "blocked" and now - S["t0"] > 12.0:
+                    self.target_failed = True
+                    S.clear()
+                    self._set_mode(now, Mode.EXPLORE, "M2 unreachable")
+            else:
+                reason = self._m2_blocked_verdict(now, S, out.status)
+                if reason is not None:
+                    S.clear()
+                    self._set_mode(now, Mode.EXPLORE, reason)
             return
         # ---- aim 단계
         pan, tilt = self.robot.get_pan_tilt()
@@ -3188,6 +3345,12 @@ class Agent(DeadlockMixin):
                 if over_budget:
                     self._log(now, f"M2 aim budget exceeded -> re-approach (fails={S['fails']})")
                 if S["fails"] >= 3:
+                    if mc.m2_lost_robust:
+                        until = self._m2_register_lost(now, f)
+                        S.clear()
+                        self.laser.track(False, now, dt)
+                        self._set_mode(now, Mode.EXPLORE, "M2 lost -> face set aside" + (" for good" if until == float("inf") else f" {until-now:.0f}s"))
+                        return
                     self.target_failed = True
                     S.clear()
                     self._set_mode(now, Mode.EXPLORE, "M2 lost")
@@ -3241,6 +3404,11 @@ class Agent(DeadlockMixin):
             H.clear()
             H.update(tid=tr.tid, t0=now, shots0=self.laser.shots, streak=0)
             self.aim.reset()                                         # 새 교전 대상(UGV): 직전 겨냥점·센서 선택을 비운다
+            via = ("engage_ugv" if mc.engage_ugv else
+                   "ENGAGE_OK:" + "+".join(getattr(self.posture_state, "engage_reasons", ()) or ("?",)))
+            self._log(now, f"HUNT target {tr.ident or tr.tid} via {via}")
+        if not mc.engage_ugv:                                        # 자세(ENGAGE_OK)로 켜진 교전 시간
+            self.stats["hunt_engage_ok_s"] = round(self.stats.get("hunt_engage_ok_s", 0.0) + dt, 2)
         if now - H["t0"] > 25.0 and not self.laser.firing():          # 한 대에 너무 오래 매달리지 않는다
             self._hunt_block[tr.tid] = now + 15.0
             H.clear()
@@ -3297,6 +3465,26 @@ class Agent(DeadlockMixin):
                 self._log(now, f"M4 fire at {tr.ident} r={r:.2f}")
 
     # ================================================================== STAGE (M5 대비)
+    def _m2_blocked_verdict(self, now: float, S: Dict[str, Any], status: str) -> Optional[str]:
+        """m2_robust_abandon: 지정표적 접근이 '막힘'일 때 포기할지. 회피로 쓴 시간은 접근 예산(m2_nav_budget_s)에서 빼고, 막힘이 m2_blocked_s 이어져야
+        포기 후보이며, 영구 포기(target_failed)는 m2_unreach_max 번째에만 한다(앞선 포기는 쿨다운 뒤 다시 시도). None=계속, 문자열=포기 사유."""
+        mc = self.cfg.mission
+        if status != "blocked":
+            S["blocked_since"] = None
+            return None
+        if S.get("blocked_since") is None:
+            S["blocked_since"] = now
+        spent = now - S["t0"] - max(0.0, self._m2_defer_s - S.get("defer0", self._m2_defer_s))
+        if spent <= mc.m2_nav_budget_s or now - S["blocked_since"] < mc.m2_blocked_s:
+            return None
+        self._m2_unreach_n += 1
+        self.stats["m2_unreach_n"] = self._m2_unreach_n
+        if self._m2_unreach_n >= mc.m2_unreach_max:
+            self.target_failed = True
+            return "M2 unreachable (permanent)"
+        self._m2_retry_until = now + self.cfg.progress.retry_after_s
+        return f"M2 blocked -> retry after {self.cfg.progress.retry_after_s:.0f}s ({self._m2_unreach_n}/{mc.m2_unreach_max})"
+
     def _stage_point(self) -> Tuple[float, float]:
         """M5 대기점. 우선순위: stage_point_override(고정 배치용) → 적 가운데 거점 문 앞(stage_policy) → 옛 값(W-2.0, H/2)."""
         m = self.cfg.mission

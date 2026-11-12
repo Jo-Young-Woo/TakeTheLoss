@@ -158,7 +158,7 @@ def decision_with_route(agent):
 
 class CameraRecorder:
     """One waiting real frame; encoding cannot block the Agent or ROS callbacks."""
-    def __init__(self,path,fps,label='B2 autonomous Agent | actual Gazebo third-person'):
+    def __init__(self,path,fps,label='B2 autonomous Agent | actual Gazebo third-person',decorate=True,frame_transform=None):
         from maicon26.hal.fpv_recording import SimulationVideoWriter
         self.writer=SimulationVideoWriter(path,fps,.35,label)
         self.queue=queue.Queue(maxsize=1)
@@ -168,6 +168,9 @@ class CameraRecorder:
         self.accepted=0
         self.max_changed_pixels=0
         self._previous=None
+        self.ledger=None
+        self.decorate=decorate
+        self.frame_transform=frame_transform
         self.worker=threading.Thread(target=self._run,name='third-person-encoder',daemon=True)
         self.worker.start()
 
@@ -191,6 +194,9 @@ class CameraRecorder:
             try:
                 stamp=message.header.stamp.sec+message.header.stamp.nanosec*1e-9
                 image=decode_bgr(message)
+                if self.frame_transform is not None:
+                    image=self.frame_transform(image,stamp)
+                if self.decorate: image=draw_face_ledger(image,self.ledger)
                 gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
                 if self._previous is not None:
                     changed=int(np.count_nonzero(cv2.absdiff(gray,self._previous)>12))
@@ -212,6 +218,136 @@ class CameraRecorder:
         return report
 
 
+def face_ledger_snapshot(coverage, elapsed):
+    """Copy only the Agent's observed M3 ledger; never use referee truth."""
+    from maicon26.link.schema import server_sector
+    sectors=("R-S1","R-S2","R-S3","CM")
+    counts=coverage.sector_ledger(sectors)
+    boxes={name:[] for name in sectors}
+    for box in coverage.boxes.values():
+        if not (coverage.m3_candidate_box(box) and coverage.box_available(box)):
+            continue
+        sector=server_sector(coverage.box_sector(box) or "")
+        if sector in boxes:
+            boxes[sector].append({"id":box.bid,"faces":{
+                "ENWS"[face.idx]:coverage.face_ledger_state(box,face)
+                for face in box.faces}})
+    uav_boxes=[]
+    for box in coverage.boxes.values():
+        if box.uav_t is None or box.arena_cx is None or box.arena_cy is None:
+            continue
+        uav_boxes.append({"id":box.bid,"x":float(box.arena_cx),"y":float(box.arena_cy),
+                          "sx":float(box.sx),"sy":float(box.sy),
+                          "active":bool(coverage.active_uav_prior(box)),
+                          "frozen":bool(box.uav_frozen),"locally_observed":box.kind!="uav"})
+    return {"elapsed":float(elapsed),"sectors":counts,"boxes":boxes,
+            "uav_map":{"layout":coverage.layout_diagnostics(),"boxes":uav_boxes,
+                       "outer_faces":coverage.aerial_face_map(),
+                       "alignment":coverage.uav_alignment_report,
+                       "arena_size":[coverage.geo.W, coverage.geo.H],
+                       "coordinates":f"arena image: x 0..{coverage.geo.W:g} m right, y 0..{coverage.geo.H:g} m up"},
+            "source":"Agent observed face ledger; no referee truth"}
+
+
+def iff_snapshot(agent, now):
+    """B-2's own sensor tracker and friend registry, without Gazebo truth."""
+    tracker=agent.tracker
+    if tracker is None:
+        return {"team":agent.team,"tracks":[],"friends":[]}
+    tracks=[]
+    for tr in tracker.tracks:
+        team=None if tr.identity_disputed else tr.team
+        tracks.append({"id":tr.tid,"ident":tr.ident,"team":team,
+                       "relation":"ally" if team==agent.team else "enemy" if team else "unknown",
+                       "age_s":round(max(0.,now-tr.t),2),"disputed":bool(tr.identity_disputed),
+                       "camera_age_s":None if tr.last_cam_t<0 else round(max(0.,now-tr.last_cam_t),2),
+                       "uav_age_s":None if tr.last_uav_t<0 else round(max(0.,now-tr.last_uav_t),2)})
+    friends=tracker.fmap.snapshot(now) if tracker.fmap is not None else []
+    return {"team":agent.team,"tracks":tracks,"friends":friends,
+            "source":"Agent camera/UAV tracker and friend map; no Gazebo truth"}
+
+
+def draw_face_ledger(image, snapshot):
+    """Readable per-sector and per-face status in the third-person recording."""
+    import cv2
+    import numpy as np
+    canvas=np.zeros((image.shape[0],image.shape[1]+840,3),dtype=np.uint8)
+    canvas[:,:image.shape[1]]=image
+    image=canvas
+    x,y,w,h=1280,20,410,680
+    cv2.rectangle(image,(x,y),(x+w,y+h),(27,27,29),-1)
+    def line(label,yy,color=(235,235,235),scale=.43):
+        cv2.putText(image,label,(x+12,yy),cv2.FONT_HERSHEY_SIMPLEX,scale,color,1,cv2.LINE_AA)
+    if snapshot is None:
+        line("M3 FACE LEDGER: waiting for Agent",y+25,(0,220,255),.5)
+        cv2.putText(image,"UAV MAP: waiting for Agent",(1712,45),cv2.FONT_HERSHEY_SIMPLEX,.5,(80,220,120),1,cv2.LINE_AA)
+        return image
+    line(f"M3 FACE LEDGER  t={snapshot['elapsed']:.0f}s",y+25,(0,220,255),.55)
+    line("I identified  E empty  H hidden  - excluded",y+46)
+    line("U unreachable  ? uncertain/viewed  . pending",y+64)
+    yy=y+88
+    short={"identified":"I","empty":"E","hidden":"H","unreachable":"U",
+           "uncertain":"?","viewed":"?","pending":".","excluded":"-"}
+    for sector, row in snapshot["sectors"].items():
+        line(f"{sector}: boxes {row['boxes']} faces {row['faces']}  I{row['identified']} E{row['empty']} H{row['hidden']} U{row['unreachable']} todo{len(row['todo'])} x{row.get('excluded',0)}",yy,(100,230,255))
+        yy+=20
+        items=snapshot["boxes"].get(sector,[])
+        for box in items[:5]:
+            states=" ".join(f"{direction}:{short.get(box['faces'].get(direction,'pending'),'.')}" for direction in "ENWS")
+            line(f"box {box['id']:>3}  {states}",yy)
+            yy+=18
+        if len(items)>5:
+            line(f"+{len(items)-5} more boxes in ledger JSON",yy,(180,180,180))
+            yy+=18
+        yy+=10
+    line("Observed status only; not M3 referee score",y+h-14,(150,190,220))
+    draw_uav_map(image,snapshot["uav_map"])
+    return image
+
+
+def draw_uav_map(image, uav):
+    """Draw only aerial box positions delivered to the Agent, in arena coordinates."""
+    import cv2
+    x,y,w,h=1700,20,410,680
+    cv2.rectangle(image,(x,y),(x+w,y+h),(27,27,29),-1)
+    layout=uav["layout"]
+    def line(label,yy,color=(230,230,230),scale=.44):
+        cv2.putText(image,label,(x+12,yy),cv2.FONT_HERSHEY_SIMPLEX,scale,color,1,cv2.LINE_AA)
+    line("UAV BOX MAP | image-derived",y+25,(80,220,120),.54)
+    line(f"state {layout['state']}  age {layout.get('age_s')}s",y+48)
+    line(f"active {layout['active_priors']}  local {layout['local_boxes']}  frozen {layout['frozen_boxes']}",y+69)
+    mx,my,mw,mh=x+12,y+92,384,307
+    aw,ah=uav.get("arena_size",(6.,4.8))  # Legacy saved snapshots predate size metadata.
+    cv2.rectangle(image,(mx,my),(mx+mw,my+mh),(90,90,90),1)
+    for i in range(1,math.ceil(aw)):
+        xx=mx+round(i*mw/aw)
+        cv2.line(image,(xx,my),(xx,my+mh),(48,48,48),1)
+    for i in range(1,math.ceil(ah)):
+        yy=my+mh-round(i*mh/ah)
+        cv2.line(image,(mx,yy),(mx+mw,yy),(48,48,48),1)
+    for box in uav["boxes"]:
+        px=mx+round(box["x"]/aw*mw)
+        py=my+mh-round(box["y"]/ah*mh)
+        if not (mx<=px<=mx+mw and my<=py<=my+mh):
+            continue
+        color=(80,210,100) if box["active"] else (100,100,100)
+        if box["frozen"]: color=(240,180,80)
+        hx,hy=round(box.get("sx",.4)*mw/(2*aw)),round(box.get("sy",.4)*mh/(2*ah))
+        cv2.rectangle(image,(px-hx,py-hy),(px+hx,py+hy),color,1)
+        if box["locally_observed"]: cv2.circle(image,(px,py),2,(240,240,240),-1)
+    for face in uav.get("outer_faces",{}).get("faces",[]):
+        color=(90,230,120) if face["state"]=="identified" else (0,210,255)
+        if face["wall_inaccessible"] or face["state"]=="excluded": color=(130,130,130)
+        for a,b in face["segments"]:
+            p=(mx+round(a[0]/aw*mw),my+mh-round(a[1]/ah*mh))
+            q=(mx+round(b[0]/aw*mw),my+mh-round(b[1]/ah*mh))
+            cv2.line(image,p,q,color,2)
+    line("edges: yellow pending / green identified",y+423)
+    line("gray excluded | white dot ground-observed",y+443)
+    line("Positions come from received UAV images",y+h-34,(150,190,220))
+    line("No referee / world truth in this map",y+h-14,(150,190,220))
+
+
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--slot',default='B-2',choices=['B-1','B-2','B-3','R-1','R-2','R-3'])
@@ -219,6 +355,7 @@ def main(argv=None):
     parser.add_argument('--await-start',action='store_true')
     parser.add_argument('--no-record',action='store_true')
     parser.add_argument('--seed',type=int,default=0)
+    parser.add_argument('--min-votes',type=int,default=None,help='Override confirmation votes; exhaustive face coverage defaults to 4, legacy trials to 1')
     parser.add_argument('--policy',default='agent',choices=['agent','idle','patrol_own','evader','hunter','blocker'])
     parser.add_argument('--variant',default='progress',choices=['v2','progress','blocker_fire','dwell_zero'])
     parser.add_argument('--output-dir' ,type=Path,required=True)
@@ -226,6 +363,7 @@ def main(argv=None):
     parser.add_argument('--uav-calibration',type=Path,default=ROOT/'ros2/maicon_arena_gz/config/uav_grid_calibration.json')
     parser.add_argument('--no-uav',action='store_true',help='Disable UAV delivery; ground perception stays real')
     parser.add_argument('--simulate-impact',action='store_true',help='Enable uncalibrated Gazebo IMU impact handling for a focused test')
+    parser.add_argument('--impact-vib-filter',action='store_true',help='With --simulate-impact: reject alternating wheel vibration by net impulse (cfg.impact.vib_filter)')
     parser.add_argument('--operator-config',type=Path,help='Explicit local orders/targets JSON; omitted uses the documented rehearsal fixture')
     parser.add_argument('--config',type=Path,default=ROOT/'config/waveshare_real.json')
     parser.add_argument('--configure-factory',default='maicon26.hal.wingbot_calibration:configure_wingbot_simulation')
@@ -275,10 +413,12 @@ def run(args):
     # policy in its config; opt into the simulation impact experiment explicitly.
     if not args.simulate_impact:
         cfg.impact.enable=False
-    # In Gazebo, one camera classification is enough to mark a pictured M3
-    # face as recognized. This is a simulation policy, not the competition
-    # server's all-counts-exact sector score.
-    cfg.perception.min_votes=1
+    elif args.impact_vib_filter:
+        cfg.impact.vib_filter=True
+    # Exhaustive inspection needs repeated camera evidence, not a single-frame
+    # class that prematurely removes a face from its exploration queue.
+    cfg.perception.min_votes=int(args.min_votes if args.min_votes is not None
+                                 else (4 if cfg.explore.exhaustive_scoring_faces else 1))
     arena_spec=yaml.safe_load(args.arena_spec.read_text(encoding='utf-8'))
     cfg.arena=ArenaGeometry.from_spec(arena_spec)
     cfg.team = 'BLUE' if args.slot.startswith('B') else 'RED'
@@ -420,7 +560,7 @@ def run(args):
     risk_worker_for_report=None
     aim_recorder=aim_evidence=None
     original_inner_detect=None
-    error=None;start_sim=None;result={};last_trace=-math.inf;last_print=-math.inf;last_overlay=-math.inf;report_wall=None;coverage210=False
+    error=None;start_sim=None;result={};last_trace=-math.inf;last_print=-math.inf;last_overlay=-math.inf;last_ledger=-math.inf;report_wall=None;coverage210=False
     try:
         def wait(predicate,seconds,description):
             until=time.monotonic()+seconds
@@ -496,6 +636,12 @@ def run(args):
             # diagnostic reference so its completed samples survive shutdown.
             risk_worker_for_report=getattr(agent,'_risk_worker',None) or risk_worker_for_report
             agent.tick()
+            if now-last_ledger>=1. and (not args.no_record or args.slot=='B-2'):
+                ledger=face_ledger_snapshot(agent.coverage,float(observer.state_copy().get('elapsed') or 0.))
+                ledger['iff']=iff_snapshot(agent,now)
+                if not args.no_record: recorder.ledger=ledger
+                write_preview_json(args.output_dir/'face_ledger.json',ledger)
+                last_ledger=now
             risk_worker_for_report=getattr(agent,'_risk_worker',None) or risk_worker_for_report
             aim_snapshot=aim_recorder.snapshot()
             if aim_evidence.wants(aim_snapshot):
@@ -549,6 +695,7 @@ def run(args):
                           coverage=agent.coverage.summary(),observed_classified_faces=agent.omap.confirmed_faces(),estimated_pose=dataclasses.asdict(stack.pose),
                           lidar_blob_stats=dict(getattr(getattr(agent,'blobs',None),'stats',{})),
                           m3_arrival_events=list(getattr(agent,'_m3_arrival_events',())),
+                          exploration_diagnostics=agent.explorer.diagnostics if agent.explorer is not None else {},
                           detector_stats=getattr(inner_detector,'stats',{}),hal_stats=robot.stats)
         with adapter._condition:
             result.update(api_stats=dict(adapter.stats),http_attempts=dict(adapter.mock.attempts),

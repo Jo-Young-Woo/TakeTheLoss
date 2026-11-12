@@ -58,7 +58,7 @@ def face_arrival_view(cand, pose, coverage, grid, occ=None) -> ArrivalView:
         return ArrivalView(True, False, reason="unavailable_face")
     heading = math.atan2(face.cy - pose.y, face.cx - pose.x)
     occ = coverage.visibility_occupancy(grid) if occ is None else occ
-    visible = coverage.picture_visible if coverage.picture_pending(face) else coverage.face_visible
+    visible = coverage.picture_visible if coverage.requires_full_view(face) else coverage.face_visible
     ok, reason = visible(pose.x, pose.y, heading, face, occ, grid)
     return ArrivalView(True, ok, heading, reason, face.key)
 

@@ -383,6 +383,7 @@ class PerceptionCfg:
     ugv_conf_min: float = 0.50
     object_merge_dist: float = 0.22   # m: 같은 면의 같은 객체로 합치는 거리
     min_votes: int = 4
+    pose_extrap_max_s: float = 0.0    # 센서 촬영 시각이 자세 이력 끝보다 이만큼(s) 이내로 앞서면 마지막 속도로 외삽한다(틱이 느려 이력이 늦을 때 자세를 옛 값에 묶어 광선이 틀어지는 것을 막는다). 0=끔(가장자리 자세로 대체)
     min_box_px: float = 4.0           # 검출 상자 너비·높이가 이보다 작으면 버린다(maicon26/validate.py V5)
     max_obj_range: float = 2.2        # m: 이보다 먼 객체 인식은 집계에 넣지 않음(오분류 방지)
     target_classes: Tuple[str, ...] = ("GUARD_POST", "RADAR_FACILITY", "COMM_FACILITY")
@@ -493,6 +494,10 @@ class ImpactCfg:
     storm_hold_s: float = 1.5          # s 연속 충돌일 때 정지 시간
     scan_skip_s: float = 0.35          # s 충돌 직후 이 시간의 스캔은 Agent 격자에 쌓지 않는다(차체 흔들림으로 바닥·천장을 훑는다)
     tilt_scan_skip_deg: float = 8.0    # deg |roll|·|pitch| 가 이보다 크면 그 스캔은 격자에 쌓지 않는다
+    vib_filter: bool = False           # 바퀴·바닥 진동 거르기: 덩어리의 알짜 충격량(부호 일치도)이 낮으면 충돌로 보지 않는다(Gazebo 에서 진동 0.98 g 가 충돌로 오인된 문제). 켜려면 IMU 에 ax·ay 가 있어야 한다
+    vib_window_s: float = 0.12         # s 덩어리가 시작된 뒤 이 시간 동안 수평 가속도를 모아 판정한다 — 충돌 정지가 이만큼 늦어진다
+    vib_min_unipolar: float = 0.45     # |Σ a·dt| / Σ|a|·dt 가 이 값 미만이면 진동. 한쪽 펄스(충돌)는 높고 번갈아 바뀌는 진동은 0 에 가깝다 [가정, 실측 필요]
+    vib_min_samples: int = 4           # 이 표본 수 미만이면 판단하지 않고 그대로 충돌로 낸다(IMU 가 느린 경우)
 
 
 @dataclass
@@ -644,8 +649,17 @@ class ExploreCfg:
     """M3 온라인 탐색(mission/explore_online.py, perception/coverage.py). 값은 시뮬에서 정한 초깃값이다 — 실측값처럼 읽지 말 것.
     tunables.py 의 SIM_TUNED/ASSUMED 표 참고."""
     strategy: str = "online"           # "online"(프런티어 + 미확인 면 NBV) | "lattice"(기존: 5x5 고정 순회 + 박스 4개 이상이면 면 방문)
+    sector_finish_bonus: float = 0.0   # 채점 섹터에서 남은 면이 적을수록 그 면의 가치에 곱할 가산(0=끔). M3 는 섹터의 종류·개수가 모두 맞아야 점수라 '거의 다 본 섹터'를 먼저 끝낸다
+    sector_finish_max_todo: int = 3    # 남은 면(pending·viewed·uncertain)이 이 개수 이하인 섹터만 가산한다(1개 남으면 가산 전부, 이 개수면 1/개수)
+    sector_finish_min_done: float = 0.5  # 이미 끝난 면(식별·빈 면·가림·도달불가)의 비율이 이 이상일 때만 — 막 시작한 작은 섹터를 앞당기지 않는다
+    m3_dedupe: bool = False            # M3 제출 직전 섹터별 객체 목록에서 같은 면의 중복(장부 상자가 둘로 갈라진 경우 등)을 합친다
+    m3_dedupe_dist_m: float = 0.25     # 같은 섹터·비슷한 면 방향에서 면 중심이 이 거리 안이면 같은 면 — 이웃 상자 면은 0.4 m 떨어져 있어 0.4 미만이어야 한다
     m3_counting: str = "ledger"        # M3 제출 집계: "ledger"(박스 면 장부 — 같은 면 한 번만, 박스 중심 섹터) | "omap"(기존 ObjectMap 위치 합치기)
     complete_m3_faces: bool = False   # PDF four-photo cube protocol; enabled by the fixed Gazebo trial
+    exhaustive_scoring_faces: bool = False  # Observe all exposed enemy/CM sides; never infer a picture from geometry.
+    coverage_sector_commit_s: float = 28.0  # Finish a local sweep, then service another unfinished sector.
+    coverage_m2_budget_s: float = 30.0  # Total M2 time before resuming unfinished face coverage; zero disables.
+    coverage_goal_reserve_s: float = 25.0  # Keep the final interval for M5 travel/capture; unresolved faces use earlier time.
     m3_missing_face_weight: float = 4.0
     m3_observe_s: float = 2.0
     seen_res: float = 0.10             # m LiDAR '관측함' 지도 해상도
@@ -707,6 +721,15 @@ class ExploreCfg:
     # --- UAV 초기 영상 장부: 처음 받아들인 UAV 배치의 모든 면을 '미탐지'로 올려 두고, 식별되면 '탐지'로 바꾼다(보고용). 기본 꺼짐.
     uav_census: bool = False
     uav_census_window_s: float = 4.0   # s 첫 UAV 배치를 받아들인 때부터 이 시간 안에 올라온 면을 '초기 영상의 면'으로 센다(첫 프레임이 일부만 잡았을 때를 위해)
+    # --- UAV 장애물 지도: 첫 영상으로 만든 지도를 끝까지 쓰고(uav_map_freeze), 맞닿은 면은 장부에서 빼며(uav_outer_faces), UGV 는 지도에서 뺀다(uav_exclude_ugv). 기본 꺼짐 — 실기 설정에서 켠다.
+    uav_map_freeze: bool = False       # True: 첫 배치를 받아들인 뒤 uav_map_freeze_s 안에 모은 상자를 '그 경기의 장애물 지도'로 굳힌다 — 영상이 끊겨도 계획에서 빠지지 않고, 이후 프레임이 상자를 더하거나 옮기지 않는다(LiDAR 가 빈 공간임을 반복 확인한 상자만 지운다)
+    uav_map_freeze_s: float = 4.0      # s 지도를 모으는 시간(첫 받아들임부터). 그 뒤 상자가 uav_map_freeze_min_boxes 개 이상이면 굳힌다(모자라면 계속 모은다)
+    uav_map_freeze_min_boxes: int = 1
+    uav_outer_faces: bool = False      # True: 이웃 상자와 맞닿은 면(서로 가린 면)·벽에 붙은 면은 면 장부·기록부(census 포함)에 올리지 않는다 — 바깥으로 드러난 최외곽 면만 센다
+    uav_adjacent_tol_m: float = 0.14   # m 이웃 상자와 '맞닿았다'고 보는 위치 허용 오차(중심 간격이 상자 한 변 ± 이 값, 옆 어긋남도 이 값 이내)
+    uav_cover_frac: float = 0.2        # 이웃 상자가 면 길이의 이 비율 이상을 맞대고 있으면 그 면을 안쪽 면으로 본다(반 칸 엇갈린 면은 0.5 라 빠지고, 살짝 스친 0.2 미만은 남는다)
+    uav_exclude_ugv: bool = False      # True: UAV 영상에서 UGV 로 검출된 위치 주변의 상자 후보는 장애물 지도·정렬·면 장부에서 뺀다(UGV 윗면이 상자로 잡히는 것을 막는다)
+    uav_ugv_exclude_m: float = 0.25    # m UGV 검출 중심과 상자 후보 중심이 이 거리 안이면 UGV 로 본다(맞닿은 상자는 중심이 0.325 m 라 남는다)
     redetect_resolved: bool = True     # True(기존): 확정·빈 면도 '이동 의심(suspect)'이면 재검증 가치 0.4 를 준다. False: 식별한 면은 다시 보지 않는다(교차 불일치 recheck 만 예외)
 
 
@@ -911,9 +934,19 @@ class MissionCfg:
     strike_max_incidence_deg: float = 40.0  # 지정표적 면의 법선과 로봇 방향 사이 각 한계 — 넘으면 정면 지점으로 재접근 [가정 — 실기 확인]
     fire_range_slack: float = 0.15  # m: 지정표적 사격은 거리가 strike_range+이 값 이하일 때만(창 ±3.5 cm 의 허용 각도가 거리에 반비례) [시뮬 가정 — 실기 확인]
     ugv_range: float = 1.40        # m: 상대 UGV 교전 목표 거리
+    m2_robust_abandon: bool = False   # 지정표적 접근 포기를 '회피 시간을 뺀 12 s + 막힘이 이어질 때'로, 영구 포기가 아니라 쿨다운 뒤 재시도(m2_unreach_max 번째에 영구)로 바꾼다
+    m2_nav_budget_s: float = 12.0     # 접근 시작 뒤 이 시간(회피로 쓴 시간 제외)이 지나야 포기 후보
+    m2_blocked_s: float = 4.0         # 이동이 '막힘'으로 이만큼 이어져야 포기 후보 — 한 틱 막힘으로 포기하지 않는다
+    m2_unreach_max: int = 3           # 접근 포기가 이 횟수에 이르면 영구 포기(target_failed)
+    m2_lost_robust: bool = False      # 조준 중 표적을 3번 놓쳐도 영구 포기하지 않는다: 그 면을 '나쁜 면'으로 기억해 쿨다운 동안 제외하고, 다른 면이 보이면 갈아탄다
+    m2_lost_cooldown_s: float = 6.0   # 놓친 면을 다시 시도하기까지의 기본 대기(놓친 횟수 배로 늘어난다)
+    m2_lost_max: int = 3              # 같은 면을 이만큼 놓치면 그 면은 경기 끝까지 제외(유령 면)
+    m2_evidence_w: float = 0.0        # 표적 면 고르기: 거리에서 (관측 횟수 x 이 값[m], 최대 15회)를 뺀다 — 근거가 많은 면을 우선
     max_shots_per_target: int = 3
     friendly_fire_guard_deg: float = 6.0   # 발사선 ±이 각도 안에 아군/불명 UGV가 있으면 발사 금지
     engage_ugv: bool = False       # 상태 전이표: 기본 전략은 M2 우선·적 UGV 회피·M5 진입 → M4 교전(HUNT)은 기본 OFF
+    hunt_on_engage_ok: bool = False  # 자세가 ENGAGE_OK(교전 허용: CM·정체·무적·GOAL 등)인 동안에는 engage_ugv 가 꺼져 있어도 HUNT 를 허용한다.
+                                     # 자세는 progress.enabled 일 때만 계산된다. 코드 기본은 끔(기존 동작), 실기 설정(waveshare_real.json)에서 켠다
     # ---- 상태 전이표(MAICON2026_상태전이표_경쟁상태반영.html) 구현 파라미터. [가정] 표시는 실측 후 조정
     local_stop_grace_s: float = 1.0   # 시작 후 t_total + 이 값이 지나도 STOP이 없으면 로컬 안전 정지(통신 유실 대비)
     lidar_stale_s: float = 0.6        # [가정] LiDAR 신선도 한계(정상 10 Hz 기준 약 6주기). 실측 주기·지연 후 정한다

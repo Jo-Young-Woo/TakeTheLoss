@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import math
 from collections import defaultdict
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from types import SimpleNamespace
 from typing import Any, Dict, List, Optional, Set, Tuple
 
@@ -22,7 +22,7 @@ import numpy as np
 from ..arena import ArenaGeometry
 from ..config import Config
 from ..link.base import UavBox
-from ..link.schema import server_sector
+from ..link.schema import server_sector, scoring_sectors
 from ..nav.grid import OccupancyGrid
 from ..types import Pose2D, Scan
 from ..util import wrap
@@ -126,6 +126,8 @@ class BoxModel:
     uav_t: Optional[float] = None
     arena_cx: Optional[float] = None
     arena_cy: Optional[float] = None
+    arena_sx: Optional[float] = None
+    arena_sy: Optional[float] = None
     full_seen: int = 0
     last_full_t: float = -1e9
     free_since: Optional[float] = None
@@ -133,6 +135,9 @@ class BoxModel:
     gid: Optional[int] = None                  # explore.lidar_faces: 이 칸이 속한 LiDAR 그룹 번호
     closed: Optional[bool] = None              # 그룹의 닫힌 도형 판정(True 닫힘 | False 열림 | None 보류) — lidar_faces 일 때만
     internal: List[int] = field(default_factory=list)  # 이웃 칸·벽에 가려져 볼 수도 식별할 수도 없는 면 인덱스(E N W S = 0 1 2 3). set 이 아니라 list — 스냅샷·보고서 JSON 이 set 을 못 쓴다
+    uav_internal: List[int] = field(default_factory=list)   # explore.uav_outer_faces: UAV 영상의 이웃 상자와 맞닿아 서로 가린 면(LiDAR 가 정한 internal 과 합쳐 쓴다)
+    lidar_internal: List[int] = field(default_factory=list)
+    uav_frozen: bool = False                   # explore.uav_map_freeze: 첫 UAV 지도로 굳힌 상자 — 영상이 끊겨도 계획에서 빠지지 않는다
 
 
 # ====================================================================== LiDAR '봤다' 지도
@@ -217,6 +222,7 @@ class CoverageMap:
         self.seen = SeenMap(self.geo, self.ec.seen_res, self.ec.seen_range_m)
         self.boxes: Dict[int, BoxModel] = {}
         self._next = 1
+        self.m3_dedupe_last: Dict[str, Any] = {"merged": 0, "detail": []}      # 마지막 M3 집계에서 합친 중복(제출 전 섹터별 중복 제거 결과)
         self._last_refresh = -1e9
         self.stats = {"boxes_created": 0, "boxes_moved": 0, "views": 0, "dropped_faces": 0}
         self.fov_half = self.cam.half_fov_h()                 # 핀홀: atan2(w/2, f) 그대로. usable_hfov_deg 가 있으면 그 절반(7장)
@@ -240,10 +246,13 @@ class CoverageMap:
         self.registry: Dict[int, FaceReg] = {}
         self._reg_next = 1
         self.registry_t0: Optional[float] = None
-        self.registry_stats = {"registered": 0, "restored": 0, "forgotten": 0}
+        self.registry_stats = {"registered": 0, "restored": 0, "forgotten": 0, "inner_dropped": 0}
         self._census_t0: Optional[float] = None                  # explore.uav_census: 첫 UAV 배치를 받아들인 시각(이 때부터 uav_census_window_s 안의 면이 초기 영상의 면)
         self.census_stats = {"registered": 0, "converted": 0}
         self._conversions: List[Dict[str, Any]] = []             # 미탐지 → 탐지로 바뀐 사건(매니저가 꺼내 로그에 남긴다)
+        self._map_frozen = False                                 # explore.uav_map_freeze: 첫 UAV 배치를 굳혔나
+        self._freeze_t0: Optional[float] = None                  # 첫 배치를 받아들인 시각(굳히는 창의 시작)
+        self.map_stats = {"ugv_excluded": 0, "inner_faces": 0, "frozen_boxes": 0, "frozen_t": None, "late_boxes_ignored": 0}
 
     def set_ugv_points(self, points: List[Tuple[float, float, float]]) -> None:
         """UGV 로 알려진 위치 (x, y, 반경). LiDAR 면 지도에서 이 주변을 장애물·면 기록에서 뺀다(항법의 회피와는 별개)."""
@@ -264,13 +273,174 @@ class CoverageMap:
         Their histories stay available for a later, twice-observed reacquisition.
         """
         self._now = max(self._now, now)
+        self._maybe_freeze(self._now)
         if self._layout_stamp is not None and self._now - self._layout_stamp > self.ec.uav_layout_timeout_s:
             self._uav_pending = []
             self._layout_streak = 0
             self._set_layout_state("stale", self._now)
         return self.uav_layout_state
 
+    def _maybe_freeze(self, now: float) -> None:
+        """explore.uav_map_freeze: 첫 배치를 받아들인 뒤 창(uav_map_freeze_s)이 지나면 그때까지 모은 UAV 상자를 그 경기의 장애물 지도로 굳힌다.
+        상자가 min_boxes 개 모자라면 굳히지 않고 계속 모은다. 영상이 끊긴 채로 창이 지나도(tick 에서 불린다) 굳는다."""
+        ec = self.ec
+        if not ec.uav_map_freeze or self._map_frozen or self._freeze_t0 is None:
+            return
+        if now - self._freeze_t0 < ec.uav_map_freeze_s:
+            return
+        mine = [b for b in self.boxes.values() if b.uav_t is not None]
+        if len(mine) < ec.uav_map_freeze_min_boxes:
+            return
+        if ec.uav_outer_faces:
+            self._update_uav_internal()
+        for b in mine:
+            b.uav_frozen = True
+        self._map_frozen = True
+        self.map_stats["frozen_boxes"], self.map_stats["frozen_t"] = len(mine), round(float(now), 3)
+        self.uav_layout_events.append({"t": round(float(now), 3), "from": self.uav_layout_state, "to": self.uav_layout_state,
+                                       "freeze": len(mine)})
+        del self.uav_layout_events[:-40]
+
+    def uav_map_ready(self) -> bool:
+        """UAV 가 준 장애물 배치를 지금 쓸 수 있나 — 실시간 영상이 살아 있거나, 굳힌 지도가 있다."""
+        return self.uav_layout_state == "available" or (self._map_frozen and any(b.uav_frozen for b in self.boxes.values()))
+
+    def _face_occlusions(self, b: BoxModel, idx: int, pool: List[BoxModel]):
+        """b 의 idx 번 면(E,N,W,S) 길이 중 이웃 상자가 맞대고 있는 비율(0..1). 이웃은 면 평면에서 ±uav_adjacent_tol_m 안에 가장자리가 있고
+        면 바깥쪽에 중심이 있는 상자이며, 반 칸 엇갈린 상자도 겹친 길이만큼 센다."""
+        tol = float(self.ec.uav_adjacent_tol_m)
+        nx, ny = FACE_N[idx]
+        half_n = b.sx / 2 if nx else b.sy / 2
+        c_n = b.cx * nx + b.cy * ny
+        lo0, hi0 = (b.cy - b.sy / 2, b.cy + b.sy / 2) if nx else (b.cx - b.sx / 2, b.cx + b.sx / 2)
+        segs = []
+        for v in pool:
+            if v is b:
+                continue
+            vn = (v.sx / 2 if nx else v.sy / 2)
+            # 이웃의 안쪽 가장자리(이 면을 향한 쪽)와 이 면 평면의 차이
+            near = (v.cx * nx + v.cy * ny) - vn
+            plane = c_n + half_n
+            gap = near - plane
+            if (v.cx - b.cx) * nx + (v.cy - b.cy) * ny <= 0 or abs(gap) >= tol:
+                continue
+            lo, hi = (v.cy - v.sy / 2, v.cy + v.sy / 2) if nx else (v.cx - v.sx / 2, v.cx + v.sx / 2)
+            lo, hi = max(lo, lo0), min(hi, hi0)
+            if hi > lo:
+                segs.append((lo, hi))
+        segs.sort()
+        merged, cur = [], None
+        for lo, hi in segs:
+            if cur is not None and lo <= cur[1]:
+                cur[1] = max(cur[1], hi)
+            else:
+                if cur is not None:
+                    merged.append(tuple(cur))
+                cur = [lo, hi]
+        if cur is not None:
+            merged.append(tuple(cur))
+        return lo0, hi0, merged
+
+    def _face_cover(self, b: BoxModel, idx: int, pool: List[BoxModel]) -> float:
+        lo, hi, intervals = self._face_occlusions(b, idx, pool)
+        return sum(y - x for x, y in intervals) / max(hi - lo, 1e-6)
+
+    def _face_on_wall(self, b: BoxModel, idx: int) -> bool:
+        """Only physical wall contact excludes a face; reachability is planned separately."""
+        nx, ny = FACE_N[idx]
+        # Arena boundaries and raw UAV centres share a frame. Locally shifted
+        # centres must not turn a real outer face into an alleged wall face.
+        cx, cy = self._arena_center(b)
+        if not self.ec.exhaustive_scoring_faces:
+            return not self.geo.inside(cx + nx * (b.sx / 2 + .30), cy + ny * (b.sy / 2 + .30), .25)
+        sx, sy = b.arena_sx or b.sx, b.arena_sy or b.sy
+        ex = cx + nx * (sx / 2 + 0.04)
+        ey = cy + ny * (sy / 2 + 0.04)
+        return not self.geo.inside(ex, ey, 0.0)
+
+    def _update_uav_internal(self) -> None:
+        """explore.uav_outer_faces: UAV 상자끼리 맞닿은 면(반 칸 엇갈려 일부만 가린 면 포함, uav_cover_frac 이상)과 벽에 붙은 면을 '안쪽 면'으로 표시한다 — 장부에는 바깥으로 드러난 면만 남는다.
+        이웃이 UAV 상자이거나 LiDAR 로 확인한 전체 상자(full)일 때만 센다(일부 면 가설은 중심이 불확실해 이웃으로 치지 않는다)."""
+        if not self.ec.uav_outer_faces:
+            return
+        frac = float(self.ec.uav_cover_frac)
+        pool = [b for b in self.boxes.values() if self.active_uav_prior(b) or b.kind == "full"]
+        aerial = {}
+        if self.ec.exhaustive_scoring_faces:
+            # Raw calibrated image geometry determines permanent topology.
+            # LiDAR hypotheses remain collision evidence, not proof of contact.
+            aerial = {b.bid: replace(b, cx=self._arena_center(b)[0], cy=self._arena_center(b)[1],
+                                    sx=b.arena_sx or b.sx, sy=b.arena_sy or b.sy)
+                      for b in self.boxes.values() if self.active_uav_prior(b)}
+        for b in self.boxes.values():
+            if b.uav_t is None:
+                continue
+            shape, neighbours = (aerial[b.bid], list(aerial.values())) if b.bid in aerial else (b, pool)
+            inner = ({i for i in range(4) if self._face_cover(shape, i, neighbours) >= frac or self._face_on_wall(b, i)}
+                     if self.box_available(b) else set())
+            local_inner = (set(b.internal) - set(b.uav_internal)) | set(b.lidar_internal)
+            if sorted(inner) != b.uav_internal:
+                self.map_stats["inner_faces"] += len(inner) - len(b.uav_internal)
+                b.uav_internal = sorted(inner)
+            b.internal = sorted(inner if b.bid in aerial else local_inner | inner)
+
+    def _arena_center(self, b):
+        if b.arena_cx is not None and b.arena_cy is not None:
+            return b.arena_cx, b.arena_cy
+        a = self._uav_alignment
+        return b.cx - (a.dx if a else 0.), b.cy - (a.dy if a else 0.)
+
+    def aerial_landmarks(self):
+        """Independent calibrated image rectangles for localization (not truth,
+        and never SLAM-aligned centres). Require a stable confirmed inventory.
+        """
+        rows = [(b.arena_cx, b.arena_cy, b.arena_sx or b.sx, b.arena_sy or b.sy) for b in self.boxes.values()
+                if self.active_uav_prior(b) and b.arena_cx is not None and b.arena_cy is not None
+                and (b.uav_frozen or b.n_seen >= 3)]
+        return rows if len(rows) >= 3 else []
+
+    def aerial_face_map(self):
+        """Image-derived outer line segments in arena metres. Geometry and
+        ground-camera identification are separate; UAV never supplies a class.
+        Partial faces retain their exposed segments even if mission policy
+        excludes the entire face from scoring/view planning.
+        """
+        # Form seams in one frame, using only original image geometry. Local
+        # LiDAR shifts/shape fits and LiDAR-only boxes cannot alter this map.
+        pool = [replace(b, cx=b.arena_cx, cy=b.arena_cy,
+                        sx=b.arena_sx or b.sx, sy=b.arena_sy or b.sy)
+                for b in self.boxes.values() if self.active_uav_prior(b)
+                and b.arena_cx is not None and b.arena_cy is not None]
+        rows = []
+        for b in pool:
+            cx, cy = self._arena_center(b)
+            dx, dy = cx - b.cx, cy - b.cy
+            for f in b.faces:
+                nx, ny = FACE_N[f.idx]
+                lo, hi, hidden = self._face_occlusions(b, f.idx, pool)
+                exposed, cursor = [], lo
+                for a, z in hidden:
+                    if a > cursor:
+                        exposed.append((cursor, a))
+                    cursor = max(cursor, z)
+                if cursor < hi:
+                    exposed.append((cursor, hi))
+                segments = []
+                for a, z in exposed:
+                    segments.append([[cx + nx * b.sx / 2, a + dy], [cx + nx * b.sx / 2, z + dy]] if nx else
+                                    [[a + dx, cy + ny * b.sy / 2], [z + dx, cy + ny * b.sy / 2]])
+                rows.append({"box": b.bid, "face": "ENWS"[f.idx], "normal": [nx, ny],
+                             "center": [cx, cy], "size": [b.sx, b.sy],
+                             "segments": segments, "exposed_fraction": round(sum(z-a for a,z in exposed) / max(hi-lo,1e-6), 3),
+                             "wall_inaccessible": self._face_on_wall(b, f.idx),
+                             "state": self.face_ledger_state(self.boxes[b.bid], f), "source": "uav_image",
+                             "last_image_s": b.uav_t})
+        return {"frame": "arena", "units": "m", "faces": rows,
+                "assumption": "axis-aligned rectangular footprints; side images require ground camera"}
+
     def active_uav_prior(self, b: BoxModel) -> bool:
+        if b.uav_frozen and b.uav_t is not None:
+            return True                                    # 첫 UAV 지도로 굳힌 상자는 영상이 끊겨도 쓴다
         return (self.uav_layout_state == "available" and b.uav_t is not None
                 and b.uav_t >= self._layout_epoch
                 and 0 <= self._now - b.uav_t <= self.ec.uav_layout_timeout_s)
@@ -287,13 +457,16 @@ class CoverageMap:
                 "active_priors": sum(self.active_uav_prior(b) for b in self.boxes.values()),
                 "suspended_image_only_boxes": sum(not self.box_available(b) for b in self.boxes.values()),
                 "local_boxes": sum(b.kind != "uav" for b in self.boxes.values()),
+                "map_frozen": self._map_frozen, "frozen_boxes": sum(b.uav_frozen for b in self.boxes.values()),
+                "map_stats": dict(self.map_stats),
                 "events": list(self.uav_layout_events)}
 
     # ------------------------------------------------------------------ 입력
     def update_scan(self, scan: Scan, pose: Pose2D) -> None:
         self.seen.update(scan, pose)
 
-    def ingest_uav_boxes(self, hints: Any, now: float, grid: Optional[OccupancyGrid] = None) -> None:
+    def ingest_uav_boxes(self, hints: Any, now: float, grid: Optional[OccupancyGrid] = None,
+                         ugv_xy: Optional[Any] = None) -> None:
         """Accept repeated overhead footprint observations, never side classes or counts.
 
         Two consistent frames are needed before a new prior is useful. A prior adds
@@ -308,6 +481,8 @@ class CoverageMap:
         self._layout_stamp = now
         self._layout_streak += 1
         self._set_layout_state("available" if self._layout_streak >= 2 else "acquiring", now)
+        if self.ec.uav_map_freeze and self._freeze_t0 is None and self._layout_streak >= 2:
+            self._freeze_t0 = now                                # 굳히는 창의 시작: 일관된 두 번째 프레임을 받아들인 때
         raw = []
         for hint in hints:
             try:
@@ -315,6 +490,13 @@ class CoverageMap:
                                   float(getattr(hint, "confidence", 1.0))))
             except (TypeError, ValueError, AttributeError):
                 continue
+        if self.ec.uav_exclude_ugv and ugv_xy:
+            # UAV 영상에서 UGV 로 검출된 자리 근처의 상자 후보는 UGV 윗면일 수 있다 — 지도·정렬·면 장부에 넣지 않는다.
+            rad = float(self.ec.uav_ugv_exclude_m)
+            pts = [(float(p[0]), float(p[1])) for p in ugv_xy if len(p) >= 2 and math.isfinite(p[0]) and math.isfinite(p[1])]
+            kept = [h for h in raw if all(math.hypot(h.cx - x, h.cy - y) >= rad for x, y in pts)]
+            self.map_stats["ugv_excluded"] += len(raw) - len(kept)
+            raw = kept
         if grid is not None:
             local = [SimpleNamespace(kind=kind, cx=cx, cy=cy, sx=sx, sy=sy)
                      for kind, cx, cy, cells, sx, sy in self._clusters(grid) if kind == "full"]
@@ -334,6 +516,13 @@ class CoverageMap:
                 self.uav_alignment_report = {"dx": round(alignment.dx, 3), "dy": round(alignment.dy, 3),
                                              "matches": alignment.matches, "rms": round(alignment.rms, 3), "t": now}
         hints = transform_uav_boxes(raw, self._uav_alignment)
+        if self._map_frozen:
+            # 굳힌 지도: 정렬(위 블록)만 갱신하고 상자를 더하거나 옮기지 않는다. 지도에 없던 자리의 검출 수는 진단용으로만 센다.
+            for h in hints:
+                if not any(math.hypot(b.cx - h.cx, b.cy - h.cy) <= 0.25 for b in self.boxes.values()):
+                    self.map_stats["late_boxes_ignored"] += 1
+            self._uav_pending = []
+            return
         previous = self._uav_pending
         pending = []
         for hint_index, hint in enumerate(hints):
@@ -377,6 +566,7 @@ class CoverageMap:
             # Submission sectors remain in the calibrated arena frame even
             # when navigation priors are registered into a drifting SLAM frame.
             best.arena_cx, best.arena_cy = raw[hint_index].cx, raw[hint_index].cy
+            best.arena_sx, best.arena_sy = raw[hint_index].sx, raw[hint_index].sy
             self._register_box(best, "uav", now)             # UAV 영상으로 받아들인 박스의 면은 모두 기록부에 올린다
             if grid is not None:
                 # Perimeter samples let later LiDAR free-space evidence invalidate
@@ -388,6 +578,7 @@ class CoverageMap:
                                    if grid.in_bounds(*grid.to_cell(best.cx + nx * best.sx / 2 + (-ny) * d,
                                                                   best.cy + ny * best.sy / 2 + nx * d))})
         self._uav_pending = pending
+        self._update_uav_internal()
 
     def visibility_occupancy(self, grid: OccupancyGrid) -> np.ndarray:
         """Overhead priors can occlude side views without overwriting the SLAM map."""
@@ -402,7 +593,7 @@ class CoverageMap:
         # The aerial calibration/SLAM registration is approximate. Strong local
         # free-space evidence wins over a coarse footprint prior; otherwise a
         # small offset duplicates obstacle edges and closes real corridors.
-        free_evidence = grid.L < -0.3
+        free_evidence = grid.L <= 3 * grid.L_FREE
         self.stats["uav_prior_free_overrides"] = int(np.count_nonzero(prior & free_evidence & ~occ))
         return occ | (prior & ~free_evidence)
 
@@ -442,7 +633,7 @@ class CoverageMap:
         for b in self.boxes.values():
             if b.kind != "full" or b.n_seen < 3 or b.full_seen < 3:
                 continue
-            if b.uav_t is not None and 0 <= now - b.uav_t <= 12.0:
+            if b.uav_t is not None and (b.uav_frozen or 0 <= now - b.uav_t <= 12.0):
                 result.append(b)
                 continue
             if not self.ec.complete_m3_faces:
@@ -564,12 +755,14 @@ class CoverageMap:
         ac, bc = 0.5 * (amin + amax), b0 + interior * 0.2
         return (ac, bc) if along_x else (bc, ac)
 
-    @staticmethod
-    def _apply_unit(bx: BoxModel, unit: Any) -> None:
+    def _apply_unit(self, bx: BoxModel, unit: Any) -> None:
         """LiDAR 면 지도의 칸 정보(그룹 번호·닫힘 판정·안쪽 면)를 박스에 붙인다. lidar_faces 가 꺼져 있으면 unit=None 이라 아무 일도 없다."""
         if unit is None:
             return
-        bx.gid, bx.closed, bx.internal = unit.gid, (unit.closed if unit.gid is not None else None), sorted(unit.internal)
+        bx.gid, bx.closed = unit.gid, (unit.closed if unit.gid is not None else None)
+        bx.lidar_internal = sorted(set(unit.internal))
+        bx.internal = sorted(set(bx.uav_internal) if self.ec.exhaustive_scoring_faces and self.active_uav_prior(bx)
+                             else set(bx.lidar_internal) | set(bx.uav_internal))
 
     def _make_faces(self, bx: BoxModel) -> None:
         bx.faces = [FaceRec(bx.bid, i, nx, ny, bx.cx + nx * bx.sx / 2, bx.cy + ny * bx.sy / 2)
@@ -615,6 +808,16 @@ class CoverageMap:
                 best.cy += (cy - best.cy) * k
                 if k > 0 and (kind == "full" or best.kind == "face"):
                     best.sx, best.sy = sx, sy
+                if self.ec.exhaustive_scoring_faces and self.active_uav_prior(best):
+                    # A merged/partial scan must not expand a photographed cube
+                    # into its wall passage. Apply the globally registered
+                    # image geometry rather than a noisy individual cluster.
+                    ax, ay = self._arena_center(best)
+                    a = self._uav_alignment
+                    ax += a.dx if a else 0.
+                    ay += a.dy if a else 0.
+                    best.cx, best.cy = ax, ay
+                    best.sx, best.sy = best.arena_sx or best.sx, best.arena_sy or best.sy
                 best.kind = "full" if (best.kind == "full" or kind == "full") else "face"
                 best.cells, best.t_last, best.miss_t = cells, now, None
                 best.free_since, best.free_checks = None, 0
@@ -631,7 +834,7 @@ class CoverageMap:
             if bid in matched:
                 continue
             b = self.boxes[bid]
-            if self.active_uav_prior(b):
+            if self.active_uav_prior(b) and not b.uav_frozen:
                 b.free_since, b.free_checks = None, 0
                 continue
             if b.miss_t is None:
@@ -658,6 +861,8 @@ class CoverageMap:
                 iy, ix = grid.to_cell(ex, ey)
                 f.exterior_open = (self.geo.inside(ex, ey, 0.25) and grid.in_bounds(iy, ix) and not occ[iy, ix]
                                    and f.idx not in b.internal)
+                if self.ec.exhaustive_scoring_faces and self.active_uav_prior(b):
+                    f.exterior_open = f.idx not in b.internal
         if omap is not None:
             self._sync_detections(omap)
         self._update_registry(now)
@@ -714,12 +919,15 @@ class CoverageMap:
             if geometry_key is not None:
                 anchored = self.get_face(geometry_key)
                 if (anchored is not None and math.hypot(anchored.cx-of.x, anchored.cy-of.y) < .25
+                        and (not self.ec.uav_outer_faces or anchored.idx not in self.boxes[anchored.bid].internal)
                         and (anchored.nx*of.vx+anchored.ny*of.vy)/nv > .5):
                     best = anchored
             for b in (() if geometry_key is not None else self.boxes.values()):
                 if abs(b.cx - of.cx) > 0.5 or abs(b.cy - of.cy) > 0.5:
                     continue
                 for f in b.faces:
+                    if self.ec.uav_outer_faces and f.idx in b.internal:
+                        continue                       # 안쪽 면에는 득표를 배정하지 않는다
                     d = math.hypot(f.cx - of.x, f.cy - of.y)
                     if d < bd and (f.nx * of.vx + f.ny * of.vy) / nv > 0.5:
                         best, bd = f, d
@@ -770,9 +978,8 @@ class CoverageMap:
                         occ: np.ndarray, grid: OccupancyGrid) -> Tuple[bool, str]:
         """A complete 36 cm M3 picture fits a neutral-tilt camera view.
 
-        This stricter planning check is used only after ground observations
-        identify a four-picture cube. Unknown cubes keep ordinary visibility
-        checks, so geometry alone cannot classify or hide an M3 candidate.
+        Full-image inspection applies to exhaustive scoring coverage and the
+        optional four-photo protocol. Geometry never supplies a class label.
         ``vth=None`` asks whether aiming at this face during a spin can work.
         """
         heading = math.atan2(f.cy-vy, f.cx-vx) if vth is None else vth
@@ -780,12 +987,15 @@ class CoverageMap:
         if not ok:
             return ok, why
         distance = math.hypot(f.cx-vx, f.cy-vy)
-        if ((vx-f.cx)*f.nx + (vy-f.cy)*f.ny) / distance < math.cos(math.radians(55.0)):
+        incidence = self.ec.view_max_incidence_deg if self.exhaustive_face(f) else 55.0
+        if ((vx-f.cx)*f.nx + (vy-f.cy)*f.ny) / distance < math.cos(math.radians(incidence)):
             return False, "incidence"
         c, s = math.cos(heading), math.sin(heading)
         for offset in (-.18, 0., .18):
             px, py = f.cx + f.nx*.002 - f.ny*offset, f.cy + f.ny*.002 + f.nx*offset
             dx, dy = px-vx, py-vy
+            if self.exhaustive_face(f) and self._picture_edge_occluded(vx, vy, px, py, f):
+                return False, "occluded"
             depth, left = dx*c + dy*s, -dx*s + dy*c
             if depth <= .08:
                 return False, "fov"
@@ -800,23 +1010,56 @@ class CoverageMap:
             for along in np.arange(grid.res*.5, max(0., length-grid.res*1.5), grid.res*.5):
                 iy, ix = grid.to_cell(vx+dx*along/length, vy+dy*along/length)
                 if grid.in_bounds(iy, ix) and occ[iy, ix]:
+                    if self.exhaustive_face(f):
+                        # A grazing ray intersects the target's rasterized skin
+                        # before its measured plane. Suppress only those cells;
+                        # other observed boxes are checked continuously above.
+                        b = self.boxes[f.bid]
+                        gx, gy = grid.to_world(iy, ix)
+                        own_skin = (abs(gx-b.cx) <= b.sx/2 + grid.res/2
+                                    and abs(gy-b.cy) <= b.sy/2 + grid.res/2
+                                    and abs((gx-f.cx)*f.nx + (gy-f.cy)*f.ny) <= grid.res)
+                        if own_skin:
+                            continue
                     return False, "occluded"
         return True, "ok"
+
+    def _picture_edge_occluded(self, vx, vy, px, py, face) -> bool:
+        """Continuous intersection with other observed boxes, never world truth."""
+        for b in self.boxes.values():
+            if b.bid == face.bid or not self.box_available(b) or not (b.kind == "full" or self.active_uav_prior(b)):
+                continue
+            lo, hi = 0., 1.
+            for origin, delta, center, size in ((vx, px-vx, b.cx, b.sx), (vy, py-vy, b.cy, b.sy)):
+                if abs(delta) < 1e-9:
+                    if not center-size/2 <= origin <= center+size/2:
+                        hi = -1.
+                        break
+                else:
+                    a, z = sorted(((center-size/2-origin)/delta, (center+size/2-origin)/delta))
+                    lo, hi = max(lo, a), min(hi, z)
+            if max(lo, 1e-6) < min(hi, 1.-1e-6):
+                return True
+        return False
 
     def record_view(self, pose: Pose2D, pan_deg: float, grid: OccupancyGrid, now: float) -> int:
         """카메라 프레임 하나 처리: 지금 실제로 볼 수 있는 면에 독립 관측을 쌓는다. 반환: 새로 센 관측 수."""
         occ = self.visibility_occupancy(grid)
         th_cam = pose.th + math.radians(pan_deg)
         n_new = 0
+        outer = self.ec.uav_outer_faces
         for b in self.boxes.values():
             if not self.box_available(b):
                 continue
             if abs(b.cx - pose.x) > 3.0 or abs(b.cy - pose.y) > 3.0:
                 continue
             for f in b.faces:
+                if outer and f.idx in b.internal:
+                    continue                           # 맞닿은·벽에 붙은 면은 볼 수 없다 — 이웃 상자 옆면을 '봤는데 없었다'로 쌓아 빈 면으로 확정하지 않는다(uav_outer_faces)
                 if not self.pt_allowed(f):             # identify_primary: OAK 가 맡은 면은 팬틸트가 본 것을 관측으로 세지 않는다(검출이 버려지는데 '봤는데 없었다'만 쌓이면 빈 면으로 잘못 확정된다)
                     continue
-                ok, why = self.face_visible(pose.x, pose.y, th_cam, f, occ, grid)
+                ok, why = (self.picture_visible(pose.x, pose.y, th_cam, f, occ, grid)
+                           if self.requires_full_view(f) else self.face_visible(pose.x, pose.y, th_cam, f, occ, grid))
                 if not ok and why != "occluded":
                     continue
                 if not self._independent(f.view_poses[-1] if f.view_poses else None, pose, th_cam, f.last_cam_yaw,
@@ -866,6 +1109,15 @@ class CoverageMap:
         return not (f.det_kind == "object" and f.det_n >= self.cfg.perception.min_votes
                     and f.top()[1] >= self.ec.confirm_min_margin and f.top()[2] >= .65)
 
+    def exhaustive_face(self, f: FaceRec) -> bool:
+        b = self.boxes.get(f.bid)
+        return bool(self.ec.exhaustive_scoring_faces and b is not None and self.m3_candidate_box(b)
+                    and f.idx not in b.internal
+                    and (self.cfg.team is None or server_sector(self.box_sector(b) or "") in scoring_sectors(self.cfg.team)))
+
+    def requires_full_view(self, f: FaceRec) -> bool:
+        return self.exhaustive_face(f) or self.picture_pending(f)
+
     def face_state(self, f: FaceRec) -> str:
         ec = self.ec
         cls, margin, mconf = f.top()
@@ -877,7 +1129,7 @@ class CoverageMap:
             return CONFIRMED                                          # 지정표적 면은 M2 담당 — M3 에서 다시 볼 필요 없음
         if f.det_n >= self.cfg.perception.min_votes and mconf >= 0.45 and margin >= ec.confirm_min_margin:
             return CONFIRMED
-        if f.arrive_attempts >= ec.attempts_giveup:
+        if f.arrive_attempts >= ec.attempts_giveup and not self.exhaustive_face(f):
             return GIVEUP                                             # 세 번 가서 봤는데도 확정이 안 된다 — 더는 시간을 쓰지 않는다
         if f.det_n > 0:
             return UNCERTAIN
@@ -893,6 +1145,10 @@ class CoverageMap:
         if self.picture_pending(f):
             return self.ec.m3_missing_face_weight / (1.0 + .2 * min(f.arrive_attempts, 5))
         resolved = st in (CONFIRMED, EMPTY) or self._reg_resolved(f)       # 기록부가 '식별함·빈 면'으로 적어 둔 면은 지금 득표가 흔들려도 해결로 본다
+        if not resolved and self.exhaustive_face(f):
+            # Failed approaches do not silently remove a required face.
+            # Viewpoint diversity and navigation tabu bound repeated attempts.
+            return max(0.65, 1.0 / (1.0 + .12 * f.arrive_attempts))
         if resolved or st in (UNREACHABLE, GIVEUP):
             if not resolved:
                 return 0.0
@@ -912,7 +1168,16 @@ class CoverageMap:
         Geometry remains in the ledger for visibility and M2 normal matching.
         """
         known_footprint = b.kind == "full" or b.uav_t is not None
-        return not (known_footprint and max(b.sx, b.sy) > 1.5 * self.geo.box_size)
+        if (self.ec.exhaustive_scoring_faces and self.uav_map_ready()
+                and any(self.active_uav_prior(other) for other in self.boxes.values())
+                and b.uav_t is None):
+            # With the confirmed aerial inventory, unassociated LiDAR clusters
+            # remain navigation/scout evidence, not additional photo boxes.
+            # Without that inventory the LiDAR-only coverage path is retained.
+            return False
+        sx, sy = ((b.arena_sx or b.sx, b.arena_sy or b.sy)
+                  if self.ec.exhaustive_scoring_faces and self.active_uav_prior(b) else (b.sx, b.sy))
+        return not (known_footprint and max(sx, sy) > 1.5 * self.geo.box_size)
 
     def box_sector(self, b: BoxModel) -> Optional[str]:
         """Territory belongs to the box centre, not its viewing position or face."""
@@ -924,7 +1189,8 @@ class CoverageMap:
         return [f for b in self.boxes.values() if self.m3_candidate_box(b) and self.box_available(b)
                 and (allowed is None or server_sector(self.box_sector(b)) in allowed)
                 for f in b.faces if self.face_weight(f) > 0.0 and self.pt_allowed(f)
-                and (f.exterior_open or self.picture_pending(f))]
+                and (f.exterior_open or self.requires_full_view(f))
+                and (not self.ec.exhaustive_scoring_faces or f.idx not in b.internal)]
 
     def identify_faces(self, sectors: Optional[Set[str]] = None) -> List[FaceRec]:
         """팬틸트로 풀지 못해 OAK RGB + YOLO 로 다시 식별해 볼 면(oak_det.identify_fallback).
@@ -1124,9 +1390,14 @@ class CoverageMap:
         if not self.ec.uav_face_registry:
             return
         linked = {f.reg for bb in self.boxes.values() for f in bb.faces if f.reg is not None}
+        outer = self.ec.uav_outer_faces
+        if outer and not self.m3_candidate_box(b):
+            return                                                # 긴 장애물은 M3 사진 대상이 아니다 — 기록부에 올리지 않는다(장부·pending_faces 와 같은 기준)
         for f in b.faces:
             if f.reg is not None and f.reg in self.registry:
                 continue
+            if outer and f.idx in b.internal:
+                continue                                          # 이웃 상자·벽에 가린 면은 볼 수 없다 — 기록부에 올리지 않는다(uav_outer_faces)
             rec = self._reg_near(f, linked)
             if rec is None:
                 rec = FaceReg(self._reg_next, f.idx, f.cx, f.cy, origin, float(now))
@@ -1178,8 +1449,18 @@ class CoverageMap:
         if not self.ec.uav_face_registry:
             return
         linked = {f.reg for b in self.boxes.values() for f in b.faces if f.reg is not None}
+        outer = self.ec.uav_outer_faces
         for b in self.boxes.values():
+            long_obstacle = outer and not self.m3_candidate_box(b)
             for f in b.faces:
+                if outer and (f.idx in b.internal or long_obstacle):
+                    # 나중에 이웃 상자가 보이거나 LiDAR 가 맞닿음을 알아낸 면: 아직 해결 전이면 기록부에서 뺀다(식별·빈 면 기록은 지우지 않는다)
+                    rec_i = self.registry.get(f.reg) if f.reg is not None else None
+                    if rec_i is not None and rec_i.status not in ("identified", "empty"):
+                        self.registry.pop(f.reg, None)
+                        self.registry_stats["inner_dropped"] += 1
+                        f.reg = None
+                    continue
                 st = self.face_state(f)
                 rec = self.registry.get(f.reg) if f.reg is not None else None
                 if rec is None:
@@ -1275,7 +1556,10 @@ class CoverageMap:
 
     def face_ledger_state(self, b: BoxModel, f: FaceRec) -> str:
         """면 하나의 섹터 장부 상태. identified(분류 확정) | empty(여러 자리에서 봐도 없다) | hidden(이웃 상자·벽에 가려 볼 수 없다) |
-        unreachable(시도했지만 못 풀었다: 포기·도달 불가) | uncertain(득표가 모자란다) | viewed(봤지만 검출이 없다) | pending(아직 못 봤다)."""
+        unreachable(시도했지만 못 풀었다: 포기·도달 불가) | uncertain(득표가 모자란다) | viewed(봤지만 검출이 없다) | pending(아직 못 봤다) |
+        excluded(uav_outer_faces 켜짐: 맞닿은·벽에 붙은 면 — 장부 집계에 넣지 않는다)."""
+        if self.ec.uav_outer_faces and f.idx in b.internal:
+            return "excluded"                                  # 맞닿은·벽에 붙은 면 — 식별·빈 면으로도 세지 않는다
         rec = self.registry.get(f.reg) if f.reg is not None else None
         st = self.face_state(f)
         if st == CONFIRMED or (rec is not None and rec.status == "identified"):
@@ -1301,7 +1585,7 @@ class CoverageMap:
         out: Dict[str, Dict[str, Any]] = {}
         for n in names + ["none"]:
             if wanted is None or n in wanted:
-                out[n] = {"boxes": 0, "faces": 0, **{k: 0 for k in self.LEDGER_STATES}, "todo": [], "complete": False}
+                out[n] = {"boxes": 0, "faces": 0, **{k: 0 for k in self.LEDGER_STATES}, "excluded": 0, "todo": [], "complete": False}
         for b in self.boxes.values():
             if not (self.m3_candidate_box(b) and self.box_available(b)):
                 continue
@@ -1311,10 +1595,14 @@ class CoverageMap:
                 continue
             row["boxes"] += 1
             for f in b.faces:
+                if self.ec.uav_outer_faces and f.idx in b.internal:
+                    row["excluded"] += 1
+                    continue                                       # 맞닿은·벽에 붙은 면은 장부에 올리지 않는다(uav_outer_faces)
                 state = self.face_ledger_state(b, f)
                 row["faces"] += 1
                 row[state] += 1
-                if state in ("pending", "viewed", "uncertain"):
+                if state in ("pending", "viewed", "uncertain") or (
+                        self.exhaustive_face(f) and state in ("hidden", "unreachable")):
                     row["todo"].append(list(f.key))
         for row in out.values():
             row["complete"] = row["boxes"] > 0 and not row["todo"]
@@ -1344,13 +1632,11 @@ class CoverageMap:
             w *= 0.15
         return w
 
-    def m3_counts(self, omap: Any) -> Dict[str, Dict[str, int]]:
-        """장부 기준 M3 집계: **박스 면 하나 = 객체 하나**. 같은 면을 여러 시점에서 봐도 한 번만 센다(위치 기반 합치기의 중복 계수 방지)
-        섹터는 면 위치 추정이 아니라 LiDAR 군집에서 구한 박스 중심으로 정한다. 장부에 없는(군집이 안 된) 관측은 기존 ObjectMap 집계로 보충한다.
-        확정(CONFIRMED) 객체 면만 센다. 사진 확정과 같은 min_votes(기본 4), 평균 신뢰도 0.65,
-        confirm_min_margin을 적용하며, 보충 관측도 같은 기준을 통과해야 한다.
-        매번 현재 증거로 전체 스냅샷을 다시 만들므로 오분류 정정 시 계수가 줄어들 수 있다."""
-        out: Dict[str, Dict[str, int]] = {}
+    def m3_entries(self, omap: Any) -> List[Dict[str, Any]]:
+        """M3 집계에 들어가는 **확정 객체 면 목록**(섹터별 객체 리스트의 원자료). 박스 면 하나 = 항목 하나.
+        장부(상자 면)에서 먼저 모으고, 장부에 없는(군집이 안 된) 관측은 ObjectMap 확정 면으로 보충한다.
+        항목: sec(서버 섹터 이름) · cls · x,y(면 중심) · nx,ny(면 법선) · conf(평균 신뢰도) · n(표 수) · src(ledger|omap) · key(장부 면 키 또는 None) · status('confirmed')."""
+        out: List[Dict[str, Any]] = []
         covered: List[Tuple[float, float, float, float]] = []
         covered_keys = set()
         full_cubes = [b for b in self.boxes.values() if b.kind == "full" and self.m3_candidate_box(b)]
@@ -1359,6 +1645,12 @@ class CoverageMap:
             sec = self.geo.sector_of(b.cx if b.arena_cx is None else b.arena_cx,
                                      b.cy if b.arena_cy is None else b.arena_cy)
             for f in b.faces:
+                # Anchored detections belong to this ledger even if unresolved,
+                # excluded, or not a cube. Fallback must not reintroduce them.
+                covered_keys.add(f.key)
+                if (not self.m3_candidate_box(b)
+                        or (self.ec.uav_outer_faces and f.idx in b.internal)):
+                    continue
                 if sec is None or f.det_kind != "object":
                     continue
                 cls, margin, mconf = f.top()
@@ -1368,8 +1660,8 @@ class CoverageMap:
                     continue
                 covered.append((f.cx, f.cy, f.nx, f.ny))
                 covered_keys.add(f.key)
-                out.setdefault(sec, {})
-                out[sec][cls] = out[sec].get(cls, 0) + 1
+                out.append({"sec": sec, "cls": cls, "x": f.cx, "y": f.cy, "nx": f.nx, "ny": f.ny, "conf": float(mconf),
+                            "n": int(f.det_n), "src": "ledger", "key": tuple(f.key), "status": "confirmed"})
         if omap is not None:
             for of in omap.confirmed_faces():
                 if getattr(of, "geometry_key", None) is None and any(
@@ -1395,8 +1687,81 @@ class CoverageMap:
                     continue
                 sec = self.geo.sector_of(of.cx, of.cy)
                 if sec is not None:
-                    out.setdefault(sec, {})
-                    out[sec][of.cls] = out[sec].get(of.cls, 0) + 1
+                    vn = math.hypot(of.vx, of.vy) or 1.0
+                    out.append({"sec": sec, "cls": of.cls, "x": of.x, "y": of.y, "nx": of.vx / vn, "ny": of.vy / vn,
+                                "conf": float(votes[0] / max(of.n, 1)), "n": int(of.n), "src": "omap", "key": None, "status": "confirmed"})
+        return out
+
+    @staticmethod
+    def dedupe_entries(entries: List[Dict[str, Any]], dist: float = 0.25) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+        """섹터별로 같은 면의 중복 항목을 합친다. 같은 섹터에서 면 중심이 dist 안이고 법선이 비슷하면(내적 > 0.5) 같은 면이다
+        (이웃 상자의 같은 방향 면은 0.4 m 떨어져 있어 합쳐지지 않는다). 표 수×신뢰도가 큰 항목을 남기고 클래스가 달라도 한 면은 한 번만 센다.
+        반환: (남긴 항목, 합쳐 없앤 항목 — 'kept_cls' 로 어느 클래스에 흡수됐는지 표시)."""
+        kept: List[Dict[str, Any]] = []
+        merged: List[Dict[str, Any]] = []
+        for e in sorted(entries, key=lambda e: (-(e["n"] * e["conf"]), e["src"] != "ledger")):
+            dup = None
+            for k in kept:
+                if k["sec"] != e["sec"] or math.hypot(k["x"] - e["x"], k["y"] - e["y"]) >= dist:
+                    continue
+                dot = k["nx"] * e["nx"] + k["ny"] * e["ny"]
+                if dot > 0.5:
+                    dup = k
+                    break
+            if dup is None:
+                kept.append(e)
+            else:
+                merged.append({**e, "kept_cls": dup["cls"]})
+        return kept, merged
+
+    def m3_counts(self, omap: Any, dedupe: bool = False, dedupe_dist: float = 0.25) -> Dict[str, Dict[str, int]]:
+        """장부 기준 M3 집계: **박스 면 하나 = 객체 하나**. 같은 면을 여러 시점에서 봐도 한 번만 센다(위치 기반 합치기의 중복 계수 방지)
+        섹터는 면 위치 추정이 아니라 LiDAR 군집에서 구한 박스 중심으로 정한다. 장부에 없는(군집이 안 된) 관측은 기존 ObjectMap 집계로 보충한다.
+        확정(CONFIRMED) 객체 면만 센다. 사진 확정과 같은 min_votes(기본 4), 평균 신뢰도 0.65,
+        confirm_min_margin을 적용하며, 보충 관측도 같은 기준을 통과해야 한다.
+        dedupe=True 면 센 항목에서 섹터별 같은 면의 중복을 한 번 더 합친다(dedupe_entries).
+        매번 현재 증거로 전체 스냅샷을 다시 만들므로 오분류 정정 시 계수가 줄어들 수 있다."""
+        entries = self.m3_entries(omap)
+        self.m3_dedupe_last = {"merged": 0, "detail": []}
+        if dedupe:
+            entries, merged = self.dedupe_entries(entries, dedupe_dist)
+            self.m3_dedupe_last = {"merged": len(merged), "detail": [
+                {"sec": m["sec"], "cls": m["cls"], "kept": m["kept_cls"], "x": round(m["x"], 2), "y": round(m["y"], 2)} for m in merged[:12]]}
+        out: Dict[str, Dict[str, int]] = {}
+        for e in entries:
+            out.setdefault(e["sec"], {})
+            out[e["sec"]][e["cls"]] = out[e["sec"]].get(e["cls"], 0) + 1
+        return out
+
+    def sector_object_list(self, omap: Any = None, sectors: Optional[Any] = None, dedupe: bool = False,
+                           dedupe_dist: float = 0.25) -> Dict[str, List[Dict[str, Any]]]:
+        """섹터별 객체 리스트: 확정(status='confirmed' — 분류 완료, M3 에 센다) + 후보(status='pending' — 객체로 검출됐지만 득표·신뢰도가
+        모자라 아직 확정 전, 세지 않는다). sectors 를 주면(서버 이름) 그 섹터만. 항목 순서는 섹터 안에서 확정 → 후보."""
+        wanted = None if sectors is None else {n for n in (server_sector(x) for x in sectors) if n is not None}
+        entries = self.m3_entries(omap)
+        if dedupe:
+            entries, _ = self.dedupe_entries(entries, dedupe_dist)
+        out: Dict[str, List[Dict[str, Any]]] = {}
+
+        def put(e: Dict[str, Any]) -> None:
+            sec = server_sector(e["sec"]) or e["sec"]
+            if wanted is None or sec in wanted:
+                out.setdefault(sec, []).append({k: (round(v, 3) if isinstance(v, float) else v) for k, v in e.items() if k != "sec"})
+        for e in entries:
+            put(e)
+        confirmed_keys = {e["key"] for e in entries if e["key"] is not None}
+        for b in self.boxes.values():
+            sec = self.geo.sector_of(b.cx if b.arena_cx is None else b.arena_cx, b.cy if b.arena_cy is None else b.arena_cy)
+            if sec is None:
+                continue
+            for f in b.faces:
+                if f.det_kind != "object" or tuple(f.key) in confirmed_keys:
+                    continue
+                cls, margin, mconf = f.top()
+                if cls is None:
+                    continue
+                put({"sec": sec, "cls": cls, "x": f.cx, "y": f.cy, "nx": f.nx, "ny": f.ny, "conf": float(mconf), "n": int(f.det_n),
+                     "src": "ledger", "key": tuple(f.key), "status": "pending"})
         return out
 
     def summary(self) -> Dict[str, Any]:

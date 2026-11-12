@@ -11,6 +11,7 @@
   MAICON_CODE 임무코드(legacy MAICON_MISSION_CODE도 지원; 로그에 남기지 않는다)
   MAICON_TEAM / MAICON_SLOT  보통 불필요 — 서버 /me 의 slot 으로 정해진다   MAICON_REHEARSAL=1 이면 리허설 창구(/api/rehearsal/)
   MAICON_CONFIG  설정 파일(기본 <프로젝트>/config/waveshare_real.json)     MAICON_DETECTOR  YOLO 가중치(.pt/.engine)
+  MAICON_ARENA_SPEC 경기장 YAML(기본 ros2/maicon_arena_gz/config/arena_spec.yaml); --arena-spec 인자가 우선
   MAICON_NAV     nav2 | builtin (기본 nav2)                              TEAM_LAUNCH_NAV  1 이면 Nav2/SLAM launch 를 같이 띄운다
   MAICON_OAK     1 이면 OAK-D Lite 드라이버를 run_real 보다 먼저 자식 프로세스로 띄운다(기본 꺼짐; oak.* 설정, config/oak/<oak.profile>.yaml).
                  실패하거나 5 s 안에 끝나도 경고만 하고 계속한다 — OAK 는 /ready 를 막지 않는다
@@ -75,6 +76,7 @@ def main() -> int:
         return 2
     cfgp = env("MAICON_CONFIG") or os.path.join(ROOT, "config", "waveshare_real.json")
     argv += ["--config", cfgp, "--nav", env("MAICON_NAV", "nav2"), "--matches", "1", "--restore"]
+    argv += ["--arena-spec", env("MAICON_ARENA_SPEC") or os.path.join(ROOT, "ros2", "maicon_arena_gz", "config", "arena_spec.yaml")]
     for flag, key in (("--team", "MAICON_TEAM"), ("--slot", "MAICON_SLOT"), ("--detector", "MAICON_DETECTOR"),
                       ("--names-map", "MAICON_NAMES_MAP"), ("--llm-factory", "MAICON_LLM_FACTORY")):
         if env(key):

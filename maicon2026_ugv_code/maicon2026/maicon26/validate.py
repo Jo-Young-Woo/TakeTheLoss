@@ -502,7 +502,8 @@ _GUARD_RULES = {
                ("hold_s", 0.0, 5.0, False), ("hold_major_s", 0.0, 10.0, False), ("verify_timeout_s", 0.2, 10.0, False),
                ("contact_lidar_m", 0.05, 1.0, False), ("ugv_contact_m", 0.2, 2.0, False), ("storm_n", 2, 20, True),
                ("storm_window_s", 1.0, 120.0, False), ("storm_hold_s", 0.0, 10.0, False), ("scan_skip_s", 0.0, 3.0, False),
-               ("tilt_scan_skip_deg", 1.0, 30.0, False)],
+               ("tilt_scan_skip_deg", 1.0, 30.0, False), ("vib_window_s", 0.03, 0.5, False), ("vib_min_unipolar", 0.05, 0.95, False),
+               ("vib_min_samples", 2, 50, True)],
     "pose_guard": [("shift_detect_deg", 0.5, 20.0, False), ("shift_confirm_scans", 3, 100, True), ("shift_max_deg", 5.0, 90.0, False),
                    ("fallback_deg", 1.0, 40.0, False), ("pre_window_s", 1.0, 60.0, False), ("pre_std_deg", 0.2, 10.0, False),
                    ("post_std_deg", 0.2, 10.0, False), ("settle_s", 0.0, 3.0, False), ("quiet_rot_dps", 1.0, 90.0, False),
@@ -665,6 +666,15 @@ def sanitize_config(cfg: Any, vlog: Optional[ValidationLog] = None, root: Option
             exr("m1_cm_defer", 0.0, 1.0, "은 0..1 밖이다")
             exr("m1_enemy_budget_s", 0.0, 1800.0, "은 0..1800 s 밖이다")
             exr("uav_census_window_s", 0.5, 60.0, "은 0.5..60 s 밖이다")
+            exr("sector_finish_bonus", 0.0, 5.0, "은 0..5 밖이다")
+            exr("sector_finish_max_todo", 1, 10, "은 1..10 의 정수가 아니다", True)
+            exr("sector_finish_min_done", 0.0, 1.0, "은 0..1 밖이다")
+            exr("m3_dedupe_dist_m", 0.05, 0.39, "은 0.05..0.39 m 밖이다(같은 방향 이웃 면 간격 0.4 m 를 넘으면 이웃이 합쳐진다)")
+            exr("uav_map_freeze_s", 0.5, 60.0, "은 0.5..60 s 밖이다")
+            exr("uav_map_freeze_min_boxes", 1, 40, "은 1..40 의 정수가 아니다", True)
+            exr("uav_adjacent_tol_m", 0.02, 0.2, "은 0.02..0.2 m 밖이다")
+            exr("uav_cover_frac", 0.05, 1.0, "은 0.05..1 밖이다")
+            exr("uav_ugv_exclude_m", 0.05, 0.32, "은 0.05..0.32 m 밖이다(맞닿은 상자 중심 간격 0.325 m 를 넘으면 이웃 상자까지 지워진다)")
         for secname, rules in _GUARD_RULES.items():
             sec = getattr(cfg, secname, None)
             if sec is None:
@@ -774,6 +784,21 @@ def sanitize_config(cfg: Any, vlog: Optional[ValidationLog] = None, root: Option
             v = getattr(mis, "stage_standoff_m", 0.30)
             if not (number(v) and 0.05 <= float(v) <= 1.5):
                 put(mis, "stage_standoff_m", "mission.stage_standoff_m", v, "은 0.05..1.5 m 밖이다", _default_of(mis, "stage_standoff_m"))
+            pcx = getattr(cfg, "perception", None)
+            v = getattr(pcx, "pose_extrap_max_s", None) if pcx is not None else None
+            if v is not None and (isinstance(v, bool) or not (number(v) and 0.0 <= float(v) <= 1.5)):
+                put(pcx, "pose_extrap_max_s", "perception.pose_extrap_max_s", v, "은 0..1.5 s 밖이다", _default_of(pcx, "pose_extrap_max_s"))
+            for nm, lo, hi, integer, why in (("m2_nav_budget_s", 3.0, 120.0, False, "은 3..120 s 밖이다"),
+                                             ("m2_blocked_s", 0.5, 30.0, False, "은 0.5..30 s 밖이다"),
+                                             ("m2_unreach_max", 1, 20, True, "은 1..20 의 정수가 아니다"),
+                                             ("m2_lost_cooldown_s", 0.5, 120.0, False, "은 0.5..120 s 밖이다"),
+                                             ("m2_lost_max", 1, 20, True, "은 1..20 의 정수가 아니다"),
+                                             ("m2_evidence_w", 0.0, 0.2, False, "은 0..0.2 m 밖이다")):
+                v = getattr(mis, nm, None)
+                if v is None:
+                    continue
+                if isinstance(v, bool) or not (number(v) and lo <= float(v) <= hi) or (integer and float(v) != int(float(v))):
+                    put(mis, nm, f"mission.{nm}", v, why, _default_of(mis, nm))
         oak = getattr(cfg, "oak", None)
         if oak is not None:
             def oakr(name: str, lo: float, hi: float, why: str) -> None:

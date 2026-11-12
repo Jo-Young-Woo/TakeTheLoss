@@ -426,4 +426,4 @@ def test_simulation_uav_option_passes_measured_detector_only_when_explicit(runti
     runtime.mod.main()
     assert callable(captured["uav_layout_detector"])
     assert captured["uav_layout_max_age_s"] == 12.
-    assert captured["uav_layout_detector"].__self__.calibration.arena_width == 6.
+    assert captured["uav_layout_detector"].__self__.calibration.arena_width == 6.12

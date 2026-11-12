@@ -1,0 +1,97 @@
+{
+  "source": "results/gazebo_map_alignment_20261112",
+  "until_elapsed_s": 35.0,
+  "method": "Nearest truth within 0.25s; arena 6x4.8; exclude startup <5s. Stall: >80% commands >0.05m/s, <0.02m excursion in 1s. This is not a contact sensor.",
+  "robots": {
+    "B-1": {
+      "samples": 448,
+      "position_error_m_p50_p95_max": [
+        0.026,
+        0.062,
+        0.096
+      ],
+      "heading_error_deg_p50_p95_max": [
+        5.83,
+        15.85,
+        22.65
+      ],
+      "commanded_stall_s": 0,
+      "stall_windows": []
+    },
+    "B-2": {
+      "samples": 463,
+      "position_error_m_p50_p95_max": [
+        0.015,
+        0.048,
+        0.083
+      ],
+      "heading_error_deg_p50_p95_max": [
+        0.5,
+        8.84,
+        18.56
+      ],
+      "commanded_stall_s": 0,
+      "stall_windows": []
+    },
+    "B-3": {
+      "samples": 445,
+      "position_error_m_p50_p95_max": [
+        0.026,
+        0.221,
+        0.404
+      ],
+      "heading_error_deg_p50_p95_max": [
+        3.07,
+        13.79,
+        19.61
+      ],
+      "commanded_stall_s": 0,
+      "stall_windows": []
+    },
+    "R-1": {
+      "samples": 423,
+      "position_error_m_p50_p95_max": [
+        0.028,
+        0.314,
+        0.426
+      ],
+      "heading_error_deg_p50_p95_max": [
+        4.56,
+        13.48,
+        18.93
+      ],
+      "commanded_stall_s": 0,
+      "stall_windows": []
+    },
+    "R-2": {
+      "samples": 423,
+      "position_error_m_p50_p95_max": [
+        0.022,
+        0.05,
+        0.072
+      ],
+      "heading_error_deg_p50_p95_max": [
+        2.2,
+        12.86,
+        18.57
+      ],
+      "commanded_stall_s": 0,
+      "stall_windows": []
+    },
+    "R-3": {
+      "samples": 458,
+      "position_error_m_p50_p95_max": [
+        0.014,
+        0.054,
+        0.073
+      ],
+      "heading_error_deg_p50_p95_max": [
+        1.22,
+        13.17,
+        18.03
+      ],
+      "commanded_stall_s": 0,
+      "stall_windows": []
+    }
+  }
+}

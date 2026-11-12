@@ -1,0 +1,4973 @@
+{
+  "frame": "arena",
+  "units": "m",
+  "faces": [
+    {
+      "box": 1,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        1.66875,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U01-E",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 4,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 1,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        1.66875,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.46875,
+            1.4953124999999996
+          ],
+          [
+            1.86875,
+            1.4953124999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U01-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 4,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            413.21158561068637,
+            502.4776290433121
+          ],
+          [
+            470.1261925224903,
+            502.48307329756227
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            449.4556752165352,
+            479.60489644845325
+          ],
+          [
+            497.2604234627835,
+            479.6099173714879
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 1,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        1.66875,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.46875,
+            1.0953124999999997
+          ],
+          [
+            1.46875,
+            1.4953124999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U01-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 4,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            413.16339464051697,
+            559.4116122270877
+          ],
+          [
+            413.21158561068637,
+            502.4776290433121
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            449.4188121147686,
+            527.4232619047655
+          ],
+          [
+            449.4556752165352,
+            479.60489644845325
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 1,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        1.66875,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.46875,
+            1.0953124999999997
+          ],
+          [
+            1.86875,
+            1.0953124999999997
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U01-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "pending",
+      "ground_box": 4,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            413.16339464051697,
+            559.4116122270877
+          ],
+          [
+            470.0847591823707,
+            559.415729283228
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            449.4188121147686,
+            527.4232619047655
+          ],
+          [
+            497.2283277517723,
+            527.4273465953959
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 2,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        1.66875,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S2",
+      "key": "U02-E",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 7,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 2,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        1.66875,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.46875,
+            2.696875
+          ],
+          [
+            1.86875,
+            2.696875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S2",
+      "key": "U02-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 7,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            413.35627799098035,
+            331.53453498417656
+          ],
+          [
+            470.2505952612357,
+            331.54396222890006
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            449.5663643265734,
+            336.0203345917992
+          ],
+          [
+            497.356797493871,
+            336.0281656243499
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 2,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        1.66875,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.46875,
+            2.2968749999999996
+          ],
+          [
+            1.46875,
+            2.696875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S2",
+      "key": "U02-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 7,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            413.3081213712724,
+            388.4279356980255
+          ],
+          [
+            413.35627799098035,
+            331.53453498417656
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            449.52952329692164,
+            383.81006837031396
+          ],
+          [
+            449.5663643265734,
+            336.0203345917992
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 2,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        1.66875,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.46875,
+            2.2968749999999996
+          ],
+          [
+            1.86875,
+            2.2968749999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S2",
+      "key": "U02-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 7,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            413.3081213712724,
+            388.4279356980255
+          ],
+          [
+            470.20919145405907,
+            388.43603763656563
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            449.52952329692164,
+            383.81006837031396
+          ],
+          [
+            497.32472100008016,
+            383.8169642916246
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 3,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        1.66875,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U03-E",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 20,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 3,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        1.66875,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.46875,
+            4.296875
+          ],
+          [
+            1.86875,
+            4.296875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U03-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "pending",
+      "ground_box": 20,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            413.5487902393099,
+            104.09588681987407
+          ],
+          [
+            470.4161122798201,
+            104.11060900119847
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            449.7136550330688,
+            144.95662877309667
+          ],
+          [
+            497.4850395523338,
+            144.9681965232764
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 3,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        1.66875,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.46875,
+            3.8968749999999996
+          ],
+          [
+            1.46875,
+            4.296875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U03-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "pending",
+      "ground_box": 20,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            413.5006793036731,
+            160.93531526205302
+          ],
+          [
+            413.5487902393099,
+            104.09588681987407
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            449.67684336387265,
+            192.70827652686046
+          ],
+          [
+            449.7136550330688,
+            144.95662877309667
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 3,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        1.66875,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.46875,
+            3.8968749999999996
+          ],
+          [
+            1.86875,
+            3.8968749999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U03-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "pending",
+      "ground_box": 20,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            413.5006793036731,
+            160.93531526205302
+          ],
+          [
+            470.3747477497028,
+            160.94871465177567
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            449.67684336387265,
+            192.70827652686046
+          ],
+          [
+            497.4529886214019,
+            192.71891065639832
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 4,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        2.06875,
+        0.8953125000000002
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.2687500000000003,
+            0.6953125000000002
+          ],
+          [
+            2.2687500000000003,
+            1.0953125000000001
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U04-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 8,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            526.9687841116847,
+            616.3646932687316
+          ],
+          [
+            527.003468685916,
+            559.4198461473321
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            545.0086361619519,
+            575.2574605976686
+          ],
+          [
+            545.0359703061011,
+            527.431431125996
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 4,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        2.06875,
+        0.8953125000000002
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U04-N",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 8,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 4,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        2.06875,
+        0.8953125000000002
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.8687500000000001,
+            0.6953125000000002
+          ],
+          [
+            1.8687500000000001,
+            1.0953124999999997
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U04-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "pending",
+      "ground_box": 8,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            470.0433160037274,
+            616.3619041713135
+          ],
+          [
+            470.0847591823707,
+            559.415729283228
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            497.19622563951947,
+            575.2543126363611
+          ],
+          [
+            497.2283277517723,
+            527.4273465953959
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 4,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        2.06875,
+        0.8953125000000002
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.8687500000000001,
+            0.6953125000000002
+          ],
+          [
+            2.2687500000000003,
+            0.6953125000000002
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U04-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "pending",
+      "ground_box": 8,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            470.0433160037274,
+            616.3619041713135
+          ],
+          [
+            526.9687841116847,
+            616.3646932687316
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            497.19622563951947,
+            575.2543126363611
+          ],
+          [
+            545.0086361619519,
+            575.2574605976686
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 5,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        2.06875,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.2687500000000003,
+            1.0953124999999997
+          ],
+          [
+            2.2687500000000003,
+            1.4953124999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U05-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 5,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            527.003468685916,
+            559.4198461473322
+          ],
+          [
+            527.0381450262939,
+            502.48851729790084
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            545.0359703061011,
+            527.4314311259961
+          ],
+          [
+            545.0632989998602,
+            479.61493809783224
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 5,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        2.06875,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.8687500000000001,
+            1.4953124999999996
+          ],
+          [
+            2.2687500000000003,
+            1.4953124999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U05-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 5,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            470.1261925224903,
+            502.48307329756227
+          ],
+          [
+            527.0381450262939,
+            502.48851729790084
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            497.26042346278354,
+            479.6099173714879
+          ],
+          [
+            545.0632989998602,
+            479.61493809783224
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 5,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        2.06875,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U05-W",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 5,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 5,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        2.06875,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S3",
+      "key": "U05-S",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 5,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 6,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        2.06875,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.2687500000000003,
+            2.2968749999999996
+          ],
+          [
+            2.2687500000000003,
+            2.696875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S2",
+      "key": "U06-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 9,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            527.1076083912486,
+            388.44413919733404
+          ],
+          [
+            527.1422600155282,
+            331.5533890341083
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            545.1180467421968,
+            383.8238599428476
+          ],
+          [
+            545.1453590732947,
+            336.0359963502186
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 6,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        2.06875,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.8687500000000001,
+            2.696875
+          ],
+          [
+            2.2687500000000003,
+            2.696875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S2",
+      "key": "U06-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 9,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            470.25059526123573,
+            331.54396222890006
+          ],
+          [
+            527.1422600155282,
+            331.5533890341083
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            497.35679749387106,
+            336.0281656243499
+          ],
+          [
+            545.1453590732947,
+            336.0359963502186
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 6,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        2.06875,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S2",
+      "key": "U06-W",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 9,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 6,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        2.06875,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.8687500000000001,
+            2.2968749999999996
+          ],
+          [
+            2.2687500000000003,
+            2.2968749999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S2",
+      "key": "U06-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 9,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            470.20919145405907,
+            388.43603763656563
+          ],
+          [
+            527.1076083912486,
+            388.44413919733404
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            497.32472100008016,
+            383.8169642916246
+          ],
+          [
+            545.1180467421968,
+            383.8238599428476
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 7,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        2.06875,
+        3.6968750000000004
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.2687500000000003,
+            3.496875
+          ],
+          [
+            2.2687500000000003,
+            3.8968750000000005
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U07-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 3,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            527.2115386006427,
+            217.81238094680123
+          ],
+          [
+            527.2461655673286,
+            160.96211341701672
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            545.199967405515,
+            240.488841410525
+          ],
+          [
+            545.2272634098919,
+            192.72954436960268
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 7,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        2.06875,
+        3.6968750000000004
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U07-N",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 3,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 7,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        2.06875,
+        3.6968750000000004
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.8687500000000001,
+            3.496875
+          ],
+          [
+            1.8687500000000001,
+            3.8968749999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U07-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "pending",
+      "ground_box": 3,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            470.333373405562,
+            217.8003055396923
+          ],
+          [
+            470.3747477497028,
+            160.94871465177567
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            497.42093130262094,
+            240.4791416538327
+          ],
+          [
+            497.45298862140197,
+            192.71891065639832
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 7,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        2.06875,
+        3.6968750000000004
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.8687500000000001,
+            3.496875
+          ],
+          [
+            2.2687500000000003,
+            3.496875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U07-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 3,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            470.333373405562,
+            217.8003055396923
+          ],
+          [
+            527.2115386006427,
+            217.81238094680123
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            497.42093130262094,
+            240.4791416538327
+          ],
+          [
+            545.199967405515,
+            240.488841410525
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 8,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        2.06875,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.2687500000000003,
+            3.8968749999999996
+          ],
+          [
+            2.2687500000000003,
+            4.296875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U08-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 2,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            527.2461655673286,
+            160.9621134170169
+          ],
+          [
+            527.2807843206648,
+            104.12533049647375
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            545.2272634098919,
+            192.72954436960273
+          ],
+          [
+            545.2545539752814,
+            144.97976382061594
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 8,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        2.06875,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            1.8687500000000001,
+            4.296875
+          ],
+          [
+            2.2687500000000003,
+            4.296875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U08-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "pending",
+      "ground_box": 2,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            470.4161122798201,
+            104.11060900119847
+          ],
+          [
+            527.2807843206648,
+            104.12533049647375
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            497.4850395523338,
+            144.9681965232764
+          ],
+          [
+            545.2545539752814,
+            144.97976382061594
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 8,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        2.06875,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U08-W",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 2,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 8,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        2.06875,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "B-S1",
+      "key": "U08-S",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 2,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 9,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        3.0578125000000003,
+        1.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.2578125000000004,
+            1.2968749999999998
+          ],
+          [
+            3.2578125000000004,
+            1.6968749999999997
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U09-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "pending",
+      "ground_box": 1,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            667.7415300696105,
+            530.7419367607828
+          ],
+          [
+            667.7594992284503,
+            473.82069853013513
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            663.247628038441,
+            503.34647510896406
+          ],
+          [
+            663.2631695789375,
+            455.5371007411803
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 9,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        3.0578125000000003,
+        1.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.8578125,
+            1.6968749999999997
+          ],
+          [
+            3.2578125000000004,
+            1.6968749999999997
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U09-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 1,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            610.857512867524,
+            473.81458672113894
+          ],
+          [
+            667.7594992284503,
+            473.82069853013513
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            615.4673254398572,
+            455.5316089333897
+          ],
+          [
+            663.2631695789375,
+            455.5371007411803
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 9,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        3.0578125000000003,
+        1.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.8578125,
+            1.2968749999999998
+          ],
+          [
+            2.8578125,
+            1.6968749999999997
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U09-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 1,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            610.8327890753014,
+            530.7371516175364
+          ],
+          [
+            610.857512867524,
+            473.81458672113894
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            615.4470182844059,
+            503.3419192181361
+          ],
+          [
+            615.4673254398572,
+            455.5316089333897
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 9,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        3.0578125000000003,
+        1.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.8578125,
+            1.2968749999999998
+          ],
+          [
+            3.2578125000000004,
+            1.2968749999999998
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U09-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 1,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            610.8327890753014,
+            530.7371516175364
+          ],
+          [
+            667.7415300696105,
+            530.7419367607828
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            615.4470182844059,
+            503.3419192181361
+          ],
+          [
+            663.247628038441,
+            503.34647510896406
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 10,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        3.0578125000000003,
+        2.2937499999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.2578125000000004,
+            2.0937499999999996
+          ],
+          [
+            3.2578125000000004,
+            2.49375
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U10-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 10,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            667.777323788346,
+            417.35750906052374
+          ],
+          [
+            667.7952844525365,
+            360.46317948819956
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            663.278586639014,
+            408.1106569465173
+          ],
+          [
+            663.2941220079383,
+            360.3202677629488
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 10,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        3.0578125000000003,
+        2.2937499999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U10-N",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 10,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 10,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        3.0578125000000003,
+        2.2937499999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.8578125,
+            2.0937499999999996
+          ],
+          [
+            2.8578125,
+            2.49375
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U10-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 10,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            610.8820377057103,
+            417.3500815728301
+          ],
+          [
+            610.9067498098598,
+            360.45442658917665
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            615.4874699444787,
+            408.1042369024958
+          ],
+          [
+            615.5077690357662,
+            360.3129125453686
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 10,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        3.0578125000000003,
+        2.2937499999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.8578125,
+            2.0937499999999996
+          ],
+          [
+            3.2578125000000004,
+            2.0937499999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U10-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 10,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            610.8820377057103,
+            417.3500815728301
+          ],
+          [
+            667.777323788346,
+            417.35750906052374
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            615.4874699444787,
+            408.1042369024958
+          ],
+          [
+            663.278586639014,
+            408.1106569465173
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 11,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        3.0578125000000003,
+        2.6937499999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.2578125000000004,
+            2.4937499999999995
+          ],
+          [
+            3.2578125000000004,
+            2.89375
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U11-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "uncertain",
+      "ground_box": 11,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            667.7952844525365,
+            360.4631794881996
+          ],
+          [
+            667.8132408550167,
+            303.58234981486004
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            663.2941220079383,
+            360.32026776294884
+          ],
+          [
+            663.3096542803611,
+            312.5394041347133
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 11,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        3.0578125000000003,
+        2.6937499999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.8578125,
+            2.89375
+          ],
+          [
+            3.2578125000000004,
+            2.89375
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U11-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 11,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            610.9314560501793,
+            303.5722721336749
+          ],
+          [
+            667.8132408550167,
+            303.58234981486004
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            615.5280640809701,
+            312.53111411648354
+          ],
+          [
+            663.3096542803611,
+            312.5394041347133
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 11,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        3.0578125000000003,
+        2.6937499999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.8578125,
+            2.4937499999999995
+          ],
+          [
+            2.8578125,
+            2.89375
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U11-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 11,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            610.9067498098598,
+            360.4544265891767
+          ],
+          [
+            610.9314560501793,
+            303.5722721336749
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            615.5077690357662,
+            360.3129125453686
+          ],
+          [
+            615.5280640809701,
+            312.53111411648354
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 11,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        3.0578125000000003,
+        2.6937499999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U11-S",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 11,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 12,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        3.0578125000000003,
+        3.503125
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.2578125000000004,
+            3.3031249999999996
+          ],
+          [
+            3.2578125000000004,
+            3.703125
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U12-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 6,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            667.8316136995562,
+            245.38234889532853
+          ],
+          [
+            667.8495614833703,
+            188.52882073044128
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            663.3255473851713,
+            263.6485365980174
+          ],
+          [
+            663.3410733948477,
+            215.88693862622014
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 12,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        3.0578125000000003,
+        3.503125
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.8578125,
+            3.703125
+          ],
+          [
+            3.2578125000000004,
+            3.703125
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U12-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 6,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            610.9814296552008,
+            188.51606435851053
+          ],
+          [
+            667.8495614833703,
+            188.52882073044128
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            615.5691174650249,
+            215.87675823729518
+          ],
+          [
+            663.3410733948477,
+            215.88693862622014
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 12,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        3.0578125000000003,
+        3.503125
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.8578125,
+            3.3031249999999996
+          ],
+          [
+            2.8578125,
+            3.703125
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U12-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 6,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            610.9567352735929,
+            245.37091603350743
+          ],
+          [
+            610.9814296552008,
+            188.51606435851053
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            615.5488306031184,
+            263.639290255695
+          ],
+          [
+            615.5691174650249,
+            215.87675823729518
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 12,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        3.0578125000000003,
+        3.503125
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            2.8578125,
+            3.3031249999999996
+          ],
+          [
+            3.2578125000000004,
+            3.3031249999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "CM",
+      "key": "U12-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 6,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            610.9567352735929,
+            245.37091603350743
+          ],
+          [
+            667.8316136995562,
+            245.38234889532853
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            615.5488306031184,
+            263.639290255695
+          ],
+          [
+            663.3255473851713,
+            263.6485365980174
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 13,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        4.05625,
+        0.8953125000000002
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.2562500000000005,
+            0.6953125000000002
+          ],
+          [
+            4.2562500000000005,
+            1.0953124999999997
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U13-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 12,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            809.777830287086,
+            616.3785496674001
+          ],
+          [
+            809.7789423932912,
+            559.4402989686879
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            782.5487739788482,
+            575.2731002015839
+          ],
+          [
+            782.5524228205426,
+            527.4517237647157
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 13,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        4.05625,
+        0.8953125000000002
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U13-N",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 12,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 13,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        4.05625,
+        0.8953125000000002
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.85625,
+            0.6953125000000002
+          ],
+          [
+            3.85625,
+            1.0953125000000001
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U13-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 12,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            752.8655547785094,
+            616.3757612163614
+          ],
+          [
+            752.8734223571482,
+            559.4361830585625
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.7456705598029,
+            575.2699528530545
+          ],
+          [
+            734.7540855136889,
+            527.4476400291254
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 13,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        4.05625,
+        0.8953125000000002
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.85625,
+            0.6953125000000002
+          ],
+          [
+            4.2562500000000005,
+            0.6953125000000002
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U13-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 12,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            752.8655547785094,
+            616.3757612163614
+          ],
+          [
+            809.777830287086,
+            616.3785496674001
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.7456705598029,
+            575.2699528530545
+          ],
+          [
+            782.5487739788482,
+            575.2731002015839
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 14,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        4.05625,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U14-E",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 13,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 14,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        4.05625,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.85625,
+            1.4953124999999996
+          ],
+          [
+            4.2562500000000005,
+            1.4953124999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U14-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 13,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            752.8812880682569,
+            502.51012067106075
+          ],
+          [
+            809.7800542355216,
+            502.51556341003993
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.7624987897752,
+            479.6348621663992
+          ],
+          [
+            782.5560709347337,
+            479.63988191561026
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 14,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        4.05625,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.85625,
+            1.0953124999999997
+          ],
+          [
+            3.85625,
+            1.4953124999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U14-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 13,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            752.8734223571482,
+            559.4361830585625
+          ],
+          [
+            752.8812880682569,
+            502.51012067106075
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.7540855136889,
+            527.4476400291255
+          ],
+          [
+            734.7624987897752,
+            479.6348621663992
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 14,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        4.05625,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U14-S",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 13,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 15,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        4.0578125,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S2",
+      "key": "U15-E",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 14,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 15,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        4.0578125,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.8578124999999996,
+            2.696875
+          ],
+          [
+            4.2578125,
+            2.696875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S2",
+      "key": "U15-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 14,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            753.1270914545313,
+            331.5908341501056
+          ],
+          [
+            810.0055689129755,
+            331.60025877021224
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.9744027867605,
+            336.0671021034389
+          ],
+          [
+            782.7536592355069,
+            336.0749313045509
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 15,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        4.0578125,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.8578124999999996,
+            2.2968749999999996
+          ],
+          [
+            3.8578124999999996,
+            2.696875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S2",
+      "key": "U15-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 14,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            753.1192577140333,
+            388.4763201824984
+          ],
+          [
+            753.1270914545313,
+            331.5908341501056
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.9660131511055,
+            383.85125132734345
+          ],
+          [
+            734.9744027867605,
+            336.0671021034389
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 15,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        4.0578125,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.8578124999999996,
+            2.2968749999999996
+          ],
+          [
+            4.2578125,
+            2.2968749999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S2",
+      "key": "U15-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 14,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            753.1192577140333,
+            388.4763201824984
+          ],
+          [
+            810.0044842254001,
+            388.4844198651295
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.9660131511055,
+            383.85125132734345
+          ],
+          [
+            782.7500319073973,
+            383.85814563574854
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 16,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        4.05625,
+        3.6968750000000004
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.2562500000000005,
+            3.496875
+          ],
+          [
+            4.2562500000000005,
+            3.8968749999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U16-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 15,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            809.7856138278029,
+            217.87237228064808
+          ],
+          [
+            809.7867240871268,
+            161.0286792731182
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            782.5743148355797,
+            240.5370314453782
+          ],
+          [
+            782.5779585864814,
+            192.78237445928045
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 16,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        4.05625,
+        3.6968750000000004
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U16-N",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 15,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 16,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        4.05625,
+        3.6968750000000004
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.85625,
+            3.496875
+          ],
+          [
+            3.85625,
+            3.8968750000000005
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U16-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 15,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            752.9206193194491,
+            217.86029966971589
+          ],
+          [
+            752.928473832049,
+            161.01528361012197
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.8045728491022,
+            240.52733357551074
+          ],
+          [
+            734.8129760623793,
+            192.77174281437064
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 16,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        4.05625,
+        3.6968750000000004
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.85625,
+            3.496875
+          ],
+          [
+            4.2562500000000005,
+            3.496875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U16-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 15,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            752.9206193194491,
+            217.86029966971589
+          ],
+          [
+            809.7856138278029,
+            217.87237228064808
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.8045728491022,
+            240.52733357551074
+          ],
+          [
+            782.5743148355797,
+            240.5370314453782
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 17,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        4.05625,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U17-E",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 16,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 17,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        4.05625,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.85625,
+            4.296875
+          ],
+          [
+            4.2562500000000005,
+            4.296875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U17-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 16,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            752.9363264817688,
+            104.18374966743788
+          ],
+          [
+            809.787834083133,
+            104.19846775461765
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.8213776013665,
+            145.0256670675103
+          ],
+          [
+            782.581601611402,
+            145.0372321151939
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 17,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        4.05625,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            3.85625,
+            3.8968749999999996
+          ],
+          [
+            3.85625,
+            4.296875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U17-W",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 16,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            752.928473832049,
+            161.01528361012214
+          ],
+          [
+            752.9363264817688,
+            104.18374966743788
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            734.8129760623793,
+            192.7717428143707
+          ],
+          [
+            734.8213776013665,
+            145.0256670675103
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 17,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        4.05625,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U17-S",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 16,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 18,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        4.45625,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.65625,
+            1.0953124999999997
+          ],
+          [
+            4.65625,
+            1.4953124999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U18-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 17,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            866.6818084996114,
+            559.4444146868577
+          ],
+          [
+            866.6761671028768,
+            502.5210058952139
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            830.3488877015935,
+            527.4558073403316
+          ],
+          [
+            830.3477710271965,
+            479.64490146820003
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 18,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        4.45625,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.25625,
+            1.4953124999999996
+          ],
+          [
+            4.65625,
+            1.4953124999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U18-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 17,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            809.7800542355212,
+            502.51556341003993
+          ],
+          [
+            866.6761671028768,
+            502.5210058952139
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            782.5560709347335,
+            479.63988191561026
+          ],
+          [
+            830.3477710271965,
+            479.64490146820003
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 18,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        4.45625,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U18-W",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 17,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 18,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        4.45625,
+        1.2953124999999996
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.2562500000000005,
+            1.0953124999999997
+          ],
+          [
+            4.65625,
+            1.0953124999999997
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S3",
+      "key": "U18-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 17,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            809.7789423932912,
+            559.4402989686879
+          ],
+          [
+            866.6818084996114,
+            559.4444146868577
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            782.5524228205426,
+            527.4517237647157
+          ],
+          [
+            830.3488877015935,
+            527.4558073403316
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 19,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        4.45625,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.65625,
+            2.2968749999999996
+          ],
+          [
+            4.65625,
+            2.696875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S2",
+      "key": "U19-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 18,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            866.6648663019442,
+            388.4924875329708
+          ],
+          [
+            866.6592289256431,
+            331.60964613863575
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            830.3455339863469,
+            383.86501274484846
+          ],
+          [
+            830.3444179804645,
+            336.0827296180657
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 19,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        4.45625,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.25625,
+            2.696875
+          ],
+          [
+            4.65625,
+            2.696875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S2",
+      "key": "U19-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 18,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            809.7833925188273,
+            331.6002219561447
+          ],
+          [
+            866.6592289256431,
+            331.60964613863575
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            782.5670251549644,
+            336.0749007223305
+          ],
+          [
+            830.3444179804645,
+            336.0827296180657
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 19,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        4.45625,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S2",
+      "key": "U19-W",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 18,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 19,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        4.45625,
+        2.4968749999999997
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.25625,
+            2.2968749999999996
+          ],
+          [
+            4.65625,
+            2.2968749999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S2",
+      "key": "U19-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "empty",
+      "ground_box": 18,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            809.7822814689883,
+            388.48438822647887
+          ],
+          [
+            866.6648663019442,
+            388.4924875329708
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            782.5633792248165,
+            383.85811870538174
+          ],
+          [
+            830.3455339863469,
+            383.86501274484846
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 20,
+      "face": "E",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "center": [
+        4.45625,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.65625,
+            3.8968749999999996
+          ],
+          [
+            4.65625,
+            4.296875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U20-E",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 19,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            866.642324819526,
+            161.04207431189326
+          ],
+          [
+            866.6366927901638,
+            104.21318515603448
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            830.3410712970425,
+            192.79300568800258
+          ],
+          [
+            830.3399561804222,
+            145.04879671019586
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 20,
+      "face": "N",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "center": [
+        4.45625,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.25625,
+            4.296875
+          ],
+          [
+            4.65625,
+            4.296875
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U20-N",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 19,
+      "image_age_s": 0.0,
+      "camera_facing": false,
+      "side_visibility": "back_facing",
+      "top_pixel_segments": [
+        [
+          [
+            809.7878340831327,
+            104.19846775461765
+          ],
+          [
+            866.6366927901638,
+            104.21318515603448
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            782.5816016114018,
+            145.0372321151939
+          ],
+          [
+            830.3399561804222,
+            145.04879671019586
+          ]
+        ]
+      ]
+    },
+    {
+      "box": 20,
+      "face": "W",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "center": [
+        4.45625,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [],
+      "exposed_fraction": 0.0,
+      "wall_inaccessible": false,
+      "state": "excluded",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U20-W",
+      "image_state": "excluded",
+      "ground_state": "excluded",
+      "ground_box": 19,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [],
+      "floor_pixel_segments": []
+    },
+    {
+      "box": 20,
+      "face": "S",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "center": [
+        4.45625,
+        4.096875
+      ],
+      "size": [
+        0.4,
+        0.4
+      ],
+      "segments": [
+        [
+          [
+            4.2562500000000005,
+            3.8968749999999996
+          ],
+          [
+            4.65625,
+            3.8968749999999996
+          ]
+        ]
+      ],
+      "exposed_fraction": 1.0,
+      "wall_inaccessible": false,
+      "state": "pending",
+      "source": "uav_image",
+      "last_image_s": 283.936,
+      "sector": "R-S1",
+      "key": "U20-S",
+      "image_state": "side_identity_unobserved",
+      "ground_state": "identified",
+      "ground_box": 19,
+      "image_age_s": 0.0,
+      "camera_facing": true,
+      "side_visibility": "unverified",
+      "top_pixel_segments": [
+        [
+          [
+            809.7867240871268,
+            161.0286792731182
+          ],
+          [
+            866.642324819526,
+            161.04207431189326
+          ]
+        ]
+      ],
+      "floor_pixel_segments": [
+        [
+          [
+            782.5779585864814,
+            192.78237445928045
+          ],
+          [
+            830.3410712970425,
+            192.79300568800258
+          ]
+        ]
+      ]
+    }
+  ],
+  "assumption": "axis-aligned rectangular footprints; side images require ground camera",
+  "image_stamp_s": 283.936,
+  "image_size": [
+    1280,
+    720
+  ],
+  "frames_processed": 278,
+  "raw_box_candidates": 20,
+  "boxes_confirmed": 20,
+  "source": "/arena/validation/image_raw RGB + measured calibration only",
+  "geometry_uses_lidar": false,
+  "geometry_uses_world_truth": false,
+  "camera_optical_center_arena_m": [
+    3.06,
+    2.5,
+    2.5
+  ],
+  "object_plane_z_m": 0.4,
+  "layout": {
+    "state": "available",
+    "mode": "uav_assisted",
+    "age_s": 0.0,
+    "timeout_s": 12.0,
+    "active_priors": 20,
+    "suspended_image_only_boxes": 0,
+    "local_boxes": 0,
+    "map_frozen": false,
+    "frozen_boxes": 0,
+    "map_stats": {
+      "ugv_excluded": 0,
+      "inner_faces": 22,
+      "frozen_boxes": 0,
+      "frozen_t": null,
+      "late_boxes_ignored": 0
+    },
+    "events": [
+      {
+        "t": 0.628,
+        "from": "unavailable",
+        "to": "acquiring"
+      },
+      {
+        "t": 1.652,
+        "from": "acquiring",
+        "to": "available"
+      }
+    ]
+  },
+  "ground_state_stamp_s": 282.90000000000003,
+  "classification": "UAV contour does not identify side pictures; ground_state is separate evidence",
+  "sector_summary": {
+    "B-S1": {
+      "boxes": 3,
+      "identified_boxes": 1,
+      "resolved_boxes": 0,
+      "identified_faces": 1,
+      "eligible_faces": 8,
+      "box_details": [
+        {
+          "id": 3,
+          "identified_faces": 0,
+          "eligible_faces": 3,
+          "all_eligible_resolved": false,
+          "ground_states": {
+            "E": "excluded",
+            "N": "pending",
+            "W": "pending",
+            "S": "pending"
+          }
+        },
+        {
+          "id": 7,
+          "identified_faces": 0,
+          "eligible_faces": 3,
+          "all_eligible_resolved": false,
+          "ground_states": {
+            "E": "empty",
+            "N": "excluded",
+            "W": "pending",
+            "S": "empty"
+          }
+        },
+        {
+          "id": 8,
+          "identified_faces": 1,
+          "eligible_faces": 2,
+          "all_eligible_resolved": false,
+          "ground_states": {
+            "E": "identified",
+            "N": "pending",
+            "W": "excluded",
+            "S": "excluded"
+          }
+        }
+      ]
+    },
+    "B-S2": {
+      "boxes": 2,
+      "identified_boxes": 2,
+      "resolved_boxes": 2,
+      "identified_faces": 2,
+      "eligible_faces": 6,
+      "box_details": [
+        {
+          "id": 2,
+          "identified_faces": 1,
+          "eligible_faces": 3,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "excluded",
+            "N": "empty",
+            "W": "identified",
+            "S": "empty"
+          }
+        },
+        {
+          "id": 6,
+          "identified_faces": 1,
+          "eligible_faces": 3,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "identified",
+            "N": "empty",
+            "W": "excluded",
+            "S": "empty"
+          }
+        }
+      ]
+    },
+    "B-S3": {
+      "boxes": 3,
+      "identified_boxes": 2,
+      "resolved_boxes": 1,
+      "identified_faces": 3,
+      "eligible_faces": 8,
+      "box_details": [
+        {
+          "id": 1,
+          "identified_faces": 2,
+          "eligible_faces": 3,
+          "all_eligible_resolved": false,
+          "ground_states": {
+            "E": "excluded",
+            "N": "identified",
+            "W": "identified",
+            "S": "pending"
+          }
+        },
+        {
+          "id": 4,
+          "identified_faces": 0,
+          "eligible_faces": 3,
+          "all_eligible_resolved": false,
+          "ground_states": {
+            "E": "empty",
+            "N": "excluded",
+            "W": "pending",
+            "S": "pending"
+          }
+        },
+        {
+          "id": 5,
+          "identified_faces": 1,
+          "eligible_faces": 2,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "identified",
+            "N": "empty",
+            "W": "excluded",
+            "S": "excluded"
+          }
+        }
+      ]
+    },
+    "CM": {
+      "boxes": 4,
+      "identified_boxes": 3,
+      "resolved_boxes": 2,
+      "identified_faces": 6,
+      "eligible_faces": 14,
+      "box_details": [
+        {
+          "id": 9,
+          "identified_faces": 0,
+          "eligible_faces": 4,
+          "all_eligible_resolved": false,
+          "ground_states": {
+            "E": "pending",
+            "N": "empty",
+            "W": "empty",
+            "S": "empty"
+          }
+        },
+        {
+          "id": 10,
+          "identified_faces": 2,
+          "eligible_faces": 3,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "identified",
+            "N": "excluded",
+            "W": "empty",
+            "S": "identified"
+          }
+        },
+        {
+          "id": 11,
+          "identified_faces": 1,
+          "eligible_faces": 3,
+          "all_eligible_resolved": false,
+          "ground_states": {
+            "E": "uncertain",
+            "N": "identified",
+            "W": "empty",
+            "S": "excluded"
+          }
+        },
+        {
+          "id": 12,
+          "identified_faces": 3,
+          "eligible_faces": 4,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "identified",
+            "N": "identified",
+            "W": "identified",
+            "S": "empty"
+          }
+        }
+      ]
+    },
+    "R-S1": {
+      "boxes": 3,
+      "identified_boxes": 3,
+      "resolved_boxes": 3,
+      "identified_faces": 7,
+      "eligible_faces": 8,
+      "box_details": [
+        {
+          "id": 16,
+          "identified_faces": 2,
+          "eligible_faces": 3,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "identified",
+            "N": "excluded",
+            "W": "identified",
+            "S": "empty"
+          }
+        },
+        {
+          "id": 17,
+          "identified_faces": 2,
+          "eligible_faces": 2,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "excluded",
+            "N": "identified",
+            "W": "identified",
+            "S": "excluded"
+          }
+        },
+        {
+          "id": 20,
+          "identified_faces": 3,
+          "eligible_faces": 3,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "identified",
+            "N": "identified",
+            "W": "excluded",
+            "S": "identified"
+          }
+        }
+      ]
+    },
+    "R-S2": {
+      "boxes": 2,
+      "identified_boxes": 2,
+      "resolved_boxes": 2,
+      "identified_faces": 4,
+      "eligible_faces": 6,
+      "box_details": [
+        {
+          "id": 15,
+          "identified_faces": 3,
+          "eligible_faces": 3,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "excluded",
+            "N": "identified",
+            "W": "identified",
+            "S": "identified"
+          }
+        },
+        {
+          "id": 19,
+          "identified_faces": 1,
+          "eligible_faces": 3,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "empty",
+            "N": "identified",
+            "W": "excluded",
+            "S": "empty"
+          }
+        }
+      ]
+    },
+    "R-S3": {
+      "boxes": 3,
+      "identified_boxes": 3,
+      "resolved_boxes": 3,
+      "identified_faces": 5,
+      "eligible_faces": 8,
+      "box_details": [
+        {
+          "id": 13,
+          "identified_faces": 2,
+          "eligible_faces": 3,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "identified",
+            "N": "excluded",
+            "W": "identified",
+            "S": "empty"
+          }
+        },
+        {
+          "id": 14,
+          "identified_faces": 1,
+          "eligible_faces": 2,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "excluded",
+            "N": "empty",
+            "W": "identified",
+            "S": "excluded"
+          }
+        },
+        {
+          "id": 18,
+          "identified_faces": 2,
+          "eligible_faces": 3,
+          "all_eligible_resolved": true,
+          "ground_states": {
+            "E": "identified",
+            "N": "empty",
+            "W": "excluded",
+            "S": "identified"
+          }
+        }
+      ]
+    },
+    "OUTSIDE": {
+      "boxes": 0,
+      "identified_boxes": 0,
+      "resolved_boxes": 0,
+      "identified_faces": 0,
+      "eligible_faces": 0,
+      "box_details": []
+    }
+  },
+  "ground_observer": "B-2",
+  "sector_floor_polygons": {
+    "B-S1": [
+      [
+        376.89817406454364,
+        263.96632240397525
+      ],
+      [
+        568.0313418040164,
+        264.0032836356678
+      ],
+      [
+        568.1376512460715,
+        61.073975330856115
+      ],
+      [
+        377.0854140572325,
+        61.02114337322914
+      ]
+    ],
+    "B-S2": [
+      [
+        376.7218032372942,
+        455.13065966922767
+      ],
+      [
+        567.9312035655814,
+        455.15265915319924
+      ],
+      [
+        568.0313418040164,
+        264.0032836356678
+      ],
+      [
+        376.89817406454364,
+        263.96632240397525
+      ]
+    ],
+    "B-S3": [
+      [
+        376.5342550300582,
+        658.4099054532704
+      ],
+      [
+        567.824719141956,
+        658.4159819003797
+      ],
+      [
+        567.9312035655814,
+        455.15265915319924
+      ],
+      [
+        376.7218032372942,
+        455.13065966922767
+      ]
+    ],
+    "CM": [
+      [
+        567.8560474597497,
+        598.6147663422485
+      ],
+      [
+        711.2863365927005,
+        598.6228371074453
+      ],
+      [
+        711.393785285772,
+        120.77734806700751
+      ],
+      [
+        568.1063931080668,
+        120.74122784939343
+      ]
+    ],
+    "R-S1": [
+      [
+        711.36157316258,
+        264.0310007606045
+      ],
+      [
+        902.4423613526433,
+        264.06795186316725
+      ],
+      [
+        902.4071033019932,
+        61.16641135666177
+      ],
+      [
+        711.407201322041,
+        61.113593871367485
+      ]
+    ],
+    "R-S2": [
+      [
+        711.3185936943173,
+        455.16915650419486
+      ],
+      [
+        902.4755726894421,
+        455.191149956861
+      ],
+      [
+        902.4423613526433,
+        264.06795186316725
+      ],
+      [
+        711.36157316258,
+        264.0310007606045
+      ]
+    ],
+    "R-S3": [
+      [
+        711.27289043694,
+        658.4205386106677
+      ],
+      [
+        902.5108887656323,
+        658.4266133911724
+      ],
+      [
+        902.4755726894421,
+        455.191149956861
+      ],
+      [
+        711.3185936943173,
+        455.16915650419486
+      ]
+    ]
+  },
+  "mission_complete": true
+}

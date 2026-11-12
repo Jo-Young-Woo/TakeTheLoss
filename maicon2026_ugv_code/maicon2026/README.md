@@ -1,5 +1,7 @@
 # MAICON 2026 UGV 임무 코드 (maicon26)
 
+> 2026-11-12 현재 경기장: 주행 영역을 **6.12×5.00m**, B-2 출발 자세를 **(0.40,2.50,0)**으로 통일했다. 원본 20cm 인쇄 격자와 40cm 박스는 늘리지 않았다. 실기 진입점·Gazebo·UAV 보정이 같은 사양을 사용한다. [좌표 기준](ros2/maicon_arena_gz/README.md), [검증 기록](results/arena_612x500_validation_20261112/RESULTS.md).
+
 처음 읽는 사람은 [저장소 첫 화면](../../README.md)에서 설치·실행 순서와 폴더 지도를 확인하세요. [문서 목차](docs/README.md)와 [후보 02 결과 안내](results/README.md)도 있습니다. 아래 내용은 개발 과정의 상세 설명과 시점별 검증 기록을 보존한 것입니다.
 
 > **후보 02 삭제 (2026-11-11).** 동결본 `runtime/selected_candidate02`와 선택 프로필 `config/active_candidate.json`을 지웠다. Gazebo 실행기는 이제 개발 코드 `maicon26/`를 그대로 실행한다(과거 후보 02 수치는 해당 시점 동결본의 기록이며 현재 코드의 결과가 아니다). 삭제 직전 사본은 `_hw_work/candidate02_runtime_backup.tar.gz`에 있다. WSL에서 `bash scripts/run_selected_gazebo.sh`로 실행한다. [선택 근거](results/SELECTION.md)와 [후속 Gazebo 4경기](results/candidate02_four_runs/RESULTS.md)를 구분해 읽어야 한다.

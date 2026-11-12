@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Six independent sensor-driven Agents in one actual Gazebo arena.
+"""One or six independent sensor-driven Agents in an actual Gazebo arena.
 
 The coordinator starts/stops the local referee and records evidence only. It
 does not issue velocity, aiming, route or fire commands to any robot. World
@@ -29,7 +29,7 @@ sys.path.insert(0, str(ROOT/"ros2/maicon_arena_gz/scripts"))
 sys.path.insert(0, str(ROOT/"ros2/wingbot_description/scripts"))
 from drive_gate import stop_children
 from multi_agent_wiring import SLOTS
-from run_wingbot_autonomous_trial import CameraRecorder, write_json, write_preview_json, ARTIFACT_IO_STATS
+from run_wingbot_autonomous_trial import CameraRecorder, draw_face_ledger, write_json, write_preview_json, ARTIFACT_IO_STATS
 
 
 SCENARIOS = ("selfplay","vs_evaders","vs_hunters","vs_blockers","mixed_allies","goal_race")
@@ -98,7 +98,7 @@ class Tail:
         return self.last
 
 
-def overlay(frame, poses, traces, elapsed, risk_snapshot=None, scenario="selfplay"):
+def overlay(frame, poses, traces, elapsed, risk_snapshot=None, scenario="selfplay", arena_size=(6.,4.8)):
     """Projected truth rings are evaluation labels; all decisions are Agent logs."""
     import cv2
     import numpy as np
@@ -131,6 +131,7 @@ def overlay(frame, poses, traces, elapsed, risk_snapshot=None, scenario="selfpla
                 cv2.putText(image, slot, (point[0]+19,point[1]), cv2.FONT_HERSHEY_SIMPLEX,.4,colour,1,cv2.LINE_AA)
     # A separate view of B2's own estimated tracks: no true positions here.
     x0, y0, mw, mh = width-260, 70, 240, 192
+    aw, ah = arena_size
     cv2.rectangle(image, (x0,y0), (x0+mw,y0+mh), (30,30,30), -1)
     if risk_snapshot is not None:
         risk = np.asarray(risk_snapshot["risk"])
@@ -141,14 +142,40 @@ def overlay(frame, poses, traces, elapsed, risk_snapshot=None, scenario="selfpla
     cv2.putText(image, "B2 measured risk + tracks", (x0,y0-8), cv2.FONT_HERSHEY_SIMPLEX,.4,(220,220,220),1,cv2.LINE_AA)
     decision = traces.get("B-2", {}).get("decision", {})
     for track in decision.get("tracks", []):
-        point = (int(x0+track['x']/6*mw), int(y0+mh-track['y']/4.8*mh))
+        point = (int(x0+track['x']/aw*mw), int(y0+mh-track['y']/ah*mh))
         colour = {"enemy": (50,50,240), "ally": (240,140,50), "unknown": (120,220,220)}.get(track.get('team'),(200,200,200))
         if x0<=point[0]<=x0+mw and y0<=point[1]<=y0+mh:
-            end = (int(point[0]+track.get('vx',0)*mw/6), int(point[1]-track.get('vy',0)*mh/4.8))
+            end = (int(point[0]+track.get('vx',0)*mw/aw), int(point[1]-track.get('vy',0)*mh/ah))
             cv2.circle(image, point, 4, colour, -1)
             cv2.arrowedLine(image, point, end, colour, 1, cv2.LINE_AA)
     cv2.putText(image, f"Actual Gazebo RGB | sensor-only {scenario} | match {elapsed:.1f}s", (12,height-14),
                 cv2.FONT_HERSHEY_SIMPLEX,.48,(240,240,240),1,cv2.LINE_AA)
+    return image
+
+
+def draw_iff_panel(image, ledger):
+    """Display only B-2's own identification evidence, never referee identities."""
+    import cv2
+    x,y=1712,482
+    iff={} if ledger is None else ledger.get("iff",{})
+    cv2.putText(image,"B-2 IFF | sensor tracks",(x,y),cv2.FONT_HERSHEY_SIMPLEX,.5,(80,220,255),1,cv2.LINE_AA)
+    yy=y+21
+    for tr in sorted(iff.get("tracks",[]),key=lambda item:item["age_s"])[:5]:
+        relation=tr["relation"] if tr["age_s"]<=3. else "stale"
+        color={"ally":(240,170,70),"enemy":(60,90,255),"unknown":(160,220,220),"stale":(120,120,120)}[relation]
+        label=f"#{tr['id']} {tr['ident'] or '?'} {relation} age {tr['age_s']:.1f}s"
+        cv2.putText(image,label,(x,yy),cv2.FONT_HERSHEY_SIMPLEX,.42,color,1,cv2.LINE_AA)
+        yy+=19
+    if not iff.get("tracks"):
+        cv2.putText(image,"No identified contacts",(x,yy),cv2.FONT_HERSHEY_SIMPLEX,.42,(160,160,160),1,cv2.LINE_AA)
+        yy+=19
+    friends=iff.get("friends",[])
+    if friends:
+        yy+=4
+        for friend in friends[:2]:
+            label=f"{friend['ident']}: {friend['state']}"
+            cv2.putText(image,label,(x,yy),cv2.FONT_HERSHEY_SIMPLEX,.42,(210,180,100),1,cv2.LINE_AA)
+            yy+=19
     return image
 
 
@@ -166,25 +193,46 @@ def run(args):
     if out.exists():
         raise ValueError("Use a new output directory to preserve existing recordings")
     out.mkdir(parents=True)
+    slots = ("B-2",) if args.ugvs == 1 else SLOTS
     share = Path(get_package_share_directory("maicon_arena_gz"))
+    # Installed camera assets and the Agent must describe the same arena.
+    import yaml
+    package = ROOT/"ros2/maicon_arena_gz"
+    for relative in ("config/arena_spec.yaml", "config/uav_grid_calibration.json", "config/layouts/layout_default.yaml"):
+        if (package/relative).read_bytes() != (share/relative).read_bytes():
+            raise ValueError("Installed arena differs from source; rebuild maicon_arena_gz before running: "+relative)
+    spec_path = out/"arena_spec.yaml"
+    spec_path.write_bytes((package/"config/arena_spec.yaml").read_bytes())
+    (out/"layout_default.yaml").write_bytes((package/"config/layouts/layout_default.yaml").read_bytes())
+    arena_size = yaml.safe_load(spec_path.read_text())["floor"]["size"]
     write_json(out/"source_manifest.json",source_manifest(ROOT,share))
+    recording_profile = None
+    if args.record_view == 'uav':
+        from uav_view_recording import prepare_uav_recording_profile
+        recording_profile = prepare_uav_recording_profile(out,share,args.uav_video_fps)
+    gpu = args.gui or args.render_device == 'gpu'
     os.environ.update(ROS_DOMAIN_ID=str(args.ros_domain_id), IGN_PARTITION="wingbot_selfplay_"+str(os.getpid()),
-                      LIBGL_ALWAYS_SOFTWARE="0" if args.gui else "1", RMW_IMPLEMENTATION="rmw_fastrtps_cpp",
+                      LIBGL_ALWAYS_SOFTWARE="0" if gpu else "1", RMW_IMPLEMENTATION="rmw_fastrtps_cpp",
                       FASTRTPS_DEFAULT_PROFILES_FILE=str(share/"config/fastdds_shm256.xml"),
                       FASTDDS_DEFAULT_PROFILES_FILE=str(share/"config/fastdds_shm256.xml"),
                       OPENBLAS_NUM_THREADS="1", OMP_NUM_THREADS="1", MKL_NUM_THREADS="1")
     command = ["ros2", "launch", "maicon_arena_gz", "arena.launch.py", "robot_model:=wingbot",
-               "ugvs:=6", "full_sensors:=true", "ego_slot:=B-2", "profile:=wingbot_recording",
+               "arena_spec:="+str(spec_path),
+               "ugvs:="+str(args.ugvs), "full_sensors:="+str(args.ugvs==6).lower(),
+               "ego_slot:=B-2", "profile:="+str(recording_profile or "wingbot_recording"),
                "gui:="+str(args.gui).lower(), "render_engine:=ogre2", "validation_camera:=true",
                "uav_cam:="+str(not args.no_uav).lower(), "image_transport_profile:=shm256"]
+    if gpu:
+        command.append("wsl_gpu_compat:=true")
     children, logs, agents, events, traces, poses, state = [], [], {}, [], {}, {}, {}
-    tails = {slot: Tail(out/slot/"agent_trace.jsonl") for slot in SLOTS}
+    tails = {slot: Tail(out/slot/"agent_trace.jsonl") for slot in slots}
     clock, clock_wall = [None], [time.monotonic()]
     node = recorder = None
     quit_requested = [False]
     handlers = {sig: signal.signal(sig, lambda *_: quit_requested.__setitem__(0, True)) for sig in (signal.SIGINT, signal.SIGTERM)}
-    policies = policies_for(args.scenario)
-    result = dict(scope="six physical WINGBOT models, isolated sensor-driven mission/policy processes, RGB/LiDAR/odom/IMU",
+    policies = {slot:policy for slot,policy in policies_for(args.scenario).items() if slot in slots}
+    result = dict(scope=f"{len(slots)} physical WINGBOT models, isolated sensor-driven mission/policy processes, RGB/LiDAR/odom/IMU",
+                  active_slots=list(slots),
                   truth_used_by_agents=False, coordinator_issues_motion_commands=False,
                   variant=args.variant, seed=args.seed, duration_requested_s=args.duration,
                   source_manifest="source_manifest.json",
@@ -195,6 +243,7 @@ def run(args):
     truth = (out/"evaluation_truth_all.jsonl").open("w", encoding="utf8")
     last_truth, last_tail, start_sim = [-1e9], 0., None
     risk_snapshot = [None]
+    ledger_snapshot = [None]
     try:
         logs.append((out/"launch.log").open("w", encoding="utf8"))
         children.append(subprocess.Popen(command, cwd=ROOT, stdout=logs[-1], stderr=subprocess.STDOUT, start_new_session=True))
@@ -204,9 +253,19 @@ def run(args):
         rclpy.init(signal_handler_options=SignalHandlerOptions.NO)
         node = rclpy.create_node("wingbot_selfplay_observer")
         control = node.create_publisher(String, "/arena/control", 10)
-        recorder = CameraRecorder(out/"wingbot_selfplay_third_person.mp4", 10., "WINGBOT actual sensors | "+args.scenario)
-        add_frame = recorder.writer.add
-        recorder.writer.add = lambda frame, stamp: add_frame(overlay(frame, dict(poses), dict(traces), float(state.get("elapsed") or 0.),risk_snapshot[0],args.scenario),stamp)
+        if args.record_view == 'uav':
+            from uav_view_recording import UavViewRecording
+            def ground_for_uav():
+                snap=ledger_snapshot[0]
+                return snap, (start_sim+snap['elapsed'] if start_sim is not None and snap is not None else None)
+            recorder=UavViewRecording(out,share,ground_for_uav,recording_profile)
+        else:
+            recorder = CameraRecorder(out/"wingbot_selfplay_third_person.mp4", 10., "WINGBOT actual sensors | "+args.scenario,decorate=False)
+            add_frame = recorder.writer.add
+            recorder.writer.add = lambda frame, stamp: add_frame(draw_iff_panel(
+                draw_face_ledger(overlay(frame, dict(poses), dict(traces),
+                                         float(state.get("elapsed") or 0.),risk_snapshot[0],args.scenario,arena_size),
+                                 ledger_snapshot[0]),ledger_snapshot[0]),stamp)
         recording = [False]
         def on_clock(message):
             stamp = message.clock.sec+message.clock.nanosec*1e-9
@@ -239,12 +298,14 @@ def run(args):
         node.create_subscription(String,"/arena/events",lambda msg:events.append(json.loads(msg.data)),100)
         node.create_subscription(Image,"/arena/validation/image_raw",lambda msg:recorder.receive(msg) if recording[0] else None,qos_profile_sensor_data)
         if not args.no_uav: node.create_subscription(Image,"/uav/image_raw",on_uav,qos_profile_sensor_data)
-        for slot in SLOTS:
+        for slot in slots:
             logs.append((out/(slot+".log")).open("w",encoding="utf8"))
             child_command = [sys.executable,str(ROOT/"scripts/run_wingbot_autonomous_trial.py"),
-                "--multi-agent","--slot",slot,"--await-start","--no-record","--output-dir",str(out/slot),
+                "--arena-spec",str(spec_path),
+                "--slot",slot,"--await-start","--no-record","--output-dir",str(out/slot),
                 "--variant",args.variant,"--seed",str(args.seed),"--ready-timeout",str(args.ready_timeout),
                 "--wall-timeout",str(args.wall_timeout),"--policy",policies[slot]]
+            if args.ugvs == 6: child_command.append("--multi-agent")
             if args.no_uav: child_command.append("--no-uav")
             if args.simulate_impact: child_command.append("--simulate-impact")
             agents[slot] = subprocess.Popen(child_command,cwd=ROOT,stdout=logs[-1],stderr=subprocess.STDOUT,start_new_session=True)
@@ -256,17 +317,18 @@ def run(args):
             if quit_requested[0]: raise InterruptedError("Coordinator interrupted")
             failed = {s:p.returncode for s,p in agents.items() if p.poll() is not None}
             if failed: raise RuntimeError("Agent exited before ready: "+str(failed))
-            ready = [s for s in SLOTS if (out/s/"ready.json").is_file()]
+            ready = [s for s in slots if (out/s/"ready.json").is_file()]
             if time.monotonic()-last_status>10:
-                print(json.dumps(dict(phase="waiting_for_six_sensor_stacks",ready=ready,models=sorted(poses),sim_s=clock[0])),flush=True)
+                print(json.dumps(dict(phase="waiting_for_sensor_stacks",expected=list(slots),ready=ready,models=sorted(poses),sim_s=clock[0])),flush=True)
                 last_status=time.monotonic()
-            if len(ready)==6 and len(poses)==6 and state.get("phase")=="ready": break
-        else: raise TimeoutError("All six independent Agents did not become sensor-ready")
-        result["ready"] = {slot: read_json(out/slot/"ready.json") for slot in SLOTS}
+            if len(ready)==len(slots) and set(poses)==set(slots) and state.get("phase")=="ready": break
+        else: raise TimeoutError("Requested Agents did not become sensor-ready: "+str(slots))
+        result["ready"] = {slot: read_json(out/slot/"ready.json") for slot in slots}
         result["models"] = sorted(poses)
         recording[0] = True
         control.publish(String(data=json.dumps({"cmd":"start","objectives":{"BLUE":"R-2","RED":"B-2"}})))
         report_sent = None
+        mission_finished = False
         last_status = 0.
         while time.monotonic()-opened<args.wall_timeout:
             rclpy.spin_once(node,timeout_sec=.02)
@@ -276,7 +338,9 @@ def run(args):
             if wall-clock_wall[0]>20.: raise RuntimeError("Gazebo clock stalled")
             if recorder.error: raise RuntimeError(recorder.error)
             if wall-last_tail>=.25:
-                traces.update({slot: tails[slot].poll() for slot in SLOTS}); last_tail=wall
+                traces.update({slot: tails[slot].poll() for slot in slots}); last_tail=wall
+                latest_ledger=read_json(out/"B-2"/"face_ledger.json")
+                if latest_ledger is not None: ledger_snapshot[0]=latest_ledger
                 try:
                     import numpy as np
                     with np.load(out/"B-2"/"risk_overlay.npz") as payload:
@@ -291,13 +355,24 @@ def run(args):
             if state.get("phase") in ("reporting","finished") and report_sent is None: report_sent=wall
             failed={s:p.returncode for s,p in agents.items() if p.poll() not in (None,0)}
             if failed: raise RuntimeError("Agent failure: "+str(failed))
-            if all(p.poll() is not None for p in agents.values()): break
-            if report_sent is not None and wall-report_sent>120.: raise TimeoutError("Agent report/cleanup exceeded 120 wall seconds")
+            all_done = all(p.poll() is not None for p in agents.values())
+            if all_done and not mission_finished:
+                mission_finished = True
+                result["mission_finished_elapsed_s"] = elapsed
+                latest_ledger=read_json(out/"B-2"/"face_ledger.json")
+                if latest_ledger is not None: ledger_snapshot[0]=latest_ledger
+                if hasattr(recorder,"finish_mission"): recorder.finish_mission()
+            # Capture may legitimately end the mission before 5:00. Keep the
+            # real camera/world running until the requested recording duration.
+            if all_done and start_sim is not None and clock[0]-start_sim>=args.duration: break
+            if not all_done and report_sent is not None and wall-report_sent>120.:
+                raise TimeoutError("Agent report/cleanup exceeded 120 wall seconds")
             if wall-last_status>10:
-                status=dict(elapsed=elapsed,phase=state.get("phase"),modes={s:traces.get(s,{}).get("mode") for s in SLOTS},frames=recorder.accepted)
+                status=dict(elapsed=elapsed,phase=state.get("phase"),modes={s:traces.get(s,{}).get("mode") for s in slots},frames=recorder.accepted)
                 print(json.dumps(status),flush=True); write_preview_json(out/"progress.json",status); last_status=wall
         else: raise TimeoutError("Trial wall timeout")
-        result["completed"] = all(p.returncode==0 for p in agents.values())
+        result["completed"] = (all(p.returncode==0 for p in agents.values())
+                               and start_sim is not None and clock[0]-start_sim>=args.duration)
     except Exception as error:
         result["errors"].append(type(error).__name__+": "+str(error))
         result["completed"] = False
@@ -318,7 +393,7 @@ def run(args):
                       artifact_io_stats=dict(ARTIFACT_IO_STATS),
                       referee_state=state,referee_events=events,
                       agent_returncodes={s:p.returncode for s,p in agents.items()},
-                      agent_reports={slot:read_json(out/slot/"mission_report.json") for slot in SLOTS})
+                      agent_reports={slot:read_json(out/slot/"mission_report.json") for slot in slots})
         write_json(out/"selfplay_report.json",result)
         for sig,handler in handlers.items(): signal.signal(sig,handler)
     return 0 if result["completed"] else 1
@@ -328,18 +403,32 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output",type=Path,required=True)
     parser.add_argument("--duration",type=float,default=300.)
+    parser.add_argument("--ugvs",type=int,choices=(1,6),default=6,
+                        help="One B-2 or six physical WINGBOTs; same recording and mission duration")
     parser.add_argument("--seed",type=int,default=0)
     parser.add_argument("--variant",choices=("progress","v2","blocker_fire","dwell_zero"),default="progress")
     parser.add_argument("--scenario",choices=SCENARIOS,default="selfplay")
     parser.add_argument("--no-uav",action="store_true")
+    parser.add_argument("--record-view",choices=('observer','uav'),default='observer',
+                        help='Record the observer camera or native UAV RGB with image-derived face inventory')
+    parser.add_argument("--uav-video-fps",type=float,default=30.,
+                        help='Real co-located UAV recording camera Hz; Agent UAV input stays at 1 Hz')
     parser.add_argument("--simulate-impact",action="store_true",help="Enable uncalibrated Gazebo IMU impact handling")
     parser.add_argument("--gui",action="store_true",help="Show the live Gazebo window (uses GPU rendering)")
+    parser.add_argument("--render-device",choices=('cpu','gpu'),default='cpu',
+                        help='CPU is verified for textured Ogre2 worlds on this WSL driver')
     parser.add_argument("--ros-domain-id",type=int,default=81)
     parser.add_argument("--ready-timeout",type=float,default=180.)
     parser.add_argument("--wall-timeout",type=float,default=3600.)
     args=parser.parse_args()
     if not 0<args.duration<=300 or args.wall_timeout<=300 or args.ready_timeout<=0:
         parser.error("Invalid duration/timeouts")
+    if args.no_uav and args.record_view == 'uav':
+        parser.error('--record-view uav requires the UAV camera')
+    if args.ugvs == 1 and args.scenario != 'selfplay':
+        parser.error('--ugvs 1 supports the autonomous selfplay policy only')
+    if not math.isfinite(args.uav_video_fps) or not 2 <= args.uav_video_fps <= 30:
+        parser.error('--uav-video-fps must be between 2 and 30')
     return run(args)
 
 

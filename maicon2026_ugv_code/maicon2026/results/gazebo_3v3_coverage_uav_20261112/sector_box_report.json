@@ -1,0 +1,127 @@
+{
+  "observer": "B-2",
+  "basis": "Final image-associated UAV geometry and B-2 ground observations; I and E are distinct",
+  "image_stamp_s": 282.712,
+  "ground_state_stamp_s": 282.052,
+  "mission_complete": true,
+  "sectors": {
+    "R-S1": {
+      "boxes": 3,
+      "identified_boxes": 3,
+      "resolved_boxes": 1,
+      "identified_faces": 5,
+      "empty_faces": 1,
+      "unresolved_faces": 2,
+      "eligible_faces": 8,
+      "states": {
+        "identified": 5,
+        "empty": 1,
+        "pending": 2
+      },
+      "remaining": [
+        {
+          "key": "U17-N",
+          "state": "pending",
+          "center": [
+            4.196875,
+            4.2015625
+          ]
+        },
+        {
+          "key": "U20-N",
+          "state": "pending",
+          "center": [
+            4.596875,
+            4.2015625
+          ]
+        }
+      ]
+    },
+    "R-S2": {
+      "boxes": 2,
+      "identified_boxes": 2,
+      "resolved_boxes": 2,
+      "identified_faces": 4,
+      "empty_faces": 2,
+      "unresolved_faces": 0,
+      "eligible_faces": 6,
+      "states": {
+        "identified": 4,
+        "empty": 2
+      },
+      "remaining": []
+    },
+    "R-S3": {
+      "boxes": 3,
+      "identified_boxes": 2,
+      "resolved_boxes": 1,
+      "identified_faces": 2,
+      "empty_faces": 3,
+      "unresolved_faces": 3,
+      "eligible_faces": 8,
+      "states": {
+        "pending": 3,
+        "empty": 3,
+        "identified": 2
+      },
+      "remaining": [
+        {
+          "key": "U13-E",
+          "state": "pending",
+          "center": [
+            4.2046875,
+            0.6015625
+          ]
+        },
+        {
+          "key": "U13-S",
+          "state": "pending",
+          "center": [
+            4.2046875,
+            0.6015625
+          ]
+        },
+        {
+          "key": "U18-S",
+          "state": "pending",
+          "center": [
+            4.6046875,
+            1.0015624999999995
+          ]
+        }
+      ]
+    },
+    "CM": {
+      "boxes": 4,
+      "identified_boxes": 4,
+      "resolved_boxes": 2,
+      "identified_faces": 7,
+      "empty_faces": 5,
+      "unresolved_faces": 2,
+      "eligible_faces": 14,
+      "states": {
+        "identified": 7,
+        "pending": 2,
+        "empty": 5
+      },
+      "remaining": [
+        {
+          "key": "U09-N",
+          "state": "pending",
+          "center": [
+            3.0046875,
+            1.2031249999999996
+          ]
+        },
+        {
+          "key": "U12-N",
+          "state": "pending",
+          "center": [
+            3.0046875,
+            3.5999999999999996
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,383 @@
+{
+  "elapsed": 26.376,
+  "sectors": {
+    "CM": {
+      "boxes": 4,
+      "faces": 14,
+      "identified": 0,
+      "empty": 5,
+      "hidden": 0,
+      "unreachable": 0,
+      "uncertain": 0,
+      "viewed": 1,
+      "pending": 8,
+      "excluded": 2,
+      "todo": [
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          9,
+          0
+        ],
+        [
+          9,
+          1
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          13,
+          0
+        ],
+        [
+          15,
+          0
+        ],
+        [
+          15,
+          3
+        ]
+      ],
+      "complete": false
+    },
+    "R-S1": {
+      "boxes": 2,
+      "faces": 6,
+      "identified": 0,
+      "empty": 3,
+      "hidden": 1,
+      "unreachable": 0,
+      "uncertain": 0,
+      "viewed": 0,
+      "pending": 2,
+      "excluded": 2,
+      "todo": [
+        [
+          21,
+          0
+        ],
+        [
+          22,
+          0
+        ]
+      ],
+      "complete": false
+    },
+    "R-S2": {
+      "boxes": 1,
+      "faces": 4,
+      "identified": 0,
+      "empty": 1,
+      "hidden": 0,
+      "unreachable": 0,
+      "uncertain": 0,
+      "viewed": 1,
+      "pending": 2,
+      "excluded": 0,
+      "todo": [
+        [
+          23,
+          0
+        ],
+        [
+          23,
+          2
+        ],
+        [
+          23,
+          3
+        ]
+      ],
+      "complete": false
+    },
+    "R-S3": {
+      "boxes": 3,
+      "faces": 10,
+      "identified": 0,
+      "empty": 0,
+      "hidden": 2,
+      "unreachable": 0,
+      "uncertain": 0,
+      "viewed": 1,
+      "pending": 7,
+      "excluded": 2,
+      "todo": [
+        [
+          5,
+          1
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          20,
+          0
+        ],
+        [
+          20,
+          2
+        ]
+      ],
+      "complete": false
+    }
+  },
+  "boxes": {
+    "R-S1": [
+      {
+        "id": 21,
+        "faces": {
+          "E": "pending",
+          "N": "excluded",
+          "W": "empty",
+          "S": "empty"
+        }
+      },
+      {
+        "id": 22,
+        "faces": {
+          "E": "pending",
+          "N": "hidden",
+          "W": "empty",
+          "S": "excluded"
+        }
+      }
+    ],
+    "R-S2": [
+      {
+        "id": 23,
+        "faces": {
+          "E": "pending",
+          "N": "empty",
+          "W": "viewed",
+          "S": "pending"
+        }
+      }
+    ],
+    "R-S3": [
+      {
+        "id": 5,
+        "faces": {
+          "E": "excluded",
+          "N": "viewed",
+          "W": "pending",
+          "S": "pending"
+        }
+      },
+      {
+        "id": 6,
+        "faces": {
+          "E": "pending",
+          "N": "pending",
+          "W": "excluded",
+          "S": "pending"
+        }
+      },
+      {
+        "id": 20,
+        "faces": {
+          "E": "pending",
+          "N": "hidden",
+          "W": "pending",
+          "S": "hidden"
+        }
+      }
+    ],
+    "CM": [
+      {
+        "id": 8,
+        "faces": {
+          "E": "pending",
+          "N": "pending",
+          "W": "empty",
+          "S": "empty"
+        }
+      },
+      {
+        "id": 9,
+        "faces": {
+          "E": "pending",
+          "N": "viewed",
+          "W": "pending",
+          "S": "pending"
+        }
+      },
+      {
+        "id": 13,
+        "faces": {
+          "E": "pending",
+          "N": "empty",
+          "W": "empty",
+          "S": "excluded"
+        }
+      },
+      {
+        "id": 15,
+        "faces": {
+          "E": "pending",
+          "N": "excluded",
+          "W": "empty",
+          "S": "pending"
+        }
+      }
+    ]
+  },
+  "uav_map": {
+    "layout": {
+      "state": "available",
+      "mode": "uav_assisted",
+      "age_s": 1.034,
+      "timeout_s": 12.0,
+      "active_priors": 0,
+      "suspended_image_only_boxes": 0,
+      "local_boxes": 24,
+      "map_frozen": false,
+      "frozen_boxes": 0,
+      "map_stats": {
+        "ugv_excluded": 0,
+        "inner_faces": 0,
+        "frozen_boxes": 0,
+        "frozen_t": null,
+        "late_boxes_ignored": 0
+      },
+      "events": [
+        {
+          "t": 0.454,
+          "from": "unavailable",
+          "to": "acquiring"
+        },
+        {
+          "t": 2.34,
+          "from": "acquiring",
+          "to": "available"
+        }
+      ]
+    },
+    "boxes": [],
+    "outer_faces": {
+      "frame": "arena",
+      "units": "m",
+      "faces": [],
+      "assumption": "axis-aligned rectangular footprints; side images require ground camera"
+    },
+    "alignment": {},
+    "coordinates": "arena image: x 0..6 m right, y 0..4.8 m up"
+  },
+  "source": "Agent observed face ledger; no referee truth",
+  "iff": {
+    "team": "BLUE",
+    "tracks": [
+      {
+        "id": 1,
+        "ident": null,
+        "team": "BLUE",
+        "relation": "ally",
+        "age_s": 27.07,
+        "disputed": false,
+        "camera_age_s": null,
+        "uav_age_s": 27.07
+      },
+      {
+        "id": 2,
+        "ident": "R-UGV-3",
+        "team": null,
+        "relation": "unknown",
+        "age_s": 6.22,
+        "disputed": true,
+        "camera_age_s": 6.22,
+        "uav_age_s": 9.57
+      },
+      {
+        "id": 3,
+        "ident": "R-UGV-2",
+        "team": "RED",
+        "relation": "enemy",
+        "age_s": 4.02,
+        "disputed": false,
+        "camera_age_s": 4.02,
+        "uav_age_s": 14.87
+      },
+      {
+        "id": 4,
+        "ident": "R-UGV-1",
+        "team": "RED",
+        "relation": "enemy",
+        "age_s": 0.82,
+        "disputed": false,
+        "camera_age_s": 0.82,
+        "uav_age_s": 7.57
+      },
+      {
+        "id": 5,
+        "ident": null,
+        "team": "BLUE",
+        "relation": "ally",
+        "age_s": 10.89,
+        "disputed": false,
+        "camera_age_s": 19.42,
+        "uav_age_s": 10.89
+      },
+      {
+        "id": 6,
+        "ident": null,
+        "team": "BLUE",
+        "relation": "ally",
+        "age_s": 5.67,
+        "disputed": false,
+        "camera_age_s": 17.72,
+        "uav_age_s": 5.67
+      }
+    ],
+    "friends": [
+      {
+        "ident": "B-UGV-1",
+        "state": "unidentified",
+        "x": null,
+        "y": null,
+        "age_s": null,
+        "tid": null,
+        "reason": "not_seen_at_start",
+        "n_match": 0
+      },
+      {
+        "ident": "B-UGV-3",
+        "state": "unidentified",
+        "x": 0.294,
+        "y": 0.804,
+        "age_s": 27.07,
+        "tid": 1,
+        "reason": "timeout",
+        "n_match": 1
+      }
+    ],
+    "source": "Agent camera/UAV tracker and friend map; no Gazebo truth"
+  }
+}
