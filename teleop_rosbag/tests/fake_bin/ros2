@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""시험용 가짜 ros2. record.sh 의 흐름(점검 → 기록 → 안전 종료 → 마무리)만 흉내 낸다."""
+import os
+import signal
+import sys
+import time
+
+a = sys.argv[1:]
+if a[:2] == ["topic", "list"]:
+    print("\n".join(os.environ.get("FAKE_TOPICS", "/cmd_vel /odom /scan /image_raw /imu/data /tf /tf_static /mil/state /teleop/events").split()))
+elif a[:2] == ["daemon", "stop"] or a[:2] == ["daemon", "start"]:
+    pass
+elif a[:3] == ["bag", "record", "--help"]:
+    print("usage: ros2 bag record [-s {sqlite3,mcap}] [--max-bag-duration N] [--max-cache-size N] [--storage-preset-profile P] [-x EXCLUDE] [--exclude EXCLUDE]")
+elif a[:2] == ["bag", "record"]:
+    out = a[a.index("-o") + 1]
+    os.makedirs(out)
+    with open(os.path.join(out, "args.txt"), "w") as f:
+        f.write(" ".join(a) + "\nstdin_tty=%s sid_leader=%s\n" % (sys.stdin.isatty(), os.getsid(0) == os.getpid()))
+    stop = []
+    if os.environ.get("FAKE_HANDLE_SIGINT", "1") == "1":
+        signal.signal(signal.SIGINT, lambda s, f: stop.append(s))
+    t0 = time.time()
+    try:
+        while not stop:
+            with open(os.path.join(out, "data_0.mcap"), "ab") as f:
+                f.write(b"x" * 1000)
+            time.sleep(0.1)
+    except KeyboardInterrupt:
+        pass
+    if os.environ.get("FAKE_NO_METADATA") != "1":
+        dur = int((time.time() - t0) * 1e9)
+        n = max(1, int((time.time() - t0) * 20))
+        topics = "".join("    - topic_metadata:\n        name: %s\n        type: fake/msg/T\n      message_count: %d\n" % (t, n)
+                         for t in os.environ.get("FAKE_TOPICS", "/cmd_vel /odom /scan /image_raw /imu/data /tf /tf_static /mil/state /teleop/events").split())
+        with open(os.path.join(out, "metadata.yaml"), "w") as f:
+            f.write("rosbag2_bagfile_information:\n  storage_identifier: mcap\n  duration:\n    nanoseconds: %d\n  starting_time:\n"
+                    "    nanoseconds_since_epoch: %d\n  message_count: %d\n  topics_with_message_count:\n%s  relative_file_paths:\n    - data_0.mcap\n"
+                    % (dur, int(t0 * 1e9), n * 9, topics))
+elif a[:2] == ["bag", "reindex"]:
+    with open(os.path.join(a[2], "metadata.yaml"), "w") as f:
+        f.write("rosbag2_bagfile_information:\n  storage_identifier: mcap\n  duration:\n    nanoseconds: 2000000000\n  starting_time:\n"
+                "    nanoseconds_since_epoch: 0\n  message_count: 1\n  topics_with_message_count: []\n  relative_file_paths: []\n")
+    print("reindexed")
+elif a[:2] == ["bag", "info"]:
+    print("fake info", a[2])
+else:
+    sys.exit(1)
