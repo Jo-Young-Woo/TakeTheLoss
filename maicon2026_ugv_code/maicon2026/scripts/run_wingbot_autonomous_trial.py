@@ -54,7 +54,7 @@ def json_value(value):
         return {field.name:json_value(getattr(value,field.name)) for field in dataclasses.fields(value)}
     # HAL callbacks can add/remove diagnostic keys while a checkpoint is saved.
     if isinstance(value,dict):return {str(k):json_value(v) for k,v in list(value.items())}
-    if isinstance(value,(list,tuple)):return [json_value(v) for v in value]
+    if isinstance(value,(list,tuple,set,frozenset)):return [json_value(v) for v in value]
     if isinstance(value,float) and not math.isfinite(value):return None
     if hasattr(value,'tolist'):return json_value(value.tolist())
     if hasattr(value,'value'):return value.value
@@ -286,6 +286,10 @@ def draw_face_ledger(image, snapshot):
     line("I identified  E empty  H hidden  - excluded",y+46)
     line("U unreachable  ? uncertain/viewed  . pending",y+64)
     yy=y+88
+    scope=snapshot.get('exploration_scope',{})
+    if scope.get('mode')=='m1_assigned_only':
+        line('M1 search: '+(', '.join(scope.get('sectors',[])) or 'waiting for two sectors'),yy,(100,240,180))
+        yy+=22
     short={"identified":"I","empty":"E","hidden":"H","unreachable":"U",
            "uncertain":"?","viewed":"?","pending":".","excluded":"-"}
     for sector, row in snapshot["sectors"].items():
@@ -366,6 +370,7 @@ def main(argv=None):
     parser.add_argument('--impact-vib-filter',action='store_true',help='With --simulate-impact: reject alternating wheel vibration by net impulse (cfg.impact.vib_filter)')
     parser.add_argument('--operator-config',type=Path,help='Explicit local orders/targets JSON; omitted uses the documented rehearsal fixture')
     parser.add_argument('--config',type=Path,default=ROOT/'config/waveshare_real.json')
+    parser.add_argument('--nav-backend',choices=('builtin','nav2'),default='builtin')
     parser.add_argument('--configure-factory',default='maicon26.hal.wingbot_calibration:configure_wingbot_simulation')
     parser.add_argument('--detector-factory',default='maicon26.sim.image_detector:make_wingbot_detector')
     parser.add_argument('--record-topic',default='/arena/validation/image_raw')
@@ -407,7 +412,9 @@ def run(args):
     from std_msgs.msg import String
     from tf2_msgs.msg import TFMessage
 
-    cfg,_=load_run_config(str(args.config),None,'builtin')
+    if args.nav_backend == 'nav2' and (args.multi_agent or args.slot != 'B-2' or args.policy != 'agent'):
+        parser.error('Nav2 trial wiring currently supports one B-2 Agent only')
+    cfg,_=load_run_config(str(args.config),None,args.nav_backend)
     # Gazebo IMU wheel vibration reached 0.98 g without a verified contact in
     # the height trial and caused phantom low obstacles. Keep the real-robot
     # policy in its config; opt into the simulation impact experiment explicitly.
@@ -424,7 +431,7 @@ def run(args):
     cfg.team = 'BLUE' if args.slot.startswith('B') else 'RED'
     cfg.slot = int(args.slot[-1])
     apply_trial_variant(cfg, args.variant)
-    cfg.nav.backend='builtin';cfg.nav2.use_sim_time=True
+    cfg.nav.backend=args.nav_backend;cfg.nav2.use_sim_time=True
     cfg.depth.enable=False;cfg.map3d.enable=False
     cfg.hal.restart_state_path='';cfg.hal.freeze_clock_on_pause=False
     cfg.mission.t_total=300.
@@ -450,6 +457,9 @@ def run(args):
     cfg.robot.radius=math.hypot(cfg.robot.length,cfg.robot.width)/2
     cfg.robot.track_width=2*float(model_mods['wheels']['y'])
     cfg.robot.wheel_radius=float(model_mods['wheels']['radius'])
+    if args.nav_backend == 'nav2':
+        from wingbot_nav2_trial import configure
+        configure(cfg, arena_spec, model_frames)
     inner_detector=load_factory(args.detector_factory)(cfg)
     if isinstance(inner_detector,SimDetector) or not callable(getattr(inner_detector,'detect',None)):
         raise TypeError('The autonomous trial requires an actual-image detector, never SimDetector')
@@ -561,6 +571,7 @@ def run(args):
     aim_recorder=aim_evidence=None
     original_inner_detect=None
     error=None;start_sim=None;result={};last_trace=-math.inf;last_print=-math.inf;last_overlay=-math.inf;last_ledger=-math.inf;report_wall=None;coverage210=False
+    last_route_failure_serial=0
     try:
         def wait(predicate,seconds,description):
             until=time.monotonic()+seconds
@@ -577,6 +588,8 @@ def run(args):
         robot.tr.node.set_parameters([Parameter('use_sim_time',value=True)])
         stack=make_stack(cfg,robot)
         wait_ready(robot,stack,args.ready_timeout,should_quit=quit_event.is_set)
+        if args.nav_backend == 'nav2':
+            wait(lambda: stack.client.available(), args.ready_timeout, 'Nav2 action server unavailable')
         frame=robot.get_frame()
         if frame is None or frame.image is None:raise RuntimeError('Actual rectified ground camera is required')
         import cv2
@@ -609,7 +622,7 @@ def run(args):
         # Populate the observed pose/map while motors remain locked in READY.
         agent.tick()
         write_json(args.output_dir/'trial_config.json',{'scope':('one of six isolated physical Agents' if args.multi_agent else 'one physical Agent'),'operator_fixture':operator,
-            'nav':'builtin scan/odom SLAM + A*','detector_factory':args.detector_factory,'camera_calibration':calibration,
+            'nav':('Nav2 + Cartographer + Navfn A*; no built-in fallback' if args.nav_backend=='nav2' else 'builtin scan/odom SLAM + A*'),'detector_factory':args.detector_factory,'camera_calibration':calibration,
             'uav':'disabled' if args.no_uav else 'actual JPEG via loopback API; measured image-only cube candidates',
             'truth_access':'observer/evaluation only; never Agent or perception','llm':'not connected; existing rule-based M1/M6 fallback',
             'policy':args.policy,'record_topic':args.record_topic,
@@ -636,9 +649,19 @@ def run(args):
             # diagnostic reference so its completed samples survive shutdown.
             risk_worker_for_report=getattr(agent,'_risk_worker',None) or risk_worker_for_report
             agent.tick()
+            failure=getattr(agent.explorer,'failure_snapshot',None)
+            if args.slot=='B-2' and failure is not None and failure['serial']!=last_route_failure_serial:
+                folder=args.output_dir/'route_failures'
+                folder.mkdir(exist_ok=True)
+                stem=f"failure_{failure['serial']:02d}"
+                write_preview_npz(folder/(stem+'.npz'),**failure['arrays'])
+                write_preview_json(folder/(stem+'.json'),dict(failure['metadata'],
+                    uav_self_tracking=json_value(agent.stats.get('uav_self_tracking',{}))))
+                last_route_failure_serial=failure['serial']
             if now-last_ledger>=1. and (not args.no_record or args.slot=='B-2'):
                 ledger=face_ledger_snapshot(agent.coverage,float(observer.state_copy().get('elapsed') or 0.))
                 ledger['iff']=iff_snapshot(agent,now)
+                ledger['exploration_scope']=agent.stats.get('exploration_scope',{})
                 if not args.no_record: recorder.ledger=ledger
                 write_preview_json(args.output_dir/'face_ledger.json',ledger)
                 last_ledger=now
@@ -658,7 +681,12 @@ def run(args):
                        'estimated_nav_xy_yaw':[pose.x,pose.y,pose.th],'cmd_vw':[agent._v_cmd,agent._w_cmd],
                        'decision':decision_with_route(agent),'readiness':robot.readiness(),'target_done':agent.target_done,'m3_counts':agent._m3_counts(),
                        'det_consumed':agent.stats['det_consumed'],'detector_errors':agent.stats['detector_errors'],
-                       'aim':aim_snapshot}
+                       'aim':aim_snapshot, 'nav_stack':stack.diagnostics(),
+                       'navigation':{'last_selection':getattr(agent.explorer,'diagnostics',{}).get('last_evaluate',{}).get('t'),
+                                     'accepted':getattr(agent.explorer,'diagnostics',{}).get('last_evaluate',{}).get('accepted'),
+                                     'last_failure':{key:getattr(agent.explorer,'diagnostics',{}).get('last_blockage',{}).get(key)
+                                                     for key in ('t','classification')},
+                                     'recovery':agent.stats.get('selection_recovery')}}
                 trace_file.write(REDACT(json.dumps(json_value(trace),ensure_ascii=False))+'\n');trace_file.flush()
                 last_trace=now
             if now-last_overlay>=1. and args.multi_agent:
@@ -689,10 +717,13 @@ def run(args):
             write_json(args.output_dir/'risk_worker_summary.json',processing_summary(agent,risk_worker))
             if callable(getattr(risk_worker,'lineage_snapshot',None)):
                 write_json(args.output_dir/'scan_lineage.json',risk_worker.lineage_snapshot())
-            result.update(agent_mode=agent.mode.value,stop_source=agent.stop_source,m6_result=agent.m6_result,
+            result.update(nav_stack=stack.diagnostics(),agent_mode=agent.mode.value,stop_source=agent.stop_source,m6_result=agent.m6_result,
                           agent_stats=agent.stats,agent_log=agent.log,m3_counts=agent._m3_counts(),
                           target_done=agent.target_done,target_failed=agent.target_failed,
-                          coverage=agent.coverage.summary(),observed_classified_faces=agent.omap.confirmed_faces(),estimated_pose=dataclasses.asdict(stack.pose),
+                          coverage=agent.coverage.summary(),coverage_boxes=list(agent.coverage.boxes.values()),
+                          object_association=dict(agent.omap.association_stats),
+                          observed_face_hypotheses=list(agent.omap.faces),
+                          observed_classified_faces=agent.omap.confirmed_faces(),estimated_pose=dataclasses.asdict(stack.pose),
                           lidar_blob_stats=dict(getattr(getattr(agent,'blobs',None),'stats',{})),
                           m3_arrival_events=list(getattr(agent,'_m3_arrival_events',())),
                           exploration_diagnostics=agent.explorer.diagnostics if agent.explorer is not None else {},

@@ -1,4 +1,4 @@
-﻿# Nav2 파라미터 — ROS2 Humble 기준으로 작성. !! 로봇에서 아직 실행해 보지 못했다(검증 순서는 ros2/README.md).
+# Nav2 파라미터 — ROS2 Humble 기준으로 작성. !! 로봇에서 아직 실행해 보지 못했다(검증 순서는 ros2/README.md).
 # 파라미터 이름이 Humble 빌드와 다르면 `ros2 param list /controller_server` 등으로 확인해 고친다.
 #
 # 설계 원칙 (경기장 구조물이 실시간으로 바뀐다):
@@ -7,7 +7,7 @@
 #  - 전역 비용지도는 LiDAR 마킹 + '레이캐스트 클리어링'(obstacle_layer)으로 만든다 → 박스가 옮겨지면 LiDAR가 그 자리를
 #    통과해 보는 즉시 비워지고, 새로 놓이면 즉시 막힌다.
 #  - 경기장 외벽은 maicon26 이 /arena_walls_cloud 로 알려준다(마킹 전용) → 벽 밖으로 경로를 짜지 않는다.
-#  - 전역 계획은 2 Hz 로 다시 한다(behavior_trees/navigate_replan_fast.xml).
+#  - 전역 계획은 3초마다 다시 한다(behavior_trees/navigate_replan_fast.xml).
 #  - 속도는 /cmd_vel_nav2 로 낸다(launch 에서 리맵). 최종 /cmd_vel 은 maicon26 Agent 가 안전 제한 후 보낸다.
 #
 # 풋프린트: 직사각형 250x230 mm [PDF p21] + 계획 여유(환산 근거 maicon26/footprint.py). 예전엔 원형 robot_radius 0.12 로 낮춰 썼는데(WSL 에서 직사각형일 때 RPP/spin/backup 의 "collision ahead" 가 매치당 ~400회) 반폭 0.115 에 가까운 작은 원이 모서리 충돌을 가렸다 — 다시 직사각형으로 되돌렸다. 좁은 곳에서 더 자주 멈출 수 있으니 WSL/실기에서 "collision ahead" 횟수를 확인할 것.
@@ -236,7 +236,7 @@ global_costmap:
 planner_server:
   ros__parameters:
     use_sim_time: false
-    expected_planner_frequency: 2.0
+    expected_planner_frequency: 5.0
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"

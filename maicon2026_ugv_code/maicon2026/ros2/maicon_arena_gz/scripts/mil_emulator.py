@@ -148,7 +148,7 @@ def main(argv=None):
     from nav_msgs.msg import Odometry
     from sensor_msgs.msg import Image, JointState, LaserScan
     from std_msgs.msg import String, Float64
-    from tf2_ros import TransformBroadcaster
+    from tf2_ros import TransformBroadcaster, StaticTransformBroadcaster
     msg_types = importlib.import_module(args.interface_package+".msg")
     srv_types = importlib.import_module(args.interface_package+".srv")
 
@@ -167,8 +167,19 @@ def main(argv=None):
             self.fire_pub = self.create_publisher(String, "/arena/fire", 10)
             self.gimbal_pub = self.create_publisher(String, "/arena/gimbal", 10)
             self.image_pub = self.create_publisher(Image, "/image_raw", qos_profile_sensor_data)
-            self.odom_pub = self.create_publisher(Odometry, "/odom", qos_profile_sensor_data)
+            # Serve reliable and best-effort odometry consumers. Installed
+            # Nav2 QoS varies by release; verify the live endpoints rather
+            # than assuming a QoS mismatch from slow rotation alone.
+            self.odom_pub = self.create_publisher(Odometry, "/odom", 10)
             self.tf = TransformBroadcaster(self)
+            self.tf_static = StaticTransformBroadcaster(self)
+            if frames is not None:
+                # Rigid mounts have no sample time. Publishing them on /tf
+                # made scans newer than the last joint sample fail extrapolation.
+                stamp = self.get_clock().now().to_msg()
+                self.tf_static.sendTransform([
+                    measured_transform(parent, child, xyz, rpy, stamp)
+                    for parent, child, xyz, rpy in frames.tf_edges(0., 0., fixed=True)])
             self.create_subscription(String, "/arena/state", self.state, qos)
             self.create_subscription(Twist, "/cmd_vel", lambda m: self.core.velocity(m.linear.x, m.angular.z, self.now()), 10)
             self.create_subscription(Odometry, "/arena/ego/odom", self.odom, qos_profile_sensor_data)
@@ -241,7 +252,7 @@ def main(argv=None):
             self.gimbal_pub.publish(String(data=json.dumps({"slot": args.ego_slot, "pan_rad": pan, "tilt_rad": tilt})))
             if frames is not None:
                 transforms = [measured_transform(parent, child, xyz, rpy, message.header.stamp)
-                              for parent, child, xyz, rpy in frames.tf_edges(pan, tilt)]
+                              for parent, child, xyz, rpy in frames.tf_edges(pan, tilt, fixed=False)]
                 self.tf.sendTransform(transforms)
                 return
             base = settings["body"]["center"]

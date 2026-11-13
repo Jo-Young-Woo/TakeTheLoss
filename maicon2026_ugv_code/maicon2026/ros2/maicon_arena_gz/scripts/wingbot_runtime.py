@@ -62,9 +62,11 @@ class WingbotFrames:
             facing /= np.linalg.norm(facing)
             yield tuple(self.zero[name][:3, 3]), float(frame["radius"]), tuple(facing)
 
-    def tf_edges(self, pan, tilt):
+    def tf_edges(self, pan, tilt, fixed=None):
         transforms = self.transforms(pan, tilt)
         for joint in self.data["joints"]:
+            if fixed is not None and (joint["type"] == "fixed") != fixed:
+                continue
             parent, child = joint["parent"], joint["child"]
             relative = np.linalg.inv(transforms[parent]) @ transforms[child]
             yield parent, child, tuple(relative[:3, 3]), rotation_rpy(relative[:3, :3])

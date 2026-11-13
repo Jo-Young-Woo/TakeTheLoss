@@ -165,7 +165,7 @@ def _axis_detour(grid: OccupancyGrid, budget: ClearanceBudget, path: Sequence[Pt
 
 def plan_footprint(grid: OccupancyGrid, inflate_hard: float, inflate_soft: float, soft_weight: float, budget: ClearanceBudget,
                    start: Pt, goal: Pt, start_heading: Optional[float] = None, extra_block: Optional[Sequence[Pt]] = None,
-                   check: bool = True, max_iter: int = 8, max_expand: int = 40000, _depth: int = 0):
+                   check: bool = True, max_iter: int = 8, max_expand: int = 40000, _depth: int = 0, planner=None):
     """→ (path, blocked, n_rejects) 또는 None. check=False 면 직사각형 검증을 건너뛴다(레거시)."""
     bad_cells: List[Tuple[int, int]] = []
     rejects = 0
@@ -176,10 +176,12 @@ def plan_footprint(grid: OccupancyGrid, inflate_hard: float, inflate_soft: float
         if check:
             # 트인 칸(어느 방향으로 서도 직사각형이 들어가는 칸) = 장애물 중심까지 거리 > 회전 소거 반경. 좁은 칸은 축 방향으로만 지나간다.
             open_mask = (grid.distance_field(grid.planning_occupied(), budget.plan_inflate_rotate + 0.05) > budget.plan_inflate_rotate) & ~blocked
-            p = _astar_open_diag(grid, blocked, cost, open_mask, start, goal, max_expand)
+            p = (planner.plan(grid, blocked, cost, start, goal, open_mask=open_mask, max_expand=max_expand)
+                 if planner is not None else _astar_open_diag(grid, blocked, cost, open_mask, start, goal, max_expand))
             path = _simplify_open(grid, blocked, open_mask, p) if p else None
         else:
-            p = astar(grid, blocked, cost, start, goal, max_expand)
+            p = (planner.plan(grid, blocked, cost, start, goal, max_expand=max_expand)
+                 if planner is not None else astar(grid, blocked, cost, start, goal, max_expand))
             path = simplify(grid, blocked, p) if p else None
         if not p:
             return None
@@ -192,8 +194,10 @@ def plan_footprint(grid: OccupancyGrid, inflate_hard: float, inflate_soft: float
                     det = _axis_detour(grid, budget, path, (body[0][0], body[0][1]))
                     if det is not None:
                         w1, q, axis = det
-                        a = plan_footprint(grid, inflate_hard, inflate_soft, soft_weight, budget, start, w1, start_heading, extra_block, True, max_iter, max_expand, _depth + 1)
-                        b = plan_footprint(grid, inflate_hard, inflate_soft, soft_weight, budget, q, goal, axis, extra_block, True, max_iter, max_expand, _depth + 1)
+                        a = plan_footprint(grid, inflate_hard, inflate_soft, soft_weight, budget, start, w1, start_heading, extra_block, True, max_iter, max_expand, _depth + 1,
+                                           planner=type(planner)() if planner is not None else None)
+                        b = plan_footprint(grid, inflate_hard, inflate_soft, soft_weight, budget, q, goal, axis, extra_block, True, max_iter, max_expand, _depth + 1,
+                                           planner=type(planner)() if planner is not None else None)
                         if a is not None and b is not None:
                             return a[0] + b[0], blocked, rejects + a[2] + b[2]
                 for (x, y, kind) in viol:

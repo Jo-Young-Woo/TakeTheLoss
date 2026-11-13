@@ -4,7 +4,7 @@ from unittest.mock import patch
 import numpy as np
 import pytest
 from test_deadlock_integration import agent
-from maicon26.nav import risk_astar
+from maicon26.nav import risk_astar_realtime
 from maicon26.mission.manager import Mode
 
 
@@ -17,7 +17,7 @@ def route_fixture(cached_time,obstacle=True):
     a._av_ctx=SimpleNamespace(blocked=blocked,cost=cost,grid=grid,slack_s=100.)
     a._av_tracks=[];a._field=None
     a._rc={'goal':goal,'t':cached_time,'carrot':old}
-    result=risk_astar.PlanResult([(1.,1.),(1.,1.4),(2.,1.4),goal],2.5,0.,0.,0.)
+    result=risk_astar_realtime.PlanResult([(1.,1.),(1.,1.4),(2.,1.4),goal],2.5,0.,0.,0.)
     return a,goal,old,result
 
 
@@ -25,7 +25,7 @@ def route_fixture(cached_time,obstacle=True):
 def test_new_physical_wall_invalidates_both_recent_and_hysteresis_waypoint(cached_time):
     a,goal,old,result=route_fixture(cached_time)
     try:
-        with patch.object(risk_astar,'plan',return_value=result) as planner:
+        with patch.object(risk_astar_realtime,'plan',return_value=result) as planner:
             selected=a._risk_carrot(10.,goal,1.)
         assert selected!=old and planner.called
         assert not a._av_ctx.blocked[a.stack.grid.to_cell(*selected)]
@@ -35,7 +35,7 @@ def test_new_physical_wall_invalidates_both_recent_and_hysteresis_waypoint(cache
 def test_free_recent_waypoint_retains_continuity_without_unneeded_replan():
     a,goal,old,result=route_fixture(9.99,obstacle=False)
     try:
-        with patch.object(risk_astar,'plan',return_value=result) as planner:
+        with patch.object(risk_astar_realtime,'plan',return_value=result) as planner:
             assert a._risk_carrot(10.,goal,1.)==old
         assert not planner.called
     finally:a.close_deadlock()
@@ -45,7 +45,7 @@ def test_outside_map_cached_waypoint_is_not_returned():
     a,goal,_,result=route_fixture(9.99,obstacle=False)
     a._rc['carrot']=(10.,10.)
     try:
-        with patch.object(risk_astar,'plan',return_value=result):
+        with patch.object(risk_astar_realtime,'plan',return_value=result):
             selected=a._risk_carrot(10.,goal,1.)
         assert a.stack.grid.in_bounds(*a.stack.grid.to_cell(*selected))
     finally:a.close_deadlock()

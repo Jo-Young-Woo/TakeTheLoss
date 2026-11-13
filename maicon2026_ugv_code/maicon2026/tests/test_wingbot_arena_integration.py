@@ -27,6 +27,22 @@ def frames():
     return WingbotFrames(WINGBOT/"config/frames.yaml")
 
 
+def test_lidar_chain_is_static_and_pan_tilt_edges_remain_measured(frames):
+    fixed = {e[1]: e for e in frames.tf_edges(.3, .2, fixed=True)}
+    dynamic = {e[1]: e for e in frames.tf_edges(.3, .2, fixed=False)}
+    assert not fixed.keys() & dynamic.keys()
+    assert fixed.keys() | dynamic.keys() == {e[1] for e in frames.tf_edges(.3, .2)}
+    child = frames.semantic['lidar']
+    while child != frames.data['root']:
+        assert child in fixed
+        child = fixed[child][0]
+    assert set(dynamic) == {j['child'] for j in frames.data['joints'] if j['type'] != 'fixed'}
+    zero = {e[1]: e for e in frames.tf_edges(0., 0., fixed=True)}
+    for child, edge in fixed.items():
+        assert edge[2] == pytest.approx(zero[child][2])
+        assert edge[3] == pytest.approx(zero[child][3])
+
+
 def load(path):
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 

@@ -209,6 +209,17 @@ def test_fallback_when_nav2_server_missing():
     assert cl.sent == [] or len(cl.sent) <= 1
 
 
+def test_strict_nav2_never_moves_using_builtin_when_server_missing():
+    st, cl = _stack_with_anchor(Pose2D(0.7, 2.5, 0.0), (0.0, 0.0, 0.0))
+    st.c2.allow_builtin_fallback = False
+    cl.available = lambda: False
+    st.set_goal((3.0, 2.5), tol=0.1)
+    outs = [st.step(_free_scan(), 1.0 + .1*k, .1) for k in range(25)]
+    assert st.fallbacks == 0 and st.blocked_fallback_requests == 1
+    assert all(o.v == 0 and o.w == 0 for o in outs)
+    assert outs[-1].status == 'blocked'
+
+
 def test_active_nav2_stall_falls_back_despite_repeated_goal_changes():
     st, cl = _stack_with_anchor(Pose2D(0.7, 2.5, 0.0), (0.0, 0.0, 0.0))
     cl.cmd = (0.0, 0.0)
@@ -244,6 +255,27 @@ def test_nav2_motion_and_intentional_observation_gaps_reset_stall_clock():
     assert not st._fallback
 
 
+def test_strict_nav2_retries_a_distinct_approach_after_stall_without_builtin_motion():
+    st, cl = _stack_with_anchor(Pose2D(.7, 2.5, 0.), (0., 0., 0.))
+    st.c2.allow_builtin_fallback = False
+    cl.cmd = (0., 0.)
+    st.set_goal((3., 2.5), tol=.1)
+    for tick in range(18):
+        out = st.step(_free_scan(), tick*.5, .5)
+    assert st._fallback and st.blocked_fallback_requests == 1
+    assert out.v == 0 and out.w == 0 and st.fallbacks == 0
+    st.clear_goal()
+    st.set_goal((3., 2.51), tol=.1)
+    assert st._fallback  # A small planning jitter cannot reset the safety timer.
+    st.clear_goal()
+    st.set_goal((3., 3.), tol=.1)
+    assert not st._fallback and not st._stall_fallback
+    cl.cmd = (.2, .1)
+    st.step(_free_scan(), 9., .5)  # First tick submits the replacement action.
+    out = st.step(_free_scan(), 9.1, .1)
+    assert out.v > 0 and st.fallbacks == 0
+
+
 def test_nav2_success_outside_tolerance_resends_then_accepts():
     st, cl = _stack_with_anchor(Pose2D(0.7, 2.5, 0.0), (0.0, 0.0, 0.0))
     st.set_goal((1.2, 2.5), tol=0.1)
@@ -257,6 +289,25 @@ def test_nav2_success_outside_tolerance_resends_then_accepts():
     cl.state = "succeeded"
     out = st.step(_free_scan(), 1.3, 0.05)                # 재전송 한도 소진 → 멀면 blocked
     assert out.status == "blocked"
+
+
+def test_rejected_viewpoint_can_retry_shared_corridor_but_plain_replan_cannot():
+    st, cl = _stack_with_anchor(Pose2D(.7, 2.5, 0.), (0., 0., 0.))
+    st.c2.allow_builtin_fallback = False
+    cl.cmd = (0., 0.)
+    st.set_goal((3., 2.5), tol=.1)
+    for tick in range(18):
+        st.step(_free_scan(), tick*.5, .5)
+    st.clear_goal()
+    st.set_goal((3., 2.5), tol=.1)
+    assert st._fallback
+    st.clear_goal()
+    st.retry_after_rejection()
+    st.set_goal((3., 2.5), tol=.1)
+    cl.cmd = (.2, .1)
+    st.step(_free_scan(), 9., .1)
+    assert st.step(_free_scan(), 9.1, .1).v > 0
+    assert st.blocked_fallback_requests == 1 and st.fallbacks == 0
 
 
 def test_reached_cancels_nav2_goal():

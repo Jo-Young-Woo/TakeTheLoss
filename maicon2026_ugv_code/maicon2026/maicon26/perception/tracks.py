@@ -81,6 +81,9 @@ class UgvTracker:
         self.self_filtered = 0
         self.self_pruned = 0
         self.self_reacquired = 0
+        self.self_pose_overrides = 0
+        self.self_identity_conflicts = 0
+        self.last_self_association = {}
         self.depth_stats: Dict[str, int] = defaultdict(int)       # oak_det.depth_range: 깊이 거리 사유별 횟수(ok·none·size_disagree·width_reject·dropped·iff_far·iff_boost)
         self.last_depth_range: Optional[Tuple[float, float, Optional[str]]] = None   # (영상 시각, 거리 m, 팀)
         # 아군 추적(avoid.friend_track). 꺼져 있으면 None 이고 아래 모든 분기가 옛 동작과 같다.
@@ -261,6 +264,44 @@ class UgvTracker:
             if candidates:
                 self.self_reacquired += 1
         own_index = min(candidates)[1] if candidates else None
+        # Continuity can latch onto a different BLUE robot during a crossing
+        # or registration correction. A precise, unique CAPTURE-TIME pose
+        # match must be allowed to recover even while that wrong track remains
+        # inside the continuity gate. Never use arrival-time proximity here.
+        # A unique capture-time observation inside our own body is stronger
+        # than team colour. Explicit other IDs and ground-camera tracks stay.
+        direct = sorted((math.hypot(d.x-my_pose.x,d.y-my_pose.y),i)
+                        for i,d in enumerate(uav.detections)
+                        if d.ident in (None,self_ident))
+        precise_index = (direct[0][1] if direct and direct[0][0] <= .12 and
+                         (len(direct)==1 or direct[1][0]-direct[0][0] >= .12) else None)
+        explicit_self = any(distance < 0 for distance,_ in candidates)
+        birth_index = None
+        if own_index is None and previous is None and self_ident and now-self._first_uav_t <= 3.:
+            # Known instructed start, not simulator truth. Startup only,
+            # bounded pose uncertainty, unique detection near our own base.
+            parts = self_ident.split('-')
+            if len(parts) == 3 and parts[0] == self.my_team[0] and parts[2] in ('1','2','3'):
+                bx, by = self.geo.base_center(parts[0]+'-'+parts[2])
+                near = sorted((math.hypot(d.x-bx,d.y-by),i) for i,d in enumerate(uav.detections)
+                              if d.ident in (None,self_ident))
+                if (math.hypot(my_pose.x-bx,my_pose.y-by) <= .35 and near and near[0][0] <= .12
+                        and (len(near)==1 or near[1][0]-near[0][0] >= .20)):
+                    own_index = birth_index = near[0][1]
+        if precise_index is not None and not explicit_self and own_index != precise_index:
+            own_index = precise_index
+            self.self_reacquired += 1
+            self.self_pose_overrides += 1
+        precise_self = own_index is not None and own_index == precise_index
+        geometry_self = precise_self or birth_index is not None
+        explicit_others = {d.ident for d in uav.detections if d.ident not in (None,self_ident)}
+        self.last_self_association = dict(stamp=now,capture_pose=[my_pose.x,my_pose.y],
+            continuity_expected=list(expected),chosen=own_index,precise=precise_self,
+            start_base_match=birth_index is not None,
+            colour_override=geometry_self and uav.detections[own_index].team not in (None,self.my_team),
+            previous=None if previous is None else list(previous),
+            observed=None if own_index is None else [uav.detections[own_index].x,uav.detections[own_index].y],
+            detections=[dict(x=d.x,y=d.y,team=d.team,ident=d.ident) for d in uav.detections])
         if own_index is not None:
             own = uav.detections[own_index]
             self._self_observation = (own.x, own.y, my_pose.x, my_pose.y, now)
@@ -271,10 +312,17 @@ class UgvTracker:
             for tr in self.tracks:
                 px, py = tr.predicted(now)
                 is_own = (self_ident is not None and tr.ident == self_ident)
-                leaked = (tr.last_cam_t < 0 and tr.team in (None, self.my_team)
+                leaked = (tr.last_cam_t < 0 and (geometry_self or tr.team in (None, self.my_team))
                           and tr.ident in (None, self_ident)
                           and math.hypot(px - own.x, py - own.y) < 0.15)
-                if is_own or leaked:
+                wrong_birth_identity = (precise_self and tr.last_cam_t < 0 and tr.team == self.my_team
+                                        and tr.ident not in explicit_others
+                                        and math.hypot(px-own.x,py-own.y) < .12)
+                if wrong_birth_identity and tr.ident not in (None,self_ident):
+                    self.self_identity_conflicts += 1
+                    if self.fmap is not None:
+                        self.fmap.lose(tr.ident,now,'self_association_conflict')
+                if is_own or leaked or wrong_birth_identity:
                     self.self_pruned += 1
                 else:
                     kept.append(tr)

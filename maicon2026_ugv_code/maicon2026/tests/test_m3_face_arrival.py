@@ -86,6 +86,59 @@ def test_navigation_reached_does_not_enter_observation_outside_face_cone():
     assert a._ex_phase != 'observe'
 
 
+def test_exhaustive_photo_approach_requests_precision_before_first_arrival():
+    a, f = make_agent()
+    a.cfg.explore.exhaustive_scoring_faces = True
+    step(a)
+    assert a.nav_calls[0][1] == .03
+
+
+def test_actual_full_photo_view_keeps_normal_arrival_tolerance():
+    a, f = make_agent()
+    a.cfg.explore.exhaustive_scoring_faces = True
+    a.stack.pose = Pose2D(5., .35, 0.)
+    a._ex_cand.vp = (5.01, .36)
+    assert helper.face_arrival_view(a._ex_cand, a.stack.pose, a.coverage, a.stack.grid).valid
+    step(a)
+    assert a.nav_calls[0][1] == .18 and a._ex_phase == 'observe'
+
+
+def test_positive_unresolved_votes_extend_observation_without_changing_thresholds():
+    a, f = make_agent()
+    a.cfg.explore.exhaustive_scoring_faces = True
+    f.det_n, f.det_kind, f.det_votes = 3, 'object', {'AMMO_BOX': 2.92}
+    assert not helper.observation_dwell_complete(f, a.coverage, 3.6, 3.5)
+    assert not helper.observation_dwell_complete(f, a.coverage, 7.9, 3.5)
+    assert helper.observation_dwell_complete(f, a.coverage, 8., 3.5)
+    f.det_n, f.det_votes = 4, {'AMMO_BOX': 3.89}
+    assert helper.observation_dwell_complete(f, a.coverage, 3.6, 3.5)
+    assert not helper.observation_dwell_complete(f, a.coverage, 1., 3.5)
+    f.det_n, f.det_votes = 0, {}
+    assert helper.observation_dwell_complete(f, a.coverage, 3.6, 3.5)
+
+
+def test_strict_nav2_blocked_viewpoint_is_reselected_without_false_observation():
+    a, f = make_agent()
+    a.cfg.nav.backend = 'nav2'
+    a.cfg.nav2.allow_builtin_fallback = False
+    old_vp = a._ex_cand.vp
+    a._nav_to = lambda *args, **kwargs: SimpleNamespace(status='blocked', v=0., w=0.)
+    step(a)
+    assert a._ex_cand is None and a._ex_phase == 'travel'
+    assert a.explorer._is_tabu(old_vp, 100.1)
+    assert a.stats['nav2_blocked_viewpoints_reselected'] == 1
+    assert f.views == f.det_n == f.arrive_attempts == 0
+
+
+def test_nav2_precision_correction_allows_bounded_turn_and_travel_time():
+    a, f = make_agent()
+    a.cfg.nav.backend = 'nav2'
+    step(a)
+    assert a._ex_arrival_refine['deadline'] == 108.
+    step(a, 108.01)
+    assert a._ex_cand is None and a.stats['face_arrival_last_reason'] == 'refinement_timeout'
+
+
 def test_candidate_refines_once_without_fake_view_or_progress():
     a, f = make_agent()
     step(a)
@@ -133,6 +186,16 @@ def test_refinement_timeout_defers_before_another_navigation_output():
     assert a._ex_cand is None
     assert a.stats['face_arrival_last_reason']=='refinement_timeout'
     assert f.arrive_attempts==0
+
+
+def test_refinement_deadline_accepts_actual_valid_view_without_fabricating_votes():
+    a, f = make_agent()
+    step(a)
+    a.stack.pose = Pose2D(*a._ex_arrival_refine['target'], .6)
+    step(a, 103.01)
+    assert a._ex_phase == 'observe'
+    assert len(a.nav_calls) == 1 and a.outputs == [('stop',)]
+    assert f.views == f.det_n == f.arrive_attempts == 0
 
 
 def test_unknown_refinement_space_is_not_assumed_free():

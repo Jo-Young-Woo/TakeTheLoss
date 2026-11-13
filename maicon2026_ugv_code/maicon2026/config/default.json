@@ -211,7 +211,7 @@
     "v_slow": 0.18,
     "stop_dist": 0.192,
     "slow_dist": 0.45,
-    "replan_s": 1.0,
+    "replan_s": 0.2,
     "goal_tol": 0.12,
     "stuck_s": 3.0,
     "stuck_move": 0.05,
@@ -266,6 +266,7 @@
     "sim_target_box": "face"
   },
   "explore": {
+    "m1_assigned_only": true,
     "strategy": "online",
     "m3_counting": "ledger",
     "seen_res": 0.1,
@@ -372,7 +373,7 @@
     "cap_s": 25.0,
     "cap_window_s": 60.0,
     "downgrade_s": 15.0,
-    "plan_period_s": 0.5,
+    "plan_period_s": 0.2,
     "ring_radii": [
       1.0,
       1.5,
@@ -458,6 +459,7 @@
     "wrong_target_guard": true
   },
   "mission": {
+    "decision_period_s": 0.05,
     "t_total": 300.0,
     "t_base_cmd": 240.0,
     "t_report": 30.0,

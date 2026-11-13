@@ -166,7 +166,7 @@ class DeadlockMixin:
                        goal=None,entry=False,visited=set(),next_try=now)
             self._mandatory_recovery=state
         if now<state['next_try']: return None
-        state['next_try']=now+1.
+        state['next_try']=now+max(self.cfg.mission.decision_period_s,self.cfg.nav.replan_s)
         selected=self._alternate_mandatory_goal(canonical,now,state['visited'])
         if selected is None:
             self.stats['mandatory_approach_unavailable']=self.stats.get('mandatory_approach_unavailable',0)+1
@@ -249,6 +249,10 @@ class DeadlockMixin:
             self._exposure += dt * min(2., sum(tr.weight for tr in visible))
         else:
             self._exposure = max(0., self._exposure-dt)
+        # Accumulate real exposure and hit evidence every sensor tick, but
+        # change posture/recovery policy only on the shared decision clock.
+        if not getattr(self, '_decision_due', True) and self.posture_state is not None:
+            return
         goal = self._mission_destination()
         remaining = self._remaining_path(goal)
         normal_wait = self._normal_progress_wait(now)

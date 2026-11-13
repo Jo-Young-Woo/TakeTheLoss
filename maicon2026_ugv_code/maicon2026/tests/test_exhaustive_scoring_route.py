@@ -3,6 +3,7 @@ import math
 from types import SimpleNamespace
 
 import pytest
+import numpy as np
 
 from maicon26.config import Config
 from maicon26.link.base import UavBox
@@ -77,6 +78,103 @@ def test_clipped_picture_cannot_accumulate_empty_evidence(monkeypatch):
     assert all(f.views == 0 and cov.face_state(f) != EMPTY for f in box.faces)
 
 
+def test_frozen_full_box_recovers_outside_lidar_association_gate_and_reopens_empty():
+    _, cov, grid = scene(((3.06, 1.5),))
+    cov.ec.uav_face_registry = True
+    box = next(iter(cov.boxes.values()))
+    box.kind, box.uav_frozen, cov._map_frozen = 'full', True, True
+    face = box.faces[1]
+    face.views = 5
+    face.view_poses = face.empty_poses = [(3., 2., 0.), (3.2, 2., 0.), (3.3, 2., 0.)]
+    cov._update_registry(4.)
+    rec = cov.registry[face.reg]
+    assert rec.status == 'empty'
+    box.cx -= .442  # Recorded U09 failure: too far for the 25 cm matching gate.
+    cov._position_faces(box)
+    before = grid.L.copy()
+    cov.ingest_uav_boxes([UavBox(3.06, 1.5, .4, .4)], 5., grid)
+    assert box.cx == pytest.approx(3.06)
+    assert face.cx == pytest.approx(3.06)
+    assert rec.status == 'pending' and not rec.snap
+    assert not face.view_poses and not face.empty_poses and face.views == 0
+    assert face in cov.pending_faces()
+    assert not cov.m3_counts(None), 'Geometry repair must not manufacture a class'
+    assert np.array_equal(before, grid.L)
+
+
+def test_frozen_geometry_repairs_without_another_matching_scan():
+    _, cov, grid = scene(((3.06, 1.5),))
+    box = next(iter(cov.boxes.values()))
+    box.kind, box.uav_frozen, cov._map_frozen = 'full', True, True
+    box.cx -= .442
+    cov.refresh(grid, None, 20., force=True)
+    assert box.cx == pytest.approx(3.06)
+    assert not any(f.det_n for f in box.faces)
+
+
+def test_oblique_or_tilted_negative_frames_do_not_resolve_a_picture(monkeypatch):
+    _, cov, grid = scene(((3., 2.4),))
+    box = next(iter(cov.boxes.values()))
+    f = box.faces[0]
+    monkeypatch.setattr(cov, 'picture_visible', lambda *a, **kw: (True, 'ok'))
+    for i in range(5):
+        cov.record_view(Pose2D(3.5, 3.05+.03*i, math.pi), 0., grid, 6.+3*i)
+    assert f.views >= 3 and cov.face_state(f) != EMPTY
+    for i in range(5):
+        cov.record_view(Pose2D(3.9, 2.3+.05*i, math.pi), 0., grid, 20.+i, tilt_deg=15.)
+    assert not f.empty_poses
+    blank = np.full((cov.cam.h, cov.cam.w, 3), 80, np.uint8)
+    for i in range(3):
+        cov.record_view(Pose2D(3.9, 2.3+.1*i, math.pi), 0., grid, 30.+3*i, image=blank)
+    assert cov.face_state(f) == EMPTY, 'Truly blank frontal views must still resolve'
+
+
+def test_unclassified_texture_or_missing_image_cannot_prove_a_blank_side():
+    _, cov, grid = scene(((3., 2.4),), wingbot=True)
+    f = next(iter(cov.boxes.values())).faces[0]
+    y, x = np.indices((cov.cam.h, cov.cam.w))
+    texture = np.repeat((((x//8+y//8)%2)*180+30).astype(np.uint8)[...,None],3,axis=2)
+    for i in range(5):
+        pose = Pose2D(3.9, 2.3+.05*i, math.pi)
+        cov.record_view(pose, 0., grid, 6.+3*i, image=texture)
+    assert f.views >= 3 and not f.empty_poses and cov.face_state(f) != EMPTY
+    assert not cov.blank_surface_evidence(None, pose, math.pi, f)
+    assert not f.det_n and not cov.m3_counts(None)
+
+
+def test_frontal_inspection_scores_above_equal_range_grazing_sample():
+    _, cov, _ = scene(((3., 2.4),))
+    f = next(iter(cov.boxes.values())).faces[0]
+    front = cov.face_weight_at(f, f.cx+.7, f.cy)
+    grazing = cov.face_weight_at(f, f.cx+.35, f.cy+.6062)
+    assert front > 2*grazing
+
+
+def test_nearby_new_frontal_pose_can_finish_verified_blank_evidence():
+    _, cov, _ = scene(((3., 2.4),))
+    f = next(iter(cov.boxes.values())).faces[0]
+    f.views = 2
+    f.view_poses = f.empty_poses = [(f.cx+.7,f.cy,math.pi)]*2
+    assert cov.fresh_empty_viewpoint(f,f.cx+.7,f.cy+.2)
+    assert not cov.fresh_empty_viewpoint(f,f.cx+.7,f.cy)
+    assert cov.face_weight_at(f,f.cx+.7,f.cy+.2) > 3*cov.face_weight_at(f,f.cx+.7,f.cy)
+
+
+def test_grazing_or_missing_frame_does_not_erase_valid_blank_history(monkeypatch):
+    _, cov, grid = scene(((3.,2.4),))
+    f = next(iter(cov.boxes.values())).faces[0]
+    f.empty_poses = [(f.cx+.7,f.cy,math.pi)]*2
+    monkeypatch.setattr(cov,'picture_visible',lambda *a,**kw:(True,'ok'))
+    monkeypatch.setattr(cov,'blank_surface_evidence',lambda *a:False)
+    image = np.zeros((cov.cam.h,cov.cam.w,3),np.uint8)
+    cov.record_view(Pose2D(f.cx+.3,f.cy+.65,math.pi),0.,grid,10.,image=image)
+    assert len(f.empty_poses) == 2
+    cov.record_view(Pose2D(f.cx+.7,f.cy,math.pi),0.,grid,15.,image=None)
+    assert len(f.empty_poses) == 2
+    cov.record_view(Pose2D(f.cx+.7,f.cy,math.pi),0.,grid,20.,image=image)
+    assert not f.empty_poses
+
+
 @pytest.mark.parametrize("wingbot", [False, True])
 def test_wall_side_has_oblique_collision_checked_viewpoints(wingbot):
     cfg, cov, grid = scene(((4.1984375, 4.1984375), (4.6, 4.1984375)), wingbot=wingbot)
@@ -136,6 +234,22 @@ def test_m2_time_is_reserved_for_unresolved_faces_without_declaring_failure():
     assert not agent.target_failed
     agent.coverage.sector_progress = lambda sectors: {"complete": True}
     assert not agent._coverage_defers_m2()
+
+
+def test_switching_enemy_ids_cannot_starve_unfinished_face_coverage():
+    from maicon26.mission.manager import Agent
+    agent = Agent.__new__(Agent)
+    agent.cfg, agent.coverage, _ = scene()
+    agent.team = 'BLUE'
+    agent.stats = {'mode_time': {'HUNT': 11.9}}
+    assert not agent._coverage_defers_m4()
+    agent.stats['mode_time']['HUNT'] = 12.1
+    agent._hunt = {'tid': 999, 't0': 200.}  # Newly selected opponent, same cumulative budget.
+    assert agent._coverage_defers_m4()
+    agent.coverage.sector_progress = lambda sectors: {'complete': True}
+    assert not agent._coverage_defers_m4()
+    agent.cfg.explore.coverage_m4_budget_s = 0.
+    assert not agent._coverage_defers_m4()
 
 
 def test_unfinished_coverage_uses_match_time_but_preserves_goal_reserve():

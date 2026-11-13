@@ -114,7 +114,10 @@ def test_actual_six_wingbot_overhead_has_three_each_and_no_phantom_from_floor(qu
     image=rgb(ROOT/"tests/fixtures/wingbot_gazebo_six_uav_rgb.png")
     if quality is not None:
         image=cv2.imdecode(cv2.imencode(".jpg",image,[cv2.IMWRITE_JPEG_QUALITY,quality])[1],cv2.IMREAD_COLOR)
-    result=WingbotUavDetector(load_calibration(CAL)).detect(image)
+    # This frozen photo predates the 6.12 x 5.00m arena. Pair it with its
+    # original 6.00 x 4.80m calibration, never today's runtime calibration.
+    fixture_cal=ROOT/'tests/fixtures/wingbot_gazebo_six_uav_calibration.json'
+    result=WingbotUavDetector(load_calibration(fixture_cal)).detect(image)
     assert len(result)==6
     assert sum(d.team=="BLUE" for d in result)==3
     assert sum(d.team=="RED" for d in result)==3

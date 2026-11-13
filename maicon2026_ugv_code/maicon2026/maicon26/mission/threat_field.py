@@ -4,8 +4,8 @@
   body_k  적 차체가 *있을 수 있는* 공간 — 하드 차단. 예측 위치(속도×τ_k) 주변 ρ(τ_k)=r_body+k_σ·σ(τ_k) 에 우리 차체 반경(inflate_hard)을 더한 원판의 합집합.
   risk_k  적이 *맞힐 수 있는* 공간 — 소프트 비용. w_team · f_range(거리) · V(시야). 거리 r_core 안은 1, r_out 까지 제곱 감쇠, 박스가 가리면 V=0.15.
   close_k 근접 압박 항(정면에서 붙는 것을 더 싫어하게).
-층 k 는 우리가 그 칸에 도착할 시각 t 로 고른다(k = min(K-1, t/Δτ)). 이 필드는 *경로계획기가 읽는 비용*일 뿐이며,
-Nav2/A* 의 전역 계획기를 바꾸지 않는다(Nav2 쪽은 이 필드로 고른 안전 경유지만 받는다 — nav/risk_astar.py, mission/avoid.py).
+기존 risk_astar는 도착 시간층을 읽는다. 현재 risk_astar_realtime은 현재 관측 점유·비용을 2D 지도에 반영하고
+새 센서 필드마다 A*를 새로 계산한다. 미래 층은 노출 시간 평가에 남기며, 시간 확장 최적 경로를 주장하지 않는다.
 
 !! 시야 V 는 '박스가 레이저를 막는다'는 시뮬 규칙과 같은 가정이다. 돔(전방 ±105°) 노출 계수는 2단계로 미룬다(use_dome=False).
 """
@@ -34,6 +34,7 @@ class ThreatField:
     t_built: float
     tracks: Tuple = ()
     body_horizon_s: float = math.inf  # Legacy predictions remain unchanged.
+    clearance_disks: Tuple = ()  # Observed (x,y,physical+stop margin,preferred separation), current layer only.
 
     def layer(self, t_arr: float) -> int:
         return min(self.K - 1, max(0, int(t_arr / max(self.dtau, 1e-6))))
@@ -192,6 +193,8 @@ def _cost_field(tracks, grid, ac, now, r_hard, version, use_visibility,
     physical_radius=max(0.,float(body_radius_m or 0.))
     center_clearance=(max(ac.r_body,physical_radius)+max(r_hard,physical_radius)
                       +max(0.,clearance))
+    collision_radius = max(ac.r_body,physical_radius)+max(r_hard,physical_radius)+.03
+    clearance_disks = []
     for tt in tracks:
         # Uncertainty changes risk spread; it must not grow a metre-sized hard
         # ghost. Only recently observed physical bodies get a safety disk.
@@ -219,6 +222,8 @@ def _cost_field(tracks, grid, ac, now, r_hard, version, use_visibility,
             np.minimum(mind[k],d,out=mind[k])
             if tt.age(now) + k*dtau <= fresh_body_s:
                 body[k] |= d <= center_clearance
+                if k == 0:
+                    clearance_disks.append((float(px),float(py),collision_radius,center_clearance))
             risk[k] += exposure
             close[k] = np.maximum(close[k],proximity)
             # Penalise an occupied narrow passage and both entrances, without
@@ -231,7 +236,7 @@ def _cost_field(tracks, grid, ac, now, r_hard, version, use_visibility,
         if age <= 120.:
             bump = costs["hit_history"]*math.exp(-age/30.)*np.exp(-.5*((X-hx)**2+(Y-hy)**2)/.35**2)
             risk += bump[None,:,:]
-    return ThreatField(K,dtau,body,risk,close,mind,version,len(tracks),now,tuple(tracks),fresh_body_s)
+    return ThreatField(K,dtau,body,risk,close,mind,version,len(tracks),now,tuple(tracks),fresh_body_s,tuple(clearance_disks))
 
 
 def path_exposure(path: Sequence[Tuple[float, float]], v_plan: float, field: ThreatField, grid, risk_hit: float = 0.5,

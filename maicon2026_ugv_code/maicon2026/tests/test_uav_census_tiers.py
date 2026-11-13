@@ -137,6 +137,18 @@ def test_zero_budget_means_no_time_limit():
     assert w["CM"] < 1.0
 
 
+def test_exhaustive_mode_releases_m1_boost_for_other_scoring_sectors_after_budget():
+    cfg,cov,grid,names = tier_cfg(m1_enemy_budget_s=60.,exhaustive_scoring_faces=True)
+    ex,w = weights(cfg,cov,{'R-S1','R-S2'},now=10.)
+    assert w == {'R-S1':2.4,'R-S2':2.4}
+    ex,w = weights(cfg,cov,{'R-S1','R-S2'},now=71.,explorer=ex)
+    assert w == {'R-S1':1.,'R-S2':1.}
+    assert ex.m1_tier['enemy_priority_expired']
+    assert cov.pending_faces(), 'Unfinished sides remain in the ledger; only the early boost expires.'
+    ex,w = weights(cfg,cov,{'R-S3','CM'},now=72.,explorer=ex)
+    assert w['R-S3'] == 2.4 and not ex.m1_tier['enemy_priority_expired']
+
+
 def test_new_m1_command_restarts_the_clock():
     cfg, cov, grid, names = tier_cfg(m1_enemy_budget_s=60.0)
     ex, _ = weights(cfg, cov, {"R-S2", "CM"}, now=10.0)

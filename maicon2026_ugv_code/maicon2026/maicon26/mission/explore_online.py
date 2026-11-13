@@ -1,4 +1,4 @@
-"""M3 온라인 탐색: 다음 관측 시점을 '정보 가치 / (이동 + 관측 시간)'으로 고른다. 경로는 기존 Nav2/A* 가 그 지점까지 계산한다.
+"""M3 온라인 탐색: 다음 관측 시점을 '정보 가치 / (이동 + 관측 시간)'으로 고른다. 경로는 Nav2/내장 A*가 그 지점까지 계산한다.
 
 후보 두 종류를 한 목록에 넣고 같은 효용으로 비교한다.
   프런티어   LiDAR 로 관측한 자유 공간과 못 본 공간의 경계. 정보 = 그 점에서 새로 볼 수 있는 미관측 면적(w_frontier·셀 수).
@@ -14,7 +14,7 @@
              oak_det.identify_primary 이면 팬틸트가 먼저 가 보지 않는다 — LiDAR 로 찾은 미식별 면은 처음부터 OAK 로 식별한다. 면 그림이 시야에 온전히 들어오는
              최소 거리(coverage.oak_fit_min_dist) 밖에서 보고, 못 보는 면(잘림·프레임 없음·보일 자리 없음·검출 없음)은 팬틸트 폴백으로 넘긴다.
 관측 방식: 가치가 한 방향에 모이면 'look'(그 방향 1.2 s), 흩어지면 'spin'(제자리 360°).
-효용   = 정보 × (1 − 위협 위험) / (이동시간 + 관측시간 + 오버헤드). 이동시간 = 위험 인지 A*(nav/risk_astar.py) 길이 ÷ 계획속도 × 보정(가정).
+효용   = 정보 × (1 − 위협 위험) / (이동시간 + 관측시간 + 오버헤드). 이동시간 = 위험 인지 A*(nav/risk_astar_realtime.py) 길이 ÷ 계획속도 × 보정(가정).
 시간   : t + 이동 + 관측 ≤ 사전 이동 시작(prestage_at) − 여유, 그리고 그 뒤 스테이징 지점까지의 예상 시간을 더해도 t_base_cmd 전에 도착해야 한다.
 """
 from __future__ import annotations
@@ -28,7 +28,7 @@ import numpy as np
 from ..config import Config
 from ..footprint import rect_cells_free
 from ..link.schema import scoring_sectors, server_sector
-from ..nav import risk_astar
+from ..nav import risk_astar_realtime as risk_route
 from ..nav.grid import OccupancyGrid, line_free, nearest_free
 from ..perception.coverage import CoverageMap, FaceRec, oak_fit_min_dist
 from ..types import Pose2D
@@ -78,6 +78,9 @@ class OnlineExplorer:
         self._open_scouts: Dict[Tuple[int, int], Pt] = {}
         self._scout_vps: Dict[Tuple[int, int], Tuple[int, int]] = {}
         self._identify_vps: Dict[Tuple[int, int], Tuple[int, int]] = {}
+        self.failure_snapshot = None
+        self._failure_serial = 0
+        self._failure_snapshot_t = -math.inf
         self.identify_ready = True                                  # OAK 프레임이 실제로 들어오고 있나(manager 가 매번 갱신). 아니면 식별 후보를 만들지 않는다
         self.oak_fov: Optional[Tuple[float, float]] = None          # (가로, 세로) 화각[deg] — manager 가 CameraInfo 의 K 로 갱신. None 이면 oak_det.fit_*_deg
         self._noview_since: Dict[Tuple[int, int], float] = {}       # identify_primary: OAK 로 볼 자리가 없던 면 → 그 상태가 시작된 시각
@@ -321,11 +324,17 @@ class OnlineExplorer:
         enemy = {n for n in m1 if n != "CM" and n in set(scoring_sectors(team or ""))} if team else set()
         out: Dict[str, float] = {n: ec.m1_enemy_weight for n in enemy}
         enemy_done, deferred = True, False
+        expired = False
         if enemy:
             prog = self.cov.sector_progress(sorted(enemy))
             enemy_done = bool(prog["complete"])
             elapsed = now - (self._m1_t0 if self._m1_t0 is not None else now)
             over = ec.m1_enemy_budget_s > 0 and elapsed >= ec.m1_enemy_budget_s
+            expired = bool(ec.exhaustive_scoring_faces and over)
+            if expired:
+                # M1's early search order must not starve the other M3 scoring
+                # sectors for the whole match when one blank side remains.
+                out.update({n: 1.0 for n in enemy})
             deferred = (not enemy_done) and (not over) and not self._m1_cm_released
             if not deferred:
                 self._m1_cm_released = True
@@ -334,6 +343,7 @@ class OnlineExplorer:
         for n in m1:
             out.setdefault(n, ec.m1_sector_weight)                      # 적 섹터도 CM 도 아닌 지정 구역은 예전 가중
         self.m1_tier = {"enemy": sorted(enemy), "cm": "CM" in m1, "enemy_done": enemy_done, "cm_deferred": deferred,
+                        "enemy_priority_expired": expired,
                         "elapsed_s": None if self._m1_t0 is None else round(now - self._m1_t0, 1),
                         "weights": {k: round(v, 2) for k, v in sorted(out.items())}}
         return out
@@ -353,8 +363,13 @@ class OnlineExplorer:
             prefer = None
         # explore.m1_sector_sweep: M1 이 지정한 섹터의 면도 모두 확인·분류한다(채점 구역 밖이어도 장부·면 기록부에 식별로 남는다).
         # 채점 구역(M3 제출)은 그대로이고, 이 섹터들은 탐색 범위와 면 가치만 넓힌다.
-        m1 = {n for n in self.m1_sectors if server_sector(n) is not None} if (allowed is not None and ec.m1_sector_sweep) else set()
-        if m1:
+        m1 = {s for n in self.m1_sectors if (s := server_sector(n)) is not None} if (ec.m1_sector_sweep or ec.m1_assigned_only) else set()
+        if ec.m1_assigned_only:
+            # M1 supplies two search sectors. COMMON is not added implicitly.
+            m1 = {n for n in m1 if n != 'CM'}
+            m1 = m1 if len(m1) == 2 else set()
+            allowed = set(m1)
+        elif m1 and allowed is not None:
             allowed = allowed | m1
         pend = cov.pending_faces(allowed)
         tier = self._m1_tier_weights(m1, team, now) if m1 else {}
@@ -423,9 +438,12 @@ class OnlineExplorer:
                 return distance
             # Prefer a fresh, near-frontal sample; previously empty-looking
             # views need another location before they can establish absence.
-            repeated = any(math.hypot(vp[0]-p[0], vp[1]-p[1]) < .35 for p in f.view_poses)
+            repeated = (any(math.hypot(vp[0]-p[0], vp[1]-p[1]) < .35 for p in f.view_poses)
+                        and not cov.fresh_empty_viewpoint(f,*vp))
             lateral = abs((vp[0]-f.cx)*f.ny - (vp[1]-f.cy)*f.nx)
-            return distance + 2.0 * repeated + .8 * lateral
+            stand_off = math.hypot(vp[0]-f.cx, vp[1]-f.cy)
+            incidence = ((vp[0]-f.cx)*f.nx + (vp[1]-f.cy)*f.ny) / max(stand_off,1e-9)
+            return distance + 2.0 * repeated + .8 * lateral + 2.5 * (1.-max(0.,incidence))
         raw.sort(key=sample_cost)
         per_face: dict = {}
         for vp, f in raw:                                            # 면마다 가까운 시점 3개까지(먼 면의 후보가 가까운 면에 밀려 사라지지 않게)
@@ -534,10 +552,15 @@ class OnlineExplorer:
         if incumbent is not None:
             out = [c for c in out if c.vp != incumbent.vp]
             out.append(incumbent)
+        if ec.m1_assigned_only:
+            out = [c for c in out if server_sector(self.candidate_sector(c)) in allowed]
         self.diagnostics["last_build"] = {"t": round(now, 2), "pending_faces": len(pend), "raw_viewpoints": len(raw),
                                           "face_viewpoints": {str(f.key): len(per_face.get(f.key, [])) for f in pend},
                                           "sensor_mode": cov.layout_diagnostics()["mode"],
-                                          "m3_scoring_sectors": None if allowed is None else sorted(allowed),
+                                          "m3_scoring_sectors": sorted(scoring_sectors(team)) if team else None,
+                                          "exploration_sectors": None if allowed is None else sorted(allowed),
+                                          "official_m3_scoring_sectors": list(scoring_sectors(team)) if team else None,
+                                          "m1_assigned_only": ec.m1_assigned_only,
                                           "m1_sweep_sectors": sorted(m1),
                                           "incumbent_requested": current is not None,
                                           "incumbent_rebuilt": incumbent is not None,
@@ -551,6 +574,8 @@ class OnlineExplorer:
     def _refresh_incumbent(self, current, pending, occ, grid, blocked, solid, unseen, now, weights, allowed=None):
         if (current is None or not self._free(grid, blocked, current.vp)
                 or occ[grid.to_cell(*current.vp)] or self._is_tabu(current.vp, now)):
+            return None
+        if self.ec.m1_assigned_only and allowed is not None and self.candidate_sector(current) not in allowed:
             return None
         if (allowed is not None and current.kind in ("frontier", "survey")
                 and server_sector(self.geo.sector_of(*current.vp)) not in allowed):
@@ -673,6 +698,7 @@ class OnlineExplorer:
         good = representatives + [c for c in good if id(c) not in rep_ids]
         res: List[Cand] = []
         tried = incumbent_tried = accepted_new = 0
+        failures = []
         for c in incumbents + good:
             if not c.incumbent and (accepted_new >= ec.max_eval or tried >= 3 * ec.max_eval):
                 break
@@ -680,9 +706,12 @@ class OnlineExplorer:
                 incumbent_tried += 1
             else:
                 tried += 1
-            pr = risk_astar.plan(grid, blocked, cost, (pose.x, pose.y), c.vp, v, field, w_risk, w_close)
+            planner = {}
+            pr = risk_route.plan(grid, blocked, cost, (pose.x, pose.y), c.vp, v, field, w_risk, w_close,
+                                 diagnostics=planner)
             if pr is None:
                 rejected["no_path"] += 1
+                failures.append(dict(goal=list(c.vp), sector=self.candidate_sector(c), **planner))
                 continue
             c.path = pr.path
             c.t_move = pr.length * ec.travel_factor / v
@@ -703,6 +732,8 @@ class OnlineExplorer:
         field_start_blocked = (bool(field.body[0][snapped_start])
                                if field is not None and snapped_start is not None else False)
         self.diagnostics["last_evaluate"] = {"t": round(t, 2), "candidates": len(cands), "path_checks": tried + incumbent_tried,
+                                             "unchecked_candidates": max(0, len(good)-tried),
+                                             "planner_failures": failures,
                                              "incumbent_path_checks": incumbent_tried,
                                              "incumbent_accepted": any(c.incumbent for c in res),
                                              "new_candidate_path_checks": tried,
@@ -712,6 +743,36 @@ class OnlineExplorer:
                                              "snapped_start": None if snapped_start is None else grid.to_world(*snapped_start),
                                              "field_blocked_start": field_start_blocked,
                                              "prior_free_overrides": self.cov.stats.get("uav_prior_free_overrides", 0)}
+        if not res and failures and t-self._failure_snapshot_t >= 10.:
+            from ..nav.route_diagnostics import blockage_evidence
+            raw = self.cov.visibility_occupancy(grid)
+            evidence = blockage_evidence(grid, blocked, raw, (pose.x,pose.y),
+                                          failures[0]['goal'], field, failures[0])
+            evidence.update(t=t, checked=tried+incumbent_tried,
+                            unchecked=max(0,len(good)-tried), failures=failures)
+            if field is not None:
+                evidence['field_tracks'] = [dict(id=tr.tid,xy=[tr.x,tr.y],velocity=[tr.vx,tr.vy],
+                    age=tr.age(field.t_built),ident=tr.ident,friend=tr.friend,from_blob=tr.from_blob,
+                    source_timestamps=dict(tr.t_src))
+                    for tr in getattr(field,'tracks',())]
+            self.diagnostics['last_blockage'] = evidence
+            events = self.diagnostics.setdefault('blockage_events', [])
+            events.append(evidence)
+            del events[:-40]
+            self._failure_snapshot_t = t
+            if self._failure_serial < 12:
+                self._failure_serial += 1
+                arrays = dict(blocked=blocked.copy(), cost=cost.copy(), raw_occupied=raw.copy(),
+                              observed_free=(grid.L < -.2).copy(), static=grid.static.copy(),
+                              start=np.array([pose.x,pose.y]), goal=np.array(failures[0]['goal']),
+                              grid_meta=np.array([grid.ox,grid.oy,grid.res]), speed=np.array(v),
+                              weights=np.array([w_risk,w_close]))
+                if field is not None:
+                    arrays.update(body=field.body.copy(), risk=field.risk.copy(), close=field.close.copy(),
+                                  clearance_disks=np.array(getattr(field,'clearance_disks',()),dtype=float).reshape(-1,4),
+                                  field_meta=np.array([field.dtau,getattr(field,'body_horizon_s',math.inf),
+                                                       getattr(field,'t_built',0.)]))
+                self.failure_snapshot = dict(serial=self._failure_serial, metadata=evidence, arrays=arrays)
         self.diagnostics["stats"] = dict(self.stats)
         return res
 

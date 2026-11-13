@@ -191,7 +191,7 @@ def main():
         mission=json.loads((folder/"mission_report.json").read_text(encoding="utf8"))
         config=json.loads((folder/"trial_config.json").read_text(encoding="utf8"))
         # Older recordings still carry their original frame in trial_config.
-        analysis=analyze_trace(rows,slot,truth,config["arena"]["world_offset"])
+        analysis=analyze_trace(rows,slot,truth,config["config"]["arena"]["world_offset"])
         evaluated=evaluate(mission,config,spec,layout,m2_target=("RED_RADAR" if slot.startswith("B") else "BLUE_RADAR"))
         evaluated["m4"]["limitation"]="Six physical UGVs are present. Only recorded referee ugv_hit events confirm hits; no event means engagement performance is unvalidated."
         evaluated["m6"]["limitation"]="Six physical UGVs are present. API acceptance does not independently grade opponent ranking quality."

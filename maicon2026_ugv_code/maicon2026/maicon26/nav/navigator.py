@@ -9,7 +9,7 @@ Nav2 불가 시 폴백에 쓴다. 실기 기본 경로는 nav/nav2_stack.py 다.
 
 구조물이 실시간으로 바뀌는 경기장 대응:
   - 격자는 로그오즈라 박스가 사라지면 (LiDAR가 그 자리를 통과해 보면) 수 회 관측 안에 비워진다.
-  - 경로 근처에 '새로 점유된' 셀이 생기면 1 s 주기를 기다리지 않고 즉시 재계획한다(_path_invalidated).
+  - 경로 근처에 '새로 점유된' 셀이 생기면 정기 주기를 기다리지 않고 안전 재계획한다(_path_invalidated).
 """
 from __future__ import annotations
 
@@ -21,6 +21,7 @@ import numpy as np
 
 from ..config import Config
 from .fpplan import plan_footprint
+from .astar_search import AStar
 from ..types import Pose2D, Scan
 from ..util import clamp, wrap
 from .grid import OccupancyGrid
@@ -54,6 +55,7 @@ class Navigator:
         self.goal_eff: Optional[Pt] = None
         self.rng = random.Random(seed)
         self.replans = 0
+        self.planner = AStar()
         self.recoveries = 0
         self.budget = cfg.budget()                   # 차체 외곽·여유거리 예산(footprint.py) — 경로 검증에 쓴다
         self.footprint_rejects = 0                   # 직사각형 검증에서 걸러진 중심점 경로 수(진단)
@@ -90,7 +92,7 @@ class Navigator:
         for scale in ((1.0, 0.8, 0.6) if n.relax_inflation else (1.0,)):
             # 중심점 경로는 직사각형 차체가 지나간다는 증거가 아니다 → plan_footprint 가 진행 방향 직사각형 + 꼭짓점 회전 공간을 검증한다(scale=1.0 만)
             res = plan_footprint(self.grid, n.inflate_hard * scale, n.inflate_soft, n.soft_weight, self.budget, (pose.x, pose.y), self.goal,
-                                 pose.th, self._extra_block, check=(n.footprint_check and scale == 1.0))
+                                 pose.th, self._extra_block, check=(n.footprint_check and scale == 1.0), planner=self.planner)
             if res is not None:
                 path, blocked, rej = res
                 self.footprint_rejects += rej
@@ -107,6 +109,7 @@ class Navigator:
                 return True
         self._plan_fail += 1
         self._last_plan = now
+        self.path = []  # Never follow the previous route after a failed map repair.
         return False
 
     def _goal_free(self, blocked: np.ndarray) -> bool:
@@ -186,9 +189,11 @@ class Navigator:
         if self._path_invalidated(now):
             self._last_plan = -1e9
             self.invalidations += 1
-        if not self.path or now - self._last_plan >= n.replan_s:
+        if now - self._last_plan >= n.replan_s:
             if not self._plan(pose, now) and not self.path:
                 return NavOut(0.0, 0.0, "blocked", dg)
+        if not self.path:
+            return NavOut(0.0, 0.0, "blocked", dg)
 
         v, w = self._follow(pose, dg)
         v, w = self._limit(scan, v, w, now)

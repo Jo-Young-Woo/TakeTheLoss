@@ -171,6 +171,30 @@ def test_freeze_off_keeps_updating_with_every_frame_like_before():
     assert len(cov.boxes) == 2 and not cov._map_frozen
 
 
+def test_fresh_frozen_rgb_footprint_survives_conflicting_lidar_then_can_be_removed():
+    cfg, cov, grid = make(freeze=True)
+    feed(cov, [box(2., 2.)], grid=grid)
+    cov.refresh(grid, None, 7., force=True)
+    bid = next(iter(cov.boxes))
+    grid.L[:] = -2.
+    for t in range(20, 26):
+        cov.ingest_uav_boxes([box(2., 2.)], float(t), grid)
+        cov.refresh(grid, None, float(t), force=True)
+    assert bid in cov.boxes
+    for t in range(40, 46):
+        cov.ingest_uav_boxes([], float(t), grid)
+        cov.refresh(grid, None, float(t), force=True)
+    assert bid not in cov.boxes
+    # Only a twice-reacquired original footprint returns. Unknown new footprints
+    # stay excluded and no side label is manufactured from overhead geometry.
+    cov.ingest_uav_boxes([box(2., 2.), box(4., 2.)], 50., grid)
+    assert bid not in cov.boxes
+    cov.ingest_uav_boxes([box(2., 2.), box(4., 2.)], 51., grid)
+    assert set(cov.boxes) == {bid}
+    assert all(f.det_n == 0 and not f.det_votes for f in cov.boxes[bid].faces)
+    assert cov.map_stats['frozen_reacquired'] == 1
+
+
 # ====================================================================== ③ UGV 제외
 def test_ugv_detection_removes_box_candidates_on_top_of_it():
     cfg, cov, grid = make(ugv=True)

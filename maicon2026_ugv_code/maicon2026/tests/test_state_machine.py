@@ -270,6 +270,12 @@ def test_delayed_detections_are_paired_with_their_own_frame_and_consumed_once():
     m, a, _ = _solo(seed=3)
     d = _Delayed(k=3)
     a.detector = d
+    coverage_frames=[]
+    original_record=a.coverage.record_view
+    def recorded(*args, **kwargs):
+        coverage_frames.append(args[3])
+        return original_record(*args, **kwargs)
+    a.coverage.record_view=recorded
     _advance(m, 8.0)
     assert a.stats["det_dropped"] == 0
     assert a.stats["det_consumed"] > 50
@@ -277,6 +283,7 @@ def test_delayed_detections_are_paired_with_their_own_frame_and_consumed_once():
     olds = [o for (cur, o) in d.calls if o >= 0 and o < cur]
     assert olds and a._det_consumed <= max(c for c, _ in d.calls)
     assert a.stats["det_consumed"] == len(set(o for _, o in d.calls if o >= 0))      # 결과 하나당 정확히 한 번
+    assert len(coverage_frames)==a.stats['det_consumed'], 'Unprocessed frames cannot establish EMPTY'
 
 
 def test_stuck_detector_result_not_reapplied():
@@ -293,6 +300,54 @@ def test_stuck_detector_result_not_reapplied():
     a.detector = Stuck()
     _advance(m, 3.0)
     assert a.stats["det_consumed"] <= 1                       # 있었다 해도 한 번만
+
+
+def test_completed_coverage_result_keeps_its_original_rgb_pixels():
+    import dataclasses
+    import numpy as np
+    m, a, _ = _solo(seed=3)
+    a.cfg.explore.exhaustive_scoring_faces = True
+    a.detector = _Delayed(k=3)
+    originals = {}
+    raw_frame = a.robot.get_frame
+    def with_image():
+        frame = raw_frame()
+        if frame is None:
+            return None
+        pixels = originals.setdefault(frame.stamp, np.full((480,640,3), int(frame.stamp*10)%255, np.uint8))
+        return dataclasses.replace(frame, image=pixels)
+    a.robot.get_frame = with_image
+    seen = []
+    def record(*args, **kwargs):
+        seen.append(a._det_consumed)
+        assert kwargs['image'] is originals[a._det_consumed]
+    a.coverage.record_view = record
+    _advance(m, 3.)
+    assert len(seen) >= 3
+    assert len(a._frames) <= 16
+
+
+def test_aiming_frames_are_classified_but_not_counted_as_blank_face_evidence():
+    m, a, _ = _solo(seed=3)
+    _advance(m, .3)
+    class EmptyResult(Detector):
+        def detect(self, frame):
+            return []
+    a.detector = EmptyResult()
+    frames=[]
+    a.coverage.record_view=lambda *args, **kwargs: frames.append(args[3])
+    stamp=m.world.t+.1
+    a.robot.get_frame=lambda: Frame(None,stamp,0.,0.,640,480)
+    before=a.stats['det_consumed']
+    for mode in (Mode.HUNT, Mode.STRIKE):
+        a.mode=mode
+        stamp+=.1
+        a._ingest_vision(stamp)
+    assert a.stats['det_consumed']==before+2 and not frames
+    a.mode=Mode.EXPLORE
+    stamp+=.1
+    a._ingest_vision(stamp)
+    assert len(frames)==1
 
 
 def test_async_detector_runs_each_frame_once_and_reports_stamp():

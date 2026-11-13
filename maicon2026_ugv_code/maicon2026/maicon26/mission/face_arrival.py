@@ -15,6 +15,19 @@ from maicon26.footprint import circle_cells_free
 Pt = Tuple[float, float]
 
 
+def observation_dwell_complete(face, coverage, aligned_s, minimum_s):
+    """Give unresolved positive evidence time to meet unchanged vote rules.
+
+    Missing detections need a different view, not an unlimited wait. A few
+    real classification votes can justify a bounded longer stationary view.
+    This function never fabricates a vote or marks a face as identified.
+    """
+    if aligned_s < minimum_s:
+        return False
+    return (face.det_n == 0 or coverage.face_state(face) in ('CONFIRMED', 'EMPTY')
+            or aligned_s >= max(minimum_s, 8.0))
+
+
 @dataclass
 class ArrivalView:
     applicable: bool

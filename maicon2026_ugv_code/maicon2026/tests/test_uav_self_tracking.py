@@ -80,3 +80,67 @@ def test_alignment_jump_reacquires_precise_capture_pose_and_preserves_other_blue
     assert tracker.self_reacquired == 1
     assert tracker.self_filtered == 20
     assert {tr.ident for tr in tracker.tracks} == {"B-UGV-1"}
+
+
+def test_precise_pose_recovers_even_when_wrong_continuity_candidate_still_exists():
+    cfg=Config();cfg.progress.enabled=True
+    tr=UgvTracker(cfg,'BLUE')
+    # Incorrect self continuity follows B-1; B-2 has leaked as another birth ID.
+    tr._self_observation=(3.8,4.15,3.1,4.15,10.)
+    ghost=tr._upsert(3.14,4.15,10.,'BLUE',1.,'uav','B-UGV-3')
+    frame=UavFrame(11.,detections=[UavDet(3.14,4.15,'BLUE'),UavDet(3.8,4.15,'BLUE')])
+    tr.update_uav(frame,Pose2D(3.1,4.15,0.),self_ident='B-UGV-2')
+    assert tr.self_pose_overrides==1
+    assert tr.self_identity_conflicts==1 and ghost not in tr.tracks
+    assert len(tr.tracks)==1 and tr.tracks[0].x==3.8
+    # Keep the neighbouring real robot, not a broad "ignore nearby allies".
+    board=ThreatBoard(cfg,'BLUE').update(tr,[],11.,Pose2D(3.1,4.15,0.))
+    assert len(board)==1 and board[0].x==3.8
+    field=build_field(board,OccupancyGrid(cfg.arena),cfg.avoid,cfg.laser.max_range,
+                      11.,cfg.nav.inflate_hard,risk_cfg=cfg.risk)
+    assert not body_hit(field,OccupancyGrid(cfg.arena),3.1,4.15)
+
+
+def test_precise_reacquisition_preserves_explicit_other_id_and_camera_evidence():
+    tr=UgvTracker(Config(),'BLUE')
+    camera=tr._upsert(2.04,2.,0.,'BLUE',1.,'cam','B-UGV-1')
+    tr._self_observation=(2.8,2.,2.,2.,0.)
+    tr.update_uav(UavFrame(1.,detections=[UavDet(2.,2.,'BLUE'),
+                   UavDet(2.8,2.,'BLUE'),UavDet(2.04,2.,'BLUE','B-UGV-1')]),
+                   Pose2D(2.,2.,0.),self_ident='B-UGV-2')
+    assert camera in tr.tracks
+    assert any(t.ident=='B-UGV-1' for t in tr.tracks)
+
+
+def test_multiple_precise_candidates_do_not_force_pose_override():
+    tr=UgvTracker(Config(),'BLUE')
+    tr._self_observation=(3.,2.,2.,2.,0.)
+    tr.update_uav(UavFrame(1.,detections=[UavDet(3.,2.,'BLUE'),
+                   UavDet(2.02,2.,'BLUE'),UavDet(1.96,2.,'BLUE')]),
+                   Pose2D(2.,2.,0.),self_ident='B-UGV-2')
+    assert tr.self_pose_overrides==0
+
+
+def test_start_base_recovers_self_with_23cm_initial_pose_error():
+    cfg = Config()
+    tr = UgvTracker(cfg, 'RED')
+    x, y = cfg.arena.base_center('R-1')
+    tr.update_uav(UavFrame(.3, detections=[UavDet(x, y, 'RED'),
+                   UavDet(x, y-1.6, 'RED', 'R-UGV-2')]),
+                   Pose2D(x+.23, y, 0.), self_ident='R-UGV-1')
+    assert tr.self_filtered == 1
+    assert tr.last_self_association['start_base_match']
+    assert {t.ident for t in tr.tracks} == {'R-UGV-2'}
+
+
+def test_wrong_colour_self_ghost_is_pruned_but_camera_and_other_ids_remain():
+    tr = UgvTracker(Config(), 'BLUE')
+    ghost = tr._upsert(2.03, 2., 0., 'RED', 1., 'uav')
+    camera = tr._upsert(3., 2., 0., 'RED', 1., 'cam', 'R-UGV-1')
+    camera.x = 2.04
+    tr.update_uav(UavFrame(1., detections=[UavDet(2.03, 2., 'RED'),
+                   UavDet(2.25, 2., 'RED', 'R-UGV-2')]),
+                   Pose2D(2., 2., 0.), self_ident='B-UGV-2')
+    assert tr.self_filtered == 1 and tr.last_self_association['colour_override']
+    assert ghost not in tr.tracks and camera in tr.tracks
+    assert any(t.ident == 'R-UGV-2' for t in tr.tracks)

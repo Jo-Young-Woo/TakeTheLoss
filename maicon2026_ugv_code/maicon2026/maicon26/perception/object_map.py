@@ -66,6 +66,7 @@ class GeometryAnchor:
     nx: float
     ny: float
     distance: float
+    source: str = 'lidar'
 
 
 def surface_normal(scan: Optional[Scan], pose_s: Pose2D, world_bearing: float, r: float,
@@ -149,16 +150,21 @@ class ObjectMap:
         x1, y1, x2, y2 = det.box
         return x1 > margin and y1 > margin and x2 < frame.width - margin and y2 < frame.height - margin
 
-    def _geometry_anchor(self, boxes, pose, psi, measured_range, normal):
+    def _geometry_anchor(self, boxes, pose, psi, measured_range, normal, now=None):
         """Associate one image ray to a unique, repeatedly observed cube plane.
 
-        Only local LiDAR-resolved 40cm footprints qualify. The live LiDAR must
-        agree with the ray/plane intersection; image size cannot authorize it.
+        Repeated LiDAR or a recently confirmed UAV footprint may define the
+        plane. Live LiDAR must still agree with the ray/plane intersection;
+        image size alone cannot authorize a correspondence.
         """
         ux, uy = math.cos(psi), math.sin(psi)
         candidates, angular_support = [], False
         for box in boxes:
-            if (box.kind != "full" or box.n_seen < 2 or box.full_seen < 2 or not box.cells
+            lidar_resolved = box.kind == 'full' and box.n_seen >= 2 and box.full_seen >= 2 and bool(box.cells)
+            image_stamp = getattr(box, 'uav_t', None)
+            uav_resolved = (image_stamp is not None and now is not None
+                            and -.5 <= now-image_stamp <= self.cfg.explore.uav_layout_timeout_s)
+            if (not (lidar_resolved or uav_resolved)
                     or abs(box.sx-.4) > .08 or abs(box.sy-.4) > .08):
                 continue
             for face in box.faces:
@@ -181,7 +187,7 @@ class ObjectMap:
                 if normal is not None and (normal[0]*face.nx+normal[1]*face.ny) < .65:
                     continue
                 anchor = GeometryAnchor((box.bid, face.idx), face.cx, face.cy, box.cx, box.cy,
-                                        face.nx, face.ny, along)
+                                        face.nx, face.ny, along, 'lidar' if lidar_resolved else 'uav_lidar')
                 score = abs(along-measured_range)/.08 + .15*tangent/max(half, .1)
                 candidates.append((score, anchor))
         if not candidates:
@@ -206,9 +212,11 @@ class ObjectMap:
         for d in dets:
             if d.conf < pc.conf_min:
                 continue
-            if d.cls in self._nonobject_cls:           # 비인식용 박스는 세지 않는다(장애물일 뿐)
+            nonobject = d.cls in self._nonobject_cls
+            if nonobject:                            # Never include these pictures in M3 submissions.
                 self.nonobject_seen += 1
-                continue
+                if not self.cfg.explore.exhaustive_scoring_faces or boxes is None:
+                    continue
             if d.cls in self._base_cls:
                 if source != "pantilt":                 # 거점 표지는 팬틸트로만 센다(OAK 는 보조 — 6장)
                     continue
@@ -222,31 +230,36 @@ class ObjectMap:
                         self.base_votes[b][d.cls] += d.conf
                         self.base_n[b][d.cls] += 1
                 continue
-            if d.cls not in self._object_cls and d.cls not in self._target_cls:
+            if d.cls not in self._object_cls and d.cls not in self._target_cls and not nonobject:
                 continue
             if not self._edge_ok(d, frame):          # 잘린 bbox는 분류가 흔들리므로 제외
                 continue
-            if boxes is not None and d.cls in self._object_cls:
+            if boxes is not None and (d.cls in self._object_cls or d.cls in self._target_cls or nonobject):
                 psi = cm.world_ray(pose, pan, d.cx, d.cy)
                 measured = lidar_range_at(scan, math.radians(pan)+cm.bearing(d.cx, d.cy)+dth)
                 normal = surface_normal(scan, scan_pose or pose, psi, measured) if measured is not None else None
-                anchor, reason = self._geometry_anchor(boxes, pose, psi, measured, normal)
+                anchor, reason = self._geometry_anchor(boxes, pose, psi, measured, normal, now=frame.stamp)
                 if anchor is not None:
-                    if source == "pantilt" and pt_gate is not None and not pt_gate(anchor.key):
+                    if source == "pantilt" and pt_gate is not None and d.cls not in self._target_cls and not pt_gate(anchor.key):
                         self.association_stats["pt_gated"] += 1
                         continue
                     if anchor.distance <= rmax:
                         self.association_stats["anchored"] += 1
+                        self.association_stats['anchored_'+anchor.source] += 1
                         self._add(d, anchor.x, anchor.y, psi, frame.stamp, pose,
                                   (anchor.nx, anchor.ny), anchor=anchor, weight=weight, source=source)
                     else:
                         self.association_stats["beyond_max_range"] += 1
                     continue
                 self.association_stats[reason] += 1
-                if reason in ("range_rejected", "ambiguous"):
+                if nonobject:
+                    # Resolve only a unique plane supported by LiDAR. A
+                    # picture-size estimate cannot close a non-scoring face.
+                    continue
+                if reason in ("range_rejected", "ambiguous") and d.cls not in self._target_cls:
                     continue  # A size-only guess must not overrule known geometry.
                 _, ranging = estimate_range(cm, d, .40, scan, pan, dth)
-                if measured is not None and ranging == "size":
+                if measured is not None and ranging == "size" and d.cls not in self._target_cls:
                     self.association_stats["size_range_conflict"] += 1
                     continue  # Wait for geometry; do not seed a false distant face.
             if source == "pantilt" and pt_gate is not None and d.cls in self._object_cls and not pt_gate(None):
@@ -267,8 +280,8 @@ class ObjectMap:
         pc = self.cfg.perception
         w = float(weight)
         unit = (w == 1.0)                                # 가중치 1(팬틸트)은 기존 식을 그대로 쓴다 — 수치까지 같게
-        kind = "target" if d.cls in self._target_cls else "object"
-        nx, ny = nrm if nrm is not None and kind == "object" else (-math.cos(psi), -math.sin(psi))
+        kind = "target" if d.cls in self._target_cls else "nonobject" if d.cls in self._nonobject_cls else "object"
+        nx, ny = nrm if nrm is not None and kind != "target" else (-math.cos(psi), -math.sin(psi))
         nn = math.hypot(nx, ny) or 1.
         cx, cy = (anchor.cx, anchor.cy) if anchor else (x-.2*nx/nn, y-.2*ny/nn)
         best, bd = None, pc.object_merge_dist
@@ -280,6 +293,8 @@ class ObjectMap:
                 break
             if f.geometry_key is not None:
                 continue  # Distinct planes and size-only guesses never share an anchor.
+            if anchor is not None and self.cfg.explore.exhaustive_scoring_faces:
+                continue  # Do not promote uncertain range history into a measured M3 plane.
             dd = math.hypot(f.x - x, f.y - y)
             if dd < bd:
                 if nrm is not None and math.hypot(f.vx, f.vy) > 1e-6:
@@ -377,6 +392,8 @@ class ObjectMap:
         Orthogonal faces and distant independent photos remain separate. A
         nearest-box/radius deletion would discard legitimate ground evidence.
         """
+        if self.cfg.explore.exhaustive_scoring_faces:
+            return  # Keep hypotheses for diagnosis, but require new anchored votes.
         keep = []
         for other in self.faces:
             if (other is host or other.geometry_key is not None or other.kind != host.kind

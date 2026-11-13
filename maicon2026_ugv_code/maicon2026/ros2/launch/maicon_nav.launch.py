@@ -27,6 +27,7 @@ def _cartographer_config(base_frame, requested):
     builtins = {"base_link": "cartographer_2d.lua", "base_footprint": "cartographer_waveshare.lua"}
     profile_frames = {name: frame for frame, name in builtins.items()}
     profile_frames["cartographer_gazebo_2d.lua"] = "base_link"
+    profile_frames["cartographer_wingbot_sim.lua"] = "base_footprint"
     chosen = requested or builtins.get(base_frame)
     if not chosen:
         raise RuntimeError("Custom base_frame requires an explicit matching cartographer_config Lua basename")

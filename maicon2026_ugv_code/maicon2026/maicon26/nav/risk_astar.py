@@ -34,10 +34,16 @@ class PlanResult:
 
 
 def plan(grid: OccupancyGrid, blocked: np.ndarray, cost: np.ndarray, start: Pt, goal: Pt, v_plan: float = 0.35,
-         field=None, w_risk: float = 3.0, w_close: float = 1.5, risk_hit: float = 0.5, max_expand: int = 40000) -> Optional[PlanResult]:
+         field=None, w_risk: float = 3.0, w_close: float = 1.5, risk_hit: float = 0.5, max_expand: int = 40000,
+         diagnostics: Optional[dict] = None) -> Optional[PlanResult]:
+    def record(reason, expanded):
+        if diagnostics is not None:
+            diagnostics.update(reason=reason, expanded=expanded, max_expand=max_expand,
+                               grid_cells=int(blocked.size), field_present=field is not None)
     s = nearest_free(blocked, *grid.to_cell(*start))
     g = nearest_free(blocked, *grid.to_cell(*goal))
     if s is None or g is None:
+        record("no_free_endpoint", 0)
         return None
     ny, nx = blocked.shape
     K = 1 if field is None else int(field.K)
@@ -65,6 +71,7 @@ def plan(grid: OccupancyGrid, blocked: np.ndarray, cost: np.ndarray, start: Pt, 
         closed.add(cur)
         expands += 1
         if expands > max_expand:
+            record("expansion_limit", expands)
             return None
         cy, cx = divmod(cur, nx)
         gc, lc = gs[cur], gl[cur]
@@ -89,6 +96,7 @@ def plan(grid: OccupancyGrid, blocked: np.ndarray, cost: np.ndarray, start: Pt, 
                 h = (ddx + ddy) + (1.4142 - 2) * min(ddx, ddy)
                 heapq.heappush(heap, (ng + h, ni))
     else:
+        record("frontier_exhausted", expands)
         return None
     idxs = [gidx]
     while idxs[-1] != sidx:
@@ -111,4 +119,5 @@ def plan(grid: OccupancyGrid, blocked: np.ndarray, cost: np.ndarray, start: Pt, 
             else:
                 run = 0.0
             t += dt
+    record("found", expands)
     return PlanResult(pts, length, length / max(v_plan, 1e-6), risk_int, mx)

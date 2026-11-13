@@ -45,6 +45,7 @@ def test_goal_mode_uses_alternate_entry_in_same_assigned_base():
 
 def test_unknown_or_disconnected_space_cannot_become_a_recovery_bypass():
     a=agent();a.mode=Mode.GOAL;a.m5_base="R-2"
+    a.cfg.nav.replan_s=3.  # Exercise the optional slow retry interval explicitly.
     a.stack.grid.L[:]=0.
     original=a.geo.base_center("R-2")
     a.progress.retry_at[a._goal_key(original)]=43.
@@ -52,7 +53,8 @@ def test_unknown_or_disconnected_space_cannot_become_a_recovery_bypass():
     assert a._mission_destination() is None
     # A later actual free-space observation permits a bounded recheck.
     clear_observed(a)
-    assert a._mandatory_navigation_goal(14.,original) is not None
+    assert a._mandatory_navigation_goal(14.,original) is None
+    assert a._mandatory_navigation_goal(16.,original) is not None
     a.close_deadlock()
 
 
@@ -166,7 +168,7 @@ def test_optional_time_pressure_ignores_unseen_own_or_long_structure_faces():
 
 def test_strike_approach_skips_failed_position_and_never_falls_back_to_excluded_goal():
     a=agent();clear_observed(a)
-    face=SimpleNamespace(x=4.,y=2.5,vx=-1.,vy=0.,led_on=False)
+    face=SimpleNamespace(x=4.,y=2.5,vx=-1.,vy=0.,led_on=False,n=2)
     first,_=a._strike_goal(face,a.stack.pose)
     assert first is not None
     a.progress.excluded.add(a._goal_key(first))

@@ -339,7 +339,7 @@ class NavCfg:
     v_slow: float = 0.18
     stop_dist: float = round(_B.stop_front, 3)   # 전방 이 거리(센서→장애물) 안 → 정지/후진. = 앞 반길이 0.125 + 정지 여유(센서 오차+지연)
     slow_dist: float = 0.45
-    replan_s: float = 1.0
+    replan_s: float = 0.2
     goal_tol: float = 0.12
     stuck_s: float = 3.0
     stuck_move: float = 0.05
@@ -353,6 +353,7 @@ class NavCfg:
 class Nav2Cfg:
     """backend="nav2" 용 ROS2 연결 설정. 이름은 ros2/ 폴더의 launch·yaml과 일치해야 한다. [가정] 실기 확인 필요."""
     action_name: str = "navigate_to_pose"
+    allow_builtin_fallback: bool = True  # False: stop/report instead of silently changing a Nav2 trial's backend.
     map_topic: str = "/map"                # SLAM(Cartographer/slam_toolbox)이 내는 nav_msgs/OccupancyGrid
     cmd_topic: str = "/cmd_vel_nav2"       # Nav2가 내는 속도(/cmd_vel 이 아님 — Agent가 안전 제한 후 대신 보낸다)
     map_frame: str = "map"
@@ -659,6 +660,7 @@ class ExploreCfg:
     exhaustive_scoring_faces: bool = False  # Observe all exposed enemy/CM sides; never infer a picture from geometry.
     coverage_sector_commit_s: float = 28.0  # Finish a local sweep, then service another unfinished sector.
     coverage_m2_budget_s: float = 30.0  # Total M2 time before resuming unfinished face coverage; zero disables.
+    coverage_m4_budget_s: float = 12.0  # Total HUNT time while scoring faces remain unfinished; zero disables.
     coverage_goal_reserve_s: float = 25.0  # Keep the final interval for M5 travel/capture; unresolved faces use earlier time.
     m3_missing_face_weight: float = 4.0
     m3_observe_s: float = 2.0
@@ -711,6 +713,7 @@ class ExploreCfg:
     # --- UAV 영상으로 처음 받은 배치의 모든 면을 '면 기록부'에 올리고, 식별한 면은 다시 보러 가지 않는다. 기본 꺼짐 — 실기 설정에서 켠다.
     uav_face_registry: bool = False    # 기록부를 둔다(박스를 받아들일 때 4면 모두 등록, 확정·빈 면 기록, 상자가 사라졌다 다시 생겨도 이어 받는다)
     m1_sector_sweep: bool = False      # M1 이 지정한 탐색 섹터의 모든 면을 확인·분류해 면 기록부에 식별로 올린다(M3 채점 구역 밖이어도). 기본 꺼짐 — 실기 설정에서 켠다
+    m1_assigned_only: bool = False     # Restrict exploration to the two M1 sectors; scoring rules stay unchanged.
     m1_sector_weight: float = 1.6      # M1 지정 섹터 면의 가치 배수(채점 구역 면보다 먼저 보게)
     # --- M1 지정 구역 우선순위: 적 섹터를 먼저, CM 은 그 다음. 기본 꺼짐(= 위의 단일 가중 그대로) — 실기 설정에서 켠다.
     m1_priority_enemy_first: bool = False   # True: M1 지정 구역 안에서 적 섹터 면 → CM 면 순서로 본다(적 섹터가 끝나기 전 CM 면은 m1_cm_defer 배로 깎는다)
@@ -794,7 +797,7 @@ class AvoidCfg:
     cap_s: float = 25.0                # 회피가 구동을 쥔 시간이 이 창에서 이만큼 넘으면 일정 시간 격하(임무 지연 상한)
     cap_window_s: float = 60.0
     downgrade_s: float = 15.0
-    plan_period_s: float = 0.5
+    plan_period_s: float = 0.2
     ring_radii: Tuple[float, ...] = (1.0, 1.5, 2.0)
     ring_n: int = 16
     max_verify: int = 4                # 후퇴 후보 중 위험 A* 로 확인하는 상위 개수
@@ -918,6 +921,7 @@ class LlmCfg:
 
 @dataclass
 class MissionCfg:
+    decision_period_s: float = 0.05  # 행동·자세·관측 목표 재판단. 센서/조준/안전/STOP 주기와 분리.
     t_total: float = 300.0         # [PDF] 경기 5분
     t_base_cmd: float = 240.0      # [PDF] 경기 종료 1분 전 목표거점 명령
     forbid_own_bases_at: float = 225.0  # [요청 전략/G12] S9.7의 상대 점령 오발동 방지; 공식 진입금지 시각은 아님. 음수는 명시적 비활성.

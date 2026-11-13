@@ -141,7 +141,10 @@ class Nav2Stack(NavStack):
         self._fallback = False
         self._unavail_since: Optional[float] = None
         self.fallbacks = 0
+        self.blocked_fallback_requests = 0
         self.fallback_reason = ""
+        self._blocked_goal = None
+        self._command_sample = None
         self.safety = SafetyLimiter(cfg)
         self.anchor: Optional[Anchor] = None
         self.pose = Pose2D()
@@ -316,6 +319,7 @@ class Nav2Stack(NavStack):
         if self.c2.grid_source != "slam_map":
             self._transform_grid(pivot, trim)
         self._fb.clear_goal()
+
         self.anchor_epoch += 1
         self.trims_applied += 1
         self.last_reanchor = {"epoch": self.anchor_epoch, "pivot": pivot, "trim": trim, "revert": bool(req.get("revert")),
@@ -351,6 +355,12 @@ class Nav2Stack(NavStack):
 
     # ------------------------------------------------------------------ 목표
     def set_goal(self, goal: Pt, tol: Optional[float] = None, speed_scale: float = 1.0) -> None:
+        if (not self.c2.allow_builtin_fallback and self._fallback and self._blocked_goal is not None
+                and math.dist(goal, self._blocked_goal) >= .25):
+            # A real alternate approach deserves a fresh Nav2 action. Repeated
+            # nearby carrot updates must not erase the progress watchdog.
+            self._fallback = self._stall_fallback = False
+            self._progress_ref = None
         if self.goal is None or math.hypot(goal[0] - self.goal[0], goal[1] - self.goal[1]) > 0.05:
             self._sent_goal = None
             self._resends = self._fails = 0
@@ -368,6 +378,18 @@ class Nav2Stack(NavStack):
         self._sent_goal = None
         self._fallback = self._stall_fallback
         self._fb.clear_goal()
+
+    def retry_after_rejection(self) -> None:
+        """Consume failure only after the mission rejects its viewpoint.
+
+        Different viewpoints can share their first corridor/carrot. Ordinary
+        replans must preserve the watchdog; a rejected mission goal must not
+        poison all alternate approaches that begin in the same corridor.
+        """
+        if not self.c2.allow_builtin_fallback and self._fallback:
+            self._fallback = self._stall_fallback = False
+            self._blocked_goal = None
+            self._progress_ref = None
 
     def set_hint(self, turn_pref: Optional[float], allow_back: bool = True) -> None:
         self.safety.turn_pref = turn_pref
@@ -437,6 +459,8 @@ class Nav2Stack(NavStack):
             self._unavail_since = self._unavail_since if self._unavail_since is not None else now
             if not self._fallback and now - self._unavail_since > 1.5:
                 self._enter_fallback("Nav2 액션 서버 없음")
+            if not self._fallback:
+                return NavOut(0., 0., "moving", dg)
         if self._fallback:
             return self._step_fallback(g, scan, now, dt)
 
@@ -467,18 +491,27 @@ class Nav2Stack(NavStack):
         cmd = self.client.latest_cmd(now)
         v, w = cmd if cmd is not None else (0.0, 0.0)
         v, w = self.limit(scan, v, w, now)
+        self._command_sample = dict(t=now, goal=self.goal, effective_goal=g,
+                                    action_state=st, requested=cmd, limited=(v,w))
         if v > 0:
             v = min(v * self.speed_scale, self.cfg.robot.v_max * max(1.0, self.speed_scale))
         return NavOut(v, w, "recovering" if rec else "moving", dg)
 
     def _enter_fallback(self, why: str) -> None:
         self._fallback = True
-        self.fallbacks += 1
+        self._blocked_goal = self.goal
+        if self.c2.allow_builtin_fallback:
+            self.fallbacks += 1
+        else:
+            self.blocked_fallback_requests += 1
         self.client.cancel()
         self._sent_goal = None
         self.fallback_reason = why
 
     def _step_fallback(self, g: Pt, scan: Optional[Scan], now: float, dt: float) -> NavOut:
+        if not self.c2.allow_builtin_fallback:
+            self.client.cancel()
+            return NavOut(0., 0., 'blocked', math.hypot(g[0]-self.pose.x,g[1]-self.pose.y))
         self._fb.set_goal(g, self.tol, self.speed_scale)
         out = self._fb.step(self.pose, scan, now, dt)
         self.replans = max(self.replans, self._fb.replans)
@@ -489,8 +522,11 @@ class Nav2Stack(NavStack):
 
     def diagnostics(self) -> Dict[str, Any]:
         return {"replans": self.replans, "recoveries": self.recoveries, "fallbacks": self.fallbacks,
+                "backend": "nav2", "builtin_fallback_allowed": self.c2.allow_builtin_fallback,
+                "blocked_fallback_requests": self.blocked_fallback_requests,
                 "keepout_external": self._keepout_external,
                 "fallback_reason": self.fallback_reason,
+                "last_command_sample": self._command_sample,
                 "nav2_cmds(accepted,gated)": getattr(self.client, "cmd_stats", lambda: None)(),
                 "map_updates": self.map_updates,
                 "pose_guard": None if self.guard is None else self.guard.report(), "trims_applied": self.trims_applied,

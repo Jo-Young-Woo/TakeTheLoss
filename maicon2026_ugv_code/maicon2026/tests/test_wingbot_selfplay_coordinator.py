@@ -6,6 +6,20 @@ import pytest
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 from run_wingbot_selfplay import policies_for, source_manifest
+
+
+def test_oblique_recording_uses_real_30hz_camera_without_changing_agent_sensors(tmp_path):
+    import yaml
+    from run_wingbot_selfplay import prepare_observer_recording_profile
+    package=Path(__file__).resolve().parents[1]/'ros2/maicon_arena_gz'
+    original=yaml.safe_load((package/'config/profiles/wingbot_recording.yaml').read_text())
+    path=prepare_observer_recording_profile(tmp_path,package,30.)
+    result=yaml.safe_load(path.read_text())
+    assert result['validation_camera']['update_rate']==30.
+    assert result['validation_camera']['pose']==original['validation_camera']['pose']
+    assert 0 < result['validation_camera']['pose'][4] < 1.57
+    assert result['uav_camera']==original['uav_camera']
+    assert result['ugv']==original['ugv']
 from run_wingbot_autonomous_trial import json_value, write_json, apply_trial_variant, processing_summary
 import run_wingbot_autonomous_trial as trial
 

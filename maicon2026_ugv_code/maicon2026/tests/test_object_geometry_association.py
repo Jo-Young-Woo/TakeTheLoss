@@ -68,12 +68,130 @@ def test_measured_cube_plane_overrides_wrong_photo_size_without_using_truth():
     assert omap.association_stats["anchored"] == 5
 
 
+def test_m2_target_uses_measured_plane_even_when_photo_range_is_wrong():
+    omap, box = ObjectMap(Config()), observed_box()
+    pose = Pose2D(.8, 2., 0.)
+    det = image_detection(omap, box.faces[2], pose, cls='GUARD_POST', size_range_scale=2.)
+    for _ in range(6):
+        omap.observe([det], pose, Frame(None, 1.), box_scan(box, pose), boxes=[box])
+    assert len(omap.faces) == 1
+    assert omap.faces[0].kind == 'target'
+    assert omap.faces[0].geometry_key == box.faces[2].key
+    assert omap.faces[0].x == pytest.approx(1.8)
+
+
+def test_confirmed_uav_footprint_and_live_lidar_anchor_before_closed_lidar_cluster():
+    cfg, box = Config(), observed_box()
+    cfg.explore.exhaustive_scoring_faces = True
+    box.kind, box.cells, box.full_seen, box.n_seen, box.uav_t = 'uav', [], 0, 0, 1.
+    omap = ObjectMap(cfg)
+    pose = Pose2D(.8, 2., 0.)
+    det = image_detection(omap, box.faces[2], pose)
+    for _ in range(6):
+        omap.observe([det], pose, Frame(None, 1.), box_scan(box, pose), boxes=[box])
+    assert len(omap.faces) == 1 and omap.faces[0].geometry_key == (1, 2)
+    assert omap.association_stats['anchored_uav_lidar'] == 6
+
+
+@pytest.mark.parametrize('case', ['no_lidar', 'conflicting_lidar', 'expired_uav'])
+def test_uav_footprint_alone_or_stale_cannot_authorize_photo_anchor(case):
+    cfg, box = Config(), observed_box()
+    box.kind, box.cells, box.full_seen, box.n_seen, box.uav_t = 'uav', [], 0, 0, 1.
+    omap, pose = ObjectMap(cfg), Pose2D(.8, 2., 0.)
+    det = image_detection(omap, box.faces[2], pose)
+    scan = None if case == 'no_lidar' else box_scan(box, pose)
+    if case == 'conflicting_lidar':
+        scan.ranges[np.isfinite(scan.ranges)] *= .4
+    stamp = 1. if case != 'expired_uav' else 1.+cfg.explore.uav_layout_timeout_s+1.
+    omap.observe([det], pose, Frame(None, stamp), scan, boxes=[box])
+    assert all(f.geometry_key is None for f in omap.faces)
+
+
+def test_unanchored_m2_target_cannot_retire_adjacent_m3_face():
+    cfg = Config()
+    cfg.team = 'BLUE'
+    cfg.explore.exhaustive_scoring_faces = True
+    cov, omap = CoverageMap(cfg), ObjectMap(cfg)
+    box = observed_box(cx=4.1, cy=3.7)
+    cov.boxes[box.bid] = box
+    pose = Pose2D(3.0, 3.7, 0.)
+    det = image_detection(omap, box.faces[2], pose, cls='GUARD_POST')
+    for _ in range(8):
+        omap.observe([det], pose, Frame(None, 1.), None, boxes=[box])
+    assert len(omap.faces) == 1 and omap.faces[0].kind == 'target'
+    assert omap.faces[0].geometry_key is None  # Available to M2, not evidence of this plane.
+    cov._sync_detections(omap)
+    assert box.faces[2].det_n == 0
+    assert cov.face_state(box.faces[2]) != 'CONFIRMED'
+    assert box.faces[2] in cov.pending_faces()
+
+
+def test_m3_confirmation_matches_submission_threshold_and_reopens_weak_history():
+    cfg = Config()
+    cfg.team = 'BLUE'
+    cfg.explore.exhaustive_scoring_faces = True
+    cfg.explore.uav_face_registry = True
+    cfg.explore.redetect_resolved = False
+    cov, omap = CoverageMap(cfg), ObjectMap(cfg)
+    box = observed_box(cx=4.1, cy=4.1)
+    cov.boxes[box.bid] = box
+    cov._register_box(box, 'uav', 0.)
+    face = box.faces[1]
+    rec = cov.registry[face.reg]
+    rec.status, rec.cls = 'identified', 'AMMO_BOX'
+    face.det_n, face.det_kind = 8, 'object'
+    face.det_votes = {'TANK': 2.93400573775351, 'AMMO_BOX': 4.867079906440804}
+    assert cov.face_state(face) == 'UNCERTAIN'
+    assert not cov._reg_resolved(face)
+    cov._update_registry(1.)
+    assert rec.status == 'pending'
+    assert face in cov.pending_faces() and cov.face_weight(face) > 0
+    assert not cov.m3_counts(omap)
+    face.det_n += 6
+    face.det_votes['AMMO_BOX'] += 5.7
+    cov._update_registry(2.)
+    assert cov.face_state(face) == 'CONFIRMED'
+    assert rec.status == 'identified'
+    assert cov.m3_counts(omap)['R-S1']['AMMO_BOX'] == 1
+
+
 def test_size_conflict_before_geometry_cannot_seed_a_false_distant_photo():
     omap, box = ObjectMap(Config()), observed_box()
     pose = Pose2D(.8, 2., 0.)
     det = image_detection(omap, box.faces[2], pose, size_range_scale=2.)
     omap.observe([det], pose, Frame(None, 1.), box_scan(box, pose), boxes=[])
     assert not omap.faces and omap.association_stats["size_range_conflict"] == 1
+
+
+@pytest.mark.parametrize('cls', ['TREE','BUILDING','BARRIER','POSITION'])
+def test_non_scoring_photo_resolves_measured_plane_but_never_enters_m3(cls):
+    cfg = Config()
+    cfg.team = 'BLUE'
+    cfg.explore.exhaustive_scoring_faces = True
+    cov, omap = CoverageMap(cfg), ObjectMap(cfg)
+    box = observed_box(cx=4.2, cy=2.4)
+    cov.boxes[box.bid] = box
+    pose = Pose2D(5.2, 2.4, math.pi)
+    det = image_detection(omap, box.faces[0], pose, cls=cls)
+    for _ in range(6):
+        omap.observe([det], pose, Frame(None, 1.), box_scan(box, pose), boxes=[box])
+    assert len(omap.faces) == 1 and omap.faces[0].kind == 'nonobject'
+    assert omap.faces[0].geometry_key == box.faces[0].key
+    cov._sync_detections(omap)
+    assert cov.face_state(box.faces[0]) == 'CONFIRMED'
+    assert box.faces[0] not in cov.pending_faces()
+    assert cov.m3_counts(omap) == {} and omap.counts_by_sector() == {}
+    assert not omap.find_target(cls)
+
+
+def test_non_scoring_photo_without_matching_lidar_cannot_close_a_face():
+    cfg = Config()
+    cfg.explore.exhaustive_scoring_faces = True
+    omap, box = ObjectMap(cfg), observed_box()
+    pose = Pose2D(.8, 2., 0.)
+    det = image_detection(omap, box.faces[2], pose, cls='BUILDING')
+    omap.observe([det], pose, Frame(None, 1.), None, boxes=[box])
+    assert not omap.faces
 
 
 def test_conflicting_lidar_does_not_attach_size_only_vote_to_an_observed_plane():
@@ -128,11 +246,57 @@ def test_coverage_honors_measured_plane_key_instead_of_closer_neighbor_and_count
     assert sum(sum(classes.values()) for classes in cov.m3_counts(omap).values()) == 1
 
 
+@pytest.mark.parametrize('frozen', [True, False])
+def test_frozen_image_identity_keeps_class_votes_after_local_frame_alignment(frozen):
+    cfg, box = Config(), observed_box(cx=4.1, cy=4.1)
+    cfg.explore.exhaustive_scoring_faces = True
+    cov, omap = CoverageMap(cfg), ObjectMap(cfg)
+    cov.boxes = {1: box}
+    box.uav_frozen = frozen
+    box.arena_cx, box.arena_cy = 4.1, 4.1
+    omap.faces = [Face(4.1, 4.3, 4.1, 4.1, defaultdict(float, AMMO_BOX=5.7), 6,
+                      vy=1., geometry_key=(1, 1))]
+    box.cx += .3
+    for face in box.faces:
+        face.cx += .3
+    cov._sync_detections(omap)
+    assert box.faces[1].det_n == (6 if frozen else 0)
+
+
 def test_default_call_without_geometry_keeps_hardware_size_range_fallback():
     omap = ObjectMap(Config())
     det = Detection("DRUM", .95, (280, 160, 360, 300), 1.)
     omap.observe([det], Pose2D(1., 2.), Frame(None, 1.), None)
     assert len(omap.faces) == 1 and omap.faces[0].geometry_key is None
+
+
+def test_exhaustive_m3_keeps_uncertain_history_out_of_new_plane_votes():
+    cfg = Config()
+    cfg.team = 'BLUE'
+    cfg.explore.exhaustive_scoring_faces = True
+    omap, cov, box = ObjectMap(cfg), CoverageMap(cfg), observed_box(cx=4.1, cy=4.1)
+    cov.boxes[box.bid] = box
+    legacy = Face(4.12, 4.3, 4.12, 4.1, defaultdict(float, TANK=20.), 20, vy=1.)
+    omap.faces = [legacy]
+    pose = Pose2D(4.1, 4.9, -math.pi/2)
+    det = image_detection(omap, box.faces[1], pose, cls='AMMO_BOX')
+    for _ in range(6):
+        omap.observe([det], pose, Frame(None, 1.), box_scan(box, pose), boxes=[box])
+    anchored = next(f for f in omap.faces if f.geometry_key is not None)
+    assert anchored.n == 6 and anchored.votes == {'AMMO_BOX': pytest.approx(5.7)}
+    assert legacy in omap.faces and legacy.n == 20
+    cov._sync_detections(omap)
+    assert cov.m3_counts(omap) == {'R-S1': {'AMMO_BOX': 1}}
+
+
+def test_exhaustive_m3_does_not_report_unanchored_duplicate_outside_cube_envelope():
+    cfg = Config()
+    cfg.explore.exhaustive_scoring_faces = True
+    cov, omap = CoverageMap(cfg), ObjectMap(cfg)
+    omap.faces = [Face(4.94, 4.02, 5.02, 4.21, defaultdict(float, TANK=3.83), 4, vy=-1.)]
+    assert len(omap.confirmed_faces()) == 1
+    assert cov.m3_counts(omap) == {}
+    assert len(omap.faces) == 1  # Evidence remains available for diagnosis.
 
 
 def test_exact_plane_votes_cannot_be_outvoted_by_adjacent_legacy_viewing_normal():

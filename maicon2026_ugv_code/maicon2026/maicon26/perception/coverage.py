@@ -59,6 +59,7 @@ class FaceRec:
     cy: float
     views: int = 0                             # 독립 관측 수(볼 수 있는 조건에서)
     view_poses: List[Tuple[float, float, float]] = field(default_factory=list)
+    empty_poses: List[Tuple[float, float, float]] = field(default_factory=list)
     last_view_t: float = -1e9
     last_cam_yaw: float = 0.0
     occluded_views: int = 0                    # 시야·거리는 맞는데 가려서 못 본 횟수(독립 간격으로)
@@ -251,6 +252,8 @@ class CoverageMap:
         self.census_stats = {"registered": 0, "converted": 0}
         self._conversions: List[Dict[str, Any]] = []             # 미탐지 → 탐지로 바뀐 사건(매니저가 꺼내 로그에 남긴다)
         self._map_frozen = False                                 # explore.uav_map_freeze: 첫 UAV 배치를 굳혔나
+        self._frozen_footprints: Dict[int, Tuple[float, float, float, float]] = {}
+        self._frozen_reacquire: Dict[int, float] = {}
         self._freeze_t0: Optional[float] = None                  # 첫 배치를 받아들인 시각(굳히는 창의 시작)
         self.map_stats = {"ugv_excluded": 0, "inner_faces": 0, "frozen_boxes": 0, "frozen_t": None, "late_boxes_ignored": 0}
 
@@ -295,6 +298,9 @@ class CoverageMap:
             self._update_uav_internal()
         for b in mine:
             b.uav_frozen = True
+            self._frozen_footprints[b.bid] = (b.arena_cx if b.arena_cx is not None else b.cx,
+                                            b.arena_cy if b.arena_cy is not None else b.cy,
+                                            b.arena_sx or b.sx, b.arena_sy or b.sy)
         self._map_frozen = True
         self.map_stats["frozen_boxes"], self.map_stats["frozen_t"] = len(mine), round(float(now), 3)
         self.uav_layout_events.append({"t": round(float(now), 3), "from": self.uav_layout_state, "to": self.uav_layout_state,
@@ -445,6 +451,52 @@ class CoverageMap:
                 and b.uav_t >= self._layout_epoch
                 and 0 <= self._now - b.uav_t <= self.ec.uav_layout_timeout_s)
 
+    @staticmethod
+    def _sample_perimeter(b: BoxModel, grid: OccupancyGrid) -> None:
+        b.cells = list({grid.to_cell(b.cx + nx*b.sx/2 - ny*d, b.cy + ny*b.sy/2 + nx*d)
+                        for nx, ny in FACE_N for d in np.linspace(-.12, .12, 5)
+                        if grid.in_bounds(*grid.to_cell(b.cx + nx*b.sx/2 - ny*d,
+                                                       b.cy + ny*b.sy/2 + nx*d))})
+
+    def _reconcile_uav_geometry(self, now: float, grid: Optional[OccupancyGrid] = None) -> None:
+        """Keep every registered footprint in the same frame, including frozen/full boxes.
+
+        A partial LiDAR match or an anchor correction must not strand a box
+        outside the next 25 cm association gate. Raw aerial coordinates remain
+        immutable; only the measured global registration is applied here.
+        """
+        if not self.ec.exhaustive_scoring_faces:
+            return
+        a = self._uav_alignment
+        for b in self.boxes.values():
+            if not self.active_uav_prior(b) or b.arena_cx is None or b.arena_cy is None:
+                continue
+            x, y = b.arena_cx + (a.dx if a else 0.), b.arena_cy + (a.dy if a else 0.)
+            delta = math.hypot(b.cx-x, b.cy-y)
+            size_delta = max(abs(b.sx-(b.arena_sx or b.sx)), abs(b.sy-(b.arena_sy or b.sy)))
+            b.cx, b.cy = x, y
+            b.sx, b.sy = b.arena_sx or b.sx, b.arena_sy or b.sy
+            self._position_faces(b)
+            if grid is not None:
+                self._sample_perimeter(b, grid)
+            if max(delta, size_delta) <= .06:
+                continue
+            self.stats['uav_geometry_repairs'] = self.stats.get('uav_geometry_repairs', 0) + 1
+            for f in b.faces:
+                # Negative observations at the old plane cannot establish
+                # that the newly located picture is blank. Retain class votes;
+                # their spatial association is independently checked on sync.
+                f.views, f.view_poses, f.empty_poses = 0, [], []
+                f.last_view_t, f.last_occl_t = -1e9, -1e9
+                f.occluded_views, f.arrive_attempts = 0, 0
+                rec = self.registry.get(f.reg)
+                if rec is not None:
+                    rec.cx, rec.cy = f.cx, f.cy
+                    if rec.status == 'empty':
+                        rec.status, rec.cls, rec.snap = 'pending', None, {}
+                        rec.t_status, rec.t_detected = float(now), None
+                        self.stats['empty_geometry_reopened'] = self.stats.get('empty_geometry_reopened', 0) + 1
+
     def box_available(self, b: BoxModel) -> bool:
         """A local LiDAR observation survives image loss; an aerial guess does not."""
         return b.kind != "uav" or self.active_uav_prior(b)
@@ -508,7 +560,7 @@ class CoverageMap:
                 # Only aerial-only geometry moves with this registration;
                 # independently observed LiDAR centres are already local.
                 for box in self.boxes.values():
-                    if box.uav_t is not None and box.kind != "full":
+                    if box.uav_t is not None and box.kind != "full" and not self.ec.exhaustive_scoring_faces:
                         box.cx, box.cy = box.cx + dx, box.cy + dy
                         self._position_faces(box)
                 self._uav_pending = [(x + dx, y + dy, sx, sy, t) for x, y, sx, sy, t in self._uav_pending]
@@ -516,11 +568,44 @@ class CoverageMap:
                 self.uav_alignment_report = {"dx": round(alignment.dx, 3), "dy": round(alignment.dy, 3),
                                              "matches": alignment.matches, "rms": round(alignment.rms, 3), "t": now}
         hints = transform_uav_boxes(raw, self._uav_alignment)
+        self._reconcile_uav_geometry(now, grid)
         if self._map_frozen:
-            # 굳힌 지도: 정렬(위 블록)만 갱신하고 상자를 더하거나 옮기지 않는다. 지도에 없던 자리의 검출 수는 진단용으로만 센다.
-            for h in hints:
-                if not any(math.hypot(b.cx - h.cx, b.cy - h.cy) <= 0.25 for b in self.boxes.values()):
+            # Freeze the observed inventory, not the observation clock. A fresh
+            # image can corroborate or reacquire an original footprint without
+            # admitting a new robot-shaped detection or inventing side classes.
+            seen = set()
+            for h in raw:
+                if not all(math.isfinite(v) for v in (h.cx, h.cy, h.sx, h.sy, h.confidence)) or h.confidence < .6:
+                    continue
+                match = min(self._frozen_footprints.items(),
+                            key=lambda item: math.hypot(item[1][0]-h.cx, item[1][1]-h.cy), default=None)
+                if (match is None or math.hypot(match[1][0]-h.cx, match[1][1]-h.cy) > .12
+                        or max(abs(match[1][2]-h.sx), abs(match[1][3]-h.sy)) > .12):
                     self.map_stats["late_boxes_ignored"] += 1
+                    continue
+                bid, (x, y, sx, sy) = match
+                if bid in seen:
+                    continue
+                seen.add(bid)
+                b = self.boxes.get(bid)
+                previous_t = self._frozen_reacquire.get(bid)
+                if b is None and previous_t is not None and 0 < now-previous_t <= self.ec.uav_layout_timeout_s:
+                    a = self._uav_alignment
+                    b = BoxModel(bid, x+(a.dx if a else 0.), y+(a.dy if a else 0.), "uav", [], now, now,
+                                 sx=sx, sy=sy, uav_t=now, uav_frozen=True,
+                                 arena_cx=x, arena_cy=y, arena_sx=sx, arena_sy=sy)
+                    self._make_faces(b)
+                    self._restore_box(b)
+                    self.boxes[bid] = b
+                    self._register_box(b, "uav", now)
+                    self.map_stats["frozen_reacquired"] = self.map_stats.get("frozen_reacquired", 0) + 1
+                if b is not None:
+                    b.uav_t, b.miss_t, b.free_since, b.free_checks = now, None, None, 0
+                    if grid is not None:
+                        self._sample_perimeter(b, grid)
+                self._frozen_reacquire[bid] = now
+            self._frozen_reacquire = {bid: self._frozen_reacquire[bid] for bid in seen}
+            self._update_uav_internal()
             self._uav_pending = []
             return
         previous = self._uav_pending
@@ -571,12 +656,7 @@ class CoverageMap:
             if grid is not None:
                 # Perimeter samples let later LiDAR free-space evidence invalidate
                 # a removed/misdetected footprint even after UAV video stops.
-                best.cells = list({grid.to_cell(best.cx + nx * best.sx / 2 + (-ny) * d,
-                                                best.cy + ny * best.sy / 2 + nx * d)
-                                   for nx, ny in FACE_N
-                                   for d in np.linspace(-0.12, 0.12, 5)
-                                   if grid.in_bounds(*grid.to_cell(best.cx + nx * best.sx / 2 + (-ny) * d,
-                                                                  best.cy + ny * best.sy / 2 + nx * d))})
+                self._sample_perimeter(best, grid)
         self._uav_pending = pending
         self._update_uav_internal()
 
@@ -779,6 +859,7 @@ class CoverageMap:
         if not force and now - self._last_refresh < self.ec.box_refresh_s:
             return
         self._last_refresh = now
+        self._reconcile_uav_geometry(now, grid)
         cl = self._clusters(grid)
         units = list(self._cl_units)
         matched: Set[int] = set()
@@ -834,7 +915,8 @@ class CoverageMap:
             if bid in matched:
                 continue
             b = self.boxes[bid]
-            if self.active_uav_prior(b) and not b.uav_frozen:
+            fresh_image = b.uav_t is not None and 0 <= now-b.uav_t <= self.ec.uav_layout_timeout_s
+            if self.active_uav_prior(b) and (not b.uav_frozen or fresh_image):
                 b.free_since, b.free_checks = None, 0
                 continue
             if b.miss_t is None:
@@ -916,9 +998,16 @@ class CoverageMap:
             nv = math.hypot(of.vx, of.vy) or 1.0
             best, bd = None, 0.25
             geometry_key = getattr(of, "geometry_key", None)
+            if self.ec.exhaustive_scoring_faces and geometry_key is None:
+                # Keep size/range hypotheses in ObjectMap for M2 aiming and
+                # diagnosis, but require a unique observed plane for M3.
+                continue
             if geometry_key is not None:
                 anchored = self.get_face(geometry_key)
-                if (anchored is not None and math.hypot(anchored.cx-of.x, anchored.cy-of.y) < .25
+                owner = self.boxes.get(geometry_key[0])
+                stable_identity = (owner is not None and owner.uav_frozen
+                                   and owner.arena_cx is not None and owner.arena_cy is not None)
+                if (anchored is not None and (stable_identity or math.hypot(anchored.cx-of.x, anchored.cy-of.y) < .25)
                         and (not self.ec.uav_outer_faces or anchored.idx not in self.boxes[anchored.bid].internal)
                         and (anchored.nx*of.vx+anchored.ny*of.vy)/nv > .5):
                     best = anchored
@@ -947,6 +1036,14 @@ class CoverageMap:
             best.det_kind = of.kind
             for c, v in of.votes.items():
                 best.det_votes[c] = best.det_votes.get(c, 0.0) + v
+        # Category follows the strongest measured class, not iteration order
+        # when competing object/nonobject records share the same plane.
+        for b in self.boxes.values():
+            for f in b.faces:
+                if self.ec.exhaustive_scoring_faces and f.det_votes:
+                    cls = max(f.det_votes, key=f.det_votes.get)
+                    f.det_kind = ('nonobject' if cls in self.cfg.perception.nonobject_classes else
+                                  'target' if cls in self.cfg.perception.target_classes else 'object')
 
     # ------------------------------------------------------------------ 가시성(기록·계획 공용)
     def face_visible(self, vx: float, vy: float, vth: Optional[float], f: FaceRec, occ: np.ndarray, grid: OccupancyGrid,
@@ -1042,12 +1139,46 @@ class CoverageMap:
                 return True
         return False
 
-    def record_view(self, pose: Pose2D, pan_deg: float, grid: OccupancyGrid, now: float) -> int:
+    def blank_surface_evidence(self, image: Optional[np.ndarray], pose: Pose2D,
+                               heading: float, f: FaceRec) -> bool:
+        """Uniform pixels support absence; a failed classifier alone does not.
+
+        Inspect only the inside of the projected picture plane. Texture, clipped
+        projections and unavailable images all keep the face unresolved. This
+        veto does not classify a picture or contribute a submission vote.
+        """
+        if image is None or image.ndim not in (2, 3) or image.shape[:2] != (self.cam.h, self.cam.w):
+            return False
+        import cv2
+        c, s = math.cos(heading), math.sin(heading)
+        corners = []
+        for offset, z in ((-.14, .34), (.14, .34), (.14, .06), (-.14, .06)):
+            dx, dy = f.cx-f.ny*offset-pose.x, f.cy+f.nx*offset-pose.y
+            uv = self.cam.project_point(dx*c+dy*s, -dx*s+dy*c, z-self.cfg.robot.cam_height)
+            if uv is None or not (3 <= uv[0] < self.cam.w-3 and 3 <= uv[1] < self.cam.h-3):
+                return False
+            corners.append(uv)
+        polygon = np.float32(corners)
+        if abs(cv2.contourArea(polygon)) < 400:
+            return False
+        transform = cv2.getPerspectiveTransform(polygon, np.float32([[0,0],[47,0],[47,47],[0,47]]))
+        patch = cv2.warpPerspective(image, transform, (48,48))
+        gray = patch if patch.ndim == 2 else cv2.cvtColor(patch, cv2.COLOR_BGR2GRAY)
+        spread = float(np.percentile(gray,95)-np.percentile(gray,5))
+        edge = float(np.mean(cv2.Canny(gray,40,100) > 0))
+        return spread < 18. and edge < .015
+
+    def record_view(self, pose: Pose2D, pan_deg: float, grid: OccupancyGrid, now: float,
+                    tilt_deg: float = 0., image: Optional[np.ndarray] = None) -> int:
         """카메라 프레임 하나 처리: 지금 실제로 볼 수 있는 면에 독립 관측을 쌓는다. 반환: 새로 센 관측 수."""
         occ = self.visibility_occupancy(grid)
         th_cam = pose.th + math.radians(pan_deg)
         n_new = 0
         outer = self.ec.uav_outer_faces
+        # The coverage projection assumes a neutral gimbal. A tilted M2 frame
+        # can classify objects, but cannot prove a full M3 side was inspected.
+        if abs(tilt_deg) > 3.:
+            return 0
         for b in self.boxes.values():
             if not self.box_available(b):
                 continue
@@ -1069,6 +1200,24 @@ class CoverageMap:
                     f.views += 1
                     f.view_poses.append((pose.x, pose.y, pose.th))
                     del f.view_poses[:-6]
+                    distance = math.hypot(pose.x-f.cx, pose.y-f.cy)
+                    incidence = ((pose.x-f.cx)*f.nx + (pose.y-f.cy)*f.ny) / max(distance, 1e-9)
+                    blank = (not self.exhaustive_face(f) or
+                             self.blank_surface_evidence(image, pose, th_cam, f))
+                    frontal = .5 <= distance <= 1.1 and incidence >= math.cos(math.radians(30.))
+                    if frontal and blank:
+                        f.empty_poses.append((pose.x, pose.y, pose.th))
+                        del f.empty_poses[:-12]
+                    elif self.exhaustive_face(f) and frontal and image is not None and not blank:
+                        # A grazing/missing frame cannot invalidate previous
+                        # qualified absence observations. A clear textured
+                        # frontal frame can, including an older EMPTY record.
+                        f.empty_poses = []
+                        rec = self.registry.get(f.reg)
+                        if rec is not None and rec.status == 'empty':
+                            rec.status, rec.cls, rec.snap = 'pending', None, {}
+                            rec.t_status, rec.t_detected = float(now), None
+                        self.stats['nonblank_views'] = self.stats.get('nonblank_views', 0) + 1
                     f.last_view_t, f.last_cam_yaw = now, th_cam
                     f.recheck = False                  # 팬틸트로 다시 봤다(6장: 카메라 간 불일치 재확인)
                     n_new += 1
@@ -1125,9 +1274,10 @@ class CoverageMap:
             # Every vertical face of an observed photo cube has a picture.
             # Failed viewpoints are retried elsewhere; they cannot prove EMPTY.
             return UNCERTAIN if f.det_n else UNSEEN
-        if f.det_kind == "target" and f.det_n >= 2:
+        if f.det_kind == "target" and f.det_n >= 2 and not self.exhaustive_face(f):
             return CONFIRMED                                          # 지정표적 면은 M2 담당 — M3 에서 다시 볼 필요 없음
-        if f.det_n >= self.cfg.perception.min_votes and mconf >= 0.45 and margin >= ec.confirm_min_margin:
+        min_conf = .65 if f.det_kind == "object" or self.exhaustive_face(f) else .45
+        if f.det_n >= self.cfg.perception.min_votes and mconf >= min_conf and margin >= ec.confirm_min_margin:
             return CONFIRMED
         if f.arrive_attempts >= ec.attempts_giveup and not self.exhaustive_face(f):
             return GIVEUP                                             # 세 번 가서 봤는데도 확정이 안 된다 — 더는 시간을 쓰지 않는다
@@ -1135,7 +1285,9 @@ class CoverageMap:
             return UNCERTAIN
         if not f.exterior_open and f.views == 0:
             return UNREACHABLE
-        if f.views >= ec.empty_min_views and len({(round(p[0], 1), round(p[1], 1)) for p in f.view_poses}) >= ec.empty_min_poses:
+        negative = f.empty_poses if self.exhaustive_face(f) else f.view_poses
+        count = len(negative) if self.exhaustive_face(f) else f.views
+        if count >= ec.empty_min_views and len({(round(p[0], 1), round(p[1], 1)) for p in negative}) >= ec.empty_min_poses:
             return EMPTY
         return VIEWED_NO_DET if f.views > 0 else UNSEEN
 
@@ -1336,9 +1488,12 @@ class CoverageMap:
             self._position_faces(b)
             for f in b.faces:
                 f.view_poses = [fn(*p) for p in f.view_poses]
+                f.empty_poses = [fn(*p) for p in f.empty_poses]
         for rec in self.registry.values():
             if rec.snap.get("view_poses"):
                 rec.snap["view_poses"] = [list(fn(*p)) for p in rec.snap["view_poses"]]
+            if rec.snap.get('empty_poses'):
+                rec.snap['empty_poses'] = [list(fn(*p)) for p in rec.snap['empty_poses']]
         linked = {f.reg for b in self.boxes.values() for f in b.faces if f.reg is not None}
         for rec in self.registry.values():                    # 박스에 묶이지 않은 기록(박스가 사라진 뒤 남은 것)은 출처의 틀을 따른다
             if rec.rid in linked:
@@ -1353,6 +1508,7 @@ class CoverageMap:
             self._uav_pending = [(x - odx, y - ody, sx, sy, t) for x, y, sx, sy, t in self._uav_pending]
             self._uav_alignment = None
             self.uav_alignment_report = {}
+        self._reconcile_uav_geometry(now)
         self.seen.seen = rigid_resample(self.seen.seen, 0.0, 0.0, self.seen.res, pivot, trim, False)
         self.stats["anchor_changes"] = self.stats.get("anchor_changes", 0) + 1
         return {"moved": moved, "uav_reset": reset}
@@ -1383,6 +1539,9 @@ class CoverageMap:
         if not self.ec.uav_face_registry or f.reg is None:
             return False
         rec = self.registry.get(f.reg)
+        if (rec is not None and rec.status == "identified" and f.det_n > 0
+                and self.exhaustive_face(f) and self.face_state(f) != CONFIRMED):
+            return False
         return rec is not None and rec.status in ("identified", "empty")
 
     def _register_box(self, b: BoxModel, origin: str, now: float) -> None:
@@ -1438,7 +1597,14 @@ class CoverageMap:
             f.reg = rec.rid
             linked.add(rec.rid)
             sn = rec.snap
+            if rec.status == 'empty' and self.exhaustive_face(f) and not sn.get('empty_poses'):
+                # Older snapshots counted raw frames/grazing views. They do
+                # not satisfy the stronger negative-evidence contract.
+                rec.status, rec.cls, rec.snap = 'pending', None, {}
+                rec.t_detected = None
+                continue
             f.views, f.view_poses = int(sn.get("views", 0)), [tuple(p) for p in sn.get("view_poses", [])]
+            f.empty_poses = [tuple(p) for p in sn.get('empty_poses', [])]
             f.last_view_t, f.last_cam_yaw = float(sn.get("last_view_t", -1e9)), float(sn.get("last_cam_yaw", 0.0))
             f.occluded_views, f.last_occl_t = int(sn.get("occluded_views", 0)), float(sn.get("last_occl_t", -1e9))
             f.arrive_attempts, f.id_tries = int(sn.get("arrive_attempts", 0)), int(sn.get("id_tries", 0))
@@ -1490,9 +1656,12 @@ class CoverageMap:
                             self._conversions.append({"rid": rec.rid, "sector": rec.sector or "none", "idx": rec.idx, "x": round(rec.cx, 2),
                                                       "y": round(rec.cy, 2), "status": new, "cls": rec.cls, "t": float(now),
                                                       "waited_s": None if self._census_t0 is None else round(float(now) - self._census_t0, 1)})
-                    rec.snap = {"views": f.views, "view_poses": [list(p) for p in f.view_poses[-12:]], "last_view_t": f.last_view_t,
+                    rec.snap = {"views": f.views, "view_poses": [list(p) for p in f.view_poses[-12:]],
+                                "empty_poses": [list(p) for p in f.empty_poses], "last_view_t": f.last_view_t,
                                 "last_cam_yaw": f.last_cam_yaw, "occluded_views": f.occluded_views, "last_occl_t": f.last_occl_t,
                                 "arrive_attempts": f.arrive_attempts, "id_tries": f.id_tries}
+                elif rec.status == "identified" and f.det_n > 0 and self.exhaustive_face(f):
+                    rec.status, rec.cls, rec.t_status = "pending", None, float(now)
                 elif rec.status not in ("identified", "empty"):
                     rec.status = "hidden" if f.idx in b.internal else "pending"      # 해결된 기록은 득표가 잠시 흔들려도 지우지 않는다
 
@@ -1625,10 +1794,26 @@ class CoverageMap:
         b = self.boxes.get(key[0])
         return b.faces[key[1]] if b is not None else None
 
+    def fresh_empty_viewpoint(self, f: FaceRec, vx: float, vy: float) -> bool:
+        """A new frontal pose can finish a partly verified blank face nearby."""
+        if not self.exhaustive_face(f) or f.det_n or not f.empty_poses:
+            return False
+        distance = math.hypot(vx-f.cx, vy-f.cy)
+        incidence = ((vx-f.cx)*f.nx + (vy-f.cy)*f.ny) / max(distance, 1e-9)
+        return (.5 <= distance <= 1.1 and incidence >= math.cos(math.radians(30.))
+                and all(math.hypot(vx-p[0],vy-p[1]) >= self.ec.view_min_gap_m for p in f.empty_poses))
+
     def face_weight_at(self, f: FaceRec, vx: float, vy: float) -> float:
         """시점 (vx, vy) 에서 이 면을 보는 가치. 이미 본(검출 없음) 면은 **다른 자리**에서 봐야 '빈 면'이 확정되므로 같은 자리는 가치를 낮춘다."""
         w = self.face_weight(f)
-        if w > 0 and f.views > 0 and f.det_n == 0 and any(math.hypot(p[0] - vx, p[1] - vy) < 0.4 for p in f.view_poses):
+        if w > 0 and self.exhaustive_face(f):
+            distance = math.hypot(vx-f.cx, vy-f.cy)
+            incidence = ((vx-f.cx)*f.nx + (vy-f.cy)*f.ny) / max(distance, 1e-9)
+            # Oblique samples remain possible in narrow corridors, but a
+            # reachable frontal sample gives much stronger recognition evidence.
+            w *= .3 + .7 * max(0., incidence)**3
+        if (w > 0 and f.views > 0 and f.det_n == 0 and not self.fresh_empty_viewpoint(f,vx,vy)
+                and any(math.hypot(p[0] - vx, p[1] - vy) < 0.4 for p in f.view_poses)):
             w *= 0.15
         return w
 
@@ -1664,6 +1849,8 @@ class CoverageMap:
                             "n": int(f.det_n), "src": "ledger", "key": tuple(f.key), "status": "confirmed"})
         if omap is not None:
             for of in omap.confirmed_faces():
+                if self.ec.exhaustive_scoring_faces and getattr(of, 'geometry_key', None) is None:
+                    continue  # A size-only hypothesis is not a uniquely identified M3 face.
                 if getattr(of, "geometry_key", None) is None and any(
                         abs(of.x - b.cx) <= b.sx / 2 + envelope_pad
                         and abs(of.y - b.cy) <= b.sy / 2 + envelope_pad for b in full_cubes):

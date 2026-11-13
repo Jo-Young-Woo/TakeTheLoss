@@ -26,11 +26,12 @@ def _cfg(*, engage_ugv=False, hunt_on_engage_ok=True, progress=True):
     return cfg
 
 
-def _me(cfg, posture=Posture.ENGAGE_OK, enemies=(), faces=(), reserve=0, locked=False):
+def _me(cfg, posture=Posture.ENGAGE_OK, enemies=(), faces=(), reserve=0, locked=False, defer_hunt=False):
     return NS(cfg=cfg, posture_state=None if posture is None else PostureState(posture=posture, engage_reasons=("cm",)),
               locks=NS(weapon_locked=lambda st, now: locked), stack=NS(pose=Pose2D(0.0, 0.0, 0.0)),
               _hunt_candidates=lambda now: list(enemies), _target_faces=lambda: list(faces), _reserve=lambda: reserve,
-              _coverage_defers_m2=lambda: False, _strike_block_until=0.0, _m2_defer_s=0.0)
+              _coverage_defers_m2=lambda: False, _coverage_defers_m4=lambda: defer_hunt,
+              _strike_block_until=0.0, _m2_defer_s=0.0)
 
 
 NEAR = NS(x=0.8, y=0.0, last_cam_t=NOW - 0.2)        # 1.6 m 안, 카메라로 방금 봄
@@ -53,6 +54,12 @@ def test_code_default_is_off_and_real_config_turns_it_on():
 
 def test_engage_ok_enables_hunt_for_a_near_seen_enemy():
     assert _arb(_me(_cfg(), enemies=(NEAR,))) == Mode.HUNT
+
+
+def test_coverage_budget_prevents_both_near_and_far_reentry_without_disabling_m2():
+    for enemy in (NEAR, FAR_SEEN):
+        assert _arb(_me(_cfg(), enemies=(enemy,), defer_hunt=True)) == Mode.EXPLORE
+        assert _arb(_me(_cfg(), enemies=(enemy,), faces=(object(),), defer_hunt=True)) == Mode.STRIKE
 
 
 def test_engage_ok_near_enemy_still_preempts_strike_like_engage_ugv_does():

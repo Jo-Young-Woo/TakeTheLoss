@@ -1,8 +1,8 @@
-﻿"""적 UGV 회피 제어기 — 임무 계층(탐색/지정표적/스테이징/거점)과 *직교*하는 안전 계층.
+"""적 UGV 회피 제어기 — 임무 계층(탐색/지정표적/스테이징/거점)과 *직교*하는 안전 계층.
 
 원칙 (사용자 제약)
-  · A* 와 Nav2 전역 계획기를 바꾸지 않는다. 이 모듈은 '어디로 갈지(안전 경유지)'와 '언제 멈출지'만 정하고, 실제 경로는
-    기존 Nav2(NavigateToPose)/내장 A* 가 그 경유지까지 계획한다. 위험 비용은 nav/risk_astar.py 의 *추정기*에만 쓰인다.
+  · Nav2 ROS 플러그인과 임무 경유지 선택의 역할을 분리한다. 이 모듈은 '어디로 갈지(안전 경유지)'와 '언제 멈출지'만 정하고, 실제 경로는
+    Nav2(NavigateToPose)/내장 A* 가 그 경유지까지 계획한다. 위험 비용은 nav/risk_astar_realtime.py 의 *추정기*에만 쓰인다.
   · 안전 계층(LiDAR 근접 정지, SAFE_STOP, STOP/HALT)이 항상 이 계층보다 위다. 이 모듈의 출력도 `_apply(limit=True)` 의 안전 제한을 거친다.
 
 수준(히스테리시스, 진입은 즉시·해제는 한 단계씩 유지시간 후)
@@ -24,7 +24,7 @@ from typing import Any, Deque, Dict, List, Optional, Sequence, Tuple
 import numpy as np
 
 from ..config import Config
-from ..nav import risk_astar
+from ..nav import risk_astar_realtime as risk_route
 from ..perception.threat_board import ThreatBoard, ThreatTrack
 from ..types import Pose2D, Scan
 from ..util import clamp
@@ -345,7 +345,7 @@ class AvoidController:
         scored.sort(key=lambda a: a[0])
         best: Optional[Tuple[float, Pt, List[Pt]]] = None
         for _s, p in scored[:ac.max_verify]:
-            res = risk_astar.plan(grid, ctx.blocked, ctx.cost, (pose.x, pose.y), p, ctx.v_plan, fld, ac.w_risk, ac.w_close, ac.risk_hit, 12000)
+            res = risk_route.plan(grid, ctx.blocked, ctx.cost, (pose.x, pose.y), p, ctx.v_plan, fld, ac.w_risk, ac.w_close, ac.risk_hit, 12000)
             self.stats["plans"] += 1
             if res is None or len(res.path) < 2:                            # ② 적 예측 점유를 피한 경로가 없다
                 continue

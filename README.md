@@ -1,71 +1,56 @@
-# MAICON 2026 | Gazebo UGV
+# TakeTheLoss | MAICON 2026 Gazebo UGV
 
-MAICON 2026 경기장을 Gazebo Fortress에 구성하고, WINGBOT UGV의 자율 임무 코드를 시험하는 저장소입니다. 현재 실행 대상으로 선택한 코드는 **후보 02**입니다.
+MAICON 2026의 **6.12×5.00m 경기장**과 WINGBOT UGV를 Gazebo Fortress에서 시험하는 저장소입니다. 현재 실행 코드는 `maicon2026_ugv_code/maicon2026/maicon26/`입니다. 과거 후보 02 동결본과 선택 프로필은 현재 실행에 사용하지 않습니다.
 
-![후보 02 실제 Gazebo 6대 경기의 60초 화면](maicon2026_ugv_code/maicon2026/docs/candidate02_gazebo_preview.jpg)
+## 현재 검증한 구성
 
-*후보 02의 6대 자가 대전 영상에서 추출한 실제 Gazebo 화면입니다. [전체 영상](maicon2026_ugv_code/maicon2026/results/candidate02_four_runs/selfplay_seed0/wingbot_selfplay_third_person.mp4)도 볼 수 있습니다.*
+- B-2 한 대, Cartographer 위치 추정, Nav2 Navfn A* 경로 계획
+- 2D LiDAR 자기 반사 필터, UAV 영상 기반 박스 지도, 지상 카메라 기반 면 식별
+- M1 지정 구역 R-S1·R-S2 탐색, 면 장부와 UAV 지도를 포함한 30fps 녹화
+- Nav2 실패 시 해당 관측 지점을 제외하고 다른 접근을 재시도
 
-## 먼저 볼 곳
-
-| 알고 싶은 것 | 위치 |
-| --- | --- |
-| 경기장 크기·배치·Gazebo 실행 | [경기장 패키지](maicon2026_ugv_code/maicon2026/ros2/maicon_arena_gz/README.md) |
-| 6륜 WINGBOT의 외관·센서·물리 모델 | [로봇 모델](maicon2026_ugv_code/maicon2026/ros2/wingbot_description/README.md) |
-| 후보 02 선정 이유와 시험 점수·영상 | [결과 안내](maicon2026_ugv_code/maicon2026/results/README.md) |
-| 임무 코드와 설계·검증 문서 | [코드 안내](maicon2026_ugv_code/maicon2026/README.md) · [문서 목차](maicon2026_ugv_code/maicon2026/docs/README.md) |
+2026-11-13의 5분 시험에서 R-S1은 **6/6**, R-S2는 **3/3**으로 M3 종류별 보고 수가 일치했습니다. Nav2 정체는 3회 있었으며 모두 복구했고, 정체 판정 후 실제로 15cm 이동하기까지 최대 시간은 이전 84.6초에서 5.2초로 줄었습니다. 정체 발생 자체가 제거됐거나 실물 성능을 검증했다는 의미는 아닙니다. [검증 요약](maicon2026_ugv_code/maicon2026/docs/NAV2_M3_VALIDATION_20261113.json)을 참고하세요.
 
 ## 실행 준비
 
-Ubuntu 22.04의 **ROS 2 Humble, Gazebo Fortress, colcon**과 ROS/Gazebo 브리지 및 Python 의존성이 필요합니다. 패키지별 의존성은 [경기장 package.xml](maicon2026_ugv_code/maicon2026/ros2/maicon_arena_gz/package.xml), [로봇 package.xml](maicon2026_ugv_code/maicon2026/ros2/wingbot_description/package.xml)에 기록돼 있습니다. 이 저장소는 Windows 경로에 공백이 있어도 빌드되도록 ROS 패키지 세 개를 공백 없는 Linux 작업공간으로 복사합니다.
-
-비공개 저장소 접근 권한이 있는 Ubuntu 22.04 환경에서 다음을 실행합니다.
+Ubuntu 22.04, ROS 2 Humble, Gazebo Fortress, colcon, ROS/Gazebo 브리지, Nav2 및 Cartographer가 필요합니다. ROS 의존성과 설정은 [ROS 실행 안내](maicon2026_ugv_code/maicon2026/ros2/README.md), [경기장 패키지](maicon2026_ugv_code/maicon2026/ros2/maicon_arena_gz/package.xml), [로봇 패키지](maicon2026_ugv_code/maicon2026/ros2/wingbot_description/package.xml)를 확인하세요.
 
 ```bash
-git clone https://github.com/Jo-Young-Woo/MAICON2026.git
-cd MAICON2026/maicon2026_ugv_code/maicon2026
+git clone https://github.com/Jo-Young-Woo/TakeTheLoss.git
+cd TakeTheLoss/maicon2026_ugv_code/maicon2026
+pip install numpy scipy pytest pyyaml opencv-python requests
 ARENA_BUILD_WS="$HOME/maicon_arena_ws" bash scripts/build_arena_gz.sh
 export WINGBOT_MODEL_INSTALL="$HOME/maicon_arena_ws/install"
-```
-
-빌드는 처음 한 번만 필요합니다. 이미 같은 경로에 빌드한 패키지가 있다면 빌드 스크립트를 다시 실행하기 전에 [빌드 안내](maicon2026_ugv_code/maicon2026/ros2/maicon_arena_gz/docs/runtime.md)를 확인하세요. 이후 새 터미널에서는 `WINGBOT_MODEL_INSTALL`을 다시 지정합니다.
-
-### 경기장과 B-2 한 대 보기
-
-아래 명령은 경기장과 조작 가능한 로봇 한 대를 표시합니다. **자율 경기는 시작하지 않습니다.**
-
-```bash
 source /opt/ros/humble/setup.bash
 source "$WINGBOT_MODEL_INSTALL/setup.bash"
-LIBGL_ALWAYS_SOFTWARE=1 ros2 launch maicon_arena_gz arena.launch.py robot_model:=wingbot profile:=standard ugvs:=1 ego_slot:=B-2 gui:=true render_engine:=ogre2 gui_render_engine:=ogre gui_software_rendering:=false image_transport_profile:=shm64
 ```
 
-### 선택된 후보 02로 6대 자가 대전
+빌드 도우미는 원본을 공백 없는 Linux 작업공간으로 복사합니다. 기존 빌드 작업공간을 재사용하기 전에 [빌드 안내](maicon2026_ugv_code/maicon2026/ros2/maicon_arena_gz/docs/runtime.md)를 읽으세요.
 
-경기장 단독 실행을 종료한 뒤 다음 명령을 실행합니다. 기본값은 시드 0, 최대 300초, **화면 없는 6대 경기**입니다. 3인칭 영상과 보고서는 Git에서 제외되는 `recordings/`의 새 폴더에 저장됩니다.
+## B-2 단독 5분 경기와 녹화
 
 ```bash
-bash scripts/run_selected_gazebo.sh
+python3 scripts/run_wingbot_selfplay.py \
+  --output recordings/b2_nav2_m3 \
+  --ugvs 1 --nav-backend nav2 \
+  --duration 300 --seed 0 --variant progress --scenario selfplay \
+  --record-view observer --observer-video-fps 30 --render-device cpu \
+  --ros-domain-id 210 --ready-timeout 240 --wall-timeout 3600
 ```
 
-실행기는 [선택 설정](maicon2026_ugv_code/maicon2026/config/active_candidate.json)을 읽고, 동결된 후보 02 Python 파일 122개의 해시를 확인합니다. 경기장·로봇 자산 연결은 첫 실행 때 자동 생성됩니다. 경기 없이 검사만 하려면 `python3 scripts/selected_runtime.py`를 실행하세요. 세부 실행 옵션은 [자가 대전 실행기](maicon2026_ugv_code/maicon2026/scripts/run_wingbot_selfplay.py)와 [경기장 실행 안내](maicon2026_ugv_code/maicon2026/ros2/maicon_arena_gz/README.md)에 있습니다.
+실행할 때마다 새로운 출력 폴더를 지정하세요. 생성되는 `wingbot_selfplay_third_person.mp4`에는 실제 Gazebo의 비스듬한 시점과 B-2 면 장부·UAV 지도가 표시됩니다. `selfplay_report.json`과 `B-2/mission_report.json`에 경기 기록이 저장됩니다. CPU 렌더링은 이번 검증 환경에서 사용한 설정이며, GPU는 별도로 확인한 환경에서 `--render-device gpu`로 선택할 수 있습니다.
 
-## 폴더 지도
+Nav2 경기 실행기는 현재 **한 대 구성만 지원**합니다. 6대 자가 대전은 `--ugvs 6 --nav-backend builtin`을 사용하며, 위 단독 시험 결과를 3대3의 검증 결과로 해석하지 마세요.
 
-| 경로 | 역할 |
+## 코드와 자료
+
+| 위치 | 내용 |
 | --- | --- |
-| `maicon2026_ugv_code/maicon2026/ros2/maicon_arena_gz/` | 경기장 사양 YAML, 배치, SDF 월드, 바닥·표적 텍스처, ROS launch |
-| `maicon2026_ugv_code/maicon2026/ros2/wingbot_description/` | WINGBOT URDF/xacro, 메시, 센서·구동 설정 |
-| `maicon2026_ugv_code/maicon2026/runtime/selected_candidate02/maicon26/` | 해시로 고정한 후보 02 임무 코드 |
-| `maicon2026_ugv_code/maicon2026/maicon26/` | 계속 개발하는 임무 코드; 위 동결 코드와 구분 |
-| `maicon2026_ugv_code/maicon2026/scripts/` | 실행·생성·분석 도구. 기본 진입점은 `run_selected_gazebo.sh` |
-| `maicon2026_ugv_code/maicon2026/results/` | 후보 선정 근거, 완료 경기 점수·보고서·영상 |
-| `maicon2026_ugv_code/maicon2026/tests/` | 단위·통합·회귀 시험 |
+| [maicon26](maicon2026_ugv_code/maicon2026/maicon26/) | 임무, 항법, 카메라·LiDAR·UAV 인식 코드 |
+| [경기장](maicon2026_ugv_code/maicon2026/ros2/maicon_arena_gz/README.md) | 경기장 사양, 배치, 월드, 표적·바닥 자산 |
+| [WINGBOT](maicon2026_ugv_code/maicon2026/ros2/wingbot_description/README.md) | 로봇 형상, 센서, 물리 모델 |
+| [scripts](maicon2026_ugv_code/maicon2026/scripts/README.md) | 실행·녹화·분석 도구 |
+| [tests](maicon2026_ugv_code/maicon2026/tests/) | 단위·통합·회귀 시험 |
+| [문서](maicon2026_ugv_code/maicon2026/docs/README.md) | 설계 및 시점별 검증 기록 |
 
-대회 PDF와 API HTML 등 원본 자료는 저장소 루트에 보존했습니다. 파일 위치를 바꾸면 실행기의 상대 경로와 해시 검증이 깨질 수 있어 코드·자산 디렉터리는 유지했습니다.
-
-## 결과를 읽을 때
-
-후보 02는 **2D 선정 시험**에서 M3 면 누락이 가장 적고, 동률 후보 중 M2+M3 점수가 가장 높아 선택됐습니다. 이는 Gazebo에서 M3 전부 탐지나 최고 점수를 보장한다는 뜻이 아닙니다. [Gazebo 후속 4경기](maicon2026_ugv_code/maicon2026/results/candidate02_four_runs/RESULTS.md)는 실제 모델·센서를 사용했지만 점수는 로컬 채점기의 추정치이며 공식 서버 확정 점수가 아닙니다. 실물 로봇 성능도 아직 검증하지 않았습니다.
-
-경기 자료와 로봇 참고 모델의 재배포 조건은 [자산 출처·라이선스 기록](maicon2026_ugv_code/maicon2026/ros2/wingbot_description/vendor/LICENSE_AUDIT.md)을 확인하세요. 저장소는 현재 **비공개**입니다.
+이번 업로드에는 실행 코드와 검증 요약을 포함합니다. 새 녹화 원본·임시 실험 데이터는 추가하지 않습니다. 과거 보고서는 해당 시점의 결과이며, 현재 구현의 성능 보증이나 공식 경기 점수가 아닙니다. 경기 자료와 참고 모델 출처는 [자산 기록](maicon2026_ugv_code/maicon2026/ros2/wingbot_description/vendor/LICENSE_AUDIT.md)에 정리돼 있습니다.

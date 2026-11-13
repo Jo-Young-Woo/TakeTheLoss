@@ -35,6 +35,19 @@ from run_wingbot_autonomous_trial import CameraRecorder, draw_face_ledger, write
 SCENARIOS = ("selfplay","vs_evaders","vs_hunters","vs_blockers","mixed_allies","goal_race")
 
 
+def prepare_observer_recording_profile(output, share, fps=30.):
+    """Raise the real oblique recording camera rate; leave Agent sensors alone."""
+    import yaml
+    if not math.isfinite(fps) or not 2 <= fps <= 30:
+        raise ValueError('Observer recording rate must be between 2 and 30 Hz')
+    profile = yaml.safe_load((Path(share)/'config/profiles/wingbot_recording.yaml').read_text())
+    profile['name'] = 'oblique_observer_video'
+    profile['validation_camera']['update_rate'] = float(fps)
+    path = Path(output)/'observer_recording_profile.yaml'
+    path.write_text(yaml.safe_dump(profile, sort_keys=False), encoding='utf8')
+    return path
+
+
 def policies_for(scenario):
     if scenario not in SCENARIOS:
         raise ValueError("Unknown physical trial scenario")
@@ -56,9 +69,10 @@ def read_json(path):
 
 def source_manifest(root, installed_share=None):
     """Hash source and installed arena inputs before launching any process."""
-    suffixes={".py",".yaml",".yml",".json",".sdf",".urdf",".xacro",".xml"}
+    suffixes={".py",".yaml",".yml",".json",".sdf",".urdf",".xacro",".xml",".lua"}
     roots={"repo/"+folder:root/folder for folder in
-           ("maicon26","scripts","config","ros2/maicon_arena_gz","ros2/wingbot_description")}
+           ("maicon26","scripts","config","ros2/maicon_arena_gz","ros2/wingbot_description",
+            "ros2/launch","ros2/config","ros2/behavior_trees")}
     from selected_runtime import selection
     active_root,_=selection(root)
     roots['repo/maicon26']=active_root/'maicon26'
@@ -210,6 +224,8 @@ def run(args):
     if args.record_view == 'uav':
         from uav_view_recording import prepare_uav_recording_profile
         recording_profile = prepare_uav_recording_profile(out,share,args.uav_video_fps)
+    else:
+        recording_profile = prepare_observer_recording_profile(out,share,args.observer_video_fps)
     gpu = args.gui or args.render_device == 'gpu'
     os.environ.update(ROS_DOMAIN_ID=str(args.ros_domain_id), IGN_PARTITION="wingbot_selfplay_"+str(os.getpid()),
                       LIBGL_ALWAYS_SOFTWARE="0" if gpu else "1", RMW_IMPLEMENTATION="rmw_fastrtps_cpp",
@@ -222,6 +238,10 @@ def run(args):
                "ego_slot:=B-2", "profile:="+str(recording_profile or "wingbot_recording"),
                "gui:="+str(args.gui).lower(), "render_engine:=ogre2", "validation_camera:=true",
                "uav_cam:="+str(not args.no_uav).lower(), "image_transport_profile:=shm256"]
+    nav_command = None
+    if args.nav_backend == 'nav2':
+        from wingbot_nav2_trial import prepare
+        nav_command = prepare(out, spec_path)
     if gpu:
         command.append("wsl_gpu_compat:=true")
     children, logs, agents, events, traces, poses, state = [], [], {}, [], {}, {}, {}
@@ -247,6 +267,11 @@ def run(args):
     try:
         logs.append((out/"launch.log").open("w", encoding="utf8"))
         children.append(subprocess.Popen(command, cwd=ROOT, stdout=logs[-1], stderr=subprocess.STDOUT, start_new_session=True))
+        if nav_command:
+            logs.append((out/'nav2_cartographer.log').open('w',encoding='utf8'))
+            children.append(subprocess.Popen(nav_command,cwd=ROOT,stdout=logs[-1],stderr=subprocess.STDOUT,start_new_session=True))
+            result['nav2_command'] = nav_command
+            result['navigation_backend'] = 'nav2_cartographer_astar'
         # Keep our bounded cleanup handler; the default rclpy SIGINT handler
         # shuts down the context before finally can report/stop child groups.
         from rclpy.signals import SignalHandlerOptions
@@ -260,7 +285,8 @@ def run(args):
                 return snap, (start_sim+snap['elapsed'] if start_sim is not None and snap is not None else None)
             recorder=UavViewRecording(out,share,ground_for_uav,recording_profile)
         else:
-            recorder = CameraRecorder(out/"wingbot_selfplay_third_person.mp4", 10., "WINGBOT actual sensors | "+args.scenario,decorate=False)
+            recorder = CameraRecorder(out/"wingbot_selfplay_third_person.mp4", args.observer_video_fps,
+                                      "WINGBOT oblique view | B-2 face ledger | "+args.scenario,decorate=False)
             add_frame = recorder.writer.add
             recorder.writer.add = lambda frame, stamp: add_frame(draw_iff_panel(
                 draw_face_ledger(overlay(frame, dict(poses), dict(traces),
@@ -304,7 +330,8 @@ def run(args):
                 "--arena-spec",str(spec_path),
                 "--slot",slot,"--await-start","--no-record","--output-dir",str(out/slot),
                 "--variant",args.variant,"--seed",str(args.seed),"--ready-timeout",str(args.ready_timeout),
-                "--wall-timeout",str(args.wall_timeout),"--policy",policies[slot]]
+                "--wall-timeout",str(args.wall_timeout),"--policy",policies[slot],
+                "--nav-backend",args.nav_backend]
             if args.ugvs == 6: child_command.append("--multi-agent")
             if args.no_uav: child_command.append("--no-uav")
             if args.simulate_impact: child_command.append("--simulate-impact")
@@ -315,6 +342,7 @@ def run(args):
         while time.monotonic()<ready_end:
             rclpy.spin_once(node,timeout_sec=.025)
             if quit_requested[0]: raise InterruptedError("Coordinator interrupted")
+            if nav_command and children[1].poll() is not None: raise RuntimeError('Nav2/Cartographer launch exited before ready')
             failed = {s:p.returncode for s,p in agents.items() if p.poll() is not None}
             if failed: raise RuntimeError("Agent exited before ready: "+str(failed))
             ready = [s for s in slots if (out/s/"ready.json").is_file()]
@@ -335,6 +363,7 @@ def run(args):
             wall = time.monotonic()
             if quit_requested[0]: raise InterruptedError("Coordinator interrupted")
             if children[0].poll() is not None: raise RuntimeError("Gazebo launch exited")
+            if nav_command and children[1].poll() is not None: raise RuntimeError('Nav2/Cartographer launch exited')
             if wall-clock_wall[0]>20.: raise RuntimeError("Gazebo clock stalled")
             if recorder.error: raise RuntimeError(recorder.error)
             if wall-last_tail>=.25:
@@ -402,6 +431,7 @@ def run(args):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output",type=Path,required=True)
+    parser.add_argument("--nav-backend",choices=('builtin','nav2'),default='builtin')
     parser.add_argument("--duration",type=float,default=300.)
     parser.add_argument("--ugvs",type=int,choices=(1,6),default=6,
                         help="One B-2 or six physical WINGBOTs; same recording and mission duration")
@@ -414,6 +444,8 @@ def main():
     parser.add_argument("--uav-video-fps",type=float,default=30.,
                         help='Real co-located UAV recording camera Hz; Agent UAV input stays at 1 Hz')
     parser.add_argument("--simulate-impact",action="store_true",help="Enable uncalibrated Gazebo IMU impact handling")
+    parser.add_argument("--observer-video-fps",type=float,default=30.,
+                        help='Real oblique observer camera and video rate; Agent sensors stay unchanged')
     parser.add_argument("--gui",action="store_true",help="Show the live Gazebo window (uses GPU rendering)")
     parser.add_argument("--render-device",choices=('cpu','gpu'),default='cpu',
                         help='CPU is verified for textured Ogre2 worlds on this WSL driver')
@@ -421,6 +453,8 @@ def main():
     parser.add_argument("--ready-timeout",type=float,default=180.)
     parser.add_argument("--wall-timeout",type=float,default=3600.)
     args=parser.parse_args()
+    if args.nav_backend == 'nav2' and (args.ugvs != 1 or args.scenario != 'selfplay'):
+        parser.error('Nav2/Cartographer wiring supports one autonomous B-2 only')
     if not 0<args.duration<=300 or args.wall_timeout<=300 or args.ready_timeout<=0:
         parser.error("Invalid duration/timeouts")
     if args.no_uav and args.record_view == 'uav':
@@ -429,6 +463,8 @@ def main():
         parser.error('--ugvs 1 supports the autonomous selfplay policy only')
     if not math.isfinite(args.uav_video_fps) or not 2 <= args.uav_video_fps <= 30:
         parser.error('--uav-video-fps must be between 2 and 30')
+    if not math.isfinite(args.observer_video_fps) or not 2 <= args.observer_video_fps <= 30:
+        parser.error('--observer-video-fps must be between 2 and 30')
     return run(args)
 
 
